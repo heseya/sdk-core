@@ -19,6 +19,7 @@ module.exports = {
     'no-debugger': 'warn',
     'space-before-function-paren': 'off',
     'comma-dangle': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 
   extends: ['plugin:@typescript-eslint/recommended', 'prettier', 'plugin:prettier/recommended'],
