@@ -46,7 +46,7 @@ const calcSingleSchemaPrice = (schema: SchemaValueWithDependecies): number => {
   return schema.type === SchemaType.Select ? schemaPrice + (schema.optionPrice || 0) : schemaPrice
 }
 
-const getDependenciesTree = (schemas: CartItemSchemaValue[]): SchemaValueWithDependecies[] => {
+const getDependenciesTree = <T extends { id: string; dependencies: string[] }>(schemas: T[]) => {
   // Converting children ids to parents ids
   const data = [...schemas].map((schema) => {
     const parents = schemas
