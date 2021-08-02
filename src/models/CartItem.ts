@@ -105,11 +105,11 @@ export class CartItem {
   }
 
   get brand() {
-    return this.product.brand.name
+    return this.product.brand?.name || ''
   }
 
   get category() {
-    return this.product.category.name
+    return this.product.category?.name || ''
   }
 
   toJSON(): SavedCartItem {
