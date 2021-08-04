@@ -72,6 +72,7 @@ export class CartItem {
     try {
       return toPrecision(this.product.price + calcSchemasPrice(this.schemas))
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error('[HS CartItem]', e.message)
       return toPrecision(this.product.price)
     }

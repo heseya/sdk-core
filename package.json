@@ -1,81 +1,109 @@
 {
   "name": "@heseya/store-core",
-  "version": "0.2.0",
+  "version": "0.2.8",
+  "author": {
+    "name": "Heseya"
+  },
   "license": "MIT",
-  "main": "build/main/index.js",
-  "typings": "build/main/index.d.ts",
-  "module": "build/module/index.js",
+  "main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [],
   "scripts": {
-    "describe": "npm-scripts-info",
-    "build": "run-s clean && run-p build:*",
-    "build:main": "tsc -p tsconfig.json",
-    "build:module": "tsc -p tsconfig.module.json",
-    "fix": "run-s fix:*",
-    "fix:prettier": "prettier \"src/**/*.ts\" --write",
-    "fix:eslint": "eslint ./src/ --fix --ext .ts",
-    "test": "run-s build test:*",
-    "test:lint": "eslint ./src/ --ext .ts && prettier \"src/**/*.ts\" --list-different",
-    "test:unit": "jest",
-    "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
-    "cov": "run-s cov:html && open-cli coverage/index.html",
-    "cov:html": "jest --coverage --reporter=html",
-    "cov:check": "jest --coverage",
-    "doc": "run-s doc:html && open-cli build/docs/index.html",
-    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs",
-    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
-    "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
-    "version": "standard-version",
-    "reset": "git clean -dfx && git reset --hard && npm i",
-    "clean": "trash build test",
-    "prepare-release": "run-s reset test cov:check doc:html version doc:publish",
-    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('silverbox-client must be installed with Yarn: https://yarnpkg.com/')\"",
-    "prepublish": "run-s build"
-  },
-  "scripts-info": {
-    "info": "Display information about the package scripts",
-    "build": "Clean and rebuild the project",
-    "fix": "Try to automatically fix any linting problems",
-    "test": "Lint and unit test the project",
-    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
-    "cov": "Rebuild, run tests, then create and open the coverage report",
-    "doc": "Generate HTML API documentation and open it in a browser",
-    "doc:json": "Generate API documentation in typedoc JSON format",
-    "version": "Bump package.json version, update CHANGELOG.md, tag release",
-    "reset": "Delete all untracked files and reset the repo to the last commit",
-    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
-  },
-  "devDependencies": {
-    "@bitjson/npm-scripts-info": "^1.0.0",
-    "@types/jest": "^26.0.23",
-    "@types/lodash": "^4.14.170",
-    "@types/md5": "^2.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "axios": "^0.21.1",
-    "babel-eslint": "^10.1.0",
-    "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "gh-pages": "^2.0.1",
-    "jest": "^27.0.5",
-    "npm-run-all": "^4.1.5",
-    "open-cli": "^5.0.0",
-    "prettier": "^2.2.1",
-    "standard-version": "^8.0.1",
-    "trash-cli": "^3.0.0",
-    "ts-jest": "^27.0.3",
-    "typedoc": "^0.17.7",
-    "typescript": "^4.3.4"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
+    "clean": "shx rm -rf dist coverage .rpt2_cache",
+    "dev": "cross-env NODE_ENV=development DEBUG=1 jest",
+    "watch": "cross-env NODE_ENV=production EXTERNAL=1 rollup -c --watch -f umd -o dist/index.umd.js",
+    "server": "nodemon --watch server --exec \"npx ts-node\" ./server/app.ts",
+    "build": "npm run lint && npm run clean && npm run build:esm && npm run build:umd && npm run build:min",
+    "build:esm": "cross-env NODE_ENV=production EXTERNAL=1 rollup -c -f esm -o dist/index.js",
+    "build:umd": "cross-env NODE_ENV=production rollup -c -f umd -o dist/index.umd.js",
+    "build:min": "cross-env NODE_ENV=production MINIFY=1 rollup -c -f umd -o dist/index.min.js",
+    "lint": "eslint \"src/**/*\"",
+    "lint:fix": "eslint --fix \"src/**/*\"",
+    "test": "cross-env NODE_ENV=test jest",
+    "prepublish": "yarn build"
   },
   "dependencies": {
+    "@types/md5": "^2.3.1",
     "array-to-tree": "^3.3.2",
     "lodash": "^4.17.21",
-    "md5": "^2.3.0"
+    "md5": "^2.3.0",
+    "tslib": "^2.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/eslint-parser": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-typescript": "^7.10.4",
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "@koa/cors": "^3.1.0",
+    "@rollup/plugin-babel": "^5.2.0",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-replace": "^2.3.3",
+    "@types/assert": "^1.5.1",
+    "@types/jest": "^26.0.13",
+    "@types/json-stringify-safe": "^5.0.0",
+    "@types/koa": "^2.13.1",
+    "@types/koa-router": "^7.4.2",
+    "@types/koa-static": "^4.0.1",
+    "@types/koa__cors": "^3.0.2",
+    "@types/lodash": "^4.14.172",
+    "@types/wechat-miniprogram": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "@typescript-eslint/parser": "^4.1.0",
+    "axios": "^0.21.1",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.20.6",
+    "fs-extra": "^9.0.1",
+    "husky": "^4.2.5",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "jest": "^26.4.2",
+    "jest-fetch-mock": "^3.0.3",
+    "koa": "^2.13.1",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^7.0.1",
+    "nodemon": "^2.0.7",
+    "power-assert": "^1.6.1",
+    "prettier": "^2.3.2",
+    "rollup": "^2.26.5",
+    "rollup-plugin-terser": "^7.0.0",
+    "rollup-plugin-typescript2": "^0.27.2",
+    "shx": "^0.3.2",
+    "ts-jest": "^26.3.0",
+    "ts-loader": "^8.0.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-espower-loader": "^2.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e .git/COMMIT_EDITMSG",
+      "pre-commit": "npm run lint"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        0
+      ]
+    }
   }
 }
