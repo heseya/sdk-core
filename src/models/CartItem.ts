@@ -19,7 +19,7 @@ export interface CartItemSchemaValue {
   price: number
   optionPrice?: number
   dependencies: string[]
-  value?: string | SchemaOption | number | boolean
+  value: string | number | boolean | null | SchemaOption
 }
 
 export class CartItem {

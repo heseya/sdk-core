@@ -1,6 +1,6 @@
-import { SchemaType } from '../../interfaces'
+import { SchemaOption, SchemaType } from '../../interfaces'
 import { CartItemSchemaValue } from '../../models'
-import { calcSchemasPrice } from '../calcSchemasPrice'
+import { calcSchemasPrice, isSchemaValueTruthy } from '../calcSchemasPrice'
 
 describe('Calculating Schemas Price', () => {
   test('single simple schema', () => {
@@ -36,7 +36,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'xd',
         type: SchemaType.Select,
-        value: 'w',
+        value: {} as SchemaOption,
         price: 100,
         optionPrice: 999,
         dependencies: [],
@@ -150,7 +150,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'B',
         type: SchemaType.String,
-        value: true,
+        value: 'true',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -196,7 +196,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'E',
         type: SchemaType.String,
-        value: true,
+        value: 'true',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -226,7 +226,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'C',
         type: SchemaType.Select,
-        value: 2,
+        value: {} as SchemaOption,
         price: 50,
         optionPrice: 100,
         dependencies: [],
@@ -242,7 +242,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'E',
         type: SchemaType.String,
-        value: true,
+        value: 'true',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -250,7 +250,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'F',
         type: SchemaType.String,
-        value: true,
+        value: 'true',
         price: 200,
         optionPrice: 0,
         dependencies: [],
@@ -297,5 +297,56 @@ describe('Calculating Schemas Price', () => {
     expect(() => {
       calcSchemasPrice(schemas)
     }).toThrowError()
+  })
+})
+
+// write tests for isSchemaValueTruthy function
+describe('isSchemaValueTruthy', () => {
+  test('String', () => {
+    expect(isSchemaValueTruthy(SchemaType.String, 'xd')).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.String, '0')).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.String, ' test    ')).toBeTruthy()
+
+    expect(isSchemaValueTruthy(SchemaType.String, '     ')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.String, '')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.String, null)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.String, false)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.String, 0)).toBeFalsy()
+  })
+
+  test('Numeric, Multiply & MultiplySchema', () => {
+    expect(isSchemaValueTruthy(SchemaType.Numeric, 800)).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, '100')).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, '0')).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, 0)).toBeTruthy()
+
+    expect(isSchemaValueTruthy(SchemaType.Numeric, '')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, 'test')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, '  ')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, NaN)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, false)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, null)).toBeFalsy()
+  })
+
+  test('Boolean', () => {
+    expect(isSchemaValueTruthy(SchemaType.Boolean, true)).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.Boolean, 'true')).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.Boolean, 1)).toBeTruthy()
+    expect(isSchemaValueTruthy(SchemaType.Boolean, '1')).toBeTruthy()
+
+    expect(isSchemaValueTruthy(SchemaType.Boolean, false)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Numeric, '')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Boolean, 0)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Boolean, null)).toBeFalsy()
+  })
+
+  test('Select', () => {
+    expect(isSchemaValueTruthy(SchemaType.Select, {} as SchemaOption)).toBeTruthy()
+
+    expect(isSchemaValueTruthy(SchemaType.Select, 'id-id-id')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Select, 1)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Select, '')).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Select, null)).toBeFalsy()
+    expect(isSchemaValueTruthy(SchemaType.Select, 0)).toBeFalsy()
   })
 })
