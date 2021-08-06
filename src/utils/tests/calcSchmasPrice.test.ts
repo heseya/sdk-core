@@ -150,7 +150,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'B',
         type: SchemaType.String,
-        value: 'true',
+        value: 'text',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -196,7 +196,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'E',
         type: SchemaType.String,
-        value: 'true',
+        value: 'text',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -242,7 +242,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'E',
         type: SchemaType.String,
-        value: 'true',
+        value: 'text',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -250,7 +250,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'F',
         type: SchemaType.String,
-        value: 'true',
+        value: 'text',
         price: 200,
         optionPrice: 0,
         dependencies: [],
@@ -300,7 +300,6 @@ describe('Calculating Schemas Price', () => {
   })
 })
 
-// write tests for isSchemaValueTruthy function
 describe('isSchemaValueTruthy', () => {
   test('String', () => {
     expect(isSchemaValueTruthy(SchemaType.String, 'xd')).toBeTruthy()
