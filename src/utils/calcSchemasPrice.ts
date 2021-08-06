@@ -1,4 +1,4 @@
-import { isNumber, isObject, isString } from 'lodash'
+import { isNumber, isString } from 'lodash'
 import { SchemaType } from '../interfaces'
 import { CartItemSchema, CartItemSchemaValue } from '../models'
 import { getDependenciesTree } from './tree'
@@ -45,7 +45,8 @@ export const isSchemaMonetized = (schemaType: SchemaType, value: CartItemSchemaV
     case SchemaType.Boolean:
       return value === true || value === 'true' || value === 1 || value === '1'
     case SchemaType.Select:
-      return isObject(value)
+      // TODO: check real type in it (Not sure if this is ID or SchemaOption object)
+      return !!value
   }
 }
 

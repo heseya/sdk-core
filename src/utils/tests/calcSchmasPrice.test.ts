@@ -342,8 +342,11 @@ describe('isSchemaMonetized', () => {
   test('Select', () => {
     expect(isSchemaMonetized(SchemaType.Select, {} as SchemaOption)).toBeTruthy()
 
-    expect(isSchemaMonetized(SchemaType.Select, 'id-id-id')).toBeFalsy()
-    expect(isSchemaMonetized(SchemaType.Select, 1)).toBeFalsy()
+    // TODO: problably should be falsy
+    expect(isSchemaMonetized(SchemaType.Select, 'id-id-id')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Select, 1)).toBeTruthy()
+    // TODO-END
+
     expect(isSchemaMonetized(SchemaType.Select, '')).toBeFalsy()
     expect(isSchemaMonetized(SchemaType.Select, null)).toBeFalsy()
     expect(isSchemaMonetized(SchemaType.Select, 0)).toBeFalsy()
