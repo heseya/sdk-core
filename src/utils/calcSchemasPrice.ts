@@ -1,6 +1,6 @@
 import { isNumber, isObject, isString } from 'lodash'
 import { SchemaType } from '../interfaces'
-import { CartItemSchemaValue } from '../models'
+import { CartItemSchema, CartItemSchemaValue } from '../models'
 import { getDependenciesTree } from './tree'
 
 // ? Infinite loop prevention
@@ -12,11 +12,11 @@ const ERROR_MESSAGES = {
   noDependecies: 'MultiplySchema does not have any dependecies!',
 }
 
-export interface SchemaValueWithDependecies extends CartItemSchemaValue {
-  children: SchemaValueWithDependecies[]
+export interface CartItemSchemaWithDependecies extends CartItemSchema {
+  children: CartItemSchemaWithDependecies[]
 }
 
-export const calcSchemasPrice = (schemas: CartItemSchemaValue[]): number => {
+export const calcSchemasPrice = (schemas: CartItemSchema[]): number => {
   calcCallCounter = 0
 
   const dependeciedSchemas = getDependenciesTree(schemas)
@@ -31,7 +31,7 @@ export const calcSchemasPrice = (schemas: CartItemSchemaValue[]): number => {
 
 export const isSchemaValueTruthy = (
   schemaType: SchemaType,
-  value: CartItemSchemaValue['value'],
+  value: CartItemSchemaValue,
 ): boolean => {
   switch (schemaType) {
     case SchemaType.String:
@@ -49,7 +49,7 @@ export const isSchemaValueTruthy = (
   }
 }
 
-const calcSingleSchemaPrice = (schema: SchemaValueWithDependecies): number => {
+const calcSingleSchemaPrice = (schema: CartItemSchemaWithDependecies): number => {
   // ? Infinite loop prevention
   if (++calcCallCounter >= 2000) throw new Error(ERROR_MESSAGES.calcLoop)
 

@@ -1,8 +1,8 @@
 import { isUndefined } from 'lodash'
 import { Schema, SchemaType } from '../interfaces'
-import { CartItemSchemaValue } from '../models'
+import { CartItemSchema } from '../models'
 
-const getDefaultFallbackForType = (schema: Schema): CartItemSchemaValue['value'] => {
+const getDefaultFallbackForType = (schema: Schema): CartItemSchema['value'] => {
   switch (schema.type) {
     case SchemaType.Select:
       const id = schema.options.find((option) => option.available)?.id
@@ -39,7 +39,7 @@ const parseDefaultValue = (schema: Schema) => {
   }
 }
 
-export const parseSchemasToValues = (schemas: Schema[]): CartItemSchemaValue[] =>
+export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
   schemas.map((schema) => {
     const defaultValue = parseDefaultValue(schema) || getDefaultFallbackForType(schema)
 

@@ -1,10 +1,10 @@
 import { SchemaOption, SchemaType } from '../../interfaces'
-import { CartItemSchemaValue } from '../../models'
+import { CartItemSchema } from '../../models'
 import { calcSchemasPrice, isSchemaValueTruthy } from '../calcSchemasPrice'
 
 describe('Calculating Schemas Price', () => {
   test('single simple schema', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -18,7 +18,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single simple schema (ignoring optionPrice when no select)', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -32,7 +32,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single Select schema', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.Select,
@@ -46,7 +46,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single schema without value', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -60,7 +60,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('multiple simple schemas', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -98,7 +98,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single Multiply schemas', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.Multiply,
@@ -112,7 +112,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single Multiply schemas + other', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.Multiply,
@@ -138,7 +138,7 @@ describe('Calculating Schemas Price', () => {
    */
 
   test('MultiplySchema type', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -160,7 +160,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('nested MultiplySchema type', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -206,7 +206,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('mixed nested MultiplySchema type', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -260,7 +260,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('MultiplySchema should throw error (no dependecies)', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -276,7 +276,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('MultiplySchema should throw error (infinite loop)', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
