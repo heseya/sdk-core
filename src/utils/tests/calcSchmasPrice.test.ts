@@ -1,6 +1,6 @@
 import { SchemaOption, SchemaType } from '../../interfaces'
 import { CartItemSchema } from '../../models'
-import { calcSchemasPrice, isSchemaValueTruthy } from '../calcSchemasPrice'
+import { calcSchemasPrice, isSchemaMonetized } from '../calcSchemasPrice'
 
 describe('Calculating Schemas Price', () => {
   test('single simple schema', () => {
@@ -300,52 +300,52 @@ describe('Calculating Schemas Price', () => {
   })
 })
 
-describe('isSchemaValueTruthy', () => {
+describe('isSchemaMonetized', () => {
   test('String', () => {
-    expect(isSchemaValueTruthy(SchemaType.String, 'xd')).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.String, '0')).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.String, ' test    ')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.String, 'xd')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.String, '0')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.String, ' test    ')).toBeTruthy()
 
-    expect(isSchemaValueTruthy(SchemaType.String, '     ')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.String, '')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.String, null)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.String, false)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.String, 0)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, '     ')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, null)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, false)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, 0)).toBeFalsy()
   })
 
   test('Numeric, Multiply & MultiplySchema', () => {
-    expect(isSchemaValueTruthy(SchemaType.Numeric, 800)).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, '100')).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, '0')).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, 0)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, 800)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '100')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '0')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, 0)).toBeTruthy()
 
-    expect(isSchemaValueTruthy(SchemaType.Numeric, '')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, 'test')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, '  ')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, NaN)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, false)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, null)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, 'test')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '  ')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, NaN)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, false)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, null)).toBeFalsy()
   })
 
   test('Boolean', () => {
-    expect(isSchemaValueTruthy(SchemaType.Boolean, true)).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.Boolean, 'true')).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.Boolean, 1)).toBeTruthy()
-    expect(isSchemaValueTruthy(SchemaType.Boolean, '1')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, true)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, 'true')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, 1)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, '1')).toBeTruthy()
 
-    expect(isSchemaValueTruthy(SchemaType.Boolean, false)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Numeric, '')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Boolean, 0)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Boolean, null)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Boolean, false)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Boolean, 0)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Boolean, null)).toBeFalsy()
   })
 
   test('Select', () => {
-    expect(isSchemaValueTruthy(SchemaType.Select, {} as SchemaOption)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Select, {} as SchemaOption)).toBeTruthy()
 
-    expect(isSchemaValueTruthy(SchemaType.Select, 'id-id-id')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Select, 1)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Select, '')).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Select, null)).toBeFalsy()
-    expect(isSchemaValueTruthy(SchemaType.Select, 0)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, 'id-id-id')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, 1)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, null)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, 0)).toBeFalsy()
   })
 })

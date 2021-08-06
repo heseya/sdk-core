@@ -29,10 +29,10 @@ export const calcSchemasPrice = (schemas: CartItemSchema[]): number => {
   }, 0)
 }
 
-export const isSchemaValueTruthy = (
-  schemaType: SchemaType,
-  value: CartItemSchemaValue,
-): boolean => {
+/**
+ * Checks whether the scheme value is correct and indicates whether the scheme should be included in the product price
+ */
+export const isSchemaMonetized = (schemaType: SchemaType, value: CartItemSchemaValue): boolean => {
   switch (schemaType) {
     case SchemaType.String:
       return isString(value) && value.trim().length > 0
@@ -53,7 +53,7 @@ const calcSingleSchemaPrice = (schema: CartItemSchemaWithDependecies): number =>
   // ? Infinite loop prevention
   if (++calcCallCounter >= 2000) throw new Error(ERROR_MESSAGES.calcLoop)
 
-  if (!isSchemaValueTruthy(schema.type, schema.value)) return 0
+  if (!isSchemaMonetized(schema.type, schema.value)) return 0
 
   if (schema.type === SchemaType.MultiplySchema) {
     if (!schema.children[0]) throw new Error(ERROR_MESSAGES.noDependecies)
