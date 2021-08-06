@@ -1,8 +1,8 @@
 import { isUndefined } from 'lodash'
 import { Schema, SchemaType } from '../interfaces'
-import { CartItemSchema } from '../models'
+import { CartItemSchema, CartItemSchemaValue } from '../models'
 
-const getDefaultFallbackForType = (schema: Schema): CartItemSchema['value'] => {
+const getDefaultFallbackForType = (schema: Schema): CartItemSchemaValue => {
   switch (schema.type) {
     case SchemaType.Select:
       const id = schema.options.find((option) => option.available)?.id
