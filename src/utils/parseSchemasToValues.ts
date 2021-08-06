@@ -1,11 +1,12 @@
 import { isUndefined } from 'lodash'
 import { Schema, SchemaType } from '../interfaces'
-import { CartItemSchemaValue } from '../models'
+import { CartItemSchema, CartItemSchemaValue } from '../models'
 
-const getDefaultFallbackForType = (schema: Schema) => {
+const getDefaultFallbackForType = (schema: Schema): CartItemSchemaValue => {
   switch (schema.type) {
     case SchemaType.Select:
       const id = schema.options.find((option) => option.available)?.id
+      // eslint-disable-next-line no-console
       if (isUndefined(id)) console.warn('[VueStore] Select Schema does not have a default value!')
       return id || ''
     case SchemaType.Boolean:
@@ -38,7 +39,7 @@ const parseDefaultValue = (schema: Schema) => {
   }
 }
 
-export const parseSchemasToValues = (schemas: Schema[]): CartItemSchemaValue[] =>
+export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
   schemas.map((schema) => {
     const defaultValue = parseDefaultValue(schema) || getDefaultFallbackForType(schema)
 

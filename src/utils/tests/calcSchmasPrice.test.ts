@@ -1,10 +1,10 @@
-import { SchemaType } from '../../interfaces'
-import { CartItemSchemaValue } from '../../models'
-import { calcSchemasPrice } from '../calcSchemasPrice'
+import { SchemaOption, SchemaType } from '../../interfaces'
+import { CartItemSchema } from '../../models'
+import { calcSchemasPrice, isSchemaMonetized } from '../calcSchemasPrice'
 
 describe('Calculating Schemas Price', () => {
   test('single simple schema', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -18,7 +18,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single simple schema (ignoring optionPrice when no select)', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -32,11 +32,11 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single Select schema', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.Select,
-        value: 'w',
+        value: {} as SchemaOption,
         price: 100,
         optionPrice: 999,
         dependencies: [],
@@ -46,7 +46,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single schema without value', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -60,7 +60,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('multiple simple schemas', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.String,
@@ -98,7 +98,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single Multiply schemas', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.Multiply,
@@ -112,7 +112,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('single Multiply schemas + other', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'xd',
         type: SchemaType.Multiply,
@@ -138,7 +138,7 @@ describe('Calculating Schemas Price', () => {
    */
 
   test('MultiplySchema type', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -150,7 +150,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'B',
         type: SchemaType.String,
-        value: true,
+        value: 'text',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -160,7 +160,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('nested MultiplySchema type', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -196,7 +196,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'E',
         type: SchemaType.String,
-        value: true,
+        value: 'text',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -206,7 +206,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('mixed nested MultiplySchema type', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -226,7 +226,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'C',
         type: SchemaType.Select,
-        value: 2,
+        value: {} as SchemaOption,
         price: 50,
         optionPrice: 100,
         dependencies: [],
@@ -242,7 +242,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'E',
         type: SchemaType.String,
-        value: true,
+        value: 'text',
         price: 100,
         optionPrice: 0,
         dependencies: [],
@@ -250,7 +250,7 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'F',
         type: SchemaType.String,
-        value: true,
+        value: 'text',
         price: 200,
         optionPrice: 0,
         dependencies: [],
@@ -260,7 +260,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('MultiplySchema should throw error (no dependecies)', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -276,7 +276,7 @@ describe('Calculating Schemas Price', () => {
   })
 
   test('MultiplySchema should throw error (infinite loop)', () => {
-    const schemas: CartItemSchemaValue[] = [
+    const schemas: CartItemSchema[] = [
       {
         id: 'A',
         type: SchemaType.MultiplySchema,
@@ -297,5 +297,58 @@ describe('Calculating Schemas Price', () => {
     expect(() => {
       calcSchemasPrice(schemas)
     }).toThrowError()
+  })
+})
+
+describe('isSchemaMonetized', () => {
+  test('String', () => {
+    expect(isSchemaMonetized(SchemaType.String, 'xd')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.String, '0')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.String, ' test    ')).toBeTruthy()
+
+    expect(isSchemaMonetized(SchemaType.String, '     ')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, null)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, false)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.String, 0)).toBeFalsy()
+  })
+
+  test('Numeric, Multiply & MultiplySchema', () => {
+    expect(isSchemaMonetized(SchemaType.Numeric, 800)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '100')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '0')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Numeric, 0)).toBeTruthy()
+
+    expect(isSchemaMonetized(SchemaType.Numeric, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, 'test')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '  ')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, NaN)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, false)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, null)).toBeFalsy()
+  })
+
+  test('Boolean', () => {
+    expect(isSchemaMonetized(SchemaType.Boolean, true)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, 'true')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, 1)).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Boolean, '1')).toBeTruthy()
+
+    expect(isSchemaMonetized(SchemaType.Boolean, false)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Numeric, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Boolean, 0)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Boolean, null)).toBeFalsy()
+  })
+
+  test('Select', () => {
+    expect(isSchemaMonetized(SchemaType.Select, {} as SchemaOption)).toBeTruthy()
+
+    // TODO: problably should be falsy
+    expect(isSchemaMonetized(SchemaType.Select, 'id-id-id')).toBeTruthy()
+    expect(isSchemaMonetized(SchemaType.Select, 1)).toBeTruthy()
+    // TODO-END
+
+    expect(isSchemaMonetized(SchemaType.Select, '')).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, null)).toBeFalsy()
+    expect(isSchemaMonetized(SchemaType.Select, 0)).toBeFalsy()
   })
 })
