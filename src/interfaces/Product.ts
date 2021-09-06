@@ -19,9 +19,9 @@ export interface Product {
   slug: string
   price: number
   description_html: string
-  digital: boolean
   public: boolean
   visible: boolean
+  available: boolean
   quantity_step: number
   brand?: ProductSet
   category?: ProductSet
