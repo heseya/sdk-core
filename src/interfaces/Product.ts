@@ -19,6 +19,8 @@ export interface Product {
   slug: string
   price: number
   description_html: string
+  description_md: string
+  meta_description: string
   public: boolean
   visible: boolean
   available: boolean
