@@ -1,6 +1,5 @@
 import { Schema } from './Schema'
-import { Category } from './Category'
-import { Brand } from './Brand'
+import { ProductSet } from './ProductSet'
 
 export interface Media {
   id: string | number
@@ -8,21 +7,29 @@ export interface Media {
   type: string
 }
 
+export interface Tag {
+  id: string
+  name: string
+  color: string
+}
+
 export interface Product {
   id: string | number
-  schemas: Schema[]
-  price: number
   name: string
   slug: string
-  brand: Brand
-  category: Category
-  quantity_step: number
-  description_md: string
+  price: number
   description_html: string
+  description_md: string
   meta_description: string
-  available: boolean
   public: boolean
   visible: boolean
-  cover?: Media
+  available: boolean
+  quantity_step: number
+  brand?: ProductSet
+  category?: ProductSet
+  sets: ProductSet[]
+  schemas: Schema[]
   gallery: Media[]
+  cover: Media
+  tags: Tag[]
 }

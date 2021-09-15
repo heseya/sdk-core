@@ -8,23 +8,25 @@ export interface SavedCartItem {
   type: 'CartItem'
   product: Product
   qty: number
-  schemas: CartItemSchemaValue[]
+  schemas: CartItemSchema[]
   createdAt: number
 }
 
-export interface CartItemSchemaValue {
+export type CartItemSchemaValue = string | number | boolean | null | SchemaOption
+
+export interface CartItemSchema {
   id: string
   type: SchemaType
   name?: string
   price: number
   optionPrice?: number
   dependencies: string[]
-  value?: string | SchemaOption | number | boolean
+  value: CartItemSchemaValue
 }
 
 export class CartItem {
   public qty: number
-  public schemas: CartItemSchemaValue[]
+  public schemas: CartItemSchema[]
 
   private product: Product
   private createdAt: number
@@ -32,7 +34,7 @@ export class CartItem {
   constructor(
     product: Product,
     quantity = 1,
-    schemas: CartItemSchemaValue[] = [],
+    schemas: CartItemSchema[] = [],
     createdAt = Date.now(),
   ) {
     if (!product) throw new Error('[HS CartItem] Provided props are not valid')
@@ -72,6 +74,7 @@ export class CartItem {
     try {
       return toPrecision(this.product.price + calcSchemasPrice(this.schemas))
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error('[HS CartItem]', e.message)
       return toPrecision(this.product.price)
     }
@@ -105,11 +108,11 @@ export class CartItem {
   }
 
   get brand() {
-    return this.product.brand.name
+    return this.product.brand?.name || ''
   }
 
   get category() {
-    return this.product.category.name
+    return this.product.category?.name || ''
   }
 
   toJSON(): SavedCartItem {

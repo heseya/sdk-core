@@ -20,8 +20,4 @@ describe('toPrecision', () => {
   it('should return correct precision of 3', () => {
     expect(toPrecision(1.1234, 3)).toBe(1.123)
   })
-
-  it('should return correct precision of 4', () => {
-    expect(toPrecision(1.12345, 4)).toBe(1.1234)
-  })
 })

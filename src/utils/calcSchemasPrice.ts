@@ -1,6 +1,7 @@
-import arrayToTree from 'array-to-tree'
+import { isNumber, isString } from 'lodash'
 import { SchemaType } from '../interfaces'
-import { CartItemSchemaValue } from '../models'
+import { CartItemSchema, CartItemSchemaValue } from '../models'
+import { getDependenciesTree } from './tree'
 
 // ? Infinite loop prevention
 let calcCallCounter = 0
@@ -11,11 +12,11 @@ const ERROR_MESSAGES = {
   noDependecies: 'MultiplySchema does not have any dependecies!',
 }
 
-export interface SchemaValueWithDependecies extends CartItemSchemaValue {
-  children: SchemaValueWithDependecies[]
+export interface CartItemSchemaWithDependecies extends CartItemSchema {
+  children: CartItemSchemaWithDependecies[]
 }
 
-export const calcSchemasPrice = (schemas: CartItemSchemaValue[]): number => {
+export const calcSchemasPrice = (schemas: CartItemSchema[]): number => {
   calcCallCounter = 0
 
   const dependeciedSchemas = getDependenciesTree(schemas)
@@ -28,11 +29,32 @@ export const calcSchemasPrice = (schemas: CartItemSchemaValue[]): number => {
   }, 0)
 }
 
-const calcSingleSchemaPrice = (schema: SchemaValueWithDependecies): number => {
+/**
+ * Checks whether the scheme value is correct and indicates whether the scheme should be included in the product price
+ */
+export const isSchemaMonetized = (schemaType: SchemaType, value: CartItemSchemaValue): boolean => {
+  switch (schemaType) {
+    case SchemaType.String:
+      return isString(value) && value.trim().length > 0
+    case SchemaType.Numeric:
+    case SchemaType.MultiplySchema:
+    case SchemaType.Multiply:
+      if (isNumber(value)) return !isNaN(value)
+      if (isString(value)) return value.trim().length > 0 && !isNaN(Number(value))
+      return false
+    case SchemaType.Boolean:
+      return value === true || value === 'true' || value === 1 || value === '1'
+    case SchemaType.Select:
+      // TODO: check real type in it (Not sure if this is ID or SchemaOption object)
+      return !!value
+  }
+}
+
+const calcSingleSchemaPrice = (schema: CartItemSchemaWithDependecies): number => {
   // ? Infinite loop prevention
   if (++calcCallCounter >= 2000) throw new Error(ERROR_MESSAGES.calcLoop)
 
-  if (!schema.value) return 0
+  if (!isSchemaMonetized(schema.type, schema.value)) return 0
 
   if (schema.type === SchemaType.MultiplySchema) {
     if (!schema.children[0]) throw new Error(ERROR_MESSAGES.noDependecies)
@@ -44,20 +66,4 @@ const calcSingleSchemaPrice = (schema: SchemaValueWithDependecies): number => {
     schema.type == SchemaType.Multiply ? Number(schema.value) * schema.price : schema.price
 
   return schema.type === SchemaType.Select ? schemaPrice + (schema.optionPrice || 0) : schemaPrice
-}
-
-const getDependenciesTree = <T extends { id: string; dependencies: string[] }>(schemas: T[]) => {
-  // Converting children ids to parents ids
-  const data = [...schemas].map((schema) => {
-    const parents = schemas
-      .filter(({ dependencies }) => dependencies.some((id) => id === schema.id))
-      .map(({ id }) => id)
-
-    // TODO: currently supporting only one child dependecy
-    return { ...schema, parentId: parents[0], children: [] }
-  })
-
-  return arrayToTree(data, {
-    parentProperty: 'parentId',
-  })
 }
