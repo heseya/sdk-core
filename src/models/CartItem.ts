@@ -70,10 +70,20 @@ export class CartItem {
     return this.product.name
   }
 
+  get descriptionHtml() {
+    return this.product.description_html
+  }
+  get descriptionMd() {
+    return this.product.description_md
+  }
+  get descriptionText() {
+    return this.product.meta_description
+  }
+
   get price() {
     try {
       return toPrecision(this.product.price + calcSchemasPrice(this.schemas))
-    } catch (e) {
+    } catch (e: any) {
       // eslint-disable-next-line no-console
       console.error('[HS CartItem]', e.message)
       return toPrecision(this.product.price)

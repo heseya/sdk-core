@@ -1,4 +1,5 @@
-import { DiscountCode } from '.'
+import { DiscountCode, PaymentMethod } from '.'
+import { CartItem } from '..'
 
 export interface OrderStatus {
   id: string
@@ -20,6 +21,17 @@ export interface Address {
   zip: string
 }
 
+export interface ShippingMethod {
+  black_list: boolean
+  countries: { code: string; name: string }[]
+  id: string
+  name: string
+  payment_methods: PaymentMethod[]
+  price: number
+  price_ranges: any[] // TODO: PriceRanges
+  public: boolean
+}
+
 export interface Order {
   id: string
   code: string
@@ -33,8 +45,8 @@ export interface Order {
   payable: boolean
   payed: boolean
   payments: any[] // TODO: Payment[]
-  products: any[] // TODO: CartItem[]
-  shipping_method: any // TODO: ShippingMethod
+  products: CartItem[]
+  shipping_method: ShippingMethod
   shipping_number?: string
   shipping_price: number
   status: OrderStatus
