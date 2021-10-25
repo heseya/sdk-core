@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios'
-import { Order } from '../interfaces/Order'
+import { OrderSummary } from '../interfaces/Order'
 import { PaymentMethod } from '../interfaces/PaymentMethod'
 
 export const createEcommerceApi = (axios: AxiosInstance) => ({
@@ -23,10 +23,10 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     }
   },
 
-  async getOrder(code: string): Promise<Order> {
+  async getOrder(code: string): Promise<OrderSummary> {
     const {
       data: { data: order },
-    } = await axios.get<{ data: Order }>(`orders/${code}`)
+    } = await axios.get<{ data: OrderSummary }>(`orders/${code}`)
 
     return order
   },

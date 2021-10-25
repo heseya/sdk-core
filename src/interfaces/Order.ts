@@ -47,9 +47,21 @@ export interface Order {
   payments: any[] // TODO: Payment[]
   products: CartItem[]
   shipping_method: ShippingMethod
+  shipping_method_id: string
   shipping_number?: string
   shipping_price: number
   status: OrderStatus
   summary: number
   summary_paid: number
+}
+
+export interface OrderSummary {
+  id: string
+  code: string
+  status: OrderStatus
+  payed: boolean
+  payable: boolean
+  summary: number
+  shipping_method_id: string
+  created_at: string
 }
