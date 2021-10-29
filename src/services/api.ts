@@ -9,7 +9,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
 
     const order = await this.getOrder(code)
 
-    if (order.payed) throw new Error('Order already payed')
+    if (order.paid) throw new Error('Order already paid')
 
     const paymentMethods = await this.getPaymentMethods(order.shipping_method_id)
 
