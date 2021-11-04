@@ -18,6 +18,8 @@ export interface Product {
   name: string
   slug: string
   price: number
+  min_price: number
+  max_price: number
   description_html: string
   description_md: string
   meta_description: string
