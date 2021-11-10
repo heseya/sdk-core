@@ -73,9 +73,7 @@ export class CartItem {
   get descriptionHtml() {
     return this.product.description_html
   }
-  get descriptionMd() {
-    return this.product.description_md
-  }
+  // @deprecated
   get descriptionText() {
     return this.product.meta_description
   }
