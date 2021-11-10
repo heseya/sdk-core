@@ -21,7 +21,8 @@ export interface Product {
   min_price: number
   max_price: number
   description_html: string
-  description_md: string
+  description_short: string
+  // @deprecated
   meta_description: string
   public: boolean
   visible: boolean
