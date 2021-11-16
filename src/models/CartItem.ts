@@ -1,7 +1,8 @@
 import md5 from 'md5'
+import round from 'lodash/round'
+
 import { Product } from '../interfaces/Product'
 import { SchemaOption, SchemaType } from '../interfaces/Schema'
-import { toPrecision } from '../utils/amounts'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 
 export interface SavedCartItem {
@@ -63,7 +64,7 @@ export class CartItem {
   }
 
   get totalPrice() {
-    return toPrecision(this.price * this.qty)
+    return round(this.price * this.qty, 2)
   }
 
   get name() {
@@ -73,6 +74,9 @@ export class CartItem {
   get descriptionHtml() {
     return this.product.description_html
   }
+  get descriptionShort() {
+    return this.product.description_short
+  }
   // @deprecated
   get descriptionText() {
     return this.product.meta_description
@@ -80,11 +84,11 @@ export class CartItem {
 
   get price() {
     try {
-      return toPrecision(this.product.price + calcSchemasPrice(this.schemas))
+      return round(this.product.price + calcSchemasPrice(this.schemas), 2)
     } catch (e: any) {
       // eslint-disable-next-line no-console
       console.error('[HS CartItem]', e.message)
-      return toPrecision(this.product.price)
+      return round(this.product.price, 2)
     }
   }
 
@@ -113,14 +117,6 @@ export class CartItem {
 
       return [schemaValue.name, value]
     })
-  }
-
-  get brand() {
-    return this.product.brand?.name || ''
-  }
-
-  get category() {
-    return this.product.category?.name || ''
   }
 
   toJSON(): SavedCartItem {

@@ -28,8 +28,6 @@ export interface Product {
   visible: boolean
   available: boolean
   quantity_step: number
-  brand?: ProductSet
-  category?: ProductSet
   sets: ProductSet[]
   schemas: Schema[]
   gallery: Media[]

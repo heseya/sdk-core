@@ -1,6 +1,5 @@
-export const formatAmount = (amount: number, currency: string) => {
-  return `${toPrecision(amount, 2)} ${currency}`
-}
+import round from 'lodash/round'
 
-export const toPrecision = (value: number, precision = 2): number =>
-  Math.round(value * 10 ** precision) / 10 ** precision
+export const formatAmount = (amount: number, currency: string) => {
+  return `${round(amount, 2)} ${currency}`
+}
