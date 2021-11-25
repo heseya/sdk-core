@@ -18,8 +18,8 @@ export interface Product {
   name: string
   slug: string
   price: number
-  min_price: number
-  max_price: number
+  price_min: number
+  price_max: number
   description_html: string
   description_short: string
   // @deprecated
