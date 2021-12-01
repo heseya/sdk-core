@@ -43,7 +43,7 @@ export interface Order {
   email: string
   invoice_address: Address
   payable: boolean
-  payed: boolean
+  paid: boolean
   payments: any[] // TODO: Payment[]
   products: CartItem[]
   shipping_method: ShippingMethod
@@ -59,7 +59,7 @@ export interface OrderSummary {
   id: string
   code: string
   status: OrderStatus
-  payed: boolean
+  paid: boolean
   payable: boolean
   summary: number
   shipping_method_id: string
