@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios'
 import { OrderSummary } from '../interfaces/Order'
+import { Page } from '../interfaces/Page'
 import { PaymentMethod } from '../interfaces/PaymentMethod'
 
 export const createEcommerceApi = (axios: AxiosInstance) => ({
@@ -8,13 +9,9 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
 
     const order = await this.getOrder(code)
 
-    if (order.payed) throw new Error('Order already payed')
+    if (order.paid) throw new Error('Order already paid')
 
-    const {
-      data: { data: paymentMethods },
-    } = await axios.get<{ data: PaymentMethod[] }>(
-      `payment-methods?shipping_method_id=${order.shipping_method_id}`,
-    )
+    const paymentMethods = await this.getPaymentMethods(order.shipping_method_id)
 
     return {
       order,
@@ -29,6 +26,40 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     } = await axios.get<{ data: OrderSummary }>(`orders/${code}`)
 
     return order
+  },
+
+  async getPaymentMethods(shippingMethodId?: string): Promise<PaymentMethod[]> {
+    const query = shippingMethodId ? `shipping_method_id=${shippingMethodId}` : ''
+
+    const {
+      data: { data: paymentMethods },
+    } = await axios.get<{ data: PaymentMethod[] }>(`payment-methods?limit=500&${query}`)
+
+    return paymentMethods
+  },
+
+  async getPage(slug: string): Promise<Page> {
+    const {
+      data: { data: page },
+    } = await axios.get<{ data: Page }>(`/pages/${slug}`)
+    return page
+  },
+
+  async createPayment(
+    orderCode: string,
+    paymentMethod: string,
+    continueUrl: string,
+  ): Promise<string> {
+    const {
+      data: { data },
+    } = await axios.post<{ data: { redirect_url: string } }>(
+      `orders/${orderCode}/pay/${paymentMethod}`,
+      {
+        continue_url: continueUrl,
+      },
+    )
+
+    return data.redirect_url
   },
 })
 

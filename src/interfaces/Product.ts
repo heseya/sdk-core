@@ -18,15 +18,16 @@ export interface Product {
   name: string
   slug: string
   price: number
+  price_min: number
+  price_max: number
   description_html: string
-  description_md: string
+  description_short: string
+  // @deprecated
   meta_description: string
   public: boolean
   visible: boolean
   available: boolean
   quantity_step: number
-  brand?: ProductSet
-  category?: ProductSet
   sets: ProductSet[]
   schemas: Schema[]
   gallery: Media[]
