@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios'
 import { OrderSummary } from '../interfaces/Order'
 import { Page } from '../interfaces/Page'
 import { PaymentMethod } from '../interfaces/PaymentMethod'
+import { SeoMetadata } from '../interfaces/Seo'
 
 export const createEcommerceApi = (axios: AxiosInstance) => ({
   async getOrderPaymentMethods(code: string) {
@@ -36,6 +37,13 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     } = await axios.get<{ data: PaymentMethod[] }>(`payment-methods?limit=500&${query}`)
 
     return paymentMethods
+  },
+
+  async getGlobalSeo(): Promise<SeoMetadata> {
+    const {
+      data: { data: page },
+    } = await axios.get<{ data: SeoMetadata }>('/seo')
+    return page
   },
 
   async getPage(slug: string): Promise<Page> {

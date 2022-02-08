@@ -1,3 +1,5 @@
+import { SeoMetadata } from './Seo'
+
 export interface ProductSet {
   id: string | number
   name: string
@@ -9,4 +11,5 @@ export interface ProductSet {
   parent_id?: string | null
   children?: ProductSet[]
   children_ids?: string[]
+  seo: SeoMetadata | null
 }

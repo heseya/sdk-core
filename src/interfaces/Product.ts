@@ -1,5 +1,6 @@
 import { Schema } from './Schema'
 import { ProductSet } from './ProductSet'
+import { SeoMetadata } from './Seo'
 
 export interface Media {
   id: string | number
@@ -33,4 +34,5 @@ export interface Product {
   gallery: Media[]
   cover: Media
   tags: Tag[]
+  seo: SeoMetadata | null
 }
