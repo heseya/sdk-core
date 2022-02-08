@@ -1,9 +1,12 @@
+import { Media } from './Product'
 import { SeoMetadata } from './Seo'
 
 export interface ProductSet {
   id: string | number
-  name: string
   slug: string
+  name: string
+  cover: Media | null
+  description_html: string
   public: boolean
   visible: boolean
   hide_on_index: boolean

@@ -6,6 +6,7 @@ export interface Media {
   id: string | number
   url: string
   type: string
+  alt: string | null
 }
 
 export interface Tag {
