@@ -1,6 +1,7 @@
 import { Schema } from './Schema'
 import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
+import { UUID } from './UUID'
 
 export interface Media {
   id: string | number
@@ -15,25 +16,28 @@ export interface Tag {
   color: string
 }
 
-export interface Product {
-  id: string | number
+export interface ListProduct {
+  id: UUID
   name: string
   slug: string
+  cover: Media
   price: number
-  price_min: number
   price_max: number
+  price_min: number
+  quantity_step: number
+  tags: Tag[]
+  public: boolean
+  visible: boolean
+  available: boolean
+}
+
+export interface Product extends ListProduct {
   description_html: string
   description_short: string
   // @deprecated
   meta_description: string
-  public: boolean
-  visible: boolean
-  available: boolean
-  quantity_step: number
   sets: ProductSet[]
   schemas: Schema[]
   gallery: Media[]
-  cover: Media
-  tags: Tag[]
   seo: SeoMetadata | null
 }
