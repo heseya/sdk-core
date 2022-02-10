@@ -21,7 +21,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     }
   },
 
-  // ! Done - Orders.getOneSummary
+  // ! Done - Orders.getOne
   async getOrder(code: string): Promise<OrderSummary> {
     const {
       data: { data: order },

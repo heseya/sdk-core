@@ -1,25 +1,26 @@
 import { AxiosInstance } from 'axios'
 
-import { createProductsService, ProductsService } from './modules/products'
-import { createPagesService, PagesService } from './modules/pages'
-import { createProductSetsService, ProductSetsService } from './modules/productSets'
-import { createOrdersService, OrdersService } from './modules/orders'
+import { createProductsService } from './modules/products'
+import { createPagesService } from './modules/pages'
+import { createProductSetsService } from './modules/productSets'
+import { createOrdersService } from './modules/orders'
 
-export interface HeseyaService {
-  Products: ProductsService
-  Pages: PagesService
-  ProductSets: ProductSetsService
-  Orders: OrdersService
+export const createHeseyaService = (axios: AxiosInstance) => ({
+  Products: createProductsService(axios),
+  Pages: createPagesService(axios),
+  ProductSets: createProductSetsService(axios),
+  Orders: createOrdersService(axios),
 
   // TODO: more services
   // Settings: CrudService<Env>
   // Seo: CrudService<SeoMetadata>
   // Auth: AuthService
-}
-
-export const createHeseyaService = (axios: AxiosInstance): HeseyaService => ({
-  Products: createProductsService(axios),
-  Pages: createPagesService(axios),
-  ProductSets: createProductSetsService(axios),
-  Orders: createOrdersService(axios),
 })
+
+export type HeseyaService = ReturnType<typeof createHeseyaService>
+
+// -----------------------------------------------------------------------------
+
+declare const heseya: HeseyaService
+
+heseya.Orders.get({ search: 'test' })
