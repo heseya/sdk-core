@@ -1,9 +1,9 @@
 import { ListResponse, ServiceFactory } from '../types/Service'
-import { OrderSummary, OrderList } from '../../../interfaces/Order'
+import { OrderSummary, OrderList, Order } from '../../../interfaces/Order'
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { Payment } from '../../../interfaces/PaymentMethod'
 
-import { getApiCall, getOneApiCall } from '../utils/calls'
+import { createGetListRequest, createGetOneRequest } from '../utils/requests'
 
 interface OrdersListParams {
   search?: string
@@ -18,20 +18,25 @@ interface OrdersListParams {
 export interface OrdersService {
   get(params?: OrdersListParams): Promise<ListResponse<OrderList>>
   getOne(slug: string): Promise<OrderSummary>
+  getOneById(slug: string): Promise<Order>
   pay(code: string, paymentMethodSlug: string, continueUrl: string): Promise<string>
 }
 
-export const createOrdersService: ServiceFactory<OrdersService> = (axios) => ({
-  async pay(code, paymentMethodSlug, continueUrl) {
-    const {
-      data: { data },
-    } = await axios.post<HeseyaResponse<Payment>>(`orders/${code}/pay/${paymentMethodSlug}`, {
-      continue_url: continueUrl,
-    })
+export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
+  const route = 'orders'
+  return {
+    async pay(code, paymentMethodSlug, continueUrl) {
+      const {
+        data: { data },
+      } = await axios.post<HeseyaResponse<Payment>>(`${route}/${code}/pay/${paymentMethodSlug}`, {
+        continue_url: continueUrl,
+      })
 
-    return data.redirect_url
-  },
+      return data.redirect_url
+    },
 
-  getOne: getOneApiCall<OrderSummary>(axios, 'orders'),
-  get: getApiCall<OrderList>(axios, 'orders'),
-})
+    getOne: createGetOneRequest<OrderSummary>(axios, route),
+    getOneById: createGetOneRequest<Order>(axios, route, { byId: true }),
+    get: createGetListRequest<OrderList>(axios, route),
+  }
+}

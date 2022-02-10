@@ -3,10 +3,15 @@ import { HeseyaPaginationMeta } from '../../../interfaces/Response'
 
 export type ListResponse<ListEntity> = { data: ListEntity[]; pagination: HeseyaPaginationMeta }
 
-export interface CrudService<Entity, ListEntity = Entity, EntityDto = Entity> {
-  getOne<Params = Record<string, any>>(slug: string, params?: Params): Promise<Entity>
+type Params = Record<string, any>
 
-  get<Params = Record<string, any>>(params?: Params): Promise<ListResponse<ListEntity>>
+// Universal crud service definition, can be used if we dont want to specify any specific typing behaviours
+export interface CrudService<Entity, ListEntity = Entity, EntityDto = Entity> {
+  get(params?: Params): Promise<ListResponse<ListEntity>>
+
+  getOne(slug: string, params?: Params): Promise<Entity>
+
+  getOneById(id: string, params?: Params): Promise<Entity>
 
   // TODO: enable other methods
   // create(dto: EntityDto): Promise<Entity>

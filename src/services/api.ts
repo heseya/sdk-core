@@ -4,7 +4,9 @@ import { Page } from '../interfaces/Page'
 import { PaymentMethod } from '../interfaces/PaymentMethod'
 import { SeoMetadata } from '../interfaces/Seo'
 
+// ! @deprecated
 export const createEcommerceApi = (axios: AxiosInstance) => ({
+  // TODO
   async getOrderPaymentMethods(code: string) {
     if (!code) throw new Error('No code in param')
 
@@ -21,7 +23,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     }
   },
 
-  // ! Done - Orders.getOne
+  // ! Migrated to -> Orders.getOne
   async getOrder(code: string): Promise<OrderSummary> {
     const {
       data: { data: order },
@@ -30,6 +32,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return order
   },
 
+  // TODO
   async getPaymentMethods(shippingMethodId?: string): Promise<PaymentMethod[]> {
     const query = shippingMethodId ? `shipping_method_id=${shippingMethodId}` : ''
 
@@ -40,6 +43,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return paymentMethods
   },
 
+  // TODO
   async getGlobalSeo(): Promise<SeoMetadata> {
     const {
       data: { data: page },
@@ -47,7 +51,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
-  // ! Done - Pages.getOne
+  // ! Migrated to -> Pages.getOne
   async getPage(slug: string): Promise<Page> {
     const {
       data: { data: page },
@@ -55,7 +59,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
-  // ! Done - Orders.pay
+  // ! Migrated to -> Orders.pay
   async createPayment(
     orderCode: string,
     paymentMethod: string,
