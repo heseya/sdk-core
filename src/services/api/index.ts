@@ -6,10 +6,10 @@ import { createProductSetsService } from './modules/productSets'
 import { createOrdersService } from './modules/orders'
 
 /**
- * Methods to create all Heseya ecommerce services
+ * Factory to create whole Heseya e-commerce API service
  *
  * Why not use the default axios instance?
- * Because, user may want to extend axios instance with some middlewares (ex. for user token refreshment)
+ * Because, user may want to extend axios instance with some middlewares/interceptors (ex. for user token refreshment)
  *
  * What axios instance should have to this to work:
  * - Base URL
@@ -29,6 +29,10 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
 
 export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
 
+//
+//
+//
+//
 // ? -----------------------------------------------------------------------------
 // ?  Type tests
 // ? -----------------------------------------------------------------------------

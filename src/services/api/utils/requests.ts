@@ -2,22 +2,21 @@ import { AxiosInstance } from 'axios'
 
 import { UUID } from '../../../interfaces/UUID'
 import { HeseyaPaginatedResponse, HeseyaResponse } from '../../../interfaces/Response'
-import { ListResponse } from '../types/Service'
 import { normalizePagination } from './normalizePagination'
 import { stringifyQueryParams } from './stringifyQueryParams'
-
-type Params = Record<string, any>
+import { ListResponse } from '../types/Requests'
+import { DefaultParams } from '../types/DefaultParams'
 
 /**
  * Factory for the GET of the single resource
  */
 export const createGetOneRequest =
-  <T>(axios: AxiosInstance, route: string, options?: { byId: boolean }) =>
-  async (slugOrId: string, params?: Params): Promise<T> => {
+  <Item>(axios: AxiosInstance, route: string, options?: { byId: boolean }) =>
+  async (slugOrId: string, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
 
     const prefix = options?.byId ? 'id:' : ''
-    const response = await axios.get<HeseyaResponse<T>>(
+    const response = await axios.get<HeseyaResponse<Item>>(
       `/${route}/${prefix}${slugOrId}?${stringParams}`,
     )
 
@@ -28,11 +27,11 @@ export const createGetOneRequest =
  * Factory for the GET of the resource list
  */
 export const createGetListRequest =
-  <T>(axios: AxiosInstance, route: string) =>
-  async (params?: Params): Promise<ListResponse<T>> => {
+  <Item>(axios: AxiosInstance, route: string) =>
+  async (params?: DefaultParams): Promise<ListResponse<Item>> => {
     const stringParams = stringifyQueryParams(params || {})
 
-    const response = await axios.get<HeseyaPaginatedResponse<T[]>>(`/${route}?${stringParams}`)
+    const response = await axios.get<HeseyaPaginatedResponse<Item[]>>(`/${route}?${stringParams}`)
     const { data, meta } = response.data
 
     return { data, pagination: normalizePagination(meta) }

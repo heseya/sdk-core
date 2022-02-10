@@ -1,9 +1,10 @@
-import { ListResponse, ServiceFactory } from '../types/Service'
+import { ServiceFactory } from '../types/Service'
 import { OrderSummary, OrderList, Order } from '../../../interfaces/Order'
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { Payment } from '../../../interfaces/PaymentMethod'
 
 import { createGetListRequest, createGetOneRequest } from '../utils/requests'
+import { GetEntityRequest, GetOneEntityRequest } from '../types/Requests'
 
 interface OrdersListParams {
   search?: string
@@ -16,10 +17,10 @@ interface OrdersListParams {
 }
 
 export interface OrdersService {
-  get(params?: OrdersListParams): Promise<ListResponse<OrderList>>
-  getOne(slug: string): Promise<OrderSummary>
-  getOneById(slug: string): Promise<Order>
   pay(code: string, paymentMethodSlug: string, continueUrl: string): Promise<string>
+  getOne: GetOneEntityRequest<OrderSummary>
+  getOneById: GetOneEntityRequest<Order>
+  get: GetEntityRequest<OrderList, OrdersListParams>
 }
 
 export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
