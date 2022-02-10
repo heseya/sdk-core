@@ -35,27 +35,28 @@ export interface ShippingMethod {
   shipping_time_min: number
 }
 
-export interface Order {
+export interface OrderList {
   id: UUID
   code: string
   comment?: string
   created_at: string
   currency: string
   delivery_address: Address
-  discounts: DiscountCode[]
   email: string
-  invoice_address: Address
-  payable: boolean
   paid: boolean
-  payments: any[] // TODO: Payment[]
-  products: CartItem[]
   shipping_method: ShippingMethod
-  shipping_method_id: string
-  shipping_number?: string
   shipping_price: number
   status: OrderStatus
   summary: number
   summary_paid: number
+}
+export interface Order extends OrderList {
+  discounts: DiscountCode[]
+  invoice_address: Address
+  payable: boolean
+  payments: any[] // TODO: Payment[]
+  products: CartItem[]
+  shipping_number?: string
 }
 
 export interface OrderSummary {

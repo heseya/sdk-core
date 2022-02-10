@@ -6,3 +6,13 @@ export interface PaymentMethod {
   name: string
   public: boolean
 }
+
+export interface Payment {
+  id: UUID
+  external_id: string
+  method: string
+  paid: boolean
+  amount: number
+  redirect_url: string
+  continue_url: string
+}

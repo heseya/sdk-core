@@ -8,8 +8,8 @@ import { stringifyQueryParams } from '../utils/stringifyQueryParams'
 export type ProductSetsService = CrudService<ProductSet, ProductSetList>
 
 export const createProductSetsService: ServiceFactory<ProductSetsService> = (axios) => ({
-  async getOne(slug, params = {}) {
-    const stringParams = stringifyQueryParams(params)
+  async getOne(slug, params) {
+    const stringParams = stringifyQueryParams(params || {})
 
     const response = await axios.get<HeseyaResponse<ProductSet>>(
       `/product-sets/${slug}?${stringParams}`,
@@ -18,7 +18,7 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
   },
 
   async get(params) {
-    const stringParams = stringifyQueryParams(params)
+    const stringParams = stringifyQueryParams(params || {})
 
     const response = await axios.get<HeseyaPaginatedResponse<ProductSetList[]>>(
       `/product-sets?${stringParams}`,

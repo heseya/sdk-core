@@ -21,6 +21,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     }
   },
 
+  // ! Done - Orders.getOneSummary
   async getOrder(code: string): Promise<OrderSummary> {
     const {
       data: { data: order },
@@ -46,6 +47,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
+  // ! Done - Pages.getOne
   async getPage(slug: string): Promise<Page> {
     const {
       data: { data: page },
@@ -53,6 +55,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
+  // ! Done - Orders.pay
   async createPayment(
     orderCode: string,
     paymentMethod: string,
