@@ -1,10 +1,12 @@
+import { UUID } from './UUID'
+
 export enum DiscountCodeType {
   Percentage = 0,
   Amount = 1,
 }
 
 export interface DiscountCode {
-  id: string
+  id: UUID
   code: string
   description?: string
   type: DiscountCodeType

@@ -1,8 +1,9 @@
 import { DiscountCode, PaymentMethod } from '.'
-import { CartItem } from '..'
+import { CartItem } from '../models/CartItem'
+import { UUID } from './UUID'
 
 export interface OrderStatus {
-  id: string
+  id: UUID
   name: string
   description: string
   color: string
@@ -10,7 +11,7 @@ export interface OrderStatus {
 }
 
 export interface Address {
-  id?: string
+  id?: UUID
   address: string
   city: string
   country: string
@@ -22,9 +23,9 @@ export interface Address {
 }
 
 export interface ShippingMethod {
+  id: UUID
   black_list: boolean
   countries: { code: string; name: string }[]
-  id: string
   name: string
   payment_methods: PaymentMethod[]
   price: number
@@ -35,7 +36,7 @@ export interface ShippingMethod {
 }
 
 export interface Order {
-  id: string
+  id: UUID
   code: string
   comment?: string
   created_at: string
@@ -58,7 +59,7 @@ export interface Order {
 }
 
 export interface OrderSummary {
-  id: string
+  id: UUID
   code: string
   status: OrderStatus
   paid: boolean

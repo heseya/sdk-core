@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios'
 import { HeseyaPaginationMeta } from '../../../interfaces/Response'
 
 export interface CrudService<Entity, ListEntity = Entity, EntityDto = Entity> {
-  getOne(slug: string): Promise<Entity>
+  getOne(slug: string, params?: Record<string, any>): Promise<Entity>
 
   get(
     params: Record<string, any>,
@@ -14,6 +14,4 @@ export interface CrudService<Entity, ListEntity = Entity, EntityDto = Entity> {
   // delete(id: UUID): Promise<boolean>
 }
 
-export type CrudServiceFactory<Entity, ListEntity = Entity, EntityDto = Entity> = (
-  axios: AxiosInstance,
-) => CrudService<Entity, ListEntity, EntityDto>
+export type ServiceFactory<Service> = (axios: AxiosInstance) => Service

@@ -4,14 +4,14 @@ import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 
 export interface Media {
-  id: string | number
+  id: UUID
   url: string
   type: string
   alt: string | null
 }
 
 export interface Tag {
-  id: string
+  id: UUID
   name: string
   color: string
 }

@@ -1,5 +1,7 @@
+import { UUID } from './UUID'
+
 export interface PaymentMethod {
-  id: string
+  id: UUID
   alias: string
   name: string
   public: boolean
