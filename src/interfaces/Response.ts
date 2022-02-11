@@ -32,3 +32,5 @@ export interface HeseyaPaginatedResponse<Data> {
   data: Data
   meta: HeseyaPaginatedResponseMeta
 }
+
+export type ListResponse<ListEntity> = { data: ListEntity[]; pagination: HeseyaPaginationMeta }

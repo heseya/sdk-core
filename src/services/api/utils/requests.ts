@@ -4,7 +4,7 @@ import { UUID } from '../../../interfaces/UUID'
 import { HeseyaPaginatedResponse, HeseyaResponse } from '../../../interfaces/Response'
 import { normalizePagination } from './normalizePagination'
 import { stringifyQueryParams } from './stringifyQueryParams'
-import { ListResponse } from '../types/Requests'
+import { ListResponse } from '../../../interfaces/Response'
 import { DefaultParams } from '../types/DefaultParams'
 
 /**

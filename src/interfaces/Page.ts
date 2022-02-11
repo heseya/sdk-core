@@ -19,5 +19,4 @@ export interface Page extends ListPage {
   seo?: SeoMetadata
 }
 
-// TODO !!!!!!!!!
-export type PageDto = Partial<Page>
+export type PageDto = Omit<Page, 'id'>

@@ -1,8 +1,6 @@
 import { UUID } from '../../../interfaces/UUID'
-import { HeseyaPaginationMeta } from '../../../interfaces/Response'
+import { ListResponse } from '../../../interfaces/Response'
 import { DefaultParams } from './DefaultParams'
-
-export type ListResponse<ListEntity> = { data: ListEntity[]; pagination: HeseyaPaginationMeta }
 
 export type getOneBySlugEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
   slug: string,

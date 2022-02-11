@@ -1,6 +1,6 @@
 import { HeseyaPaginatedResponse } from '../../../interfaces/Response'
 import { Setting, SettingDto, SettingsRecord } from '../../../interfaces/Settings'
-import { ListResponse } from '../types/Requests'
+import { ListResponse } from '../../../interfaces/Response'
 import { CrudService, ServiceFactory } from '../types/Service'
 import { normalizePagination } from '../utils/normalizePagination'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../utils/requests'
