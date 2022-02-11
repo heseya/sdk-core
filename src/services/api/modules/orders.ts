@@ -17,6 +17,10 @@ interface OrdersListParams extends SearchParam {
 }
 
 export interface OrdersService {
+  /**
+   * Creates new payment for the given order
+   * @returns The payment URL to redirect the user to
+   */
   pay(code: string, paymentMethodSlug: string, continueUrl: string): Promise<string>
   getOneBySlug: getOneBySlugEntityRequest<OrderSummary>
   getOne: getOneEntityRequest<Order>

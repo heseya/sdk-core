@@ -4,6 +4,7 @@ import { createProductsService } from './modules/products'
 import { createPagesService } from './modules/pages'
 import { createProductSetsService } from './modules/productSets'
 import { createOrdersService } from './modules/orders'
+import { createGlobalSeoService } from './modules/globalSeo'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -14,12 +15,16 @@ import { createOrdersService } from './modules/orders'
  * What axios instance should have to this to work:
  * - Base URL
  * - Authentication header
+ *
+ * @example
+ * heseya.Products.get() // Return all products
  */
 export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Products: createProductsService(axios),
   Pages: createPagesService(axios),
   ProductSets: createProductSetsService(axios),
   Orders: createOrdersService(axios),
+  GlobalSeo: createGlobalSeoService(axios),
 
   // TODO: more services
   // Settings: CrudService<Env>
@@ -40,6 +45,6 @@ export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
 declare const heseya: HeseyaApiService
 
 heseya.Orders.getOneBySlug('test')
-heseya.Orders.getOne('test')
+heseya.Orders.pay('test', 'xd', 'xd')
 
 heseya.Products.get({ search: 'xd' })

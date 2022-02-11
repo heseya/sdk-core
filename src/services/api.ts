@@ -4,7 +4,9 @@ import { Page } from '../interfaces/Page'
 import { PaymentMethod } from '../interfaces/PaymentMethod'
 import { SeoMetadata } from '../interfaces/Seo'
 
-// ! @deprecated
+/**
+ * @deprecated
+ */
 export const createEcommerceApi = (axios: AxiosInstance) => ({
   // TODO
   async getOrderPaymentMethods(code: string) {
@@ -43,7 +45,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return paymentMethods
   },
 
-  // TODO
+  // ! Migrated to -> GlobalSeo.get
   async getGlobalSeo(): Promise<SeoMetadata> {
     const {
       data: { data: page },

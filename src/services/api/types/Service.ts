@@ -21,11 +21,34 @@ export interface CrudService<
   EntityDto = Entity,
   GetParams = DefaultParams,
 > {
+  /**
+   * Return a list of entities
+   */
   get: GetEntityRequest<ListEntity, GetParams>
+
+  /**
+   * Return a single entity searched by slug
+   */
   getOneBySlug: getOneBySlugEntityRequest<Entity>
+
+  /**
+   * Return a single entity searched by id
+   */
   getOne: getOneEntityRequest<Entity>
+
+  /**
+   * Create a new entity
+   */
   create: CreateEntityRequest<EntityDto, Entity>
+
+  /**
+   * Update the entity
+   */
   update: UpdateEntityRequest<EntityDto, Entity>
+
+  /**
+   * Delete the entity
+   */
   delete: DeleteEntityRequest
 }
 
