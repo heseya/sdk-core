@@ -2,7 +2,7 @@ import { Schema } from './Schema'
 import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
-import { SeoMetadataDto } from '.'
+import { SeoMetadataDto } from './Seo'
 
 export interface Media {
   id: UUID
