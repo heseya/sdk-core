@@ -1,17 +1,26 @@
 import { AxiosInstance } from 'axios'
 
-import { GetEntityRequest, GetOneEntityRequest } from './Requests'
+import {
+  CreateEntityRequest,
+  DeleteEntityRequest,
+  GetEntityRequest,
+  GetOneEntityRequest,
+  UpdateEntityRequest,
+} from './Requests'
 
-// Universal crud service definition, can be used if we dont want to specify any specific typing behaviours
+/**
+ * Universal crud service definition, can be used if we dont want to specify any specific typing behaviours
+ *
+ * Don't allow to type query params
+ */
 export interface CrudService<Entity, ListEntity = Entity, EntityDto = Entity> {
   get: GetEntityRequest<ListEntity>
   getOne: GetOneEntityRequest<Entity>
   getOneById: GetOneEntityRequest<Entity>
 
-  // TODO: enable other methods
-  // create: CreateEntityRequest<Entity>
-  // update: UpdateEntityRequest<Entity>
-  // delete: DeleteEntityRequest<Entity>
+  create: CreateEntityRequest<EntityDto, Entity>
+  update: UpdateEntityRequest<EntityDto, Entity>
+  delete: DeleteEntityRequest
 }
 
 export type ServiceFactory<Service> = (axios: AxiosInstance) => Service

@@ -38,11 +38,38 @@ export const createGetListRequest =
   }
 
 /**
+ * Factory for the POST of the resource list
+ */
+export const createPostRequest =
+  <Item, ItemDto>(axios: AxiosInstance, route: string) =>
+  async (payload: ItemDto, params?: DefaultParams): Promise<Item> => {
+    const stringParams = stringifyQueryParams(params || {})
+
+    const response = await axios.post<HeseyaResponse<Item>>(`/${route}?${stringParams}`, payload)
+
+    return response.data.data
+  }
+
+/**
+ * Factory for the POST of the resource list
+ */
+export const createPatchRequest =
+  <Item, ItemDto>(axios: AxiosInstance, route: string) =>
+  async (payload: ItemDto, params?: DefaultParams): Promise<Item> => {
+    const stringParams = stringifyQueryParams(params || {})
+
+    const response = await axios.patch<HeseyaResponse<Item>>(`/${route}?${stringParams}`, payload)
+
+    return response.data.data
+  }
+
+/**
  * Factory for the DELETE of the resource
  */
 export const createDeleteRequest =
-  (axios: AxiosInstance, route: string) =>
-  async (id: UUID): Promise<true> => {
-    await axios.delete<never>(`/${route}/id:${id}`)
+  <Params extends DefaultParams>(axios: AxiosInstance, route: string) =>
+  async (id: UUID, params?: Params): Promise<true> => {
+    const stringParams = stringifyQueryParams(params || {})
+    await axios.delete<never>(`/${route}/id:${id}?${stringParams}`)
     return true
   }

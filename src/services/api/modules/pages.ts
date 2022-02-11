@@ -1,15 +1,24 @@
 import { CrudService, ServiceFactory } from '../types/Service'
-import { createGetListRequest, createGetOneRequest } from '../utils/requests'
+import {
+  createDeleteRequest,
+  createGetListRequest,
+  createGetOneRequest,
+  createPatchRequest,
+  createPostRequest,
+} from '../utils/requests'
 
-import { Page, ListPage } from '../../../interfaces/Page'
+import { Page, PageDto, ListPage } from '../../../interfaces/Page'
 
-export type PagesService = CrudService<Page, ListPage>
+export type PagesService = CrudService<Page, ListPage, PageDto>
 
 export const createPagesService: ServiceFactory<PagesService> = (axios) => {
   const route = 'pages'
   return {
-    getOne: createGetOneRequest<Page>(axios, route),
-    getOneById: createGetOneRequest<Page>(axios, route, { byId: true }),
-    get: createGetListRequest<ListPage>(axios, route),
+    get: createGetListRequest(axios, route),
+    getOne: createGetOneRequest(axios, route),
+    getOneById: createGetOneRequest(axios, route, { byId: true }),
+    create: createPostRequest(axios, route),
+    update: createPatchRequest(axios, route),
+    delete: createDeleteRequest(axios, route),
   }
 }

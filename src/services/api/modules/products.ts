@@ -1,15 +1,25 @@
 import { CrudService, ServiceFactory } from '../types/Service'
-import { createGetListRequest, createGetOneRequest } from '../utils/requests'
+import {
+  createDeleteRequest,
+  createGetListRequest,
+  createGetOneRequest,
+  createPatchRequest,
+  createPostRequest,
+} from '../utils/requests'
 
 import { Product, ListProduct } from '../../../interfaces/Product'
 
+// TODO: param types
 export type ProductsService = CrudService<Product, ListProduct>
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
   const route = 'products'
   return {
-    getOne: createGetOneRequest<Product>(axios, route),
-    getOneById: createGetOneRequest<Product>(axios, route, { byId: true }),
-    get: createGetListRequest<ListProduct>(axios, route),
+    get: createGetListRequest(axios, route),
+    getOne: createGetOneRequest(axios, route),
+    getOneById: createGetOneRequest(axios, route, { byId: true }),
+    create: createPostRequest(axios, route),
+    update: createPatchRequest(axios, route),
+    delete: createDeleteRequest(axios, route),
   }
 }

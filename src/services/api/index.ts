@@ -39,4 +39,4 @@ export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
 
 declare const heseya: HeseyaApiService
 
-heseya.Orders.get({ search: 'test' })
+heseya.Orders.getOne('test')

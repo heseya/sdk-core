@@ -18,3 +18,6 @@ export interface Page extends ListPage {
   meta_description: string
   seo?: SeoMetadata
 }
+
+// TODO !!!!!!!!!
+export type PageDto = Partial<Page>
