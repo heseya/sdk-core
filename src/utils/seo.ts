@@ -8,7 +8,15 @@ import { SeoMetadata, TwitterCardType } from '../interfaces/Seo'
  */
 export const getSeoValues = (...seoMetadatas: SeoMetadata[]): SeoMetadata => {
   const get = (key: keyof SeoMetadata) => {
-    return seoMetadatas.find((s) => !isNil(s[key]))?.[key]
+    return seoMetadatas.find((s) => {
+      if (!s) return false
+
+      const value = s[key]
+      if (key === 'og_image' || key === 'no_index') return !isNil(value)
+      if (key === 'description' || key === 'title' || key === 'twitter_card')
+        return (value as string)?.length > 0
+      if (key === 'keywords') return (value as string[])?.length > 0
+    })?.[key]
   }
 
   return {
