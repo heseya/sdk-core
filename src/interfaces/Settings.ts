@@ -9,3 +9,5 @@ export interface Setting {
 }
 
 export type SettingDto = Omit<Setting, 'id'>
+
+export type SettingsRecord = Record<string, string | number>

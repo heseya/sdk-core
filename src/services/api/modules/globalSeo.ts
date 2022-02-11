@@ -1,17 +1,16 @@
-import { ServiceFactory } from '../types/Service'
 import { HeseyaResponse } from '../../../interfaces/Response'
 
-import { createPatchRequest } from '../utils/requests'
+import { ServiceFactory } from '../types/Service'
 import { UpdateEntityRequest } from '../types/Requests'
-import { SeoMetadata, SeoMetadataDto } from '../../../interfaces/Seo'
+import { createPatchRequest } from '../utils/requests'
+
 import { UUID } from '../../../interfaces/UUID'
-
-type SeoCheckModelType = 'Product' | 'ProductSet' | 'Page'
-
-interface SeoCheckResponse {
-  duplicated: boolean
-  duplicates: { id: UUID; model_type: SeoCheckModelType }[]
-}
+import {
+  SeoMetadata,
+  SeoMetadataDto,
+  SeoCheckModelType,
+  SeoCheckResponse,
+} from '../../../interfaces/Seo'
 
 export interface GlobalSeoService {
   /**

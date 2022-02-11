@@ -6,8 +6,8 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { PaymentMethod, PaymentMethodDto } from '../../../interfaces/PaymentMethod'
 import { UUID } from '../../../interfaces/UUID'
+import { PaymentMethod, PaymentMethodDto } from '../../../interfaces/PaymentMethod'
 
 interface PaymentMethodsParams {
   shipping_method_id?: UUID

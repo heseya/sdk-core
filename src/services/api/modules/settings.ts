@@ -1,11 +1,9 @@
 import { HeseyaPaginatedResponse } from '../../../interfaces/Response'
-import { Setting, SettingDto } from '../../../interfaces/Settings'
+import { Setting, SettingDto, SettingsRecord } from '../../../interfaces/Settings'
 import { ListResponse } from '../types/Requests'
 import { CrudService, ServiceFactory } from '../types/Service'
 import { normalizePagination } from '../utils/normalizePagination'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../utils/requests'
-
-type SettingsRecord = Record<string, string | number>
 
 export interface SettingsService
   extends Omit<CrudService<Setting, Setting, SettingDto>, 'getOne' | 'getOneBySlug' | 'get'> {

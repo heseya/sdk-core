@@ -1,11 +1,12 @@
-import { ServiceFactory } from '../types/Service'
-import { OrderSummary, OrderList, Order } from '../../../interfaces/Order'
 import { HeseyaResponse } from '../../../interfaces/Response'
+import { OrderSummary, OrderList, Order } from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
 
-import { createGetListRequest, createGetOneRequest } from '../utils/requests'
+import { ServiceFactory } from '../types/Service'
 import { GetEntityRequest, getOneEntityRequest, getOneBySlugEntityRequest } from '../types/Requests'
 import { SearchParam } from '../types/DefaultParams'
+
+import { createGetListRequest, createGetOneRequest } from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
 
 interface OrdersListParams extends SearchParam {
@@ -40,8 +41,11 @@ export interface OrdersService {
 }
 
 export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
-  const paymentMethodsService = createPaymentMethodsService(axios)
   const route = 'orders'
+
+  // Dependecy injection?
+  // Maybe more complex operations should have their own services?
+  const paymentMethodsService = createPaymentMethodsService(axios)
 
   return {
     async pay(code, paymentMethodSlug, continueUrl) {

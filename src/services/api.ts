@@ -1,6 +1,4 @@
-export * from './api/index'
-
-// TODO: remove everything below
+// TODO: delete file
 
 import { AxiosInstance } from 'axios'
 import { OrderSummary } from '../interfaces/Order'
@@ -9,10 +7,13 @@ import { PaymentMethod } from '../interfaces/PaymentMethod'
 import { SeoMetadata } from '../interfaces/Seo'
 
 /**
+ * Migrate to createHeseyaApiService factory
  * @deprecated
  */
 export const createEcommerceApi = (axios: AxiosInstance) => ({
-  // ! Migrated to -> Orders.getPaymentMethods
+  /**
+   * ! Migrated to -> Orders.getPaymentMethods
+   */
   async getOrderPaymentMethods(code: string) {
     if (!code) throw new Error('No code in param')
 
@@ -29,7 +30,9 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     }
   },
 
-  // ! Migrated to -> Orders.getOneBySlug
+  /**
+   * ! Migrated to -> Orders.getOneBySlug
+   */
   async getOrder(code: string): Promise<OrderSummary> {
     const {
       data: { data: order },
@@ -38,7 +41,9 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return order
   },
 
-  // ! Migrated to -> PaymentMethods.get
+  /**
+   * ! Migrated to -> PaymentMethods.get
+   */
   async getPaymentMethods(shippingMethodId?: string): Promise<PaymentMethod[]> {
     const query = shippingMethodId ? `shipping_method_id=${shippingMethodId}` : ''
 
@@ -49,7 +54,9 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return paymentMethods
   },
 
-  // ! Migrated to -> GlobalSeo.get
+  /**
+   * ! Migrated to -> GlobalSeo.get
+   */
   async getGlobalSeo(): Promise<SeoMetadata> {
     const {
       data: { data: page },
@@ -57,7 +64,9 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
-  // ! Migrated to -> Pages.getOneBySlug
+  /**
+   * ! Migrated to -> Pages.getOneBySlug
+   */
   async getPage(slug: string): Promise<Page> {
     const {
       data: { data: page },
@@ -65,7 +74,9 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
-  // ! Migrated to -> Orders.pay
+  /**
+   * ! Migrated to -> Orders.pay
+   */
   async createPayment(
     orderCode: string,
     paymentMethod: string,

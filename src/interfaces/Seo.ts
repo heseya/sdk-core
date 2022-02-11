@@ -23,3 +23,10 @@ export interface SeoMetadataDto {
   twitter_card?: TwitterCardType
   no_index?: boolean
 }
+
+export type SeoCheckModelType = 'Product' | 'ProductSet' | 'Page'
+
+export interface SeoCheckResponse {
+  duplicated: boolean
+  duplicates: { id: UUID; model_type: SeoCheckModelType }[]
+}
