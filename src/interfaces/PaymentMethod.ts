@@ -7,6 +7,8 @@ export interface PaymentMethod {
   public: boolean
 }
 
+export type PaymentMethodDto = Omit<PaymentMethod, 'id'>
+
 export interface Payment {
   id: UUID
   external_id: string

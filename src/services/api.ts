@@ -1,3 +1,7 @@
+export * from './api/index'
+
+// TODO: remove everything below
+
 import { AxiosInstance } from 'axios'
 import { OrderSummary } from '../interfaces/Order'
 import { Page } from '../interfaces/Page'
@@ -8,7 +12,7 @@ import { SeoMetadata } from '../interfaces/Seo'
  * @deprecated
  */
 export const createEcommerceApi = (axios: AxiosInstance) => ({
-  // TODO
+  // ! Migrated to -> Orders.getPaymentMethods
   async getOrderPaymentMethods(code: string) {
     if (!code) throw new Error('No code in param')
 
@@ -34,7 +38,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return order
   },
 
-  // TODO
+  // ! Migrated to -> PaymentMethods.get
   async getPaymentMethods(shippingMethodId?: string): Promise<PaymentMethod[]> {
     const query = shippingMethodId ? `shipping_method_id=${shippingMethodId}` : ''
 

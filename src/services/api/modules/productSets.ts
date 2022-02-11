@@ -2,7 +2,7 @@ import { CrudService, ServiceFactory } from '../types/Service'
 import {
   createDeleteRequest,
   createGetListRequest,
-  creategetOneBySlugRequest,
+  createGetOneRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -16,8 +16,8 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
   const route = 'product-sets'
   return {
     get: createGetListRequest(axios, route),
-    getOneBySlug: creategetOneBySlugRequest(axios, route),
-    getOne: creategetOneBySlugRequest(axios, route, { byId: true }),
+    getOneBySlug: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),

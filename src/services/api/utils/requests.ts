@@ -10,7 +10,7 @@ import { DefaultParams } from '../types/DefaultParams'
 /**
  * Factory for the GET of the single resource
  */
-export const creategetOneBySlugRequest =
+export const createGetOneRequest =
   <Item>(axios: AxiosInstance, route: string, options?: { byId: boolean }) =>
   async (slugOrId: string, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})

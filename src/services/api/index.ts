@@ -5,6 +5,7 @@ import { createPagesService } from './modules/pages'
 import { createProductSetsService } from './modules/productSets'
 import { createOrdersService } from './modules/orders'
 import { createGlobalSeoService } from './modules/globalSeo'
+import { createPaymentMethodsService } from './modules/paymentMethods'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -25,10 +26,10 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   ProductSets: createProductSetsService(axios),
   Orders: createOrdersService(axios),
   GlobalSeo: createGlobalSeoService(axios),
+  PaymentMethods: createPaymentMethodsService(axios),
 
   // TODO: more services
   // Settings: CrudService<Env>
-  // Seo: CrudService<SeoMetadata>
   // Auth: AuthService
 })
 
@@ -44,7 +45,7 @@ export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
 
 declare const heseya: HeseyaApiService
 
-heseya.Orders.getOneBySlug('test')
+heseya.Orders.getOneByCode('test')
 heseya.Orders.pay('test', 'xd', 'xd')
 
 heseya.Products.get({ search: 'xd' })
