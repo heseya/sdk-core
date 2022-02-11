@@ -39,4 +39,7 @@ export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
 
 declare const heseya: HeseyaApiService
 
+heseya.Orders.getOneBySlug('test')
 heseya.Orders.getOne('test')
+
+heseya.Products.get({ search: 'xd' })

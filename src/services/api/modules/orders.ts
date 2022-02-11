@@ -3,11 +3,11 @@ import { OrderSummary, OrderList, Order } from '../../../interfaces/Order'
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { Payment } from '../../../interfaces/PaymentMethod'
 
-import { createGetListRequest, createGetOneRequest } from '../utils/requests'
-import { GetEntityRequest, GetOneEntityRequest } from '../types/Requests'
+import { createGetListRequest, creategetOneBySlugRequest } from '../utils/requests'
+import { GetEntityRequest, getOneEntityRequest, getOneBySlugEntityRequest } from '../types/Requests'
+import { SearchParam } from '../types/DefaultParams'
 
-interface OrdersListParams {
-  search?: string
+interface OrdersListParams extends SearchParam {
   sort?: string
   status_id?: string
   shipping_method_id?: string
@@ -18,8 +18,8 @@ interface OrdersListParams {
 
 export interface OrdersService {
   pay(code: string, paymentMethodSlug: string, continueUrl: string): Promise<string>
-  getOne: GetOneEntityRequest<OrderSummary>
-  getOneById: GetOneEntityRequest<Order>
+  getOneBySlug: getOneBySlugEntityRequest<OrderSummary>
+  getOne: getOneEntityRequest<Order>
   get: GetEntityRequest<OrderList, OrdersListParams>
 }
 
@@ -36,8 +36,8 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       return data.redirect_url
     },
 
-    getOne: createGetOneRequest<OrderSummary>(axios, route),
-    getOneById: createGetOneRequest<Order>(axios, route, { byId: true }),
+    getOneBySlug: creategetOneBySlugRequest<OrderSummary>(axios, route),
+    getOne: creategetOneBySlugRequest<Order>(axios, route, { byId: true }),
     get: createGetListRequest<OrderList>(axios, route),
   }
 }

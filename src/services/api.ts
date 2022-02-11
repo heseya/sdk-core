@@ -23,7 +23,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     }
   },
 
-  // ! Migrated to -> Orders.getOne
+  // ! Migrated to -> Orders.getOneBySlug
   async getOrder(code: string): Promise<OrderSummary> {
     const {
       data: { data: order },
@@ -51,7 +51,7 @@ export const createEcommerceApi = (axios: AxiosInstance) => ({
     return page
   },
 
-  // ! Migrated to -> Pages.getOne
+  // ! Migrated to -> Pages.getOneBySlug
   async getPage(slug: string): Promise<Page> {
     const {
       data: { data: page },

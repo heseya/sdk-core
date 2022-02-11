@@ -4,8 +4,13 @@ import { DefaultParams } from './DefaultParams'
 
 export type ListResponse<ListEntity> = { data: ListEntity[]; pagination: HeseyaPaginationMeta }
 
-export type GetOneEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
-  id: string,
+export type getOneBySlugEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
+  slug: string,
+  params?: Params,
+) => Promise<Entity>
+
+export type getOneEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
+  id: UUID,
   params?: Params,
 ) => Promise<Entity>
 

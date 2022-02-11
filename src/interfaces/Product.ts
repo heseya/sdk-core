@@ -2,6 +2,7 @@ import { Schema } from './Schema'
 import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
+import { SeoMetadataDto } from '.'
 
 export interface Media {
   id: UUID
@@ -40,4 +41,21 @@ export interface Product extends ListProduct {
   schemas: Schema[]
   gallery: Media[]
   seo: SeoMetadata | null
+}
+
+export interface ProductDto {
+  id?: UUID // TODO: remove
+  name: string
+  slug: string
+  price: number
+  description_html: string
+  description_short: string
+  digital: boolean
+  public: boolean
+  quantity_step: number
+  sets: UUID[]
+  tags: UUID[]
+  schemas: UUID[]
+  media: UUID[]
+  seo: SeoMetadataDto
 }
