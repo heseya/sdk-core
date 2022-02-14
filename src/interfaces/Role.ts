@@ -1,3 +1,4 @@
+import { Permission } from './Permissions'
 import { UUID } from './UUID'
 
 export interface Role {
@@ -5,11 +6,11 @@ export interface Role {
   name: string
   description: string
   assignable: boolean
-  permissions: string[] // Permission[]
+  permissions: Permission[]
 }
 
 export interface RoleDTO {
   name: string
   description: string
-  permissions: string[] // Permission[]
+  permissions: Permission[]
 }

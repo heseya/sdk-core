@@ -1,3 +1,4 @@
+export * from './App'
 export * from './DiscountCode'
 export * from './Order'
 export * from './Page'

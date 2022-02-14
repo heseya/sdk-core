@@ -1,5 +1,7 @@
 import { AxiosInstance } from 'axios'
 
+import { createAuthService } from './modules/auth'
+import { createUserProfileService } from './modules/userProfile'
 import { createProductsService } from './modules/products'
 import { createPagesService } from './modules/pages'
 import { createProductSetsService } from './modules/productSets'
@@ -22,6 +24,8 @@ import { createSettingsService } from './modules/settings'
  * heseya.Products.get() // Return all products
  */
 export const createHeseyaApiService = (axios: AxiosInstance) => ({
+  Auth: createAuthService(axios),
+  UserProfile: createUserProfileService(axios),
   Products: createProductsService(axios),
   Pages: createPagesService(axios),
   ProductSets: createProductSetsService(axios),
@@ -29,8 +33,6 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   GlobalSeo: createGlobalSeoService(axios),
   PaymentMethods: createPaymentMethodsService(axios),
   Settings: createSettingsService(axios),
-
-  // TODO: more services
 })
 
 export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>

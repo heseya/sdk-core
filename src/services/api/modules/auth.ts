@@ -1,11 +1,19 @@
+import { HeseyaResponse } from '../../../interfaces/Response'
 import { User } from '../../../interfaces/User'
-// import { ServiceFactory } from '../types/Service'
+import { ServiceFactory } from '../types/Service'
 
-interface AuthResponse {
+interface HeseyaAuthResponse {
   user: User
   token: string
   identity_token: string
   refresh_token: string
+}
+
+interface AuthResponse {
+  user: User
+  accessToken: string
+  identityToken: string
+  refreshToken: string
 }
 
 export interface AuthService {
@@ -30,55 +38,74 @@ export interface AuthService {
   refreshToken(refreshToken: string): Promise<AuthResponse>
 
   /**
-   * Allows a user to request a password reset.
+   * Allows a user to request an email with password reset instruction.
    */
   requestResetPassword(email: string): Promise<true>
 
   /**
-   * Confirms a password reset for the user and change the password.
+   * Confirms a password reset for the user and sets the new password.
    */
   resetPassword(payload: { token: string; email: string; password: string }): Promise<true>
 
   /**
-   * Allows to check someones identityToken and to get its owner.
+   * Allows to check someones `identityToken` and to get its owner.
+   *
+   * If `identityToken` is not provided, the Unauthenticated user model will be returned.
    */
-  checkIdentity(identityToken: string): Promise<User>
+  checkIdentity(identityToken?: string): Promise<User>
 }
 
-export interface TwoFactorAuthService {
-  /**
-   * Initiates a 2FA authentication setup process.
-   */
-  setup(type: 'app'): Promise<{ secret: string; qrCodeUrl: string }>
-  setup(type: 'email'): Promise<true>
+export const createAuthService: ServiceFactory<AuthService> = (axios) => ({
+  async login(email, password, securityCode) {
+    const { data } = await axios.post<{ data: HeseyaAuthResponse }>('/login', {
+      email,
+      password,
+      code: securityCode,
+    })
+    return {
+      user: data.data.user,
+      accessToken: data.data.token,
+      identityToken: data.data.identity_token,
+      refreshToken: data.data.refresh_token,
+    }
+  },
 
-  /**
-   * Confirms a 2FA authentication for the user.
-   */
-  confirm(securityCode: string): Promise<{ recoveryCodes: string[] }>
+  async refreshToken(token) {
+    const { data } = await axios.post<{ data: HeseyaAuthResponse }>('/auth/refresh', {
+      refresh_token: token,
+    })
+    return {
+      user: data.data.user,
+      accessToken: data.data.token,
+      identityToken: data.data.identity_token,
+      refreshToken: data.data.refresh_token,
+    }
+  },
 
-  /**
-   * Regenerate a 2FA authentication recovery codes for the user.
-   */
-  generateRecoveryCodes(password: string): Promise<{ recoveryCodes: string[] }>
+  async register(payload) {
+    const { data } = await axios.post<HeseyaResponse<User>>('/register', payload)
+    return data.data
+  },
 
-  /**
-   * Removes a 2FA authentication for the user.
-   */
-  remove(password: string): Promise<true>
-}
+  async logout() {
+    await axios.post('/auth/logout')
+    return true
+  },
 
-export interface UserProfileService {
-  /**
-   * Fetch the logged user profile.
-   */
-  get(): Promise<User>
+  async requestResetPassword(email) {
+    await axios.post('/users/reset-password', { email })
+    return true
+  },
 
-  /**
-   * Change logged user password.
-   */
-  changePassword(payload: { currentPassword: string; newPassword: string }): Promise<void>
-}
+  async resetPassword(payload) {
+    await axios.patch('/users/save-reset-password', payload)
+    return true
+  },
 
-// TODO: create auth service
-// export const createAuthService: ServiceFactory<AuthService> = (axios) => ({})
+  async checkIdentity(identityToken) {
+    const { data } = await axios.get<HeseyaResponse<User>>(
+      `/auth/check${identityToken ? `/${identityToken}` : ''}`,
+    )
+    return data.data
+  },
+})

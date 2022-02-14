@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { UUID } from './UUID'
 import { Role } from './Role'
+import { Permission } from './Permissions'
 
 export interface User {
   id: UUID
@@ -9,7 +10,7 @@ export interface User {
   avatar: string
   is_tfa_active: boolean
   roles: Role[]
-  permissions: string[] // TODO: Permission[]
+  permissions: Permission[]
 }
 
 export interface CreateUserDTO {
