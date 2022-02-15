@@ -1,3 +1,5 @@
+import { UUID } from './UUID'
+
 export enum SchemaType {
   String = 'string',
   Select = 'select',
@@ -10,7 +12,7 @@ export enum SchemaType {
 }
 
 export interface Schema {
-  id: string
+  id: UUID
   name: string
   type: SchemaType
   description: ''
@@ -29,7 +31,7 @@ export interface Schema {
 }
 
 export interface SchemaOption {
-  id: string
+  id: UUID
   name: string
   disabled: boolean
   available: boolean
@@ -38,6 +40,6 @@ export interface SchemaOption {
 }
 
 export interface SchemaItem {
-  id: string
+  id: UUID
   name: string
 }

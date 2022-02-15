@@ -7,7 +7,7 @@ export * from './interfaces/index'
 export * from './models/index'
 
 // SERVICES
-export * from './services/api'
+export * from './services/index'
 
 // UTILS
 export * from './utils/index'

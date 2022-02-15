@@ -1,8 +1,9 @@
 import { DiscountCode, PaymentMethod } from '.'
-import { CartItem } from '..'
+import { CartItem } from '../models/CartItem'
+import { UUID } from './UUID'
 
 export interface OrderStatus {
-  id: string
+  id: UUID
   name: string
   description: string
   color: string
@@ -10,7 +11,7 @@ export interface OrderStatus {
 }
 
 export interface Address {
-  id?: string
+  id?: UUID
   address: string
   city: string
   country: string
@@ -22,9 +23,9 @@ export interface Address {
 }
 
 export interface ShippingMethod {
+  id: UUID
   black_list: boolean
   countries: { code: string; name: string }[]
-  id: string
   name: string
   payment_methods: PaymentMethod[]
   price: number
@@ -34,31 +35,32 @@ export interface ShippingMethod {
   shipping_time_min: number
 }
 
-export interface Order {
-  id: string
+export interface OrderList {
+  id: UUID
   code: string
   comment?: string
   created_at: string
   currency: string
   delivery_address: Address
-  discounts: DiscountCode[]
   email: string
-  invoice_address: Address
-  payable: boolean
   paid: boolean
-  payments: any[] // TODO: Payment[]
-  products: CartItem[]
   shipping_method: ShippingMethod
-  shipping_method_id: string
-  shipping_number?: string
   shipping_price: number
   status: OrderStatus
   summary: number
   summary_paid: number
 }
+export interface Order extends OrderList {
+  discounts: DiscountCode[]
+  invoice_address: Address
+  payable: boolean
+  payments: any[] // TODO: Payment[]
+  products: CartItem[]
+  shipping_number?: string
+}
 
 export interface OrderSummary {
-  id: string
+  id: UUID
   code: string
   status: OrderStatus
   paid: boolean

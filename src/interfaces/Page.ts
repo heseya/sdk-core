@@ -1,12 +1,22 @@
 /* eslint-disable camelcase */
 
 import { SeoMetadata } from './Seo'
+import { UUID } from './UUID'
 
-export interface Page {
-  id: string
+export interface ListPage {
+  id: UUID
   name: string
   slug: string
   content_html: string
   public: boolean
-  seo: SeoMetadata | null
+  order: number
 }
+
+export interface Page extends ListPage {
+  content_html: string
+  // @deprecated
+  meta_description: string
+  seo?: SeoMetadata
+}
+
+export type PageDto = Omit<Page, 'id'>

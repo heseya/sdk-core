@@ -1,39 +1,61 @@
 import { Schema } from './Schema'
 import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
+import { UUID } from './UUID'
+import { SeoMetadataDto } from './Seo'
 
 export interface Media {
-  id: string | number
+  id: UUID
   url: string
   type: string
   alt: string | null
 }
 
 export interface Tag {
-  id: string
+  id: UUID
   name: string
   color: string
 }
 
-export interface Product {
-  id: string | number
+export interface ListProduct {
+  id: UUID
   name: string
   slug: string
+  cover: Media
   price: number
-  price_min: number
   price_max: number
+  price_min: number
+  quantity_step: number
+  tags: Tag[]
+  public: boolean
+  visible: boolean
+  available: boolean
+}
+
+export interface Product extends ListProduct {
   description_html: string
   description_short: string
   // @deprecated
   meta_description: string
-  public: boolean
-  visible: boolean
-  available: boolean
-  quantity_step: number
   sets: ProductSet[]
   schemas: Schema[]
   gallery: Media[]
-  cover: Media
-  tags: Tag[]
   seo: SeoMetadata | null
+}
+
+export interface ProductDto {
+  id?: UUID // TODO: remove
+  name: string
+  slug: string
+  price: number
+  description_html: string
+  description_short: string
+  digital: boolean
+  public: boolean
+  quantity_step: number
+  sets: UUID[]
+  tags: UUID[]
+  schemas: UUID[]
+  media: UUID[]
+  seo: SeoMetadataDto
 }
