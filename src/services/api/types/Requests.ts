@@ -22,6 +22,7 @@ export type CreateEntityRequest<Entity, EntityDto, Params extends DefaultParams 
 ) => Promise<Entity>
 
 export type UpdateEntityRequest<Entity, EntityDto, Params extends DefaultParams = DefaultParams> = (
+  id: UUID,
   entityDto: EntityDto,
   params?: Params,
 ) => Promise<Entity>
