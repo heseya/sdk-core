@@ -19,6 +19,7 @@ import { HeseyaResponse } from '../../..'
 export interface AttributesService
   extends Omit<CrudService<Attribute, Attribute, AttributeDto>, 'getOneBySlug'> {
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
+  deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
 }
 
 export const createAttributesService: ServiceFactory<AttributesService> = (axios) => {
@@ -30,6 +31,13 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
         option,
       )
       return data.data
+    },
+
+    async deleteOption(attributeId, optionId) {
+      await axios.delete<HeseyaResponse<void>>(
+        `/attributes/id:${attributeId}/options/id:${optionId}`,
+      )
+      return true
     },
 
     get: createGetListRequest(axios, route),
