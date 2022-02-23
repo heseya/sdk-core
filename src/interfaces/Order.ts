@@ -30,6 +30,8 @@ export interface ShippingMethod {
   price: number
   price_ranges: any[] // TODO: PriceRanges
   public: boolean
+  shipping_time_max: number
+  shipping_time_min: number
 }
 
 export interface Order {
