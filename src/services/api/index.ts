@@ -9,6 +9,7 @@ import { createOrdersService } from './modules/orders'
 import { createGlobalSeoService } from './modules/globalSeo'
 import { createPaymentMethodsService } from './modules/paymentMethods'
 import { createSettingsService } from './modules/settings'
+import { createMediaService } from './modules/media'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -33,6 +34,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   GlobalSeo: createGlobalSeoService(axios),
   PaymentMethods: createPaymentMethodsService(axios),
   Settings: createSettingsService(axios),
+  Media: createMediaService(axios),
 })
 
 export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>

@@ -3,13 +3,7 @@ import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
-
-export interface Media {
-  id: UUID
-  url: string
-  type: string
-  alt: string | null
-}
+import { CdnMedia } from './CdnMedia'
 
 export interface Tag {
   id: UUID
@@ -21,7 +15,7 @@ export interface ListProduct {
   id: UUID
   name: string
   slug: string
-  cover: Media
+  cover: CdnMedia
   price: number
   price_max: number
   price_min: number
@@ -39,7 +33,7 @@ export interface Product extends ListProduct {
   meta_description: string
   sets: ProductSet[]
   schemas: Schema[]
-  gallery: Media[]
+  gallery: CdnMedia[]
   seo: SeoMetadata | null
 }
 
