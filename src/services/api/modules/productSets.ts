@@ -8,9 +8,17 @@ import {
 } from '../utils/requests'
 
 import { ProductSet, ProductSetList } from '../../../interfaces/ProductSet'
+import { SearchParam } from '../types/DefaultParams'
 
-// TODO: param types
-export type ProductSetsService = CrudService<ProductSet, ProductSetList>
+interface ProductSetsListParams extends SearchParam {
+  root?: boolean
+  tree?: boolean
+  name?: string
+  slug?: string
+  public?: boolean
+}
+
+export type ProductSetsService = CrudService<ProductSet, ProductSetList, ProductSetsListParams>
 
 export const createProductSetsService: ServiceFactory<ProductSetsService> = (axios) => {
   const route = 'product-sets'
