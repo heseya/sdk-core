@@ -27,7 +27,9 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
+    "@types/flat": "^5.0.2",
     "array-to-tree": "^3.3.2",
+    "flat": "^5.0.2",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "query-string": "^7.1.1",
