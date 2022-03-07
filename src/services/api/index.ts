@@ -12,6 +12,7 @@ import { createPaymentMethodsService } from './modules/paymentMethods'
 import { createSettingsService } from './modules/settings'
 import { createMediaService } from './modules/media'
 import { createWarehouseService } from './modules/items'
+import { createWebhooksService } from './modules/webhooks'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -39,6 +40,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   PaymentMethods: createPaymentMethodsService(axios),
   Settings: createSettingsService(axios),
   Media: createMediaService(axios),
+  Webhooks: createWebhooksService(axios),
 })
 
 export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
