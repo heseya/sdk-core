@@ -8,6 +8,9 @@ import { createTwoFactorAuthService, TwoFactorAuthService } from './twoFactorAut
 import { createGetListRequest, createGetOneRequest } from '../../utils/requests'
 import { GetEntityRequest, getOneEntityRequest } from '../../types/Requests'
 import { OrdersListParams } from '../orders'
+import { UserSavedAddress } from '../../../../interfaces/Address'
+import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
+import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
 
 export interface UserProfileService {
   /**
@@ -20,6 +23,14 @@ export interface UserProfileService {
    * Change logged user password.
    */
   changePassword(payload: { currentPassword: string; newPassword: string }): Promise<true>
+
+  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddress>
+  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddress>
+  removeDeliveryAddress: DeleteEntityRequest
+
+  saveInviceAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddress>
+  updateInviceAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddress>
+  removeInviceAddress: DeleteEntityRequest
 
   Orders: {
     /**
@@ -50,6 +61,14 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
     })
     return true
   },
+
+  saveDeliveryAddress: createPostRequest(axios, '/auth/profile/delivery-addresses'),
+  updateDeliveryAddress: createPatchRequest(axios, '/auth/profile/delivery-addresses'),
+  removeDeliveryAddress: createDeleteRequest(axios, '/auth/profile/delivery-addresses'),
+
+  saveInviceAddress: createPostRequest(axios, '/auth/profile/invoice-addresses'),
+  updateInviceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
+  removeInviceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
 
   TwoFactorAuthentication: createTwoFactorAuthService(axios),
 

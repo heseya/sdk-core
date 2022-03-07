@@ -3,6 +3,8 @@ import { UUID } from './UUID'
 import { Role } from './Role'
 import { Permission } from './Permissions'
 
+import { UserSavedAddress } from './Address'
+
 export interface User {
   id: UUID
   name: string
@@ -11,6 +13,8 @@ export interface User {
   is_tfa_active: boolean
   roles: Role[]
   permissions: Permission[]
+  delivery_addresses: UserSavedAddress[]
+  invoice_addresses: UserSavedAddress[]
 }
 
 export interface CreateUserDTO {
