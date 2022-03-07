@@ -6,7 +6,7 @@ import { Order, OrderList } from '../../../../interfaces/Order'
 
 import { createTwoFactorAuthService, TwoFactorAuthService } from './twoFactorAuth'
 import { createGetListRequest, createGetOneRequest } from '../../utils/requests'
-import { GetEntityRequest, getOneEntityRequest } from '../../types/Requests'
+import { GetEntityRequest, GetOneEntityRequest } from '../../types/Requests'
 import { OrdersListParams } from '../orders'
 import { UserSavedAddress } from '../../../../interfaces/Address'
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
@@ -41,7 +41,7 @@ export interface UserProfileService {
     /**
      * Get user own order by its ID.
      */
-    getById: getOneEntityRequest<Order>
+    getById: GetOneEntityRequest<Order>
   }
 
   TwoFactorAuthentication: TwoFactorAuthService

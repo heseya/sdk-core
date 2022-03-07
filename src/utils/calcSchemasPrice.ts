@@ -1,6 +1,6 @@
 import { isNumber, isString } from 'lodash'
 import { SchemaType } from '../interfaces'
-import { CartItemSchema, CartItemSchemaValue } from '../models'
+import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
 import { getDependenciesTree } from './tree'
 
 // ? Infinite loop prevention

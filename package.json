@@ -29,6 +29,7 @@
   "dependencies": {
     "@types/flat": "^5.0.2",
     "array-to-tree": "^3.3.2",
+    "form-data": "^4.0.0",
     "flat": "^5.0.2",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",

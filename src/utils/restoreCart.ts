@@ -1,5 +1,6 @@
 import { config } from '../config'
-import { CartItem, SavedCartItem } from '../models/CartItem'
+import { CartItem } from '../models/CartItem'
+import { SavedCartItem } from '../interfaces/CartItem'
 
 export const restoreCart = (savedCart: SavedCartItem[]) => {
   return savedCart

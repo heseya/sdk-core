@@ -1,4 +1,4 @@
-import { Media } from './Product'
+import { CdnMedia } from './CdnMedia'
 import { UUID } from './UUID'
 
 export enum TwitterCardType {
@@ -10,7 +10,7 @@ export interface SeoMetadata {
   title?: string
   description?: string
   keywords?: string[]
-  og_image?: Media
+  og_image?: CdnMedia
   twitter_card?: TwitterCardType
   no_index?: boolean
 }

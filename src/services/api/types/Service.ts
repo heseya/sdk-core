@@ -5,8 +5,8 @@ import {
   CreateEntityRequest,
   DeleteEntityRequest,
   GetEntityRequest,
-  getOneEntityRequest,
-  getOneBySlugEntityRequest,
+  GetOneEntityRequest,
+  GetOneBySlugEntityRequest,
   UpdateEntityRequest,
 } from './Requests'
 
@@ -29,22 +29,22 @@ export interface CrudService<
   /**
    * Return a single entity searched by slug
    */
-  getOneBySlug: getOneBySlugEntityRequest<Entity>
+  getOneBySlug: GetOneBySlugEntityRequest<Entity>
 
   /**
    * Return a single entity searched by id
    */
-  getOne: getOneEntityRequest<Entity>
+  getOne: GetOneEntityRequest<Entity>
 
   /**
    * Create a new entity
    */
-  create: CreateEntityRequest<EntityDto, Entity>
+  create: CreateEntityRequest<Entity, EntityDto>
 
   /**
    * Update the entity
    */
-  update: UpdateEntityRequest<EntityDto, Entity>
+  update: UpdateEntityRequest<Entity, EntityDto>
 
   /**
    * Delete the entity

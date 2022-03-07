@@ -2,12 +2,12 @@ import { UUID } from '../../../interfaces/UUID'
 import { ListResponse } from '../../../interfaces/Response'
 import { DefaultParams } from './DefaultParams'
 
-export type getOneBySlugEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
+export type GetOneBySlugEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
   slug: string,
   params?: Params,
 ) => Promise<Entity>
 
-export type getOneEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
+export type GetOneEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
   id: UUID,
   params?: Params,
 ) => Promise<Entity>
