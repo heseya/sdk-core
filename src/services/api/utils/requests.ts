@@ -11,13 +11,14 @@ import { DefaultParams } from '../types/DefaultParams'
  * Factory for the GET of the single resource
  */
 export const createGetOneRequest =
-  <Item>(axios: AxiosInstance, route: string, options?: { byId: boolean }) =>
+  <Item>(axios: AxiosInstance, route: string, options?: { byId: boolean }, subroute?: string) =>
   async (slugOrId: string, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
+    const suffix = subroute ? subroute?.padStart(1, '/') : ''
 
     const prefix = options?.byId ? 'id:' : ''
     const response = await axios.get<HeseyaResponse<Item>>(
-      `/${route}/${prefix}${slugOrId}?${stringParams}`,
+      `/${route}/${prefix}${slugOrId}${suffix}?${stringParams}`,
     )
 
     return response.data.data
@@ -38,14 +39,34 @@ export const createGetListRequest =
   }
 
 /**
- * Factory for the POST of the resource list
+ * Factory for the POST of the resource
  */
 export const createPostRequest =
-  <Item, ItemDto>(axios: AxiosInstance, route: string) =>
+  <Item, ItemDto>(axios: AxiosInstance, route: string, subroute?: string) =>
   async (payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
+    const suffix = subroute ? subroute?.padStart(1, '/') : ''
 
-    const response = await axios.post<HeseyaResponse<Item>>(`/${route}?${stringParams}`, payload)
+    const response = await axios.post<HeseyaResponse<Item>>(
+      `/${route}${suffix}?${stringParams}`,
+      payload,
+    )
+
+    return response.data.data
+  }
+
+/**
+ * Factory for the POST of the nested resource
+ */
+export const createPostNestedRequest =
+  <Item, ItemDto>(axios: AxiosInstance, parentRoute: string, route: string) =>
+  async (parentId: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
+    const stringParams = stringifyQueryParams(params || {})
+
+    const response = await axios.post<HeseyaResponse<Item>>(
+      `/${parentRoute}/id:${parentId}/${route}?${stringParams}`,
+      payload,
+    )
 
     return response.data.data
   }
@@ -54,12 +75,13 @@ export const createPostRequest =
  * Factory for the PATCH of the resource list
  */
 export const createPatchRequest =
-  <Item, ItemDto>(axios: AxiosInstance, route: string) =>
+  <Item, ItemDto>(axios: AxiosInstance, route: string, subroute?: string) =>
   async (id: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
+    const suffix = subroute ? subroute?.padStart(1, '/') : ''
 
     const response = await axios.patch<HeseyaResponse<Item>>(
-      `/${route}/id:${id}?${stringParams}`,
+      `/${route}/id:${id}${suffix}?${stringParams}`,
       payload,
     )
 

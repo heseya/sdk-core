@@ -11,7 +11,7 @@ import { createGlobalSeoService } from './modules/globalSeo'
 import { createPaymentMethodsService } from './modules/paymentMethods'
 import { createSettingsService } from './modules/settings'
 import { createMediaService } from './modules/media'
-import { createWarehouseItemsService } from './modules/items'
+import { createWarehouseService } from './modules/items'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -30,7 +30,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Auth: createAuthService(axios),
   UserProfile: createUserProfileService(axios),
   Products: createProductsService(axios),
-  WarehouseItems: createWarehouseItemsService(axios),
+  Warehouse: createWarehouseService(axios),
   Attributes: createAttributesService(axios),
   Pages: createPagesService(axios),
   ProductSets: createProductSetsService(axios),

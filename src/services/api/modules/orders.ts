@@ -22,11 +22,11 @@ import { SearchParam } from '../types/DefaultParams'
 import {
   createGetListRequest,
   createGetOneRequest,
+  createPostNestedRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
-import { stringifyQueryParams } from '../utils/stringifyQueryParams'
 
 export interface OrdersListParams extends SearchParam {
   sort?: string
@@ -98,14 +98,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       }
     },
 
-    async updateStatus(id, payload, params) {
-      const stringParams = stringifyQueryParams(params || {})
-      const response = await axios.patch<HeseyaResponse<Order>>(
-        `/${route}/id:${id}/status?${stringParams}`,
-        payload,
-      )
-      return response.data.data
-    },
+    updateStatus: createPostNestedRequest(axios, route, 'status'),
 
     getOneByCode: createGetOneRequest<OrderSummary>(axios, route),
     getOne: createGetOneRequest<Order>(axios, route, { byId: true }),
