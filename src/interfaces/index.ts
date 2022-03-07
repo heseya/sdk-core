@@ -1,4 +1,5 @@
 export * from './App'
+export * from './Attribute'
 export * from './DiscountCode'
 export * from './Order'
 export * from './Page'
