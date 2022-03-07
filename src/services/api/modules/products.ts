@@ -18,6 +18,7 @@ interface ProductsListParams extends SearchParam {
   sets?: UUID[]
   sort?: string
   tags?: UUID[]
+  ids?: UUID[]
   available?: boolean
 }
 
