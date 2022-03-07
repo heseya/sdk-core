@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CdnMedia, TwitterCardType } from '../..'
 import { getSeoValues } from '../seo'
 

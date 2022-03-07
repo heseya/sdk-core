@@ -19,7 +19,7 @@ import {
   CreateEntityRequest,
   DeleteEntityRequest,
   GetEntityRequest,
-  getOneEntityRequest,
+  GetOneEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
 
@@ -40,7 +40,7 @@ export interface WarehouseService {
   /**
    * Return a single warehouse item searched by id
    */
-  getOneItem: getOneEntityRequest<WarehouseItem>
+  getOneItem: GetOneEntityRequest<WarehouseItem>
 
   /**
    * Create a new warehouse item
@@ -60,7 +60,7 @@ export interface WarehouseService {
   /**
    * Return a list of warehouse deposits of the given item
    */
-  getItemDeposits: getOneEntityRequest<WarehouseDeposit[]>
+  getItemDeposits: GetOneEntityRequest<WarehouseDeposit[]>
 
   /**
    * Create a new warehouse deposit of the given item

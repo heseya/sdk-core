@@ -12,8 +12,8 @@ import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
 import { ServiceFactory } from '../types/Service'
 import {
   GetEntityRequest,
-  getOneEntityRequest,
-  getOneBySlugEntityRequest,
+  GetOneEntityRequest,
+  GetOneBySlugEntityRequest,
   CreateEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
@@ -54,8 +54,8 @@ export interface OrdersService {
   /**
    * Returns the order summary with the given code
    */
-  getOneByCode: getOneBySlugEntityRequest<OrderSummary>
-  getOne: getOneEntityRequest<Order>
+  getOneByCode: GetOneBySlugEntityRequest<OrderSummary>
+  getOne: GetOneEntityRequest<Order>
   get: GetEntityRequest<OrderList, OrdersListParams>
   create: CreateEntityRequest<Order, OrderDto>
   update: UpdateEntityRequest<Order, OrderUpdateDto>
