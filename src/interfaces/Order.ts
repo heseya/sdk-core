@@ -1,6 +1,8 @@
-import { DiscountCode, PaymentMethod } from '.'
-import { CartItem } from '../models/CartItem'
 import { UUID } from './UUID'
+import { DiscountCode } from './DiscountCode'
+import { PaymentMethod } from './PaymentMethod'
+import { CartItem } from '../models/CartItem'
+import { Address } from './Address'
 
 export interface OrderStatus {
   id: UUID
@@ -8,18 +10,6 @@ export interface OrderStatus {
   description: string
   color: string
   cancel: boolean
-}
-
-export interface Address {
-  id?: UUID
-  address: string
-  city: string
-  country: string
-  country_name: string
-  name: string
-  phone: string
-  vat?: string
-  zip: string
 }
 
 export interface ShippingMethod {

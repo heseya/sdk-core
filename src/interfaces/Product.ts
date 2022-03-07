@@ -4,6 +4,7 @@ import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
 import { CdnMedia } from './CdnMedia'
+import { ProductAttribute, ProductListAttribute } from './Attribute'
 
 export interface Tag {
   id: UUID
@@ -24,9 +25,10 @@ export interface ListProduct {
   public: boolean
   visible: boolean
   available: boolean
+  attributes: ProductListAttribute[]
 }
 
-export interface Product extends ListProduct {
+export interface Product extends Omit<ListProduct, 'attributes'> {
   description_html: string
   description_short: string
   // @deprecated
@@ -35,6 +37,7 @@ export interface Product extends ListProduct {
   schemas: Schema[]
   gallery: CdnMedia[]
   seo: SeoMetadata | null
+  attributes: ProductAttribute[]
 }
 
 export interface ProductDto {
@@ -52,4 +55,5 @@ export interface ProductDto {
   schemas: UUID[]
   media: UUID[]
   seo: SeoMetadataDto
+  attributes: Record<UUID, UUID>
 }

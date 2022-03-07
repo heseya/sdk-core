@@ -1,3 +1,4 @@
+import { Attribute } from './Attribute'
 import { CdnMedia } from './CdnMedia'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
@@ -18,5 +19,6 @@ export interface ProductSetList {
 
 export interface ProductSet extends ProductSetList {
   description_html: string
+  attributes: Attribute[]
   seo: SeoMetadata | null
 }
