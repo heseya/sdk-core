@@ -24,6 +24,7 @@
     "lint": "eslint \"src/**/*\"",
     "lint:fix": "eslint --fix \"src/**/*\"",
     "test": "cross-env NODE_ENV=test jest",
+    "test:coverage": "yarn test --coverage",
     "prepublish": "yarn build"
   },
   "dependencies": {
@@ -61,6 +62,7 @@
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",
     "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.20.0",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.8.1",

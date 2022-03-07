@@ -1,5 +1,8 @@
 # @heseya/store-core
 
+[![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/coverage.svg)](https://gitlab.com/heseya/heseya-store-core/-/graphs/develop/charts)
+[![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/pipeline.svg)](https://gitlab.com/heseya/heseya-store-core/-/pipelines)
+
 ## Instalation
 
 ```bash

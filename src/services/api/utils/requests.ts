@@ -14,7 +14,7 @@ export const createGetOneRequest =
   <Item>(axios: AxiosInstance, route: string, options?: { byId: boolean }, subroute?: string) =>
   async (slugOrId: string, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
-    const suffix = subroute ? subroute?.padStart(1, '/') : ''
+    const suffix = subroute && !subroute.startsWith('/') ? `/${subroute}` : ''
 
     const prefix = options?.byId ? 'id:' : ''
     const response = await axios.get<HeseyaResponse<Item>>(
@@ -45,7 +45,7 @@ export const createPostRequest =
   <Item, ItemDto>(axios: AxiosInstance, route: string, subroute?: string) =>
   async (payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
-    const suffix = subroute ? subroute?.padStart(1, '/') : ''
+    const suffix = subroute && !subroute.startsWith('/') ? `/${subroute}` : ''
 
     const response = await axios.post<HeseyaResponse<Item>>(
       `/${route}${suffix}?${stringParams}`,
@@ -78,7 +78,7 @@ export const createPatchRequest =
   <Item, ItemDto>(axios: AxiosInstance, route: string, subroute?: string) =>
   async (id: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
-    const suffix = subroute ? subroute?.padStart(1, '/') : ''
+    const suffix = subroute && !subroute.startsWith('/') ? `/${subroute}` : ''
 
     const response = await axios.patch<HeseyaResponse<Item>>(
       `/${route}/id:${id}${suffix}?${stringParams}`,
