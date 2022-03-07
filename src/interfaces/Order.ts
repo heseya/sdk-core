@@ -3,6 +3,7 @@ import { DiscountCode } from './DiscountCode'
 import { PaymentMethod } from './PaymentMethod'
 import { CartItem } from '../models/CartItem'
 import { Address } from './Address'
+import { OrderCartItem } from './CartItem'
 
 export interface OrderStatus {
   id: UUID
@@ -58,4 +59,31 @@ export interface OrderSummary {
   summary: number
   shipping_method_id: string
   created_at: string
+}
+
+/**
+ * ------------------------------------------------------------
+ * ? DTO
+ * ------------------------------------------------------------
+ */
+
+export interface OrderDto {
+  email: string
+  comment: string
+  shipping_method_id: string
+  items: OrderCartItem[]
+  delivery_address: Address
+  invoice_address: Address
+  discounts: string[]
+}
+
+export interface OrderUpdateDto {
+  email?: string
+  comment?: string
+  delivery_address?: Address
+  invoice_address?: Address
+}
+
+export interface OrderStatusUpdateDto {
+  status_id: UUID
 }

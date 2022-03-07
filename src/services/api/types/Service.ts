@@ -39,12 +39,12 @@ export interface CrudService<
   /**
    * Create a new entity
    */
-  create: CreateEntityRequest<EntityDto, Entity>
+  create: CreateEntityRequest<Entity, EntityDto>
 
   /**
    * Update the entity
    */
-  update: UpdateEntityRequest<EntityDto, Entity>
+  update: UpdateEntityRequest<Entity, EntityDto>
 
   /**
    * Delete the entity

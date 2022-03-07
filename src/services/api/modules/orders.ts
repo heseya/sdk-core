@@ -1,13 +1,32 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
-import { OrderSummary, OrderList, Order } from '../../../interfaces/Order'
+import {
+  OrderSummary,
+  OrderList,
+  Order,
+  OrderDto,
+  OrderUpdateDto,
+  OrderStatusUpdateDto,
+} from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
 
 import { ServiceFactory } from '../types/Service'
-import { GetEntityRequest, getOneEntityRequest, getOneBySlugEntityRequest } from '../types/Requests'
+import {
+  GetEntityRequest,
+  getOneEntityRequest,
+  getOneBySlugEntityRequest,
+  CreateEntityRequest,
+  UpdateEntityRequest,
+} from '../types/Requests'
 import { SearchParam } from '../types/DefaultParams'
 
-import { createGetListRequest, createGetOneRequest } from '../utils/requests'
+import {
+  createGetListRequest,
+  createGetOneRequest,
+  createPatchRequest,
+  createPostRequest,
+} from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
+import { stringifyQueryParams } from '../utils/stringifyQueryParams'
 
 export interface OrdersListParams extends SearchParam {
   sort?: string
@@ -38,6 +57,9 @@ export interface OrdersService {
   getOneByCode: getOneBySlugEntityRequest<OrderSummary>
   getOne: getOneEntityRequest<Order>
   get: GetEntityRequest<OrderList, OrdersListParams>
+  create: CreateEntityRequest<Order, OrderDto>
+  update: UpdateEntityRequest<Order, OrderUpdateDto>
+  updateStatus: UpdateEntityRequest<Order, OrderStatusUpdateDto>
 }
 
 export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
@@ -76,8 +98,19 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       }
     },
 
+    async updateStatus(id, payload, params) {
+      const stringParams = stringifyQueryParams(params || {})
+      const response = await axios.patch<HeseyaResponse<Order>>(
+        `/${route}/id:${id}/status?${stringParams}`,
+        payload,
+      )
+      return response.data.data
+    },
+
     getOneByCode: createGetOneRequest<OrderSummary>(axios, route),
     getOne: createGetOneRequest<Order>(axios, route, { byId: true }),
     get: createGetListRequest<OrderList>(axios, route),
+    update: createPatchRequest(axios, route),
+    create: createPostRequest(axios, route),
   }
 }

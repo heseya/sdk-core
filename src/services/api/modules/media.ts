@@ -14,7 +14,7 @@ export interface MediaService {
   /**
    * Allows a user to create the Media.
    */
-  update: UpdateEntityRequest<CdnMediaUpdateDto, CdnMedia>
+  update: UpdateEntityRequest<CdnMedia, CdnMediaUpdateDto>
   /**
    * Allows a user to create the Media.
    */

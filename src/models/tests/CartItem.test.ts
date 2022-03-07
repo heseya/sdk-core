@@ -1,5 +1,6 @@
-import { CartItem, CartItemSchema } from '..'
-import { Product } from '../..'
+import { CartItem } from '../../models/CartItem'
+import { CartItemSchema } from '../../interfaces/CartItem'
+import { Product } from '../../interfaces/Product'
 
 describe('usage of CartItem', () => {
   const product = {
