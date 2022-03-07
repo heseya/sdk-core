@@ -3,6 +3,7 @@ import { AxiosInstance } from 'axios'
 import { createAuthService } from './modules/auth'
 import { createUserProfileService } from './modules/userProfile'
 import { createProductsService } from './modules/products'
+import { createAttributesService } from './modules/attributes'
 import { createPagesService } from './modules/pages'
 import { createProductSetsService } from './modules/productSets'
 import { createOrdersService } from './modules/orders'
@@ -27,6 +28,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Auth: createAuthService(axios),
   UserProfile: createUserProfileService(axios),
   Products: createProductsService(axios),
+  Attributes: createAttributesService(axios),
   Pages: createPagesService(axios),
   ProductSets: createProductSetsService(axios),
   Orders: createOrdersService(axios),

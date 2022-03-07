@@ -9,7 +9,7 @@ import { SearchParam } from '../types/DefaultParams'
 import { createGetListRequest, createGetOneRequest } from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
 
-interface OrdersListParams extends SearchParam {
+export interface OrdersListParams extends SearchParam {
   sort?: string
   status_id?: string
   shipping_method_id?: string
