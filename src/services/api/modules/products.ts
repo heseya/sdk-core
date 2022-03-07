@@ -11,13 +11,6 @@ import { UUID } from '../../../interfaces/UUID'
 import { Product, ListProduct, ProductDto } from '../../../interfaces/Product'
 import { SearchParam } from '../types/DefaultParams'
 
-type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
-type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
-type AttributeFilter = Record<
-  string,
-  string | string[] | DateAttributeFilterValue | NumberAttributeFilterValue
->
-
 interface ProductsListParams extends SearchParam {
   name?: string
   slug?: string
@@ -26,8 +19,6 @@ interface ProductsListParams extends SearchParam {
   sort?: string
   tags?: UUID[]
   available?: boolean
-  attribute?: AttributeFilter
-  price?: NumberAttributeFilterValue
 }
 
 export type ProductsService = CrudService<Product, ListProduct, ProductDto, ProductsListParams>
