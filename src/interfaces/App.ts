@@ -18,7 +18,7 @@ export interface App {
   description?: string
   icon?: string
   author?: string
-  permissions: string[]
+  permissions: Permission[]
 }
 
 export interface CreateAppDto {
