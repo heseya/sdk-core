@@ -5,6 +5,17 @@ import { CartItem } from '../models/CartItem'
 import { Address } from './Address'
 import { OrderCartItem } from './CartItem'
 
+export interface OrderPayment {
+  id: UUID
+  amount: number
+  continue_url: string
+  external_id: UUID
+  method: string
+  paid: boolean
+  redirect_url: string
+  date: string
+}
+
 export interface OrderStatus {
   id: UUID
   name: string
@@ -45,7 +56,7 @@ export interface Order extends OrderList {
   discounts: DiscountCode[]
   invoice_address: Address
   payable: boolean
-  payments: any[] // TODO: Payment[]
+  payments: OrderPayment[]
   products: CartItem[]
   shipping_number?: string
 }
