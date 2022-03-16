@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 
+import { MetadataFields } from './Metadata'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 
-export interface ListPage {
+export interface ListPage extends MetadataFields {
   id: UUID
   name: string
   slug: string

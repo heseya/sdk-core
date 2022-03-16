@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 
+import { MetadataFields } from './Metadata'
 import { Permission, PermissionEntry } from './Permissions'
 import { UUID } from './UUID'
 
@@ -8,7 +9,7 @@ export interface AppInternalPermission extends Omit<PermissionEntry, 'name'> {
   name: string
 }
 
-export interface App {
+export interface App extends MetadataFields {
   id: UUID
   name: string
   url: string

@@ -8,8 +8,9 @@ import {
 } from '../utils/requests'
 
 import { Page, PageDto, ListPage } from '../../../interfaces/Page'
+import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
-export type PagesService = CrudService<Page, ListPage, PageDto>
+export type PagesService = CrudService<Page, ListPage, PageDto> & EntityMetadataService
 
 export const createPagesService: ServiceFactory<PagesService> = (axios) => {
   const route = 'pages'
@@ -20,5 +21,7 @@ export const createPagesService: ServiceFactory<PagesService> = (axios) => {
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    ...createEntityMetadataService(axios, route),
   }
 }

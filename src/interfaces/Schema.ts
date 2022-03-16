@@ -1,3 +1,4 @@
+import { MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
 export enum SchemaType {
@@ -11,7 +12,7 @@ export enum SchemaType {
   // File = 'file',
 }
 
-export interface Schema {
+export interface Schema extends MetadataFields {
   id: UUID
   name: string
   type: SchemaType
@@ -30,7 +31,7 @@ export interface Schema {
   used_schemas: string[]
 }
 
-export interface SchemaOption {
+export interface SchemaOption extends MetadataFields {
   id: UUID
   name: string
   disabled: boolean

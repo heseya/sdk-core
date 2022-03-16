@@ -1,6 +1,7 @@
+import { MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
-export interface WarehouseItem {
+export interface WarehouseItem extends MetadataFields {
   id: UUID
   name: string
   sku: string

@@ -1,9 +1,11 @@
+import { MetadataFields } from './Metadata'
+
 export enum CdnMediaType {
   Photo = 'photo',
   Video = 'video',
 }
 
-export interface CdnMedia {
+export interface CdnMedia extends MetadataFields {
   id: string
   type: CdnMediaType
   url: string
