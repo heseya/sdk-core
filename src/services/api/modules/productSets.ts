@@ -9,6 +9,7 @@ import {
 
 import { ProductSet, ProductSetList } from '../../../interfaces/ProductSet'
 import { SearchParam } from '../types/DefaultParams'
+import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
 interface ProductSetsListParams extends SearchParam {
   root?: boolean
@@ -18,7 +19,8 @@ interface ProductSetsListParams extends SearchParam {
   public?: boolean
 }
 
-export type ProductSetsService = CrudService<ProductSet, ProductSetList, ProductSetsListParams>
+export type ProductSetsService = CrudService<ProductSet, ProductSetList, ProductSetsListParams> &
+  EntityMetadataService
 
 export const createProductSetsService: ServiceFactory<ProductSetsService> = (axios) => {
   const route = 'product-sets'
@@ -29,5 +31,6 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    ...createEntityMetadataService(axios, route),
   }
 }

@@ -1,3 +1,4 @@
+import { MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
 export enum DiscountCodeType {
@@ -5,7 +6,7 @@ export enum DiscountCodeType {
   Amount = 1,
 }
 
-export interface DiscountCode {
+export interface DiscountCode extends MetadataFields {
   id: UUID
   code: string
   description?: string

@@ -22,6 +22,7 @@ import {
   GetOneEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
+import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
 interface WarehouseItemsListParams extends SearchParam {
   name?: string
@@ -31,7 +32,7 @@ interface WarehouseItemsListParams extends SearchParam {
   day?: Date
 }
 
-export interface WarehouseService {
+export interface WarehouseService extends EntityMetadataService {
   /**
    * Return a list of warehouse items
    */
@@ -85,5 +86,7 @@ export const createWarehouseService: ServiceFactory<WarehouseService> = (axios) 
     getAllDeposits: createGetListRequest(axios, 'deposits'),
     getItemDeposits: createGetOneRequest(axios, route, { byId: true }, 'deposits'),
     createDeposit: createPostNestedRequest(axios, route, 'deposits'),
+
+    ...createEntityMetadataService(axios, route),
   }
 }

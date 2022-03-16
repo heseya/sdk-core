@@ -10,6 +10,7 @@ import {
 import { UUID } from '../../../interfaces/UUID'
 import { Product, ListProduct, ProductDto } from '../../../interfaces/Product'
 import { SearchParam } from '../types/DefaultParams'
+import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
 interface ProductsListParams extends SearchParam {
   name?: string
@@ -22,7 +23,8 @@ interface ProductsListParams extends SearchParam {
   available?: boolean
 }
 
-export type ProductsService = CrudService<Product, ListProduct, ProductDto, ProductsListParams>
+export type ProductsService = CrudService<Product, ListProduct, ProductDto, ProductsListParams> &
+  EntityMetadataService
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
   const route = 'products'
@@ -33,5 +35,6 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    ...createEntityMetadataService(axios, route),
   }
 }

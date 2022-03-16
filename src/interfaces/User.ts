@@ -4,8 +4,9 @@ import { Role } from './Role'
 import { Permission } from './Permissions'
 
 import { UserSavedAddress } from './Address'
+import { MetadataFields } from './Metadata'
 
-export interface User {
+export interface User extends MetadataFields {
   id: UUID
   name: string
   email: string

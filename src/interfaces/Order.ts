@@ -4,6 +4,7 @@ import { PaymentMethod } from './PaymentMethod'
 import { CartItem } from '../models/CartItem'
 import { Address } from './Address'
 import { OrderCartItem } from './CartItem'
+import { MetadataFields } from './Metadata'
 
 export interface OrderPayment {
   id: UUID
@@ -16,7 +17,7 @@ export interface OrderPayment {
   date: string
 }
 
-export interface OrderStatus {
+export interface OrderStatus extends MetadataFields {
   id: UUID
   name: string
   description: string
@@ -24,7 +25,7 @@ export interface OrderStatus {
   cancel: boolean
 }
 
-export interface ShippingMethod {
+export interface ShippingMethod extends MetadataFields {
   id: UUID
   black_list: boolean
   countries: { code: string; name: string }[]
@@ -37,7 +38,7 @@ export interface ShippingMethod {
   shipping_time_min: number
 }
 
-export interface OrderList {
+export interface OrderList extends MetadataFields {
   id: UUID
   code: string
   comment?: string
