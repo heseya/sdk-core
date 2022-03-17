@@ -17,7 +17,7 @@ import {
   CreateEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
-import { SearchParam } from '../types/DefaultParams'
+import { PaginationParams, SearchParam } from '../types/DefaultParams'
 
 import {
   createGetListRequest,
@@ -29,7 +29,7 @@ import {
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
-export interface OrdersListParams extends SearchParam {
+export interface OrdersListParams extends SearchParam, PaginationParams {
   sort?: string
   status_id?: string
   shipping_method_id?: string

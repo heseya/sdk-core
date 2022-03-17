@@ -9,8 +9,9 @@ import {
 } from '../utils/requests'
 import { GetEntityRequest } from '../types/Requests'
 import { WebhookEntry, WebhookEntryDto, WebhookEventEntry } from '../../../interfaces/Webhook'
+import { PaginationParams } from '../types/DefaultParams'
 
-interface WebhooksListParams {
+interface WebhooksListParams extends PaginationParams {
   name?: string
   url?: string
 }

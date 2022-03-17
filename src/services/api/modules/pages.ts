@@ -9,8 +9,10 @@ import {
 
 import { Page, PageDto, ListPage } from '../../../interfaces/Page'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { PaginationParams } from '../types/DefaultParams'
 
-export type PagesService = CrudService<Page, ListPage, PageDto> & EntityMetadataService
+export type PagesService = CrudService<Page, ListPage, PageDto, PaginationParams> &
+  EntityMetadataService
 
 export const createPagesService: ServiceFactory<PagesService> = (axios) => {
   const route = 'pages'

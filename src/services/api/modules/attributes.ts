@@ -15,9 +15,10 @@ import {
 } from '../../../interfaces/Attribute'
 import { UUID } from '../../../interfaces/UUID'
 import { HeseyaResponse } from '../../..'
+import { PaginationParams } from '../types/DefaultParams'
 
 export interface AttributesService
-  extends Omit<CrudService<Attribute, Attribute, AttributeDto>, 'getOneBySlug'> {
+  extends Omit<CrudService<Attribute, Attribute, AttributeDto, PaginationParams>, 'getOneBySlug'> {
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
 }

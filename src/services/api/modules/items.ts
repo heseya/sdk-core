@@ -14,7 +14,7 @@ import {
   WarehouseDeposit,
   WarehouseDepositDto,
 } from '../../../interfaces/WarehouseItem'
-import { SearchParam } from '../types/DefaultParams'
+import { PaginationParams, SearchParam } from '../types/DefaultParams'
 import {
   CreateEntityRequest,
   DeleteEntityRequest,
@@ -24,7 +24,7 @@ import {
 } from '../types/Requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
-interface WarehouseItemsListParams extends SearchParam {
+interface WarehouseItemsListParams extends SearchParam, PaginationParams {
   name?: string
   sku?: string
   sort?: string

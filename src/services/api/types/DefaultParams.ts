@@ -7,3 +7,15 @@ export interface SearchParam {
    */
   search?: string
 }
+
+export interface PaginationParams {
+  /**
+   * Number of items per page
+   */
+  limit?: number
+
+  /**
+   * Selected active page
+   */
+  page?: number
+}
