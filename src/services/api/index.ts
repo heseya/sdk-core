@@ -18,6 +18,8 @@ import { createAppsService } from './modules/apps'
 import { createPackagesTemplatesService } from './modules/packagesTemplates'
 import { createTagsService } from './modules/tags'
 import { createOrderStatusesService } from './modules/orderStatuses'
+import { createRolesService } from './modules/roles'
+import { createUsersService } from './modules/users'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -36,8 +38,8 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Apps: createAppsService(axios),
   Auth: createAuthService(axios),
   UserProfile: createUserProfileService(axios),
-  // Roles: createRolesService(axios),
-  // Users: createUsersService(axios),
+  Roles: createRolesService(axios),
+  Users: createUsersService(axios),
   Products: createProductsService(axios),
   // Schemas: createSchemasService(axios),
   Tags: createTagsService(axios),
