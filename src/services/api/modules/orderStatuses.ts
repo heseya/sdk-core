@@ -9,12 +9,17 @@ import {
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { PaginationParams } from '../types/DefaultParams'
 import { OrderStatus, OrderStatusDto } from '../../../interfaces/OrderStatus'
+import { createReorderPostRequest } from '../utils/reorder'
+import { ReorderEntityRequest } from '../types/Reorder'
 
-export type OrderStatusesService = Omit<
-  CrudService<OrderStatus, OrderStatus, OrderStatusDto, PaginationParams>,
-  'getOneBySlug' | 'getOne'
-> &
-  EntityMetadataService
+export interface OrderStatusesService
+  extends Omit<
+      CrudService<OrderStatus, OrderStatus, OrderStatusDto, PaginationParams>,
+      'getOneBySlug' | 'getOne'
+    >,
+    EntityMetadataService {
+  reorder: ReorderEntityRequest
+}
 
 export const createOrderStatusesService: ServiceFactory<OrderStatusesService> = (axios) => {
   const route = 'statuses'
@@ -23,6 +28,7 @@ export const createOrderStatusesService: ServiceFactory<OrderStatusesService> = 
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    reorder: createReorderPostRequest(axios, route, 'statuses'),
 
     ...createEntityMetadataService(axios, route),
   }

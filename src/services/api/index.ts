@@ -20,6 +20,7 @@ import { createTagsService } from './modules/tags'
 import { createOrderStatusesService } from './modules/orderStatuses'
 import { createRolesService } from './modules/roles'
 import { createUsersService } from './modules/users'
+import { createDiscountsService } from './modules/discounts'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -47,10 +48,9 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Warehouse: createWarehouseService(axios),
   Attributes: createAttributesService(axios),
   Pages: createPagesService(axios),
-  // Discounts: createDiscountsService(axios),
+  Discounts: createDiscountsService(axios),
   Orders: createOrdersService(axios),
   OrderStatuses: createOrderStatusesService(axios),
-  // PaymentMethods: createPaymentMethodsService(axios),
   ShippingMethods: createShippingMethodsService(axios),
   PackagesTemplates: createPackagesTemplatesService(axios),
   GlobalSeo: createGlobalSeoService(axios),

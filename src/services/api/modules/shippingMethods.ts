@@ -15,6 +15,8 @@ import {
   ShippingMethod,
   ShippingMethodDto,
 } from '../../../interfaces/ShippingMethod'
+import { ReorderEntityRequest } from '../types/Reorder'
+import { createReorderPostRequest } from '../utils/reorder'
 
 interface ShippingMethodsParams extends PaginationParams {
   country?: string
@@ -28,6 +30,7 @@ export interface ShippingMethodsService
     >,
     EntityMetadataService {
   getCountries: () => Promise<ShippingCountry[]>
+  reorder: ReorderEntityRequest
 }
 
 export const createShippingMethodsService: ServiceFactory<ShippingMethodsService> = (axios) => {
@@ -38,6 +41,7 @@ export const createShippingMethodsService: ServiceFactory<ShippingMethodsService
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    reorder: createReorderPostRequest(axios, route, 'shipping_methods'),
 
     getCountries: createGetSimpleListRequest(axios, 'countries'),
 
