@@ -13,6 +13,8 @@ import { createSettingsService } from './modules/settings'
 import { createMediaService } from './modules/media'
 import { createWarehouseService } from './modules/items'
 import { createWebhooksService } from './modules/webhooks'
+import { createShippingMethodsService } from './modules/shippingMethods'
+import { createAppsService } from './modules/apps'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -28,6 +30,7 @@ import { createWebhooksService } from './modules/webhooks'
  * heseya.Products.get() // Return all products
  */
 export const createHeseyaApiService = (axios: AxiosInstance) => ({
+  Apps: createAppsService(axios),
   Auth: createAuthService(axios),
   UserProfile: createUserProfileService(axios),
   Products: createProductsService(axios),
@@ -36,6 +39,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Pages: createPagesService(axios),
   ProductSets: createProductSetsService(axios),
   Orders: createOrdersService(axios),
+  ShippingMethods: createShippingMethodsService(axios),
   GlobalSeo: createGlobalSeoService(axios),
   PaymentMethods: createPaymentMethodsService(axios),
   Settings: createSettingsService(axios),

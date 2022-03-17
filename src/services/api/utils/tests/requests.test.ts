@@ -7,6 +7,7 @@ import {
   createDeleteRequest,
   createGetListRequest,
   createGetOneRequest,
+  createGetSimpleListRequest,
   createPatchRequest,
   createPostNestedRequest,
   createPostRequest,
@@ -93,6 +94,20 @@ describe('createGetListRequest', () => {
     expect(mock.history.get[0].url).toEqual(expectedUrl)
     expect(result.data).toEqual(dummyResponseList.data)
     expect(result.pagination).toEqual({ perPage: 1, currentPage: 1, total: 1, lastPage: 1 })
+  })
+})
+
+describe('createGetSimpleListRequest', () => {
+  it('should make a rest request with params', async () => {
+    const execute = createGetSimpleListRequest<DummyItem[]>(axios, 'products')
+    const expectedUrl = '/products?param=yes'
+
+    mock.onGet(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute({ param: 'yes' })
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyResponseList.data)
   })
 })
 

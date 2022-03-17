@@ -39,6 +39,20 @@ export const createGetListRequest =
   }
 
 /**
+ * Factory for the GET of the resource list - without pagination
+ */
+export const createGetSimpleListRequest =
+  <Item>(axios: AxiosInstance, route: string) =>
+  async (params?: DefaultParams): Promise<Item[]> => {
+    const stringParams = stringifyQueryParams(params || {})
+
+    const response = await axios.get<HeseyaResponse<Item[]>>(`/${route}?${stringParams}`)
+    const { data } = response.data
+
+    return data
+  }
+
+/**
  * Factory for the POST of the resource
  */
 export const createPostRequest =
