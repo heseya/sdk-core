@@ -5,6 +5,7 @@ import { Address } from './Address'
 import { OrderCartItem } from './CartItem'
 import { MetadataFields } from './Metadata'
 import { ShippingMethod } from './ShippingMethod'
+import { OrderStatus } from './OrderStatus'
 
 export interface OrderPayment {
   id: UUID
@@ -15,14 +16,6 @@ export interface OrderPayment {
   paid: boolean
   redirect_url: string
   date: string
-}
-
-export interface OrderStatus extends MetadataFields {
-  id: UUID
-  name: string
-  description: string
-  color: string
-  cancel: boolean
 }
 
 export interface OrderList extends MetadataFields {

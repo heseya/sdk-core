@@ -6,12 +6,7 @@ import { SeoMetadataDto } from './Seo'
 import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
 import { MetadataFields } from './Metadata'
-
-export interface Tag {
-  id: UUID
-  name: string
-  color: string
-}
+import { Tag } from './Tag'
 
 export interface ListProduct extends MetadataFields {
   id: UUID
