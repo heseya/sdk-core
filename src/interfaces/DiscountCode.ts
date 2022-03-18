@@ -15,4 +15,8 @@ export interface DiscountCode extends MetadataFields {
   uses: number
   max_uses: number
   available: boolean
+  starts_at: string | null
+  expires_at: string | null
 }
+
+export type DiscountCodeDto = Omit<DiscountCode, 'id' | 'uses'>

@@ -7,36 +7,32 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { UUID } from '../../../interfaces/UUID'
-import { Product, ProductList, ProductDto } from '../../../interfaces/Product'
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { PaginationParams, SearchParam } from '../types/DefaultParams'
+import { DiscountCode, DiscountCodeDto } from '../../../interfaces/DiscountCode'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface ProductsListParams extends SearchParam, PaginationParams {
-  name?: string
-  slug?: string
-  public?: boolean
-  sets?: UUID[]
-  sort?: string
-  tags?: UUID[]
-  ids?: UUID[]
-  available?: boolean
+interface DiscountsListParams extends SearchParam, PaginationParams {
+  code?: string
+  description?: string
 }
 
-export type ProductsService = CrudService<Product, ProductList, ProductDto, ProductsListParams> &
+export type DiscountsService = Omit<
+  CrudService<DiscountCode, DiscountCode, DiscountCodeDto, DiscountsListParams>,
+  'getOne'
+> &
   EntityMetadataService &
-  EntityAuditsService<Product>
+  EntityAuditsService<DiscountCode>
 
-export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
-  const route = 'products'
+export const createDiscountsService: ServiceFactory<DiscountsService> = (axios) => {
+  const route = 'discounts'
   return {
     get: createGetListRequest(axios, route),
     getOneBySlug: createGetOneRequest(axios, route),
-    getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
   }

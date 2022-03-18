@@ -4,9 +4,11 @@ import { ListResponse } from '../../../interfaces/Response'
 import { CrudService, ServiceFactory } from '../types/Service'
 import { normalizePagination } from '../utils/normalizePagination'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../utils/requests'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface SettingsService
-  extends Omit<CrudService<Setting, Setting, SettingDto>, 'getOne' | 'getOneBySlug' | 'get'> {
+  extends Omit<CrudService<Setting, Setting, SettingDto>, 'getOne' | 'getOneBySlug' | 'get'>,
+    EntityAuditsService<Setting> {
   /**
    * Returns the list of settings
    * @example
@@ -24,6 +26,7 @@ export const createSettingsService: ServiceFactory<SettingsService> = (axios) =>
       if (params?.array) {
         const { data } = await axios.get<SettingsRecord>(`/${route}?array`)
         // Withouth any, the TS compiler complains about the return type (i dont know why)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data as any
       }
 
@@ -35,5 +38,7 @@ export const createSettingsService: ServiceFactory<SettingsService> = (axios) =>
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    ...createEntityAuditsService(axios, route),
   }
 }

@@ -6,27 +6,27 @@ import { Permission } from './Permissions'
 import { UserSavedAddress } from './Address'
 import { MetadataFields } from './Metadata'
 
-export interface User extends MetadataFields {
+export interface UserList extends MetadataFields {
   id: UUID
   name: string
   email: string
   avatar: string
   is_tfa_active: boolean
   roles: Role[]
+}
+
+export interface User extends UserList {
   permissions: Permission[]
   delivery_addresses: UserSavedAddress[]
   invoice_addresses: UserSavedAddress[]
 }
 
-export interface CreateUserDTO {
+export interface UpdateUserDto {
   name: string
   email: string
-  password: string
   roles: UUID[]
 }
-export interface EditUserDTO {
-  id: UUID
-  name: string
-  email: string
-  roles: UUID[]
+
+export interface CreateUserDto extends UpdateUserDto {
+  password: string
 }

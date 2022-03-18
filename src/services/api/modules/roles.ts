@@ -3,40 +3,35 @@ import {
   createDeleteRequest,
   createGetListRequest,
   createGetOneRequest,
+  createGetSimpleListRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
 
-import { UUID } from '../../../interfaces/UUID'
-import { Product, ProductList, ProductDto } from '../../../interfaces/Product'
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { PaginationParams } from '../types/DefaultParams'
+import { Role, RoleDto } from '../../../interfaces/Role'
+import { PermissionEntry } from '../../../interfaces'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface ProductsListParams extends SearchParam, PaginationParams {
-  name?: string
-  slug?: string
-  public?: boolean
-  sets?: UUID[]
-  sort?: string
-  tags?: UUID[]
-  ids?: UUID[]
-  available?: boolean
+export interface RolesService
+  extends Omit<CrudService<Role, Role, RoleDto, PaginationParams>, 'getOneBySlug'>,
+    EntityMetadataService,
+    EntityAuditsService<Role> {
+  getPermissions: (params: { assignable?: boolean }) => Promise<PermissionEntry[]>
 }
 
-export type ProductsService = CrudService<Product, ProductList, ProductDto, ProductsListParams> &
-  EntityMetadataService &
-  EntityAuditsService<Product>
-
-export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
-  const route = 'products'
+export const createRolesService: ServiceFactory<RolesService> = (axios) => {
+  const route = 'roles'
   return {
     get: createGetListRequest(axios, route),
-    getOneBySlug: createGetOneRequest(axios, route),
     getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    getPermissions: createGetSimpleListRequest(axios, 'permissions'),
+
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
   }

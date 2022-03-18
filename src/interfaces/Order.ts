@@ -1,10 +1,11 @@
 import { UUID } from './UUID'
 import { DiscountCode } from './DiscountCode'
-import { PaymentMethod } from './PaymentMethod'
 import { CartItem } from '../models/CartItem'
 import { Address } from './Address'
 import { OrderCartItem } from './CartItem'
 import { MetadataFields } from './Metadata'
+import { ShippingMethod } from './ShippingMethod'
+import { OrderStatus } from './OrderStatus'
 
 export interface OrderPayment {
   id: UUID
@@ -15,27 +16,6 @@ export interface OrderPayment {
   paid: boolean
   redirect_url: string
   date: string
-}
-
-export interface OrderStatus extends MetadataFields {
-  id: UUID
-  name: string
-  description: string
-  color: string
-  cancel: boolean
-}
-
-export interface ShippingMethod extends MetadataFields {
-  id: UUID
-  black_list: boolean
-  countries: { code: string; name: string }[]
-  name: string
-  payment_methods: PaymentMethod[]
-  price: number
-  price_ranges: any[] // TODO: PriceRanges
-  public: boolean
-  shipping_time_max: number
-  shipping_time_min: number
 }
 
 export interface OrderList extends MetadataFields {

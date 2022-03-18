@@ -2,35 +2,35 @@ import { CrudService, ServiceFactory } from '../types/Service'
 import {
   createDeleteRequest,
   createGetListRequest,
-  createGetOneRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
 
-import { Page, PageDto, PageList } from '../../../interfaces/Page'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { PaginationParams } from '../types/DefaultParams'
-import { ReorderEntityRequest } from '../types/Reorder'
+import { OrderStatus, OrderStatusDto } from '../../../interfaces/OrderStatus'
 import { createReorderPostRequest } from '../utils/reorder'
+import { ReorderEntityRequest } from '../types/Reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-export interface PagesService
-  extends CrudService<Page, PageList, PageDto, PaginationParams>,
+export interface OrderStatusesService
+  extends Omit<
+      CrudService<OrderStatus, OrderStatus, OrderStatusDto, PaginationParams>,
+      'getOneBySlug' | 'getOne'
+    >,
     EntityMetadataService,
-    EntityAuditsService<Page> {
+    EntityAuditsService<OrderStatus> {
   reorder: ReorderEntityRequest
 }
 
-export const createPagesService: ServiceFactory<PagesService> = (axios) => {
-  const route = 'pages'
+export const createOrderStatusesService: ServiceFactory<OrderStatusesService> = (axios) => {
+  const route = 'statuses'
   return {
     get: createGetListRequest(axios, route),
-    getOneBySlug: createGetOneRequest(axios, route),
-    getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
-    reorder: createReorderPostRequest(axios, route, 'pages'),
+    reorder: createReorderPostRequest(axios, route, 'statuses'),
 
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
