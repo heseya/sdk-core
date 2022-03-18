@@ -8,11 +8,11 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { DiscountCode, DiscountCodeDto } from '../../../interfaces/DiscountCode'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface DiscountsListParams extends SearchParam, PaginationParams {
+interface DiscountsListParams extends SearchParam, PaginationParams, MetadataParams {
   code?: string
   description?: string
 }

@@ -8,14 +8,14 @@ import {
 } from '../utils/requests'
 
 import { ProductSet, ProductSetList } from '../../../interfaces/ProductSet'
-import { DefaultParams, SearchParam } from '../types/DefaultParams'
+import { DefaultParams, MetadataParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
 import { UUID } from '../../../interfaces/UUID'
 import { stringifyQueryParams } from '../utils/stringifyQueryParams'
 
-interface ProductSetsListParams extends SearchParam {
+interface ProductSetsListParams extends SearchParam, MetadataParams {
   root?: boolean
   tree?: boolean
   name?: string

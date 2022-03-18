@@ -14,7 +14,7 @@ import {
   WarehouseDeposit,
   WarehouseDepositDto,
 } from '../../../interfaces/WarehouseItem'
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import {
   CreateEntityRequest,
   DeleteEntityRequest,
@@ -39,7 +39,7 @@ export interface WarehouseService
   /**
    * Return a list of warehouse items
    */
-  getItems: GetEntityRequest<WarehouseItem, WarehouseItemsListParams>
+  getItems: GetEntityRequest<WarehouseItem, WarehouseItemsListParams & MetadataParams>
 
   /**
    * Return a single warehouse item searched by id

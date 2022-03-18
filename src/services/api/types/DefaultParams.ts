@@ -19,3 +19,8 @@ export interface PaginationParams {
    */
   page?: number
 }
+
+export interface MetadataParams {
+  metadata?: { [metadataName: string]: string | number | boolean }
+  metadata_private?: { [metadataName: string]: string | number | boolean }
+}

@@ -9,11 +9,11 @@ import {
 
 import { UUID } from '../../../interfaces/UUID'
 import { Product, ProductList, ProductDto } from '../../../interfaces/Product'
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface ProductsListParams extends SearchParam, PaginationParams {
+interface ProductsListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
   slug?: string
   public?: boolean

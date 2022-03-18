@@ -8,10 +8,10 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { Schema, SchemaDto, SchemaList } from '../../../interfaces/Schema'
 
-interface SchemasListParams extends SearchParam, PaginationParams {
+interface SchemasListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
   hidden?: boolean
   required?: boolean
