@@ -2,28 +2,9 @@ import md5 from 'md5'
 import round from 'lodash/round'
 
 import { Product } from '../interfaces/Product'
-import { SchemaOption, SchemaType } from '../interfaces/Schema'
+import { SchemaType } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
-
-export interface SavedCartItem {
-  type: 'CartItem'
-  product: Product
-  qty: number
-  schemas: CartItemSchema[]
-  createdAt: number
-}
-
-export type CartItemSchemaValue = string | number | boolean | null | SchemaOption
-
-export interface CartItemSchema {
-  id: string
-  type: SchemaType
-  name?: string
-  price: number
-  optionPrice?: number
-  dependencies: string[]
-  value: CartItemSchemaValue
-}
+import { SavedCartItem, CartItemSchema, OrderCartItem } from '../interfaces/CartItem'
 
 export class CartItem {
   public qty: number
@@ -46,7 +27,7 @@ export class CartItem {
     this.createdAt = createdAt
   }
 
-  getOrderObject() {
+  getOrderObject(): OrderCartItem & { cartitem_id: string } {
     return {
       cartitem_id: this.id,
       product_id: this.product.id,

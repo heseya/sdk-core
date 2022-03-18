@@ -1,13 +1,14 @@
 import { Attribute } from './Attribute'
-import { Media } from './Product'
+import { CdnMedia } from './CdnMedia'
+import { MetadataFields } from './Metadata'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 
-export interface ProductSetList {
+export interface ProductSetList extends MetadataFields {
   id: UUID
   slug: string
   name: string
-  cover: Media | null
+  cover: CdnMedia | null
   public: boolean
   visible: boolean
   hide_on_index: boolean

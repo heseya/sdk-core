@@ -1,5 +1,4 @@
-import { SchemaOption, SchemaType } from '../../interfaces'
-import { CartItemSchema } from '../../models'
+import { SchemaOption, SchemaType, CartItemSchema } from '../../interfaces'
 import { calcSchemasPrice, isSchemaMonetized } from '../calcSchemasPrice'
 
 describe('Calculating Schemas Price', () => {

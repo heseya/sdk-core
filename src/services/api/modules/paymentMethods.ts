@@ -8,8 +8,9 @@ import {
 
 import { UUID } from '../../../interfaces/UUID'
 import { PaymentMethod, PaymentMethodDto } from '../../../interfaces/PaymentMethod'
+import { PaginationParams } from '../types/DefaultParams'
 
-interface PaymentMethodsParams {
+interface PaymentMethodsParams extends PaginationParams {
   shipping_method_id?: UUID
 }
 

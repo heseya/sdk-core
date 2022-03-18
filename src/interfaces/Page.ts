@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 
+import { MetadataFields } from './Metadata'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 
-export interface ListPage {
+export interface PageList extends MetadataFields {
   id: UUID
   name: string
   slug: string
@@ -12,7 +13,7 @@ export interface ListPage {
   order: number
 }
 
-export interface Page extends ListPage {
+export interface Page extends PageList {
   content_html: string
   // @deprecated
   meta_description: string

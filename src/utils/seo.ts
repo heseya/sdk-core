@@ -1,5 +1,5 @@
 import { isNil } from 'lodash'
-import { Media } from '../interfaces/Product'
+import { CdnMedia } from '../interfaces/CdnMedia'
 import { SeoMetadata, TwitterCardType } from '../interfaces/Seo'
 
 /**
@@ -23,7 +23,7 @@ export const getSeoValues = (...seoMetadatas: SeoMetadata[]): SeoMetadata => {
     title: get('title') as string | undefined,
     description: get('description') as string | undefined,
     keywords: get('keywords') as string[] | undefined,
-    og_image: get('og_image') as Media | undefined,
+    og_image: get('og_image') as CdnMedia | undefined,
     twitter_card: get('twitter_card') as TwitterCardType | undefined,
     no_index: get('no_index') as boolean | undefined,
   }

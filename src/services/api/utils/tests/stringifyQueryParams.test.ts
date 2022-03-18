@@ -29,4 +29,13 @@ describe('stringifyQueryParams', () => {
       'attribute.price.max=100&attribute.price.min=2',
     )
   })
+
+  it('should transform dates into iso strings', () => {
+    expect(stringifyQueryParams({ date: new Date('2020-04-13T00:00:00.000+08:00') })).toBe(
+      'date=2020-04-12T16%3A00%3A00.000Z',
+    )
+    expect(stringifyQueryParams({ date: new Date('2014-02-12T15:19:22.000+02:00') })).toBe(
+      'date=2014-02-12T13%3A19%3A22.000Z',
+    )
+  })
 })

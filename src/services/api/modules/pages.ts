@@ -7,9 +7,19 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { Page, PageDto, ListPage } from '../../../interfaces/Page'
+import { Page, PageDto, PageList } from '../../../interfaces/Page'
+import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { PaginationParams } from '../types/DefaultParams'
+import { ReorderEntityRequest } from '../types/Reorder'
+import { createReorderPostRequest } from '../utils/reorder'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-export type PagesService = CrudService<Page, ListPage, PageDto>
+export interface PagesService
+  extends CrudService<Page, PageList, PageDto, PaginationParams>,
+    EntityMetadataService,
+    EntityAuditsService<Page> {
+  reorder: ReorderEntityRequest
+}
 
 export const createPagesService: ServiceFactory<PagesService> = (axios) => {
   const route = 'pages'
@@ -20,5 +30,9 @@ export const createPagesService: ServiceFactory<PagesService> = (axios) => {
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    reorder: createReorderPostRequest(axios, route, 'pages'),
+
+    ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

@@ -3,26 +3,16 @@ import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
+import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
+import { MetadataFields } from './Metadata'
+import { Tag } from './Tag'
 
-export interface Media {
-  id: UUID
-  url: string
-  type: string
-  alt: string | null
-}
-
-export interface Tag {
-  id: UUID
-  name: string
-  color: string
-}
-
-export interface ListProduct {
+export interface ProductList extends MetadataFields {
   id: UUID
   name: string
   slug: string
-  cover: Media
+  cover: CdnMedia
   price: number
   price_max: number
   price_min: number
@@ -34,20 +24,19 @@ export interface ListProduct {
   attributes: ProductListAttribute[]
 }
 
-export interface Product extends Omit<ListProduct, 'attributes'> {
+export interface Product extends Omit<ProductList, 'attributes'> {
   description_html: string
   description_short: string
   // @deprecated
   meta_description: string
   sets: ProductSet[]
   schemas: Schema[]
-  gallery: Media[]
+  gallery: CdnMedia[]
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
 }
 
 export interface ProductDto {
-  id?: UUID // TODO: remove
   name: string
   slug: string
   price: number

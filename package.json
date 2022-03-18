@@ -1,6 +1,6 @@
 {
   "name": "@heseya/store-core",
-  "version": "2.2.0-beta.1",
+  "version": "2.3.0-beta.1",
   "author": {
     "name": "Heseya"
   },
@@ -24,12 +24,14 @@
     "lint": "eslint \"src/**/*\"",
     "lint:fix": "eslint --fix \"src/**/*\"",
     "test": "cross-env NODE_ENV=test jest",
+    "test:coverage": "yarn test --coverage",
     "prepublish": "yarn build"
   },
   "dependencies": {
     "@types/flat": "^5.0.2",
     "array-to-tree": "^3.3.2",
     "flat": "^5.0.2",
+    "form-data": "^4.0.0",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "query-string": "^7.1.1",
@@ -60,6 +62,7 @@
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",
     "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.20.0",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.8.1",
