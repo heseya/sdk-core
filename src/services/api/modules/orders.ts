@@ -28,6 +28,7 @@ import {
 } from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface OrdersListParams extends SearchParam, PaginationParams {
   sort?: string
@@ -38,7 +39,7 @@ export interface OrdersListParams extends SearchParam, PaginationParams {
   to?: Date
 }
 
-export interface OrdersService extends EntityMetadataService {
+export interface OrdersService extends EntityMetadataService, EntityAuditsService<Order> {
   /**
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
@@ -108,5 +109,6 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     create: createPostRequest(axios, route),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

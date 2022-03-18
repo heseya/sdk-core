@@ -10,6 +10,7 @@ import {
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { PaginationParams, SearchParam } from '../types/DefaultParams'
 import { DiscountCode, DiscountCodeDto } from '../../../interfaces/DiscountCode'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface DiscountsListParams extends SearchParam, PaginationParams {
   code?: string
@@ -20,7 +21,8 @@ export type DiscountsService = Omit<
   CrudService<DiscountCode, DiscountCode, DiscountCodeDto, DiscountsListParams>,
   'getOne'
 > &
-  EntityMetadataService
+  EntityMetadataService &
+  EntityAuditsService<DiscountCode>
 
 export const createDiscountsService: ServiceFactory<DiscountsService> = (axios) => {
   const route = 'discounts'
@@ -32,5 +34,6 @@ export const createDiscountsService: ServiceFactory<DiscountsService> = (axios) 
     delete: createDeleteRequest(axios, route),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

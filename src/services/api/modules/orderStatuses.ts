@@ -11,13 +11,15 @@ import { PaginationParams } from '../types/DefaultParams'
 import { OrderStatus, OrderStatusDto } from '../../../interfaces/OrderStatus'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface OrderStatusesService
   extends Omit<
       CrudService<OrderStatus, OrderStatus, OrderStatusDto, PaginationParams>,
       'getOneBySlug' | 'getOne'
     >,
-    EntityMetadataService {
+    EntityMetadataService,
+    EntityAuditsService<OrderStatus> {
   reorder: ReorderEntityRequest
 }
 
@@ -31,5 +33,6 @@ export const createOrderStatusesService: ServiceFactory<OrderStatusesService> = 
     reorder: createReorderPostRequest(axios, route, 'statuses'),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

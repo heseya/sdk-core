@@ -12,10 +12,12 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { PaginationParams } from '../types/DefaultParams'
 import { Role, RoleDto } from '../../../interfaces/Role'
 import { PermissionEntry } from '../../../interfaces'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface RolesService
   extends Omit<CrudService<Role, Role, RoleDto, PaginationParams>, 'getOneBySlug'>,
-    EntityMetadataService {
+    EntityMetadataService,
+    EntityAuditsService<Role> {
   getPermissions: (params: { assignable?: boolean }) => Promise<PermissionEntry[]>
 }
 
@@ -31,5 +33,6 @@ export const createRolesService: ServiceFactory<RolesService> = (axios) => {
     getPermissions: createGetSimpleListRequest(axios, 'permissions'),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

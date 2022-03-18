@@ -17,6 +17,7 @@ import {
 } from '../../../interfaces/ShippingMethod'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface ShippingMethodsParams extends PaginationParams {
   country?: string
@@ -28,7 +29,8 @@ export interface ShippingMethodsService
       CrudService<ShippingMethod, ShippingMethod, ShippingMethodDto, ShippingMethodsParams>,
       'getOneBySlug'
     >,
-    EntityMetadataService {
+    EntityMetadataService,
+    EntityAuditsService<ShippingMethod> {
   getCountries: () => Promise<ShippingCountry[]>
   reorder: ReorderEntityRequest
 }
@@ -46,5 +48,6 @@ export const createShippingMethodsService: ServiceFactory<ShippingMethodsService
     getCountries: createGetSimpleListRequest(axios, 'countries'),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

@@ -12,10 +12,12 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { PaginationParams } from '../types/DefaultParams'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface PagesService
   extends CrudService<Page, ListPage, PageDto, PaginationParams>,
-    EntityMetadataService {
+    EntityMetadataService,
+    EntityAuditsService<Page> {
   reorder: ReorderEntityRequest
 }
 
@@ -31,5 +33,6 @@ export const createPagesService: ServiceFactory<PagesService> = (axios) => {
     reorder: createReorderPostRequest(axios, route, 'pages'),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

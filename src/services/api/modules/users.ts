@@ -17,13 +17,14 @@ import {
 } from '../types/Requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { CreateUserDto, UpdateUserDto, User, UserList } from '../../../interfaces/User'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface UsersListParams extends SearchParam, PaginationParams {
   name?: string
   sort?: string
 }
 
-export interface UsersService extends EntityMetadataService {
+export interface UsersService extends EntityMetadataService, EntityAuditsService<User> {
   /**
    * Return a list of users
    */
@@ -60,5 +61,6 @@ export const createUsersService: ServiceFactory<UsersService> = (axios) => {
     delete: createDeleteRequest(axios, route),
 
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }

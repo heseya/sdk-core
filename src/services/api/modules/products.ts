@@ -11,6 +11,7 @@ import { UUID } from '../../../interfaces/UUID'
 import { Product, ListProduct, ProductDto } from '../../../interfaces/Product'
 import { PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface ProductsListParams extends SearchParam, PaginationParams {
   name?: string
@@ -24,7 +25,8 @@ interface ProductsListParams extends SearchParam, PaginationParams {
 }
 
 export type ProductsService = CrudService<Product, ListProduct, ProductDto, ProductsListParams> &
-  EntityMetadataService
+  EntityMetadataService &
+  EntityAuditsService<Product>
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
   const route = 'products'
@@ -36,5 +38,6 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
     ...createEntityMetadataService(axios, route),
+    ...createEntityAuditsService(axios, route),
   }
 }
