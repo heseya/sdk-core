@@ -8,7 +8,7 @@ import { ProductAttribute, ProductListAttribute } from './Attribute'
 import { MetadataFields } from './Metadata'
 import { Tag } from './Tag'
 
-export interface ListProduct extends MetadataFields {
+export interface ProductList extends MetadataFields {
   id: UUID
   name: string
   slug: string
@@ -24,7 +24,7 @@ export interface ListProduct extends MetadataFields {
   attributes: ProductListAttribute[]
 }
 
-export interface Product extends Omit<ListProduct, 'attributes'> {
+export interface Product extends Omit<ProductList, 'attributes'> {
   description_html: string
   description_short: string
   // @deprecated
@@ -37,7 +37,6 @@ export interface Product extends Omit<ListProduct, 'attributes'> {
 }
 
 export interface ProductDto {
-  id?: UUID // TODO: remove
   name: string
   slug: string
   price: number

@@ -1,5 +1,5 @@
 import { MetadataFields } from './Metadata'
-import { ListProduct } from './Product'
+import { ProductList } from './Product'
 import { UUID } from './UUID'
 
 export enum SchemaType {
@@ -33,7 +33,7 @@ export interface SchemaList extends MetadataFields {
 }
 
 export interface Schema extends SchemaList {
-  products: ListProduct[]
+  products: ProductList[]
 }
 
 export interface SchemaOption extends MetadataFields {
