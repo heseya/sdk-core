@@ -16,6 +16,9 @@ const getDefaultFallbackForType = (schema: Schema): CartItemSchemaValue => {
     case SchemaType.MultiplySchema:
       return 0
     case SchemaType.String:
+    // TODO: is Date & File works properly?
+    case SchemaType.Date:
+    case SchemaType.File:
       return ''
   }
 }
