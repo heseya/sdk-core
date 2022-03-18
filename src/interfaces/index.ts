@@ -1,3 +1,4 @@
+export * from './Analytics'
 export * from './App'
 export * from './Attribute'
 export * from './DiscountCode'

@@ -9,24 +9,26 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { PaginationParams, SearchParam } from '../types/DefaultParams'
-import { DiscountCode, DiscountCodeDto } from '../../../interfaces/DiscountCode'
+import { Schema, SchemaDto, SchemaList } from '../../../interfaces/Schema'
 
-interface DiscountsListParams extends SearchParam, PaginationParams {
-  code?: string
-  description?: string
+interface SchemasListParams extends SearchParam, PaginationParams {
+  name?: string
+  hidden?: boolean
+  required?: boolean
+  sort?: string
 }
 
-export type DiscountsService = Omit<
-  CrudService<DiscountCode, DiscountCode, DiscountCodeDto, DiscountsListParams>,
-  'getOne'
+export type SchemasService = Omit<
+  CrudService<SchemaList, Schema, SchemaDto, SchemasListParams>,
+  'getOneBySlug'
 > &
   EntityMetadataService
 
-export const createDiscountsService: ServiceFactory<DiscountsService> = (axios) => {
-  const route = 'discounts'
+export const createSchemasService: ServiceFactory<SchemasService> = (axios) => {
+  const route = 'schemas'
   return {
     get: createGetListRequest(axios, route),
-    getOneBySlug: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
