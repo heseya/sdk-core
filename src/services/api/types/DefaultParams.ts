@@ -21,6 +21,15 @@ export interface PaginationParams {
 }
 
 export interface MetadataParams {
+  /**
+   * Allows to filter by public metadata fields
+   * @example ?metadata.key=value
+   */
   metadata?: { [metadataName: string]: string | number | boolean }
+
+  /**
+   * Allows to filter by private metadata fields
+   * @example ?metadata_private.key=value
+   */
   metadata_private?: { [metadataName: string]: string | number | boolean }
 }
