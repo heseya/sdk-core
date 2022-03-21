@@ -3,6 +3,7 @@ import {
   createDeleteRequest,
   createGetListRequest,
   createGetOneRequest,
+  createGetSimpleListRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -12,6 +13,7 @@ import { Product, ProductList, ProductDto } from '../../../interfaces/Product'
 import { PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { Attribute } from '../../../interfaces'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
@@ -33,9 +35,12 @@ interface ProductsListParams extends SearchParam, PaginationParams {
   price?: NumberAttributeFilterValue
 }
 
-export type ProductsService = CrudService<Product, ProductList, ProductDto, ProductsListParams> &
-  EntityMetadataService &
-  EntityAuditsService<Product>
+export interface ProductsService
+  extends CrudService<Product, ProductList, ProductDto, ProductsListParams>,
+    EntityMetadataService,
+    EntityAuditsService<Product> {
+  getFilters(props?: { sets: UUID[] }): Promise<Attribute[]>
+}
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
   const route = 'products'
@@ -46,6 +51,9 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    getFilters: createGetSimpleListRequest(axios, 'filters'),
+
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
   }
