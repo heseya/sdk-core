@@ -20,6 +20,11 @@ import { PaginationParams } from '../types/DefaultParams'
 export interface AttributesService
   extends Omit<CrudService<Attribute, Attribute, AttributeDto, PaginationParams>, 'getOneBySlug'> {
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
+  updateOption(
+    attributeId: UUID,
+    optionId: UUID,
+    option: AttributeOptionDto,
+  ): Promise<AttributeOption>
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
 }
 
@@ -29,6 +34,14 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
     async addOption(attributeId, option) {
       const { data } = await axios.post<HeseyaResponse<AttributeOption>>(
         `/attributes/id:${attributeId}/options`,
+        option,
+      )
+      return data.data
+    },
+
+    async updateOption(attributeId, optionId, option) {
+      const { data } = await axios.patch<HeseyaResponse<AttributeOption>>(
+        `/attributes/id:${attributeId}/options/id:${optionId}`,
         option,
       )
       return data.data

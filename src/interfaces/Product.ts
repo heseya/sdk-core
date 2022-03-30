@@ -42,7 +42,6 @@ export interface ProductDto {
   price: number
   description_html: string
   description_short: string
-  digital: boolean
   public: boolean
   quantity_step: number
   sets: UUID[]
