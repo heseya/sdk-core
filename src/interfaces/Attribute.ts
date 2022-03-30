@@ -7,6 +7,7 @@ import { UUID } from './UUID'
 
 export enum AttributeType {
   SingleOption = 'single-option',
+  MultiChoiceOption = 'multi-choice-option',
   Number = 'number',
   Date = 'date',
 }
@@ -35,8 +36,8 @@ interface AttributeBase {
 // ? ---------------------------------------------------------------
 
 // DtoHelper
-type MakeAttributeDto<Attr, Option> = Omit<Attr, 'id' | 'min' | 'max' | 'options'> & {
-  options: (Option & { id?: UUID })[]
+type MakeAttributeDto<Attr, OptionDto> = Omit<Attr, 'id' | 'min' | 'max' | 'options'> & {
+  options: (OptionDto & { id?: UUID })[]
 }
 
 // * Single Option -------------------------------------------------
@@ -52,7 +53,22 @@ interface AttributeSingleOption extends AttributeBase {
   max: null
   options: AttributeSingleOptionOption[]
 }
-type AttributeSingleOptionDto = MakeAttributeDto<AttributeSingleOption, AttributeSingleOptionOption>
+type AttributeSingleOptionDto = MakeAttributeDto<
+  AttributeSingleOption,
+  AttributeSingleOptionOptionDto
+>
+
+// * Multi Option --------------------------------------------------------
+type AttributeMultiOptionOption = AttributeSingleOptionOption
+type AttributeMultiOptionOptionDto = AttributeSingleOptionOptionDto
+
+interface AttributeMultiOption extends AttributeBase {
+  type: AttributeType.MultiChoiceOption
+  min: null
+  max: null
+  options: AttributeMultiOptionOption[]
+}
+type AttributeMultiOptionDto = MakeAttributeDto<AttributeMultiOption, AttributeMultiOptionOptionDto>
 
 // * Number --------------------------------------------------------
 interface AttributeNumberOption extends AttributeOptionBase {
@@ -67,14 +83,14 @@ interface AttributeNumber extends AttributeBase {
   max: number
   options: AttributeNumberOption[]
 }
-type AttributeNumberDto = MakeAttributeDto<AttributeNumber, AttributeNumberOption>
+type AttributeNumberDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionDto>
 
 // * Date ----------------------------------------------------------
 interface AttributeDateOption extends AttributeOptionBase {
   value_number: null
   value_date: string // Date
 }
-type AttributeDateOptionDto = Omit<AttributeDateOption, 'id' | 'index'>
+type AttributeDateOptionDto = Omit<AttributeDateOption, 'id' | 'index'> | { id?: UUID }
 
 interface AttributeDate extends AttributeBase {
   type: AttributeType.Date
@@ -82,7 +98,7 @@ interface AttributeDate extends AttributeBase {
   max: string // Date
   options: AttributeDateOption[]
 }
-type AttributeDateDto = MakeAttributeDto<AttributeDate, AttributeDateOption>
+type AttributeDateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionDto>
 
 // ? ---------------------------------------------------------------
 // ? SUMMARY
@@ -90,17 +106,23 @@ type AttributeDateDto = MakeAttributeDto<AttributeDate, AttributeDateOption>
 
 export type AttributeOption =
   | AttributeSingleOptionOption
+  | AttributeMultiOptionOption
   | AttributeNumberOption
   | AttributeDateOption
 
-export type AttributeOptionDto =
-  | AttributeSingleOptionOptionDto
-  | AttributeNumberOptionDto
-  | AttributeDateOptionDto
+export type AttributeOptionDto = Omit<AttributeOptionBase, 'id' | 'index'> & { id?: UUID }
 
-export type Attribute = AttributeSingleOption | AttributeNumber | AttributeDate
+export type Attribute =
+  | AttributeSingleOption
+  | AttributeMultiOption
+  | AttributeNumber
+  | AttributeDate
 
-export type AttributeDto = AttributeSingleOptionDto | AttributeNumberDto | AttributeDateDto
+export type AttributeDto =
+  | AttributeSingleOptionDto
+  | AttributeMultiOptionDto
+  | AttributeNumberDto
+  | AttributeDateDto
 
 // ? ---------------------------------------------------------------
 // ? Attributes in products
@@ -108,7 +130,7 @@ export type AttributeDto = AttributeSingleOptionDto | AttributeNumberDto | Attri
 
 export interface ProductListAttribute {
   name: string
-  selected_option: AttributeOption
+  selected_options: AttributeOption[]
 }
 
 interface ProductAttributeBase extends ProductListAttribute {
@@ -119,18 +141,23 @@ interface ProductAttributeBase extends ProductListAttribute {
 
 interface ProductAttributeSingleOption extends ProductAttributeBase {
   type: AttributeType.SingleOption
-  selected_option: AttributeSingleOptionOption
+  selected_options: AttributeSingleOptionOption[]
+}
+interface ProductAttributeMultiOption extends ProductAttributeBase {
+  type: AttributeType.MultiChoiceOption
+  selected_options: AttributeSingleOptionOption[]
 }
 interface ProductAttributeNumber extends ProductAttributeBase {
   type: AttributeType.Number
-  selected_option: AttributeNumberOption
+  selected_options: AttributeNumberOption[]
 }
 interface ProductAttributeDate extends ProductAttributeBase {
   type: AttributeType.Date
-  selected_option: AttributeDateOption
+  selected_options: AttributeDateOption[]
 }
 
 export type ProductAttribute =
   | ProductAttributeSingleOption
+  | ProductAttributeMultiOption
   | ProductAttributeNumber
   | ProductAttributeDate

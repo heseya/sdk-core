@@ -7,11 +7,13 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { PackagesTemplate, PackagesTemplateDto } from '../../../interfaces/PackagesTemplate'
 
+type PackagesTemplatesListParams = PaginationParams & MetadataParams
+
 export type PackagesTemplatesService = Omit<
-  CrudService<PackagesTemplate, PackagesTemplate, PackagesTemplateDto, PaginationParams>,
+  CrudService<PackagesTemplate, PackagesTemplate, PackagesTemplateDto, PackagesTemplatesListParams>,
   'getOneBySlug' | 'getOne'
 > &
   EntityMetadataService

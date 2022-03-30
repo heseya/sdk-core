@@ -9,7 +9,7 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import {
   ShippingCountry,
   ShippingMethod,
@@ -19,7 +19,7 @@ import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface ShippingMethodsParams extends PaginationParams {
+interface ShippingMethodsParams extends PaginationParams, MetadataParams {
   country?: string
   cart_value?: number
 }

@@ -50,5 +50,8 @@ export interface ProductDto {
   schemas: UUID[]
   media: UUID[]
   seo: SeoMetadataDto
-  attributes: Record<UUID, UUID>
+  /**
+   * Attribute.id -> AttributeOption.id[]
+   */
+  attributes: Record<UUID, UUID[]>
 }

@@ -7,11 +7,13 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { App, CreateAppDto } from '../../../interfaces'
 
+type AppsListParams = MetadataParams & PaginationParams
+
 export type AppsService = Omit<
-  CrudService<App, App, CreateAppDto, PaginationParams>,
+  CrudService<App, App, CreateAppDto, AppsListParams>,
   'update' | 'getOneBySlug'
 > &
   EntityMetadataService

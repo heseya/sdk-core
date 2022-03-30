@@ -9,13 +9,15 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { Role, RoleDto } from '../../../interfaces/Role'
 import { PermissionEntry } from '../../../interfaces'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
+type RolesListParams = PaginationParams & MetadataParams
+
 export interface RolesService
-  extends Omit<CrudService<Role, Role, RoleDto, PaginationParams>, 'getOneBySlug'>,
+  extends Omit<CrudService<Role, Role, RoleDto, RolesListParams>, 'getOneBySlug'>,
     EntityMetadataService,
     EntityAuditsService<Role> {
   getPermissions: (params: { assignable?: boolean }) => Promise<PermissionEntry[]>

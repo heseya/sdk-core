@@ -7,7 +7,7 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { PaginationParams, SearchParam } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import {
   CreateEntityRequest,
   DeleteEntityRequest,
@@ -19,7 +19,7 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { CreateUserDto, UpdateUserDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface UsersListParams extends SearchParam, PaginationParams {
+interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
   sort?: string
 }

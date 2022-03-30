@@ -7,15 +7,17 @@ import {
 } from '../utils/requests'
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { PaginationParams } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { OrderStatus, OrderStatusDto } from '../../../interfaces/OrderStatus'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
+type OrderStatusesListParams = MetadataParams & PaginationParams
+
 export interface OrderStatusesService
   extends Omit<
-      CrudService<OrderStatus, OrderStatus, OrderStatusDto, PaginationParams>,
+      CrudService<OrderStatus, OrderStatus, OrderStatusDto, OrderStatusesListParams>,
       'getOneBySlug' | 'getOne'
     >,
     EntityMetadataService,
