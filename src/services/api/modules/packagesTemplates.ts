@@ -8,12 +8,22 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
-import { PackagesTemplate, PackagesTemplateDto } from '../../../interfaces/PackagesTemplate'
+import {
+  PackagesTemplate,
+  PackagesTemplateCreateDto,
+  PackagesTemplateUpdateDto,
+} from '../../../interfaces/PackagesTemplate'
 
 type PackagesTemplatesListParams = PaginationParams & MetadataParams
 
 export type PackagesTemplatesService = Omit<
-  CrudService<PackagesTemplate, PackagesTemplate, PackagesTemplateDto, PackagesTemplatesListParams>,
+  CrudService<
+    PackagesTemplate,
+    PackagesTemplate,
+    PackagesTemplateCreateDto,
+    PackagesTemplateUpdateDto,
+    PackagesTemplatesListParams
+  >,
   'getOneBySlug' | 'getOne'
 > &
   EntityMetadataService

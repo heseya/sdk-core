@@ -9,7 +9,7 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import { Schema, SchemaDto, SchemaList } from '../../../interfaces/Schema'
+import { Schema, SchemaCreateDto, SchemaUpdateDto, SchemaList } from '../../../interfaces/Schema'
 
 interface SchemasListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
@@ -19,7 +19,7 @@ interface SchemasListParams extends SearchParam, PaginationParams, MetadataParam
 }
 
 export type SchemasService = Omit<
-  CrudService<SchemaList, Schema, SchemaDto, SchemasListParams>,
+  CrudService<Schema, SchemaList, SchemaCreateDto, SchemaUpdateDto, SchemasListParams>,
   'getOneBySlug'
 > &
   EntityMetadataService

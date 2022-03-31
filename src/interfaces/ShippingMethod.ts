@@ -25,7 +25,7 @@ export interface ShippingMethod extends MetadataFields {
   shipping_time_min: number
 }
 
-export interface ShippingMethodDto {
+export interface ShippingMethodCreateDto {
   name: string
   public: boolean
   black_list: boolean
@@ -36,3 +36,4 @@ export interface ShippingMethodDto {
   shipping_time_max: number
   shipping_time_min: number
 }
+export type ShippingMethodUpdateDto = ShippingMethodCreateDto

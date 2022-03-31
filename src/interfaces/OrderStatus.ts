@@ -23,4 +23,5 @@ export interface OrderStatus extends MetadataFields {
   no_notifications: boolean
 }
 
-export type OrderStatusDto = Omit<OrderStatus, 'id' | keyof MetadataFields>
+export type OrderStatusCreateDto = Omit<OrderStatus, 'id' | keyof MetadataFields>
+export type OrderStatusUpdateDto = OrderStatusCreateDto

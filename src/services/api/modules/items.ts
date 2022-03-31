@@ -10,7 +10,8 @@ import {
 
 import {
   WarehouseItem,
-  WarehouseItemDto,
+  WarehouseItemCreateDto,
+  WarehouseItemUpdateDto,
   WarehouseDeposit,
   WarehouseDepositDto,
 } from '../../../interfaces/WarehouseItem'
@@ -49,12 +50,12 @@ export interface WarehouseService
   /**
    * Create a new warehouse item
    */
-  createItem: CreateEntityRequest<WarehouseItem, WarehouseItemDto>
+  createItem: CreateEntityRequest<WarehouseItem, WarehouseItemCreateDto>
 
   /**
    * Update the warehouse item
    */
-  updateItem: UpdateEntityRequest<WarehouseItem, WarehouseItemDto>
+  updateItem: UpdateEntityRequest<WarehouseItem, WarehouseItemUpdateDto>
 
   /**
    * Delete the warehouse item

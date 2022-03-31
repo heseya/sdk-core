@@ -13,7 +13,8 @@ import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import {
   ShippingCountry,
   ShippingMethod,
-  ShippingMethodDto,
+  ShippingMethodCreateDto,
+  ShippingMethodUpdateDto,
 } from '../../../interfaces/ShippingMethod'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
@@ -26,7 +27,13 @@ interface ShippingMethodsParams extends PaginationParams, MetadataParams {
 
 export interface ShippingMethodsService
   extends Omit<
-      CrudService<ShippingMethod, ShippingMethod, ShippingMethodDto, ShippingMethodsParams>,
+      CrudService<
+        ShippingMethod,
+        ShippingMethod,
+        ShippingMethodCreateDto,
+        ShippingMethodUpdateDto,
+        ShippingMethodsParams
+      >,
       'getOneBySlug'
     >,
     EntityMetadataService,

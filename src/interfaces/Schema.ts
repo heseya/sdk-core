@@ -60,6 +60,7 @@ export interface SchemaOptionDto extends Omit<SchemaOption, 'id' | 'items' | key
   items: UUID[]
 }
 
-export interface SchemaDto extends Omit<Schema, 'id' | 'options' | keyof MetadataFields> {
+export interface SchemaCreateDto extends Omit<Schema, 'id' | 'options' | keyof MetadataFields> {
   options: SchemaOptionDto[]
 }
+export type SchemaUpdateDto = SchemaCreateDto

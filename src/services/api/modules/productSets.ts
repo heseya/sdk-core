@@ -7,7 +7,12 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { ProductSet, ProductSetList } from '../../../interfaces/ProductSet'
+import {
+  ProductSet,
+  ProductSetList,
+  ProductSetCreateDto,
+  ProductSetUpdateDto,
+} from '../../../interfaces/ProductSet'
 import { DefaultParams, MetadataParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { ReorderEntityRequest } from '../types/Reorder'
@@ -24,7 +29,13 @@ interface ProductSetsListParams extends SearchParam, MetadataParams {
 }
 
 export interface ProductSetsService
-  extends CrudService<ProductSet, ProductSetList, ProductSetsListParams>,
+  extends CrudService<
+      ProductSet,
+      ProductSetList,
+      ProductSetCreateDto,
+      ProductSetUpdateDto,
+      ProductSetsListParams
+    >,
     EntityMetadataService {
   reorder: ReorderEntityRequest
   reorderChild: (parentId: UUID, ids: UUID[], params?: DefaultParams) => Promise<true>

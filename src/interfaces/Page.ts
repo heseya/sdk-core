@@ -20,4 +20,5 @@ export interface Page extends PageList {
   seo?: SeoMetadata
 }
 
-export type PageDto = Omit<Page, 'id'>
+export type PageCreateDto = Omit<Page, 'id'>
+export type PageUpdateDto = PageCreateDto

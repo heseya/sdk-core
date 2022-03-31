@@ -18,7 +18,8 @@ import {
 export interface CrudService<
   Entity,
   ListEntity = Entity,
-  EntityDto = Entity,
+  EntityCreateDto = Entity,
+  EntityUpdateDto = Partial<EntityCreateDto>,
   GetParams = DefaultParams,
 > {
   /**
@@ -39,12 +40,12 @@ export interface CrudService<
   /**
    * Create a new entity
    */
-  create: CreateEntityRequest<Entity, EntityDto>
+  create: CreateEntityRequest<Entity, EntityCreateDto>
 
   /**
    * Update the entity
    */
-  update: UpdateEntityRequest<Entity, EntityDto>
+  update: UpdateEntityRequest<Entity, EntityUpdateDto>
 
   /**
    * Delete the entity

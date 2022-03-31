@@ -22,7 +22,7 @@ export interface App extends MetadataFields {
   permissions: Permission[]
 }
 
-export interface CreateAppDto {
+export interface AppCreateDto {
   url: string
   name?: string // [TODO]
   licence_key: string

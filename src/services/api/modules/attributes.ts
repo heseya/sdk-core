@@ -9,7 +9,8 @@ import {
 
 import {
   Attribute,
-  AttributeDto,
+  AttributeCreateDto,
+  AttributeUpdateDto,
   AttributeOption,
   AttributeOptionDto,
 } from '../../../interfaces/Attribute'
@@ -18,7 +19,10 @@ import { HeseyaResponse } from '../../..'
 import { PaginationParams } from '../types/DefaultParams'
 
 export interface AttributesService
-  extends Omit<CrudService<Attribute, Attribute, AttributeDto, PaginationParams>, 'getOneBySlug'> {
+  extends Omit<
+    CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, PaginationParams>,
+    'getOneBySlug'
+  > {
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,

@@ -9,7 +9,12 @@ import {
 } from '../utils/requests'
 
 import { UUID } from '../../../interfaces/UUID'
-import { Product, ProductList, ProductDto } from '../../../interfaces/Product'
+import {
+  Product,
+  ProductList,
+  ProductCreateDto,
+  ProductUpdateDto,
+} from '../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
@@ -36,7 +41,7 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
 }
 
 export interface ProductsService
-  extends CrudService<Product, ProductList, ProductDto, ProductsListParams>,
+  extends CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
     EntityMetadataService,
     EntityAuditsService<Product> {
   getFilters(props?: { sets: UUID[] }): Promise<Attribute[]>

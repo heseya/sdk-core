@@ -10,8 +10,10 @@ export interface Role extends MetadataFields {
   permissions: Permission[]
 }
 
-export interface RoleDto {
+export interface RoleCreateDto {
   name: string
   description: string
   permissions: Permission[]
 }
+
+export type RoleUpdateDto = RoleCreateDto

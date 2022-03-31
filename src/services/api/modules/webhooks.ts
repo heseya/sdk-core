@@ -8,7 +8,12 @@ import {
   createPostRequest,
 } from '../utils/requests'
 import { GetEntityRequest } from '../types/Requests'
-import { WebhookEntry, WebhookEntryDto, WebhookEventEntry } from '../../../interfaces/Webhook'
+import {
+  WebhookEntry,
+  WebhookEntryCreateDto,
+  WebhookEntryUpdateDto,
+  WebhookEventEntry,
+} from '../../../interfaces/Webhook'
 import { PaginationParams } from '../types/DefaultParams'
 
 interface WebhooksListParams extends PaginationParams {
@@ -18,7 +23,13 @@ interface WebhooksListParams extends PaginationParams {
 
 export interface WebhooksService
   extends Omit<
-    CrudService<WebhookEntry, WebhookEntry, WebhookEntryDto, WebhooksListParams>,
+    CrudService<
+      WebhookEntry,
+      WebhookEntry,
+      WebhookEntryCreateDto,
+      WebhookEntryUpdateDto,
+      WebhooksListParams
+    >,
     'getOneBySlug'
   > {
   /**

@@ -19,4 +19,5 @@ export interface DiscountCode extends MetadataFields {
   expires_at: string | null
 }
 
-export type DiscountCodeDto = Omit<DiscountCode, 'id' | 'uses'>
+export type DiscountCodeCreateDto = Omit<DiscountCode, 'id' | 'uses'>
+export type DiscountCodeUpdateDto = DiscountCodeCreateDto

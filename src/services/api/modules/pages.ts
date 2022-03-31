@@ -7,7 +7,7 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { Page, PageDto, PageList } from '../../../interfaces/Page'
+import { Page, PageCreateDto, PageUpdateDto, PageList } from '../../../interfaces/Page'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { ReorderEntityRequest } from '../types/Reorder'
@@ -17,7 +17,7 @@ import { createEntityAuditsService, EntityAuditsService } from './audits'
 type PagesListParams = PaginationParams & MetadataParams
 
 export interface PagesService
-  extends CrudService<Page, PageList, PageDto, PagesListParams>,
+  extends CrudService<Page, PageList, PageCreateDto, PageUpdateDto, PagesListParams>,
     EntityMetadataService,
     EntityAuditsService<Page> {
   reorder: ReorderEntityRequest
