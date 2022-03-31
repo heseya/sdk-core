@@ -32,6 +32,13 @@ export enum AuthPermission {
   SessionsRevoke = 'auth.sessions.revoke',
 }
 
+export enum AttributesPermission {
+  Show = 'attributes.show',
+  Add = 'attributes.add',
+  Edit = 'attributes.edit',
+  Remove = 'attributes.remove',
+}
+
 export enum ProductSetsPermission {
   Show = 'product_sets.show',
   ShowDetails = 'product_sets.show_details',
@@ -188,6 +195,7 @@ export type Permission =
   | AnalyticsPermission
   | AppsPermission
   | AuthPermission
+  | AttributesPermission
   | ProductSetsPermission
   | CountriesPermission
   | ShippingMethodsPermission
