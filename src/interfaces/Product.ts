@@ -5,7 +5,7 @@ import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
 import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
 
 export interface ProductList extends MetadataFields {
@@ -36,7 +36,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   attributes: ProductAttribute[]
 }
 
-export interface ProductCreateDto {
+export interface ProductCreateDto extends CreateMetadataFields {
   name: string
   slug: string
   price: number
@@ -55,4 +55,4 @@ export interface ProductCreateDto {
   attributes: Record<UUID, UUID[]>
 }
 
-export type ProductUpdateDto = ProductCreateDto
+export type ProductUpdateDto = Omit<ProductCreateDto, keyof CreateMetadataFields>

@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { CreateMetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
 // ? ---------------------------------------------------------------
@@ -11,14 +12,14 @@ export enum AttributeType {
   Number = 'number',
   Date = 'date',
 }
-interface AttributeOptionBase {
+interface AttributeOptionBase extends CreateMetadataFields {
   id: UUID
   index: number
   name: string
   value_number: number | null
   value_date: string | null // Date
 }
-interface AttributeBase {
+interface AttributeBase extends CreateMetadataFields {
   id: UUID
   name: string
   slug: string
@@ -46,7 +47,10 @@ interface AttributeSingleOptionOption extends AttributeOptionBase {
   value_date: null
 }
 type AttributeSingleOptionOptionCreateDto = Omit<AttributeSingleOptionOption, 'id' | 'index'>
-type AttributeSingleOptionOptionUpdateDto = AttributeSingleOptionOptionCreateDto
+type AttributeSingleOptionOptionUpdateDto = Omit<
+  AttributeSingleOptionOptionCreateDto,
+  keyof CreateMetadataFields
+>
 
 interface AttributeSingleOption extends AttributeBase {
   type: AttributeType.SingleOption
@@ -59,14 +63,17 @@ type AttributeSingleOptionCreateDto = MakeAttributeDto<
   AttributeSingleOptionOptionCreateDto
 >
 type AttributeSingleOptionUpdateDto = MakeAttributeDto<
-  AttributeSingleOption,
+  Omit<AttributeSingleOption, keyof CreateMetadataFields>,
   AttributeSingleOptionOptionUpdateDto
 >
 
 // * Multi Option --------------------------------------------------------
 type AttributeMultiOptionOption = AttributeSingleOptionOption
-type AttributeMultiOptionOptionCreateDto = AttributeSingleOptionOptionCreateDto
-type AttributeMultiOptionOptionUpdateDto = AttributeMultiOptionOptionCreateDto
+type AttributeMultiOptionOptionCreateDto = Omit<AttributeMultiOptionOption, 'id' | 'index'>
+type AttributeMultiOptionOptionUpdateDto = Omit<
+  AttributeMultiOptionOptionCreateDto,
+  keyof CreateMetadataFields
+>
 
 interface AttributeMultiOption extends AttributeBase {
   type: AttributeType.MultiChoiceOption
@@ -79,7 +86,7 @@ type AttributeMultiOptionCreateDto = MakeAttributeDto<
   AttributeMultiOptionOptionCreateDto
 >
 type AttributeMultiOptionUpdateDto = MakeAttributeDto<
-  AttributeMultiOption,
+  Omit<AttributeMultiOption, keyof CreateMetadataFields>,
   AttributeMultiOptionOptionUpdateDto
 >
 
@@ -89,7 +96,10 @@ interface AttributeNumberOption extends AttributeOptionBase {
   value_date: null
 }
 type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index'>
-type AttributeNumberOptionUpdateDto = AttributeNumberOptionCreateDto
+type AttributeNumberOptionUpdateDto = Omit<
+  AttributeNumberOptionCreateDto,
+  keyof CreateMetadataFields
+>
 
 interface AttributeNumber extends AttributeBase {
   type: AttributeType.Date
@@ -98,15 +108,19 @@ interface AttributeNumber extends AttributeBase {
   options: AttributeNumberOption[]
 }
 type AttributeNumberCreateDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionCreateDto>
-type AttributeNumberUpdateDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionUpdateDto>
+type AttributeNumberUpdateDto = MakeAttributeDto<
+  Omit<AttributeNumber, keyof CreateMetadataFields>,
+  AttributeNumberOptionUpdateDto
+>
 
 // * Date ----------------------------------------------------------
 interface AttributeDateOption extends AttributeOptionBase {
   value_number: null
   value_date: string // Date
 }
-type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'> | { id?: UUID }
-type AttributeDateOptionUpdateDto = AttributeDateOptionCreateDto
+type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'>
+type AttributeDateOptionUpdateDto = Omit<AttributeDateOptionCreateDto, keyof CreateMetadataFields>
+
 interface AttributeDate extends AttributeBase {
   type: AttributeType.Date
   min: string // Date
@@ -114,7 +128,10 @@ interface AttributeDate extends AttributeBase {
   options: AttributeDateOption[]
 }
 type AttributeDateCreateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionCreateDto>
-type AttributeDateUpdateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionUpdateDto>
+type AttributeDateUpdateDto = MakeAttributeDto<
+  Omit<AttributeDate, keyof CreateMetadataFields>,
+  AttributeDateOptionUpdateDto
+>
 
 // ? ---------------------------------------------------------------
 // ? SUMMARY
