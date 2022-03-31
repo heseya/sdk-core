@@ -23,3 +23,12 @@ export interface ProductSet extends ProductSetList {
   attributes: Attribute[]
   seo: SeoMetadata | null
 }
+
+export interface ProductSetDto
+  extends Omit<
+    ProductSetList,
+    'id' | 'cover' | 'parent' | 'children' | 'attributes' | keyof MetadataFields
+  > {
+  cover_id: string | null
+  attributes: UUID[]
+}

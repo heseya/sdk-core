@@ -15,7 +15,13 @@ interface PaymentMethodsParams extends PaginationParams {
 }
 
 export type PaymentMethodsService = Omit<
-  CrudService<PaymentMethod, PaymentMethod, PaymentMethodDto, PaymentMethodsParams>,
+  CrudService<
+    PaymentMethod,
+    PaymentMethod,
+    PaymentMethodDto,
+    PaymentMethodDto,
+    PaymentMethodsParams
+  >,
   'getOneBySlug' | 'getOne'
 >
 

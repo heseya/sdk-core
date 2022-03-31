@@ -19,7 +19,7 @@ interface SchemasListParams extends SearchParam, PaginationParams, MetadataParam
 }
 
 export type SchemasService = Omit<
-  CrudService<SchemaList, Schema, SchemaDto, SchemasListParams>,
+  CrudService<SchemaList, Schema, SchemaDto, SchemaDto, SchemasListParams>,
   'getOneBySlug'
 > &
   EntityMetadataService

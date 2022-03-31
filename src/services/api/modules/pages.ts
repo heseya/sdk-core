@@ -17,7 +17,7 @@ import { createEntityAuditsService, EntityAuditsService } from './audits'
 type PagesListParams = PaginationParams & MetadataParams
 
 export interface PagesService
-  extends CrudService<Page, PageList, PageDto, PagesListParams>,
+  extends CrudService<Page, PageList, PageDto, PageDto, PagesListParams>,
     EntityMetadataService,
     EntityAuditsService<Page> {
   reorder: ReorderEntityRequest

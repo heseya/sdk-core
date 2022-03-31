@@ -7,7 +7,10 @@ import { createDeleteRequest, createPatchRequest, createPostRequest } from '../u
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface SettingsService
-  extends Omit<CrudService<Setting, Setting, SettingDto>, 'getOne' | 'getOneBySlug' | 'get'>,
+  extends Omit<
+      CrudService<Setting, Setting, SettingDto, SettingDto>,
+      'getOne' | 'getOneBySlug' | 'get'
+    >,
     EntityAuditsService<Setting> {
   /**
    * Returns the list of settings

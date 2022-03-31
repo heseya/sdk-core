@@ -13,7 +13,7 @@ import { App, CreateAppDto } from '../../../interfaces'
 type AppsListParams = MetadataParams & PaginationParams
 
 export type AppsService = Omit<
-  CrudService<App, App, CreateAppDto, AppsListParams>,
+  CrudService<App, App, CreateAppDto, never, AppsListParams>,
   'update' | 'getOneBySlug'
 > &
   EntityMetadataService

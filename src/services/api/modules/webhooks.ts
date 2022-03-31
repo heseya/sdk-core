@@ -18,7 +18,7 @@ interface WebhooksListParams extends PaginationParams {
 
 export interface WebhooksService
   extends Omit<
-    CrudService<WebhookEntry, WebhookEntry, WebhookEntryDto, WebhooksListParams>,
+    CrudService<WebhookEntry, WebhookEntry, WebhookEntryDto, WebhookEntryDto, WebhooksListParams>,
     'getOneBySlug'
   > {
   /**

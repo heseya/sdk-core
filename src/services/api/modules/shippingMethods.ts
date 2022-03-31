@@ -26,7 +26,13 @@ interface ShippingMethodsParams extends PaginationParams, MetadataParams {
 
 export interface ShippingMethodsService
   extends Omit<
-      CrudService<ShippingMethod, ShippingMethod, ShippingMethodDto, ShippingMethodsParams>,
+      CrudService<
+        ShippingMethod,
+        ShippingMethod,
+        ShippingMethodDto,
+        ShippingMethodDto,
+        ShippingMethodsParams
+      >,
       'getOneBySlug'
     >,
     EntityMetadataService,

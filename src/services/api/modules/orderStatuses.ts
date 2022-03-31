@@ -17,7 +17,13 @@ type OrderStatusesListParams = MetadataParams & PaginationParams
 
 export interface OrderStatusesService
   extends Omit<
-      CrudService<OrderStatus, OrderStatus, OrderStatusDto, OrderStatusesListParams>,
+      CrudService<
+        OrderStatus,
+        OrderStatus,
+        OrderStatusDto,
+        OrderStatusDto,
+        OrderStatusesListParams
+      >,
       'getOneBySlug' | 'getOne'
     >,
     EntityMetadataService,

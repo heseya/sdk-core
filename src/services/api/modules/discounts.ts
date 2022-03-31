@@ -18,7 +18,7 @@ interface DiscountsListParams extends SearchParam, PaginationParams, MetadataPar
 }
 
 export type DiscountsService = Omit<
-  CrudService<DiscountCode, DiscountCode, DiscountCodeDto, DiscountsListParams>,
+  CrudService<DiscountCode, DiscountCode, DiscountCodeDto, DiscountCodeDto, DiscountsListParams>,
   'getOne'
 > &
   EntityMetadataService &

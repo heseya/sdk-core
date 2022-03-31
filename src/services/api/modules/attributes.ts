@@ -18,7 +18,10 @@ import { HeseyaResponse } from '../../..'
 import { PaginationParams } from '../types/DefaultParams'
 
 export interface AttributesService
-  extends Omit<CrudService<Attribute, Attribute, AttributeDto, PaginationParams>, 'getOneBySlug'> {
+  extends Omit<
+    CrudService<Attribute, Attribute, AttributeDto, AttributeDto, PaginationParams>,
+    'getOneBySlug'
+  > {
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,

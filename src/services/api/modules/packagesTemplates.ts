@@ -13,7 +13,13 @@ import { PackagesTemplate, PackagesTemplateDto } from '../../../interfaces/Packa
 type PackagesTemplatesListParams = PaginationParams & MetadataParams
 
 export type PackagesTemplatesService = Omit<
-  CrudService<PackagesTemplate, PackagesTemplate, PackagesTemplateDto, PackagesTemplatesListParams>,
+  CrudService<
+    PackagesTemplate,
+    PackagesTemplate,
+    PackagesTemplateDto,
+    PackagesTemplateDto,
+    PackagesTemplatesListParams
+  >,
   'getOneBySlug' | 'getOne'
 > &
   EntityMetadataService

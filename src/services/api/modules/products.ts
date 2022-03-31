@@ -24,7 +24,13 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   available?: boolean
 }
 
-export type ProductsService = CrudService<Product, ProductList, ProductDto, ProductsListParams> &
+export type ProductsService = CrudService<
+  Product,
+  ProductList,
+  ProductDto,
+  ProductDto,
+  ProductsListParams
+> &
   EntityMetadataService &
   EntityAuditsService<Product>
 

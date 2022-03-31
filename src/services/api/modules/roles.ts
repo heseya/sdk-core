@@ -17,7 +17,7 @@ import { createEntityAuditsService, EntityAuditsService } from './audits'
 type RolesListParams = PaginationParams & MetadataParams
 
 export interface RolesService
-  extends Omit<CrudService<Role, Role, RoleDto, RolesListParams>, 'getOneBySlug'>,
+  extends Omit<CrudService<Role, Role, RoleDto, RoleDto, RolesListParams>, 'getOneBySlug'>,
     EntityMetadataService,
     EntityAuditsService<Role> {
   getPermissions: (params: { assignable?: boolean }) => Promise<PermissionEntry[]>

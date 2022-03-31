@@ -10,7 +10,7 @@ import { PaginationParams } from '../types/DefaultParams'
 import { Tag, TagDto } from '../../../interfaces/Tag'
 
 export type TagsService = Omit<
-  CrudService<Tag, Tag, TagDto, PaginationParams>,
+  CrudService<Tag, Tag, TagDto, TagDto, PaginationParams>,
   'getOneBySlug' | 'getOne'
 >
 
