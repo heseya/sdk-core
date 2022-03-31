@@ -19,7 +19,7 @@ type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
 type AttributeFilter = Record<
   string,
-  string | string[] | DateAttributeFilterValue | NumberAttributeFilterValue
+  number | number[] | DateAttributeFilterValue | NumberAttributeFilterValue
 >
 
 interface ProductsListParams extends SearchParam, PaginationParams, MetadataParams {
