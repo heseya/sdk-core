@@ -8,7 +8,8 @@ export interface WarehouseItem extends MetadataFields {
   quantity: number
 }
 
-export type WarehouseItemDto = Omit<WarehouseItem, 'id'>
+export type WarehouseItemCreateDto = Omit<WarehouseItem, 'id'>
+export type WarehouseItemUpdateDto = WarehouseItemCreateDto
 
 /**
  * ? Deposits

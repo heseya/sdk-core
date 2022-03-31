@@ -6,3 +6,8 @@ export interface MetadataFields {
   metadata: Metadata
   metadata_private?: Metadata
 }
+
+export interface CreateMetadataFields {
+  metadata?: Metadata
+  metadata_private?: Metadata
+}

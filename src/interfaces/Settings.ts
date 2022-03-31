@@ -8,6 +8,7 @@ export interface Setting {
   permanent: boolean
 }
 
-export type SettingDto = Omit<Setting, 'id'>
+export type SettingCreateDto = Omit<Setting, 'id'>
+export type SettingUpdateDto = SettingCreateDto
 
 export type SettingsRecord = Record<string, string | number>

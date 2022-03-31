@@ -36,7 +36,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   attributes: ProductAttribute[]
 }
 
-export interface ProductDto {
+export interface ProductCreateDto {
   name: string
   slug: string
   price: number
@@ -54,3 +54,5 @@ export interface ProductDto {
    */
   attributes: Record<UUID, UUID[]>
 }
+
+export type ProductUpdateDto = ProductCreateDto

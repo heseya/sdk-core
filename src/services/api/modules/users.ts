@@ -16,7 +16,7 @@ import {
   UpdateEntityRequest,
 } from '../types/Requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { CreateUserDto, UpdateUserDto, User, UserList } from '../../../interfaces/User'
+import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
@@ -38,12 +38,12 @@ export interface UsersService extends EntityMetadataService, EntityAuditsService
   /**
    * Create a new user
    */
-  create: CreateEntityRequest<User, CreateUserDto>
+  create: CreateEntityRequest<User, UserCreateDto>
 
   /**
    * Update the user
    */
-  update: UpdateEntityRequest<User, UpdateUserDto>
+  update: UpdateEntityRequest<User, UserUpdateDto>
 
   /**
    * Delete the user

@@ -36,7 +36,8 @@ export interface WebhookEntry {
   logs: WebhookLogEntry[]
 }
 
-export type WebhookEntryDto = Omit<WebhookEntry, 'id' | 'logs'>
+export type WebhookEntryCreateDto = Omit<WebhookEntry, 'id' | 'logs'>
+export type WebhookEntryUpdateDto = WebhookEntryCreateDto
 
 /**
  * -----------------------------------------------------------------------------

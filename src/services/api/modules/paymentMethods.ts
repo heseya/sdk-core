@@ -7,7 +7,11 @@ import {
 } from '../utils/requests'
 
 import { UUID } from '../../../interfaces/UUID'
-import { PaymentMethod, PaymentMethodDto } from '../../../interfaces/PaymentMethod'
+import {
+  PaymentMethod,
+  PaymentMethodCreateDto,
+  PaymentMethodUpdateDto,
+} from '../../../interfaces/PaymentMethod'
 import { PaginationParams } from '../types/DefaultParams'
 
 interface PaymentMethodsParams extends PaginationParams {
@@ -18,8 +22,8 @@ export type PaymentMethodsService = Omit<
   CrudService<
     PaymentMethod,
     PaymentMethod,
-    PaymentMethodDto,
-    PaymentMethodDto,
+    PaymentMethodCreateDto,
+    PaymentMethodUpdateDto,
     PaymentMethodsParams
   >,
   'getOneBySlug' | 'getOne'

@@ -24,7 +24,7 @@ export interface ProductSet extends ProductSetList {
   seo: SeoMetadata | null
 }
 
-export interface ProductSetDto
+export interface ProductSetCreateDto
   extends Omit<
     ProductSetList,
     'id' | 'cover' | 'parent' | 'children' | 'attributes' | keyof MetadataFields
@@ -32,3 +32,5 @@ export interface ProductSetDto
   cover_id: string | null
   attributes: UUID[]
 }
+
+export type ProductSetUpdateDto = ProductSetCreateDto

@@ -1,5 +1,10 @@
 import { HeseyaPaginatedResponse } from '../../../interfaces/Response'
-import { Setting, SettingDto, SettingsRecord } from '../../../interfaces/Settings'
+import {
+  Setting,
+  SettingCreateDto,
+  SettingUpdateDto,
+  SettingsRecord,
+} from '../../../interfaces/Settings'
 import { ListResponse } from '../../../interfaces/Response'
 import { CrudService, ServiceFactory } from '../types/Service'
 import { normalizePagination } from '../utils/normalizePagination'
@@ -8,7 +13,7 @@ import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 export interface SettingsService
   extends Omit<
-      CrudService<Setting, Setting, SettingDto, SettingDto>,
+      CrudService<Setting, Setting, SettingCreateDto, SettingUpdateDto>,
       'getOne' | 'getOneBySlug' | 'get'
     >,
     EntityAuditsService<Setting> {

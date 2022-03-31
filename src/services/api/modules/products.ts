@@ -8,7 +8,12 @@ import {
 } from '../utils/requests'
 
 import { UUID } from '../../../interfaces/UUID'
-import { Product, ProductList, ProductDto } from '../../../interfaces/Product'
+import {
+  Product,
+  ProductList,
+  ProductCreateDto,
+  ProductUpdateDto,
+} from '../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
@@ -27,8 +32,8 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
 export type ProductsService = CrudService<
   Product,
   ProductList,
-  ProductDto,
-  ProductDto,
+  ProductCreateDto,
+  ProductUpdateDto,
   ProductsListParams
 > &
   EntityMetadataService &

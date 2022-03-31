@@ -21,12 +21,12 @@ export interface User extends UserList {
   invoice_addresses: UserSavedAddress[]
 }
 
-export interface UpdateUserDto {
+export interface UserUpdateDto {
   name: string
   email: string
   roles: UUID[]
 }
 
-export interface CreateUserDto extends UpdateUserDto {
+export interface UserCreateDto extends UserUpdateDto {
   password: string
 }

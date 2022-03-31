@@ -8,7 +8,11 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
-import { OrderStatus, OrderStatusDto } from '../../../interfaces/OrderStatus'
+import {
+  OrderStatus,
+  OrderStatusCreateDto,
+  OrderStatusUpdateDto,
+} from '../../../interfaces/OrderStatus'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
@@ -20,8 +24,8 @@ export interface OrderStatusesService
       CrudService<
         OrderStatus,
         OrderStatus,
-        OrderStatusDto,
-        OrderStatusDto,
+        OrderStatusCreateDto,
+        OrderStatusUpdateDto,
         OrderStatusesListParams
       >,
       'getOneBySlug' | 'getOne'

@@ -6,4 +6,5 @@ export interface Tag {
   color: string
 }
 
-export type TagDto = Omit<Tag, 'id'>
+export type TagCreateDto = Omit<Tag, 'id'>
+export type TagUpdateDto = TagCreateDto

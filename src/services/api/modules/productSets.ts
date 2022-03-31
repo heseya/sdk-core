@@ -7,7 +7,12 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { ProductSet, ProductSetList, ProductSetDto } from '../../../interfaces/ProductSet'
+import {
+  ProductSet,
+  ProductSetList,
+  ProductSetCreateDto,
+  ProductSetUpdateDto,
+} from '../../../interfaces/ProductSet'
 import { DefaultParams, MetadataParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { ReorderEntityRequest } from '../types/Reorder'
@@ -27,8 +32,8 @@ export interface ProductSetsService
   extends CrudService<
       ProductSet,
       ProductSetList,
-      ProductSetDto,
-      ProductSetDto,
+      ProductSetCreateDto,
+      ProductSetUpdateDto,
       ProductSetsListParams
     >,
     EntityMetadataService {

@@ -9,4 +9,5 @@ export interface PackagesTemplate {
   depth: number
 }
 
-export type PackagesTemplateDto = Omit<PackagesTemplate, 'id'>
+export type PackagesTemplateCreateDto = Omit<PackagesTemplate, 'id'>
+export type PackagesTemplateUpdateDto = PackagesTemplateCreateDto

@@ -9,7 +9,11 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import { DiscountCode, DiscountCodeDto } from '../../../interfaces/DiscountCode'
+import {
+  DiscountCode,
+  DiscountCodeCreateDto,
+  DiscountCodeUpdateDto,
+} from '../../../interfaces/DiscountCode'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface DiscountsListParams extends SearchParam, PaginationParams, MetadataParams {
@@ -18,7 +22,13 @@ interface DiscountsListParams extends SearchParam, PaginationParams, MetadataPar
 }
 
 export type DiscountsService = Omit<
-  CrudService<DiscountCode, DiscountCode, DiscountCodeDto, DiscountCodeDto, DiscountsListParams>,
+  CrudService<
+    DiscountCode,
+    DiscountCode,
+    DiscountCodeCreateDto,
+    DiscountCodeUpdateDto,
+    DiscountsListParams
+  >,
   'getOne'
 > &
   EntityMetadataService &

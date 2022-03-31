@@ -9,7 +9,8 @@ import {
 
 import {
   Attribute,
-  AttributeDto,
+  AttributeCreateDto,
+  AttributeUpdateDto,
   AttributeOption,
   AttributeOptionDto,
 } from '../../../interfaces/Attribute'
@@ -19,7 +20,7 @@ import { PaginationParams } from '../types/DefaultParams'
 
 export interface AttributesService
   extends Omit<
-    CrudService<Attribute, Attribute, AttributeDto, AttributeDto, PaginationParams>,
+    CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, PaginationParams>,
     'getOneBySlug'
   > {
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>

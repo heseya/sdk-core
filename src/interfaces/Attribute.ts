@@ -45,7 +45,8 @@ interface AttributeSingleOptionOption extends AttributeOptionBase {
   value_number: null
   value_date: null
 }
-type AttributeSingleOptionOptionDto = Omit<AttributeSingleOptionOption, 'id' | 'index'>
+type AttributeSingleOptionOptionCreateDto = Omit<AttributeSingleOptionOption, 'id' | 'index'>
+type AttributeSingleOptionOptionUpdateDto = AttributeSingleOptionOptionCreateDto
 
 interface AttributeSingleOption extends AttributeBase {
   type: AttributeType.SingleOption
@@ -53,14 +54,19 @@ interface AttributeSingleOption extends AttributeBase {
   max: null
   options: AttributeSingleOptionOption[]
 }
-type AttributeSingleOptionDto = MakeAttributeDto<
+type AttributeSingleOptionCreateDto = MakeAttributeDto<
   AttributeSingleOption,
-  AttributeSingleOptionOptionDto
+  AttributeSingleOptionOptionCreateDto
+>
+type AttributeSingleOptionUpdateDto = MakeAttributeDto<
+  AttributeSingleOption,
+  AttributeSingleOptionOptionUpdateDto
 >
 
 // * Multi Option --------------------------------------------------------
 type AttributeMultiOptionOption = AttributeSingleOptionOption
-type AttributeMultiOptionOptionDto = AttributeSingleOptionOptionDto
+type AttributeMultiOptionOptionCreateDto = AttributeSingleOptionOptionCreateDto
+type AttributeMultiOptionOptionUpdateDto = AttributeMultiOptionOptionCreateDto
 
 interface AttributeMultiOption extends AttributeBase {
   type: AttributeType.MultiChoiceOption
@@ -68,14 +74,22 @@ interface AttributeMultiOption extends AttributeBase {
   max: null
   options: AttributeMultiOptionOption[]
 }
-type AttributeMultiOptionDto = MakeAttributeDto<AttributeMultiOption, AttributeMultiOptionOptionDto>
+type AttributeMultiOptionCreateDto = MakeAttributeDto<
+  AttributeMultiOption,
+  AttributeMultiOptionOptionCreateDto
+>
+type AttributeMultiOptionUpdateDto = MakeAttributeDto<
+  AttributeMultiOption,
+  AttributeMultiOptionOptionUpdateDto
+>
 
 // * Number --------------------------------------------------------
 interface AttributeNumberOption extends AttributeOptionBase {
   value_number: number
   value_date: null
 }
-type AttributeNumberOptionDto = Omit<AttributeNumberOption, 'id' | 'index'>
+type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index'>
+type AttributeNumberOptionUpdateDto = AttributeNumberOptionCreateDto
 
 interface AttributeNumber extends AttributeBase {
   type: AttributeType.Date
@@ -83,22 +97,24 @@ interface AttributeNumber extends AttributeBase {
   max: number
   options: AttributeNumberOption[]
 }
-type AttributeNumberDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionDto>
+type AttributeNumberCreateDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionCreateDto>
+type AttributeNumberUpdateDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionUpdateDto>
 
 // * Date ----------------------------------------------------------
 interface AttributeDateOption extends AttributeOptionBase {
   value_number: null
   value_date: string // Date
 }
-type AttributeDateOptionDto = Omit<AttributeDateOption, 'id' | 'index'> | { id?: UUID }
-
+type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'> | { id?: UUID }
+type AttributeDateOptionUpdateDto = AttributeDateOptionCreateDto
 interface AttributeDate extends AttributeBase {
   type: AttributeType.Date
   min: string // Date
   max: string // Date
   options: AttributeDateOption[]
 }
-type AttributeDateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionDto>
+type AttributeDateCreateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionCreateDto>
+type AttributeDateUpdateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionUpdateDto>
 
 // ? ---------------------------------------------------------------
 // ? SUMMARY
@@ -118,11 +134,17 @@ export type Attribute =
   | AttributeNumber
   | AttributeDate
 
-export type AttributeDto =
-  | AttributeSingleOptionDto
-  | AttributeMultiOptionDto
-  | AttributeNumberDto
-  | AttributeDateDto
+export type AttributeCreateDto =
+  | AttributeSingleOptionCreateDto
+  | AttributeMultiOptionCreateDto
+  | AttributeNumberCreateDto
+  | AttributeDateCreateDto
+
+export type AttributeUpdateDto =
+  | AttributeSingleOptionUpdateDto
+  | AttributeMultiOptionUpdateDto
+  | AttributeNumberUpdateDto
+  | AttributeDateUpdateDto
 
 // ? ---------------------------------------------------------------
 // ? Attributes in products

@@ -7,7 +7,8 @@ export interface PaymentMethod {
   public: boolean
 }
 
-export type PaymentMethodDto = Omit<PaymentMethod, 'id'>
+export type PaymentMethodCreateDto = Omit<PaymentMethod, 'id'>
+export type PaymentMethodUpdateDto = PaymentMethodCreateDto
 
 export interface Payment {
   id: UUID
