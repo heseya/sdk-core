@@ -1,4 +1,4 @@
-import FormData from 'form-data'
+import { FormData } from 'formdata-polyfill'
 
 import { CdnMedia, CdnMediaUpdateDto } from '../../../interfaces/CdnMedia'
 import { DeleteEntityRequest, UpdateEntityRequest } from '../types/Requests'
@@ -10,7 +10,7 @@ export interface MediaService extends EntityMetadataService {
   /**
    * Allows a user to create the Media.
    */
-  create: (file: File | Buffer) => Promise<CdnMedia>
+  create: (file: File) => Promise<CdnMedia>
   /**
    * Allows a user to create the Media.
    */

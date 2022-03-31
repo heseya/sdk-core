@@ -5,5 +5,5 @@
     "module": "es2015",
     "importHelpers": true
   },
-  "include": ["src", "typings"]
+  "include": ["src", "types"]
 }

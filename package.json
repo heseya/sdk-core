@@ -1,6 +1,6 @@
 {
   "name": "@heseya/store-core",
-  "version": "2.3.0-beta.4",
+  "version": "2.3.0-beta.6",
   "author": {
     "name": "Heseya"
   },
@@ -8,8 +8,7 @@
   "main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [],
   "scripts": {
@@ -31,7 +30,7 @@
     "@types/flat": "^5.0.2",
     "array-to-tree": "^3.3.2",
     "flat": "^5.0.2",
-    "form-data": "^4.0.0",
+    "formdata-polyfill": "^4.0.10",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "query-string": "^7.1.1",
