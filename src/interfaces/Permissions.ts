@@ -64,12 +64,19 @@ export enum DepositsPermission {
   Add = 'deposits.add',
 }
 
-export enum DiscountsPermission {
-  Show = 'discounts.show',
-  ShowDetails = 'discounts.show_details',
-  Add = 'discounts.add',
-  Edit = 'discounts.edit',
-  Remove = 'discounts.remove',
+export enum CouponsPermission {
+  Show = 'coupons.show',
+  ShowDetails = 'coupons.show_details',
+  Add = 'coupons.add',
+  Edit = 'coupons.edit',
+  Remove = 'coupons.remove',
+}
+
+export enum SalesPermission {
+  Show = 'sales.show',
+  Add = 'sales.add',
+  Edit = 'sales.edit',
+  Remove = 'sales.remove',
 }
 
 export enum ItemsPermission {
@@ -200,7 +207,8 @@ export type Permission =
   | CountriesPermission
   | ShippingMethodsPermission
   | DepositsPermission
-  | DiscountsPermission
+  | CouponsPermission
+  | SalesPermission
   | ItemsPermission
   | SchemasPermission
   | CartPermission

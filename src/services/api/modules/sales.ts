@@ -9,36 +9,25 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import {
-  DiscountCode,
-  DiscountCodeCreateDto,
-  DiscountCodeUpdateDto,
-} from '../../../interfaces/DiscountCode'
+import { Sale, SaleCreateDto, SaleUpdateDto } from '../../../interfaces/SalesAndCoupons'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
-interface DiscountsListParams extends SearchParam, PaginationParams, MetadataParams {
-  code?: string
+interface SalesListParams extends SearchParam, PaginationParams, MetadataParams {
   description?: string
 }
 
-export type DiscountsService = Omit<
-  CrudService<
-    DiscountCode,
-    DiscountCode,
-    DiscountCodeCreateDto,
-    DiscountCodeUpdateDto,
-    DiscountsListParams
-  >,
-  'getOne'
+export type SalesService = Omit<
+  CrudService<Sale, Sale, SaleCreateDto, SaleUpdateDto, SalesListParams>,
+  'getOneBySlug'
 > &
   EntityMetadataService &
-  EntityAuditsService<DiscountCode>
+  EntityAuditsService<Sale>
 
-export const createDiscountsService: ServiceFactory<DiscountsService> = (axios) => {
-  const route = 'discounts'
+export const createSalesService: ServiceFactory<SalesService> = (axios) => {
+  const route = 'sales'
   return {
     get: createGetListRequest(axios, route),
-    getOneBySlug: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),

@@ -7,6 +7,8 @@ import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
+import { CartItemSchemaValue } from './CartItem'
+import { OrderDiscount, Sale } from './SalesAndCoupons'
 
 export interface ProductList extends MetadataFields {
   id: UUID
@@ -16,6 +18,8 @@ export interface ProductList extends MetadataFields {
   price: number
   price_max: number
   price_min: number
+  min_price_discounted: number
+  max_price_discounted: number
   quantity_step: number
   tags: Tag[]
   public: boolean
@@ -29,6 +33,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   description_short: string
   // @deprecated
   meta_description: string
+  sales: Sale[]
   sets: ProductSet[]
   schemas: Schema[]
   gallery: CdnMedia[]
@@ -56,3 +61,16 @@ export interface ProductCreateDto extends CreateMetadataFields {
 }
 
 export type ProductUpdateDto = Omit<ProductCreateDto, keyof CreateMetadataFields>
+
+//? ------------------------------------------------------------
+
+export interface OrderProduct {
+  id: UUID
+  quantity: number
+  price: number
+  price_initial: number
+  discounts: OrderDiscount[]
+  product: Product
+  schemas: CartItemSchemaValue[]
+  deposits: unknown[] // TODO: type
+}
