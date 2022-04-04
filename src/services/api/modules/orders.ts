@@ -1,12 +1,5 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
-import {
-  OrderSummary,
-  OrderList,
-  Order,
-  OrderDto,
-  OrderUpdateDto,
-  OrderStatusUpdateDto,
-} from '../../../interfaces/Order'
+import { OrderSummary, OrderList, Order, OrderDto, OrderUpdateDto } from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
 
 import { ServiceFactory } from '../types/Service'
@@ -29,6 +22,7 @@ import {
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
 export interface OrdersListParams extends SearchParam, PaginationParams, MetadataParams {
   sort?: string
@@ -61,7 +55,12 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
   get: GetEntityRequest<OrderList, OrdersListParams>
   create: CreateEntityRequest<Order, OrderDto>
   update: UpdateEntityRequest<Order, OrderUpdateDto>
-  updateStatus: UpdateEntityRequest<Order, OrderStatusUpdateDto>
+  updateStatus: UpdateEntityRequest<
+    Order,
+    {
+      status_id: UUID
+    }
+  >
 }
 
 export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {

@@ -75,7 +75,3 @@ export interface OrderUpdateDto {
   delivery_address?: Address
   invoice_address?: Address
 }
-
-export interface OrderStatusUpdateDto {
-  status_id: UUID
-}
