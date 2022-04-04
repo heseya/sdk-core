@@ -65,6 +65,21 @@ export type CouponUpdateDto = CouponCreateDto
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
+export interface SalesShort {
+  id: UUID
+  name: string
+  /**
+   * Amount by which it reduced the value of the entire contract
+   */
+  value: number
+}
+
+export interface CouponShort extends SalesShort {
+  code: string
+}
+
+// ? ---------------------------------------------------------------------------------------------------------------
+
 export interface OrderDiscount {
   id: UUID
   discount_id: UUID
