@@ -26,7 +26,6 @@ export interface ProductSet extends ProductSetList {
 
 export interface ProductSetCreateDto extends CreateMetadataFields {
   name: string
-  slug: string
   slug_suffix: string
   slug_override: boolean
   public?: boolean
