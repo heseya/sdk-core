@@ -3,6 +3,7 @@ import {
   createDeleteRequest,
   createGetListRequest,
   createGetOneRequest,
+  createGetSimpleListRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -17,6 +18,14 @@ import {
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { Attribute } from '../../../interfaces'
+
+type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
+type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
+type AttributeFilter = Record<
+  string,
+  number | number[] | DateAttributeFilterValue | NumberAttributeFilterValue
+>
 
 interface ProductsListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
@@ -27,17 +36,16 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   tags?: UUID[]
   ids?: UUID[]
   available?: boolean
+  attribute?: AttributeFilter
+  price?: NumberAttributeFilterValue
 }
 
-export type ProductsService = CrudService<
-  Product,
-  ProductList,
-  ProductCreateDto,
-  ProductUpdateDto,
-  ProductsListParams
-> &
-  EntityMetadataService &
-  EntityAuditsService<Product>
+export interface ProductsService
+  extends CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
+    EntityMetadataService,
+    EntityAuditsService<Product> {
+  getFilters(props?: { sets: UUID[] }): Promise<Attribute[]>
+}
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
   const route = 'products'
@@ -48,6 +56,9 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    getFilters: createGetSimpleListRequest(axios, 'filters'),
+
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
   }
