@@ -23,6 +23,7 @@ export interface AttributesService
     CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, PaginationParams>,
     'getOneBySlug'
   > {
+  getOptions(attributeId: UUID): Promise<AttributeOption[]>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,
@@ -35,6 +36,13 @@ export interface AttributesService
 export const createAttributesService: ServiceFactory<AttributesService> = (axios) => {
   const route = 'attributes'
   return {
+    async getOptions(attributeId) {
+      const { data } = await axios.get<HeseyaResponse<AttributeOption[]>>(
+        `/attributes/id:${attributeId}/options`,
+      )
+      return data.data
+    },
+
     async addOption(attributeId, option) {
       const { data } = await axios.post<HeseyaResponse<AttributeOption>>(
         `/attributes/id:${attributeId}/options`,

@@ -37,6 +37,7 @@ export enum AttributesPermission {
   Add = 'attributes.add',
   Edit = 'attributes.edit',
   Remove = 'attributes.remove',
+  ShowMetadataPrivate = 'attributes.show_metadata_private',
 }
 
 export enum ProductSetsPermission {
@@ -46,6 +47,7 @@ export enum ProductSetsPermission {
   Add = 'product_sets.add',
   Edit = 'product_sets.edit',
   Remove = 'product_sets.remove',
+  ShowMetadataPrivate = 'product_sets.show_metadata_private',
 }
 
 export enum CountriesPermission {
@@ -57,6 +59,7 @@ export enum ShippingMethodsPermission {
   Add = 'shipping_methods.add',
   Edit = 'shipping_methods.edit',
   Remove = 'shipping_methods.remove',
+  ShowMetadataPrivate = 'shipping_methods.show_metadata_private',
 }
 
 export enum DepositsPermission {
@@ -70,6 +73,7 @@ export enum DiscountsPermission {
   Add = 'discounts.add',
   Edit = 'discounts.edit',
   Remove = 'discounts.remove',
+  ShowMetadataPrivate = 'discounts.show_metadata_private',
 }
 
 export enum ItemsPermission {
@@ -78,10 +82,12 @@ export enum ItemsPermission {
   Add = 'items.add',
   Edit = 'items.edit',
   Remove = 'items.remove',
+  ShowMetadataPrivate = 'items.show_metadata_private',
 }
 
 export enum SchemasPermission {
   Remove = 'schemas.remove',
+  ShowMetadataPrivate = 'schemas.show_metadata_private',
 }
 
 export enum CartPermission {
@@ -95,6 +101,7 @@ export enum OrdersPermission {
   ShowHidden = 'orders.show_summary',
   Edit = 'orders.edit',
   EditStatus = 'orders.edit.status',
+  ShowMetadataPrivate = 'orders.show_metadata_private',
 }
 
 export enum PackagesPermission {
@@ -102,6 +109,7 @@ export enum PackagesPermission {
   Add = 'packages.add',
   Edit = 'packages.edit',
   Remove = 'packages.remove',
+  ShowMetadataPrivate = 'packages.show_metadata_private',
 }
 
 export enum PagesPermission {
@@ -111,6 +119,7 @@ export enum PagesPermission {
   Add = 'pages.add',
   Edit = 'pages.edit',
   Remove = 'pages.remove',
+  ShowMetadataPrivate = 'pages.show_metadata_private',
 }
 
 export enum PaymentsPermission {
@@ -133,6 +142,7 @@ export enum ProductsPermission {
   Add = 'products.add',
   Edit = 'products.edit',
   Remove = 'products.remove',
+  ShowMetadataPrivate = 'products.show_metadata_private',
 }
 
 export enum SettingsPermission {
@@ -142,6 +152,7 @@ export enum SettingsPermission {
   Add = 'settings.add',
   Edit = 'settings.edit',
   Remove = 'settings.remove',
+  ShowMetadataPrivate = 'settings.show_metadata_private',
 }
 
 export enum StatusesPermission {
@@ -149,6 +160,7 @@ export enum StatusesPermission {
   Add = 'statuses.add',
   Edit = 'statuses.edit',
   Remove = 'statuses.remove',
+  ShowMetadataPrivate = 'statuses.show_metadata_private',
 }
 
 export enum TagsPermission {
@@ -156,6 +168,7 @@ export enum TagsPermission {
   Add = 'tags.add',
   Edit = 'tags.edit',
   Remove = 'tags.remove',
+  ShowMetadataPrivate = 'tags.show_metadata_private',
 }
 
 export enum UsersPermission {
@@ -165,6 +178,7 @@ export enum UsersPermission {
   Edit = 'users.edit',
   Remove = 'users.remove',
   TfaRemove = 'users.2fa_remove',
+  ShowMetadataPrivate = 'users.show_metadata_private',
 }
 
 export enum RolesPermission {
@@ -173,6 +187,7 @@ export enum RolesPermission {
   Add = 'roles.add',
   Edit = 'roles.edit',
   Remove = 'roles.remove',
+  ShowMetadataPrivate = 'roles.show_metadata_private',
 }
 
 export enum SeoPermission {
@@ -184,6 +199,7 @@ export enum WebhooksPermission {
   Add = 'webhooks.add',
   Edit = 'webhooks.edit',
   Remove = 'webhooks.remove',
+  ShowMetadataPrivate = 'webhooks.show_metadata_private',
 }
 
 // -------------------------------------------------------------
