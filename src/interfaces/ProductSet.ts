@@ -24,11 +24,19 @@ export interface ProductSet extends ProductSetList {
   seo: SeoMetadata | null
 }
 
-export interface ProductSetCreateDto
-  extends Omit<ProductSetList, 'id' | 'cover' | 'parent' | 'children' | 'attributes' | 'metadata'>,
-    CreateMetadataFields {
-  cover_id: string | null
-  attributes: UUID[]
+export interface ProductSetCreateDto extends CreateMetadataFields {
+  name: string
+  slug: string
+  slug_suffix: string
+  slug_override: boolean
+  public?: boolean
+  hide_on_index?: boolean
+  parent_id?: UUID
+  children_ids?: UUID[]
+  description_html?: string
+  cover_id?: UUID
+  attributes?: UUID[]
+  seo?: SeoMetadata
 }
 
 export type ProductSetUpdateDto = Omit<ProductSetCreateDto, keyof CreateMetadataFields>
