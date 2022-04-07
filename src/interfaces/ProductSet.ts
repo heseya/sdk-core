@@ -6,21 +6,23 @@ import { UUID } from './UUID'
 
 export interface ProductSetList extends MetadataFields {
   id: UUID
-  slug: string
   name: string
+  slug: string
+  slug_suffix: string
+  slug_override: boolean
   cover: CdnMedia | null
   public: boolean
   visible: boolean
   hide_on_index: boolean
+  attributes: Attribute[]
   parent?: ProductSet | null
   parent_id?: string | null
   children?: ProductSet[]
-  children_ids?: string[]
+  children_ids?: UUID[]
 }
 
 export interface ProductSet extends ProductSetList {
   description_html: string
-  attributes: Attribute[]
   seo: SeoMetadata | null
 }
 
