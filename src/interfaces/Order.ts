@@ -6,6 +6,7 @@ import { OrderCartItem } from './CartItem'
 import { MetadataFields } from './Metadata'
 import { ShippingMethod } from './ShippingMethod'
 import { OrderStatus } from './OrderStatus'
+import { OrderDocument } from './OrderDocuments'
 
 export interface OrderPayment {
   id: UUID
@@ -32,6 +33,7 @@ export interface OrderList extends MetadataFields {
   status: OrderStatus
   summary: number
   summary_paid: number
+  documents: OrderDocument[]
 }
 export interface Order extends OrderList {
   discounts: DiscountCode[]
