@@ -16,14 +16,17 @@ import {
 } from '../../../interfaces/Attribute'
 import { UUID } from '../../../interfaces/UUID'
 import { HeseyaResponse } from '../../..'
-import { PaginationParams } from '../types/DefaultParams'
+import { MetadataParams, PaginationParams } from '../types/DefaultParams'
+import { stringifyQueryParams } from '../utils/stringifyQueryParams'
+
+type AttributeParams = PaginationParams & MetadataParams
 
 export interface AttributesService
   extends Omit<
-    CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, PaginationParams>,
+    CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, AttributeParams>,
     'getOneBySlug'
   > {
-  getOptions(attributeId: UUID): Promise<AttributeOption[]>
+  getOptions(attributeId: UUID, params?: MetadataParams): Promise<AttributeOption[]>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,
@@ -36,9 +39,10 @@ export interface AttributesService
 export const createAttributesService: ServiceFactory<AttributesService> = (axios) => {
   const route = 'attributes'
   return {
-    async getOptions(attributeId) {
+    async getOptions(attributeId, params) {
+      const stringParams = stringifyQueryParams(params || {})
       const { data } = await axios.get<HeseyaResponse<AttributeOption[]>>(
-        `/attributes/id:${attributeId}/options`,
+        `/attributes/id:${attributeId}/options?${stringParams}`,
       )
       return data.data
     },
