@@ -33,6 +33,13 @@ export interface UserCreateDto extends UserUpdateDto {
   password: string
 }
 
+export interface UserRegisterDto {
+  name: string
+  email: string
+  password: string
+  consents: UserConsentDto
+}
+
 export interface UserProfileUpdateDto {
   name: string
   // notification settings here
