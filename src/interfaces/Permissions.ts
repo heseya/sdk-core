@@ -73,6 +73,7 @@ export enum CouponsPermission {
   Add = 'coupons.add',
   Edit = 'coupons.edit',
   Remove = 'coupons.remove',
+  ShowMetadataPrivate = 'coupons.show_metadata_private',
 }
 
 export enum SalesPermission {
@@ -80,6 +81,7 @@ export enum SalesPermission {
   Add = 'sales.add',
   Edit = 'sales.edit',
   Remove = 'sales.remove',
+  ShowMetadataPrivate = 'sales.show_metadata_private',
 }
 
 export enum ItemsPermission {
