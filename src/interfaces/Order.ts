@@ -1,11 +1,11 @@
 import { UUID } from './UUID'
-import { DiscountCode } from './DiscountCode'
-import { CartItem } from '../models/CartItem'
 import { Address } from './Address'
 import { OrderCartItem } from './CartItem'
 import { MetadataFields } from './Metadata'
 import { ShippingMethod } from './ShippingMethod'
 import { OrderStatus } from './OrderStatus'
+import { OrderProduct } from './Product'
+import { OrderDiscount } from './SalesAndCoupons'
 
 export interface OrderPayment {
   id: UUID
@@ -28,17 +28,41 @@ export interface OrderList extends MetadataFields {
   email: string
   paid: boolean
   shipping_method: ShippingMethod
-  shipping_price: number
   status: OrderStatus
+  /**
+   * Basket value without discounts
+   */
+  cart_total_initial: number
+  /**
+   * Basket value after discounts
+   */
+  cart_total: number
+
+  /**
+   * Shipping price without discounts
+   */
+  shipping_price_initial: number
+  /**
+   * Shipping price after discounts
+   */
+  shipping_price: number
+
+  /**
+   * Total order value after discounts
+   */
   summary: number
+  /**
+   * Amount already paid by client
+   */
   summary_paid: number
 }
+
 export interface Order extends OrderList {
-  discounts: DiscountCode[]
+  discounts: OrderDiscount[]
   invoice_address: Address
   payable: boolean
   payments: OrderPayment[]
-  products: CartItem[]
+  products: OrderProduct[]
   shipping_number?: string
 }
 

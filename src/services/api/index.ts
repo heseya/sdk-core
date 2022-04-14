@@ -20,7 +20,8 @@ import { createTagsService } from './modules/tags'
 import { createOrderStatusesService } from './modules/orderStatuses'
 import { createRolesService } from './modules/roles'
 import { createUsersService } from './modules/users'
-import { createDiscountsService } from './modules/discounts'
+import { createSalesService } from './modules/sales'
+import { createCouponsService } from './modules/coupons'
 import { createSchemasService } from './modules/schema'
 import { createAnalyticsService } from './modules/analytics'
 
@@ -51,7 +52,8 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Warehouse: createWarehouseService(axios),
   Attributes: createAttributesService(axios),
   Pages: createPagesService(axios),
-  Discounts: createDiscountsService(axios),
+  Sales: createSalesService(axios),
+  Coupons: createCouponsService(axios),
   Orders: createOrdersService(axios),
   OrderStatuses: createOrderStatusesService(axios),
   ShippingMethods: createShippingMethodsService(axios),

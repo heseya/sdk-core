@@ -23,6 +23,7 @@ import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
+import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 
 export interface OrdersListParams extends SearchParam, PaginationParams, MetadataParams {
   sort?: string
@@ -46,6 +47,17 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
   getPaymentMethods(
     code: string,
   ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethod[]; code: string }>
+
+  /**
+   * Process cart by checking warehouse stock, sales and calculate total items price
+   *
+   * If any of the products is unavailable, it is not returned in the `items` array.
+   *
+   * If any of the discount codes does not exist/is invalid, it is not returned in the `coupons` array.
+   *
+   * Sales are applied automatically where possible.
+   */
+  processCart(cart: CartDto): Promise<ProcessedCart>
 
   /**
    * Returns the order summary with the given code
@@ -79,6 +91,14 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       })
 
       return data.redirect_url
+    },
+
+    async processCart(cart) {
+      const {
+        data: { data },
+      } = await axios.post<HeseyaResponse<ProcessedCart>>(`cart/process`, cart)
+
+      return data
     },
 
     async getPaymentMethods(code: string) {
