@@ -40,6 +40,14 @@ export enum AttributesPermission {
   ShowMetadataPrivate = 'attributes.show_metadata_private',
 }
 
+export enum BannersPermission {
+  Show = 'banners.show',
+  Add = 'banners.add',
+  Edit = 'banners.edit',
+  Remove = 'banners.remove',
+  ShowMetadataPrivate = 'banners.show_metadata_private',
+}
+
 export enum ProductSetsPermission {
   Show = 'product_sets.show',
   ShowDetails = 'product_sets.show_details',
@@ -220,6 +228,7 @@ export type Permission =
   | AppsPermission
   | AuthPermission
   | AttributesPermission
+  | BannersPermission
   | ProductSetsPermission
   | CountriesPermission
   | ShippingMethodsPermission
