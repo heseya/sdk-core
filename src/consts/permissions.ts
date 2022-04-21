@@ -28,6 +28,7 @@ import {
   SeoPermission,
   WebhooksPermission,
   AttributesPermission,
+  BannersPermission,
 } from '../interfaces/Permissions'
 
 export const PERMISSIONS_TREE = {
@@ -37,6 +38,7 @@ export const PERMISSIONS_TREE = {
   Auth: AuthPermission,
   Audits: AuditsPermission,
   Attributes: AttributesPermission,
+  Banners: BannersPermission,
   ProductSets: ProductSetsPermission,
   Countries: CountriesPermission,
   ShippingMethods: ShippingMethodsPermission,
