@@ -6,6 +6,7 @@ import { ShippingMethod } from './ShippingMethod'
 import { OrderStatus } from './OrderStatus'
 import { OrderProduct } from './Product'
 import { OrderDiscount } from './SalesAndCoupons'
+import { OrderDocument } from './OrderDocuments'
 
 export interface OrderPayment {
   id: UUID
@@ -55,6 +56,7 @@ export interface OrderList extends MetadataFields {
    * Amount already paid by client
    */
   summary_paid: number
+  documents: OrderDocument[]
 }
 
 export interface Order extends OrderList {

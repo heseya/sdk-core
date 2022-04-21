@@ -19,9 +19,11 @@ import {
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
+import { UUID } from '../../../interfaces/UUID'
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
 import { UUID } from '../../../interfaces/UUID'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 
@@ -73,6 +75,7 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
       status_id: UUID
     }
   >
+  Documents: OrderDocumentsService
 }
 
 export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
@@ -126,6 +129,8 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     get: createGetListRequest<OrderList>(axios, route),
     update: createPatchRequest(axios, route),
     create: createPostRequest(axios, route),
+
+    Documents: createOrderDocumentsService(axios),
 
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
