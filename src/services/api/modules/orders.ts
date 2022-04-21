@@ -1,6 +1,8 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { OrderSummary, OrderList, Order, OrderDto, OrderUpdateDto } from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
+import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
+import { UUID } from '../../../interfaces/UUID'
 
 import { ServiceFactory } from '../types/Service'
 import {
@@ -19,13 +21,10 @@ import {
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
-import { UUID } from '../../../interfaces/UUID'
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
-import { UUID } from '../../../interfaces/UUID'
-import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 
 export interface OrdersListParams extends SearchParam, PaginationParams, MetadataParams {
   sort?: string
