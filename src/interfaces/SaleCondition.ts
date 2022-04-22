@@ -28,6 +28,7 @@ export enum DiscountConditionType {
   MaxUsesPerUser = 'max-uses-per-user',
   WeekdayIn = 'weekday-in',
   CartLength = 'cart-length',
+  CouponsCount = 'coupons-count',
 }
 
 // ? ------------------------------------------------------------------------------------
@@ -128,6 +129,13 @@ export interface CartLengthDiscountConditionDto {
 }
 export type CartLengthDiscountCondition = CartLengthDiscountConditionDto & { id: UUID }
 
+export interface CouponsCountDiscountConditionDto {
+  type: DiscountConditionType.CouponsCount
+  min_value: number | null
+  max_value: number | null
+}
+export type CouponsCountDiscountCondition = CouponsCountDiscountConditionDto & { id: UUID }
+
 // ? ------------------------------------------------------------------------------------
 
 export type DiscountCondition =
@@ -142,6 +150,7 @@ export type DiscountCondition =
   | MaxUsesPerUserDiscountCondition
   | WeekdayInDiscountCondition
   | CartLengthDiscountCondition
+  | CouponsCountDiscountCondition
 
 export type DiscountConditionDto =
   | OrderValueDiscountConditionDto
@@ -155,3 +164,4 @@ export type DiscountConditionDto =
   | MaxUsesPerUserDiscountConditionDto
   | WeekdayInDiscountConditionDto
   | CartLengthDiscountConditionDto
+  | CouponsCountDiscountConditionDto
