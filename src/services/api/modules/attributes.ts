@@ -18,14 +18,21 @@ import { UUID } from '../../../interfaces/UUID'
 import { HeseyaResponse } from '../../..'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { stringifyQueryParams } from '../utils/stringifyQueryParams'
+import {
+  createEntityMetadataService,
+  createUpdateMetadataRequest,
+  EntityMetadataService,
+} from './metadata'
+import { Metadata, MetadataDto } from '../../../interfaces/Metadata'
 
 type AttributeParams = PaginationParams & MetadataParams
 
 export interface AttributesService
   extends Omit<
-    CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, AttributeParams>,
-    'getOneBySlug'
-  > {
+      CrudService<Attribute, Attribute, AttributeCreateDto, AttributeUpdateDto, AttributeParams>,
+      'getOneBySlug'
+    >,
+    EntityMetadataService {
   getOptions(attributeId: UUID, params?: MetadataParams): Promise<AttributeOption[]>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
@@ -33,6 +40,14 @@ export interface AttributesService
     optionId: UUID,
     option: AttributeOptionDto,
   ): Promise<AttributeOption>
+
+  updateOptionMetadata(attributeId: UUID, optionId: UUID, metadata: MetadataDto): Promise<Metadata>
+  updateOptionMetadataPrivate(
+    attributeId: UUID,
+    optionId: UUID,
+    metadata: MetadataDto,
+  ): Promise<Metadata>
+
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
 }
 
@@ -70,10 +85,28 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return true
     },
 
+    async updateOptionMetadata(attributeId, optionId, metadata) {
+      return await createUpdateMetadataRequest(
+        axios,
+        `${route}/id:${attributeId}/options`,
+        true,
+      )(optionId, metadata)
+    },
+
+    async updateOptionMetadataPrivate(attributeId, optionId, metadata) {
+      return await createUpdateMetadataRequest(
+        axios,
+        `${route}/id:${attributeId}/options`,
+        false,
+      )(optionId, metadata)
+    },
+
     get: createGetListRequest(axios, route),
     getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    ...createEntityMetadataService(axios, route),
   }
 }

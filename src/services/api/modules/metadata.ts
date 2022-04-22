@@ -15,7 +15,7 @@ export interface EntityMetadataService {
   updateMetadataPrivate: UpdateMetadataRequest
 }
 
-const createUpdateMetadataRequest =
+export const createUpdateMetadataRequest =
   (axios: AxiosInstance, entity: string, publicMetadata = true) =>
   async (entityId: UUID, metadata: MetadataDto): Promise<Metadata> => {
     const path = publicMetadata ? 'metadata' : 'metadata-private'
