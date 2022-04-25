@@ -18,8 +18,8 @@ export interface ProductList extends MetadataFields {
   price: number
   price_max: number
   price_min: number
-  min_price_discounted: number
-  max_price_discounted: number
+  price_max_initial: number
+  price_min_initial: number
   quantity_step: number
   tags: Tag[]
   public: boolean
@@ -31,8 +31,6 @@ export interface ProductList extends MetadataFields {
 export interface Product extends Omit<ProductList, 'attributes'> {
   description_html: string
   description_short: string
-  // @deprecated
-  meta_description: string
   sales: Sale[]
   sets: ProductSet[]
   schemas: Schema[]
