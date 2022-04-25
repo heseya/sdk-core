@@ -65,7 +65,7 @@ export type CouponUpdateDto = CouponCreateDto
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-export interface SalesShort {
+export interface SaleShort {
   id: UUID
   name: string
   /**
@@ -74,7 +74,7 @@ export interface SalesShort {
   value: number
 }
 
-export interface CouponShort extends SalesShort {
+export interface CouponShort extends SaleShort {
   code: string
 }
 

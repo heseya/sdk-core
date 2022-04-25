@@ -1,11 +1,12 @@
-import { Product } from './Product'
-import { SchemaOption, SchemaType } from './Schema'
+import { ProductList } from './Product'
+import { Schema, SchemaOption, SchemaType } from './Schema'
 import { UUID } from './UUID'
 
 export interface SavedCartItem {
   type: 'CartItem'
-  product: Product
+  product: ProductList
   qty: number
+  productSchemas: Schema[]
   schemas: CartItemSchema[]
   createdAt: number
 }

@@ -1,6 +1,6 @@
 import { UUID } from './UUID'
 import { CartItemSchemaValue } from './CartItem'
-import { CouponShort, SalesShort } from './SalesAndCoupons'
+import { CouponShort, SaleShort } from './SalesAndCoupons'
 
 interface CartItemDto {
   cartitem_id: string
@@ -30,5 +30,5 @@ export interface ProcessedCart {
   summary: number
   items: ProcessedCartItem[]
   coupons: CouponShort[]
-  sales: SalesShort[]
+  sales: SaleShort[]
 }

@@ -1,8 +1,8 @@
 import md5 from 'md5'
 import round from 'lodash/round'
 
-import { Product } from '../interfaces/Product'
-import { SchemaType } from '../interfaces/Schema'
+import { ProductList } from '../interfaces/Product'
+import { SchemaType, Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 import { SavedCartItem, CartItemSchema, OrderCartItem } from '../interfaces/CartItem'
 
@@ -10,20 +10,26 @@ export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
 
-  private product: Product
+  private precalculatedPrice: number | null = null
+  private precalculatedInitialPrice: number | null = null
+
+  private productSchemas: Schema[]
+  private product: ProductList
   private createdAt: number
 
   constructor(
-    product: Product,
+    product: ProductList,
     quantity = 1,
-    schemas: CartItemSchema[] = [],
+    schemas: Schema[] = [],
+    schemaValues: CartItemSchema[] = [],
     createdAt = Date.now(),
   ) {
     if (!product) throw new Error('[HS CartItem] Provided props are not valid')
 
     this.product = product
     this.qty = Number(quantity)
-    this.schemas = schemas
+    this.productSchemas = schemas
+    this.schemas = schemaValues
     this.createdAt = createdAt
   }
 
@@ -37,33 +43,27 @@ export class CartItem {
   }
 
   updateQuantity(newQuantity: number) {
-    return new CartItem(this.product, newQuantity, this.schemas, this.createdAt)
+    return new CartItem(
+      this.product,
+      newQuantity,
+      this.productSchemas,
+      this.schemas,
+      this.createdAt,
+    )
   }
 
   get id() {
     return md5(`${this.product.id}-${this.schemas.map((s) => [s.id, s.value].join('=')).join('&')}`)
   }
 
-  get totalPrice() {
-    return round(this.price * this.qty, 2)
-  }
-
   get name() {
     return this.product.name
   }
 
-  get descriptionHtml() {
-    return this.product.description_html
-  }
-  get descriptionShort() {
-    return this.product.description_short
-  }
-  // @deprecated
-  get descriptionText() {
-    return this.product.meta_description
-  }
-
+  // ? Singular prices
   get price() {
+    if (this.precalculatedPrice) return this.precalculatedPrice
+
     try {
       return round(this.product.price + calcSchemasPrice(this.schemas), 2)
     } catch (e: any) {
@@ -71,6 +71,31 @@ export class CartItem {
       console.error('[HS CartItem]', e.message)
       return round(this.product.price, 2)
     }
+  }
+
+  get initialPrice() {
+    return this.precalculatedInitialPrice || this.price
+  }
+
+  get discountValue() {
+    return round(this.initialPrice - this.price, 2)
+  }
+
+  // ? total prices
+  get totalPrice() {
+    return round(this.price * this.qty, 2)
+  }
+  get totalInitialPrice() {
+    return round(this.initialPrice * this.qty, 2)
+  }
+  get totalDiscountValue() {
+    return round(this.totalInitialPrice - this.totalPrice, 2)
+  }
+
+  setPrices(price: number, initialPrice: number) {
+    this.precalculatedPrice = price
+    this.precalculatedInitialPrice = initialPrice
+    return this
   }
 
   get cover() {
@@ -88,7 +113,7 @@ export class CartItem {
    */
   get variant() {
     return this.schemas.map((schemaValue) => {
-      const schema = this.product.schemas.find((s) => s.id === schemaValue.id)
+      const schema = this.productSchemas.find((s) => s.id === schemaValue.id)
       if (!schema) throw new Error('[HS CartItem] No schema for given schema value!')
 
       const value =
@@ -106,6 +131,7 @@ export class CartItem {
       product: this.product,
       qty: this.qty,
       schemas: this.schemas,
+      productSchemas: this.productSchemas,
       createdAt: this.createdAt,
     }
   }
