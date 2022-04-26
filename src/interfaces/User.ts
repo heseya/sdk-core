@@ -41,7 +41,7 @@ export interface UserRegisterDto {
 }
 
 export interface UserProfileUpdateDto {
-  name: string
+  name?: string
   // notification settings here
-  consents: UserConsentDto
+  consents?: UserConsentDto
 }
