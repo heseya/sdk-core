@@ -8,7 +8,11 @@ import { createTwoFactorAuthService, TwoFactorAuthService } from './twoFactorAut
 import { createGetListRequest, createGetOneRequest } from '../../utils/requests'
 import { GetEntityRequest, GetOneEntityRequest } from '../../types/Requests'
 import { OrdersListParams } from '../orders'
-import { UserSavedAddress } from '../../../../interfaces/Address'
+import {
+  UserSavedAddress,
+  UserSavedAddressCreateDto,
+  UserSavedAddressUpdateDto,
+} from '../../../../interfaces/Address'
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
 
@@ -26,12 +30,12 @@ export interface UserProfileService {
    */
   changePassword(payload: { currentPassword: string; newPassword: string }): Promise<true>
 
-  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddress>
-  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddress>
+  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddressCreateDto>
+  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddressUpdateDto>
   removeDeliveryAddress: DeleteEntityRequest
 
-  saveInviceAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddress>
-  updateInviceAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddress>
+  saveInviceAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddressCreateDto>
+  updateInviceAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddressUpdateDto>
   removeInviceAddress: DeleteEntityRequest
 
   Orders: {

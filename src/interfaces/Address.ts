@@ -12,8 +12,14 @@ export interface Address {
   zip: string
 }
 
-export interface UserSavedAddress {
+export interface UserSavedAddressCreateDto {
   default: boolean
   name: string
   address: Address
+}
+
+export type UserSavedAddressUpdateDto = UserSavedAddressCreateDto
+
+export interface UserSavedAddress extends UserSavedAddressCreateDto {
+  id: UUID
 }
