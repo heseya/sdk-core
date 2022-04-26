@@ -5,6 +5,7 @@ import { Permission } from './Permissions'
 
 import { UserSavedAddress } from './Address'
 import { MetadataFields } from './Metadata'
+import { UserConsent, UserConsentDto } from './Consent'
 
 export interface UserList extends MetadataFields {
   id: UUID
@@ -19,6 +20,7 @@ export interface User extends UserList {
   permissions: Permission[]
   delivery_addresses: UserSavedAddress[]
   invoice_addresses: UserSavedAddress[]
+  consents: UserConsent[]
 }
 
 export interface UserUpdateDto {
@@ -29,4 +31,17 @@ export interface UserUpdateDto {
 
 export interface UserCreateDto extends UserUpdateDto {
   password: string
+}
+
+export interface UserRegisterDto {
+  name: string
+  email: string
+  password: string
+  consents: UserConsentDto
+}
+
+export interface UserProfileUpdateDto {
+  name?: string
+  // notification settings here
+  consents?: UserConsentDto
 }

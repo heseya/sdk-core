@@ -1,5 +1,5 @@
 import { HeseyaResponse } from '../../../../interfaces/Response'
-import { User } from '../../../../interfaces/User'
+import { User, UserProfileUpdateDto } from '../../../../interfaces/User'
 import { App } from '../../../../interfaces/App'
 import { ServiceFactory } from '../../types/Service'
 import { Order, OrderList } from '../../../../interfaces/Order'
@@ -18,6 +18,8 @@ export interface UserProfileService {
    * Returns the App if the token belongs to the application.
    */
   get(): Promise<User | App>
+
+  update(payload: UserProfileUpdateDto): Promise<User>
 
   /**
    * Change logged user password.
@@ -50,6 +52,11 @@ export interface UserProfileService {
 export const createUserProfileService: ServiceFactory<UserProfileService> = (axios) => ({
   async get() {
     const { data } = await axios.get<HeseyaResponse<User | App>>(`/auth/profile`)
+    return data.data
+  },
+
+  async update(payload) {
+    const { data } = await axios.patch<HeseyaResponse<User>>(`/auth/profile`, payload)
     return data.data
   },
 

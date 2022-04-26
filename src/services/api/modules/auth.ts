@@ -1,5 +1,5 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
-import { User } from '../../../interfaces/User'
+import { User, UserRegisterDto } from '../../../interfaces/User'
 import { ServiceFactory } from '../types/Service'
 
 interface HeseyaAuthResponse {
@@ -25,7 +25,7 @@ export interface AuthService {
   /**
    * Allows a user to register to the application.
    */
-  register(payload: { name: string; email: string; password: string }): Promise<User>
+  register(payload: UserRegisterDto): Promise<User>
 
   /**
    * Allows a user to logout from the application.
