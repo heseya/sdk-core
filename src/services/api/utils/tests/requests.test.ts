@@ -45,6 +45,18 @@ afterEach(() => {
 })
 
 describe('createGetOneRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createGetOneRequest<DummyItem>(axios, '/products', { byId: true })
+    const expectedUrl = '/products/id:test?'
+
+    mock.onGet(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test')
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createGetOneRequest<DummyItem>(axios, 'products', { byId: true })
     const expectedUrl = '/products/id:test?param=yes'
@@ -95,9 +107,34 @@ describe('createGetListRequest', () => {
     expect(result.data).toEqual(dummyResponseList.data)
     expect(result.pagination).toEqual({ perPage: 1, currentPage: 1, total: 1, lastPage: 1 })
   })
+
+  it('handle the / prefix in path', async () => {
+    const execute = createGetListRequest<DummyItem[]>(axios, '/products')
+    const expectedUrl = '/products?'
+
+    mock.onGet(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute()
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result.data).toEqual(dummyResponseList.data)
+    expect(result.pagination).toEqual({ perPage: 1, currentPage: 1, total: 1, lastPage: 1 })
+  })
 })
 
 describe('createGetSimpleListRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createGetSimpleListRequest<DummyItem[]>(axios, '/products')
+    const expectedUrl = '/products?'
+
+    mock.onGet(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute()
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyResponseList.data)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createGetSimpleListRequest<DummyItem[]>(axios, 'products')
     const expectedUrl = '/products?param=yes'
@@ -112,6 +149,30 @@ describe('createGetSimpleListRequest', () => {
 })
 
 describe('createPostRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createPostRequest<DummyItem, DummyItemDto>(axios, '/products')
+    const expectedUrl = '/products?'
+
+    mock.onPost(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute(dummyItemDto)
+
+    expect(mock.history.post[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
+  it('handle the nested paths', async () => {
+    const execute = createPostRequest<DummyItem, DummyItemDto>(axios, '/products/items/test')
+    const expectedUrl = '/products/items/test?'
+
+    mock.onPost(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute(dummyItemDto)
+
+    expect(mock.history.post[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createPostRequest<DummyItem, DummyItemDto>(axios, 'products')
     const expectedUrl = '/products?param=yes'
@@ -150,6 +211,18 @@ describe('createPostRequest', () => {
 })
 
 describe('createPostNestedRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createPostNestedRequest<DummyItem, DummyItemDto>(axios, '/products', '/items')
+    const expectedUrl = '/products/id:test/items?'
+
+    mock.onPost(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test', dummyItemDto)
+
+    expect(mock.history.post[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createPostNestedRequest<DummyItem, DummyItemDto>(axios, 'products', 'items')
     const expectedUrl = '/products/id:test/items?param=yes'
@@ -164,6 +237,18 @@ describe('createPostNestedRequest', () => {
 })
 
 describe('createPatchRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createPatchRequest<DummyItem, DummyItemDto>(axios, '/products')
+    const expectedUrl = '/products/id:test?'
+
+    mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test', dummyItemDto)
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createPatchRequest<DummyItem, DummyItemDto>(axios, 'products')
     const expectedUrl = '/products/id:test?param=yes'
@@ -202,6 +287,18 @@ describe('createPatchRequest', () => {
 })
 
 describe('createDeleteRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createDeleteRequest(axios, '/products')
+    const expectedUrl = '/products/id:test?'
+
+    mock.onDelete(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('test')
+
+    expect(mock.history.delete[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createDeleteRequest(axios, 'products')
     const expectedUrl = '/products/id:test?param=yes'

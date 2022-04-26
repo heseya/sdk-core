@@ -7,6 +7,8 @@ import { stringifyQueryParams } from './stringifyQueryParams'
 import { ListResponse } from '../../../interfaces/Response'
 import { DefaultParams } from '../types/DefaultParams'
 
+const prefixPath = (path: string) => (path.startsWith('/') ? path : `/${path}`)
+
 /**
  * Factory for the GET of the single resource
  */
@@ -18,7 +20,7 @@ export const createGetOneRequest =
 
     const prefix = options?.byId ? 'id:' : ''
     const response = await axios.get<HeseyaResponse<Item>>(
-      `/${route}/${prefix}${slugOrId}${suffix}?${stringParams}`,
+      `${prefixPath(route)}/${prefix}${slugOrId}${suffix}?${stringParams}`,
     )
 
     return response.data.data
@@ -32,7 +34,9 @@ export const createGetListRequest =
   async (params?: DefaultParams): Promise<ListResponse<Item>> => {
     const stringParams = stringifyQueryParams(params || {})
 
-    const response = await axios.get<HeseyaPaginatedResponse<Item[]>>(`/${route}?${stringParams}`)
+    const response = await axios.get<HeseyaPaginatedResponse<Item[]>>(
+      `${prefixPath(route)}?${stringParams}`,
+    )
     const { data, meta } = response.data
 
     return { data, pagination: normalizePagination(meta) }
@@ -46,7 +50,7 @@ export const createGetSimpleListRequest =
   async (params?: DefaultParams): Promise<Item[]> => {
     const stringParams = stringifyQueryParams(params || {})
 
-    const response = await axios.get<HeseyaResponse<Item[]>>(`/${route}?${stringParams}`)
+    const response = await axios.get<HeseyaResponse<Item[]>>(`${prefixPath(route)}?${stringParams}`)
     const { data } = response.data
 
     return data
@@ -62,7 +66,7 @@ export const createPostRequest =
     const suffix = subroute && !subroute.startsWith('/') ? `/${subroute}` : ''
 
     const response = await axios.post<HeseyaResponse<Item>>(
-      `/${route}${suffix}?${stringParams}`,
+      `${prefixPath(route)}${suffix}?${stringParams}`,
       payload,
     )
 
@@ -78,7 +82,7 @@ export const createPostNestedRequest =
     const stringParams = stringifyQueryParams(params || {})
 
     const response = await axios.post<HeseyaResponse<Item>>(
-      `/${parentRoute}/id:${parentId}/${route}?${stringParams}`,
+      `${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}?${stringParams}`,
       payload,
     )
 
@@ -95,7 +99,7 @@ export const createPatchRequest =
     const suffix = subroute && !subroute.startsWith('/') ? `/${subroute}` : ''
 
     const response = await axios.patch<HeseyaResponse<Item>>(
-      `/${route}/id:${id}${suffix}?${stringParams}`,
+      `${prefixPath(route)}/id:${id}${suffix}?${stringParams}`,
       payload,
     )
 
@@ -109,6 +113,6 @@ export const createDeleteRequest =
   <Params extends DefaultParams>(axios: AxiosInstance, route: string) =>
   async (id: UUID, params?: Params): Promise<true> => {
     const stringParams = stringifyQueryParams(params || {})
-    await axios.delete<never>(`/${route}/id:${id}?${stringParams}`)
+    await axios.delete<never>(`${prefixPath(route)}/id:${id}?${stringParams}`)
     return true
   }
