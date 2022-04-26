@@ -65,7 +65,7 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   },
 
   async changePassword({ currentPassword, newPassword }) {
-    await axios.patch('/users/password', {
+    await axios.put('/users/password', {
       password: currentPassword,
       password_new: newPassword,
       password_confirmation: newPassword,
