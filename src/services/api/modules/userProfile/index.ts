@@ -30,12 +30,12 @@ export interface UserProfileService {
    */
   changePassword(payload: { currentPassword: string; newPassword: string }): Promise<true>
 
-  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddressCreateDto>
-  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddressUpdateDto>
+  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
   removeDeliveryAddress: DeleteEntityRequest
 
-  saveInviceAddress: CreateEntityRequest<UserSavedAddress, UserSavedAddressCreateDto>
-  updateInviceAddress: UpdateEntityRequest<UserSavedAddress, UserSavedAddressUpdateDto>
+  saveInviceAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateInviceAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
   removeInviceAddress: DeleteEntityRequest
 
   Orders: {
