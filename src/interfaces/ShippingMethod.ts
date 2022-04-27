@@ -18,6 +18,7 @@ export interface ShippingMethod extends MetadataFields {
   black_list: boolean
   countries: ShippingCountry[]
   name: string
+  price: number
   payment_methods: PaymentMethod[]
   price_ranges: ShippingMethodPriceRange[]
   public: boolean
