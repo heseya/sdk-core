@@ -91,8 +91,9 @@ export interface OrderDto {
   shipping_method_id: string
   items: OrderCartItem[]
   delivery_address: Address
-  invoice_address: Address
-  discounts: string[]
+  invoice_address: Address | null
+  coupons: string[]
+  sales_ids: string[]
 }
 
 export interface OrderUpdateDto {
