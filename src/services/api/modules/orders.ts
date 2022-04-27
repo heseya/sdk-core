@@ -111,7 +111,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       if (order.paid) throw new Error('Order already paid')
 
       const paymentMethods = await paymentMethodsService.get({
-        shipping_method_id: order.shipping_method_id,
+        shipping_method_id: order.shipping_method_id.id,
       })
 
       return {

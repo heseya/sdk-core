@@ -75,7 +75,7 @@ export interface OrderSummary {
   paid: boolean
   payable: boolean
   summary: number
-  shipping_method_id: string
+  shipping_method_id: ShippingMethod
   created_at: string
 }
 
