@@ -102,7 +102,7 @@ type AttributeNumberOptionUpdateDto = Omit<
 >
 
 interface AttributeNumber extends AttributeBase {
-  type: AttributeType.Date
+  type: AttributeType.Number
   min: number
   max: number
   options: AttributeNumberOption[]
