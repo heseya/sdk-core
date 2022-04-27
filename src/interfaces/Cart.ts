@@ -1,12 +1,9 @@
 import { UUID } from './UUID'
-import { CartItemSchemaValue } from './CartItem'
+import { OrderCartItem } from './CartItem'
 import { CouponShort, SaleShort } from './SalesAndCoupons'
 
-interface CartItemDto {
+export interface CartItemDto extends OrderCartItem {
   cartitem_id: string
-  product_id: UUID
-  quantity: number
-  schemas: Record<UUID, CartItemSchemaValue>
 }
 
 export interface CartDto {

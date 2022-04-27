@@ -4,7 +4,8 @@ import round from 'lodash/round'
 import { ProductList } from '../interfaces/Product'
 import { SchemaType, Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
-import { SavedCartItem, CartItemSchema, OrderCartItem } from '../interfaces/CartItem'
+import { SavedCartItem, CartItemSchema } from '../interfaces/CartItem'
+import { CartItemDto } from '../interfaces/Cart'
 
 export class CartItem {
   public qty: number
@@ -33,7 +34,7 @@ export class CartItem {
     this.createdAt = createdAt
   }
 
-  getOrderObject(): OrderCartItem & { cartitem_id: string } {
+  getOrderObject(): CartItemDto {
     return {
       cartitem_id: this.id,
       product_id: this.product.id,
