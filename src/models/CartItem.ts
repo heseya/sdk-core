@@ -6,6 +6,7 @@ import { SchemaType, Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 import { SavedCartItem, CartItemSchema } from '../interfaces/CartItem'
 import { CartItemDto } from '../interfaces/Cart'
+import { ProductListAttribute } from '../interfaces'
 
 export class CartItem {
   public qty: number
@@ -59,6 +60,10 @@ export class CartItem {
 
   get name() {
     return this.product.name
+  }
+
+  get attributes(): ProductListAttribute[] {
+    return this.product.attributes
   }
 
   // ? Singular prices
