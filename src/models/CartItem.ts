@@ -58,6 +58,10 @@ export class CartItem {
     return md5(`${this.product.id}-${this.schemas.map((s) => [s.id, s.value].join('=')).join('&')}`)
   }
 
+  get productId() {
+    return this.product.id
+  }
+
   get name() {
     return this.product.name
   }
