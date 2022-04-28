@@ -25,3 +25,14 @@ export interface WarehouseDeposit {
 export interface WarehouseDepositDto {
   quantity: number
 }
+
+/**
+ * ? Product items
+ */
+export interface ProductWarehouseItem {
+  id: UUID
+  name: string
+  required_quantity: number
+}
+
+export type ProductWarehouseItemDto = Omit<ProductWarehouseItem, 'name'>

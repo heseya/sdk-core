@@ -9,6 +9,7 @@ import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
 import { CartItemSchemaValue } from './CartItem'
 import { OrderDiscount, Sale } from './SalesAndCoupons'
+import { ProductWarehouseItem, ProductWarehouseItemDto } from './WarehouseItem'
 
 export interface ProductList extends MetadataFields {
   id: UUID
@@ -37,6 +38,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   gallery: CdnMedia[]
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
+  items: ProductWarehouseItem[]
 }
 
 export interface ProductCreateDto extends CreateMetadataFields {
@@ -56,6 +58,7 @@ export interface ProductCreateDto extends CreateMetadataFields {
    * Attribute.id -> AttributeOption.id[]
    */
   attributes: Record<UUID, UUID[]>
+  items: ProductWarehouseItemDto[]
 }
 
 export type ProductUpdateDto = Omit<ProductCreateDto, keyof CreateMetadataFields>
