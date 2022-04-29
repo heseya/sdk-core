@@ -174,8 +174,10 @@ export interface ProductListAttribute {
 
 interface ProductAttributeBase extends ProductListAttribute {
   id: UUID
+  slug: string
   description: string
   global: boolean
+  sortable: boolean
 }
 
 interface ProductAttributeSingleOption extends ProductAttributeBase {
