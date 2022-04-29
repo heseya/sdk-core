@@ -17,6 +17,7 @@ interface ProcessedCartItem {
   // Ceny jednostkowe
   price: number
   price_discounted: number
+  quantity: number
 }
 
 export interface ProcessedCart {
