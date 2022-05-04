@@ -9,6 +9,10 @@ describe('stringifyQueryParams', () => {
     expect(stringifyQueryParams({ test: null })).toBe('')
   })
 
+  it('should transform unsafe URI components', () => {
+    expect(stringifyQueryParams({ sort: 'test%' })).toBe('sort=test%25')
+  })
+
   it('should transform booleans fields into 0/1 values', () => {
     expect(stringifyQueryParams({ avilable: true })).toBe('avilable=1')
     expect(stringifyQueryParams({ avilable: false })).toBe('avilable=0')

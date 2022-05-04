@@ -57,6 +57,18 @@ describe('createGetOneRequest', () => {
     expect(result).toEqual(dummyItem)
   })
 
+  it('encode path components', async () => {
+    const execute = createGetOneRequest<DummyItem>(axios, '/products', { byId: true })
+    const expectedUrl = '/products/id:test%25?'
+
+    mock.onGet(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test%')
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createGetOneRequest<DummyItem>(axios, 'products', { byId: true })
     const expectedUrl = '/products/id:test?param=yes'
@@ -223,6 +235,18 @@ describe('createPostNestedRequest', () => {
     expect(result).toEqual(dummyItem)
   })
 
+  it('encode path components', async () => {
+    const execute = createPostNestedRequest<DummyItem, DummyItemDto>(axios, '/products', '/items')
+    const expectedUrl = '/products/id:test%25/items?'
+
+    mock.onPost(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test%', dummyItemDto)
+
+    expect(mock.history.post[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
   it('should make a rest request with params', async () => {
     const execute = createPostNestedRequest<DummyItem, DummyItemDto>(axios, 'products', 'items')
     const expectedUrl = '/products/id:test/items?param=yes'
@@ -244,6 +268,18 @@ describe('createPatchRequest', () => {
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
 
     const result = await execute('test', dummyItemDto)
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
+  it('encode path components', async () => {
+    const execute = createPatchRequest<DummyItem, DummyItemDto>(axios, '/products')
+    const expectedUrl = '/products/id:test%25?'
+
+    mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test%', dummyItemDto)
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
     expect(result).toEqual(dummyItem)
@@ -294,6 +330,18 @@ describe('createDeleteRequest', () => {
     mock.onDelete(expectedUrl).reply(200, dummyResponseList)
 
     const result = await execute('test')
+
+    expect(mock.history.delete[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
+  it('encode path components', async () => {
+    const execute = createDeleteRequest(axios, '/products')
+    const expectedUrl = '/products/id:test%25?'
+
+    mock.onDelete(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('test%')
 
     expect(mock.history.delete[0].url).toEqual(expectedUrl)
     expect(result).toEqual(true)
