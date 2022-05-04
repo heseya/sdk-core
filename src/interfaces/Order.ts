@@ -75,7 +75,7 @@ export interface OrderSummary {
   paid: boolean
   payable: boolean
   summary: number
-  shipping_method_id: ShippingMethod
+  shipping_method: ShippingMethod
   created_at: string
 }
 
@@ -88,7 +88,7 @@ export interface OrderSummary {
 export interface OrderDto {
   email: string
   comment: string
-  shipping_method_id: string
+  shipping_method_id: UUID
   items: OrderCartItem[]
   delivery_address: Address
   invoice_address: Address | null
