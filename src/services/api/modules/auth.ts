@@ -98,7 +98,7 @@ export const createAuthService: ServiceFactory<AuthService> = (axios) => ({
   },
 
   async resetPassword(payload) {
-    await axios.patch('/users/save-reset-password', payload)
+    await axios.put('/users/save-reset-password', payload)
     return true
   },
 
