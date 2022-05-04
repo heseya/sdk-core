@@ -2,6 +2,7 @@ import { CrudService, ServiceFactory } from '../types/Service'
 import {
   createDeleteRequest,
   createGetListRequest,
+  createGetOneRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -13,13 +14,14 @@ type ConsentsListParams = PaginationParams & MetadataParams
 
 export type ConsentsService = Omit<
   CrudService<Consent, Consent, ConsentCreateDto, ConsentUpdateDto, ConsentsListParams>,
-  'getOneBySlug' | 'getOne'
+  'getOneBySlug'
 >
 
 export const createConsentsService: ServiceFactory<ConsentsService> = (axios) => {
   const route = 'consents'
   return {
     get: createGetListRequest(axios, route),
+    getOne: createGetOneRequest(axios, route),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
