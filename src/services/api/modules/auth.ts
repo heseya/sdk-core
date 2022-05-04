@@ -38,9 +38,16 @@ export interface AuthService {
   refreshToken(refreshToken: string): Promise<AuthResponse>
 
   /**
-   * Allows a user to request an email with password reset instruction.
+   * Verifies token & email before showing the set password form.
    */
-  requestResetPassword(email: string): Promise<true>
+  verifyResetPasswordToken(token: string, email: string): Promise<true>
+
+  /**
+   * Allows a user to request an email with password reset instruction.
+   * @param email - The email of the user.
+   * @param redirectUrl - The url to redirect the user after the email has been sent. It will be modified by api in following way: {redirect_url}?token={token}&email={email}
+   */
+  requestResetPassword(email: string, redirectUrl: string): Promise<true>
 
   /**
    * Confirms a password reset for the user and sets the new password.
@@ -92,8 +99,13 @@ export const createAuthService: ServiceFactory<AuthService> = (axios) => ({
     return true
   },
 
-  async requestResetPassword(email) {
-    await axios.post('/users/reset-password', { email })
+  async verifyResetPasswordToken(token, email) {
+    await axios.get(`/users/reset-password/${token}/${email}`)
+    return true
+  },
+
+  async requestResetPassword(email, redirectUrl) {
+    await axios.post('/users/reset-password', { email, redirect_url: redirectUrl })
     return true
   },
 
