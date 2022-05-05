@@ -45,9 +45,9 @@ export interface UserProfileService {
     get: GetEntityRequest<OrderList, OrdersListParams>
 
     /**
-     * Get user own order by its ID.
+     * Get user own order by its Code.
      */
-    getById: GetOneEntityRequest<Order>
+    getOneByCode: GetOneEntityRequest<Order>
   }
 
   TwoFactorAuthentication: TwoFactorAuthService
@@ -85,6 +85,6 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
 
   Orders: {
     get: createGetListRequest<OrderList>(axios, 'orders/my'),
-    getById: createGetOneRequest<Order>(axios, 'orders/my', { byId: true }),
+    getOneByCode: createGetOneRequest<Order>(axios, 'orders/my'),
   },
 })
