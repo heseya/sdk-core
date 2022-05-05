@@ -17,7 +17,7 @@ import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultP
 import {
   createGetListRequest,
   createGetOneRequest,
-  createPostNestedRequest,
+  createPatchNestedRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -121,7 +121,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       }
     },
 
-    updateStatus: createPostNestedRequest(axios, route, 'status'),
+    updateStatus: createPatchNestedRequest(axios, route, 'status'),
 
     getOneByCode: createGetOneRequest<OrderSummary>(axios, route),
     getOne: createGetOneRequest<Order>(axios, route, { byId: true }),

@@ -8,6 +8,7 @@ import {
   createGetListRequest,
   createGetOneRequest,
   createGetSimpleListRequest,
+  createPatchNestedRequest,
   createPatchRequest,
   createPostNestedRequest,
   createPostRequest,
@@ -316,6 +317,44 @@ describe('createPatchRequest', () => {
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
 
     const result = await execute('test', dummyItemDto)
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+})
+
+describe('createPatchNestedRequest', () => {
+  it('handle the / prefix in path', async () => {
+    const execute = createPatchNestedRequest<DummyItem, DummyItemDto>(axios, '/products', '/items')
+    const expectedUrl = '/products/id:test/items?'
+
+    mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test', dummyItemDto)
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
+  it('encode path components', async () => {
+    const execute = createPatchNestedRequest<DummyItem, DummyItemDto>(axios, '/products', '/items')
+    const expectedUrl = '/products/id:test%25/items?'
+
+    mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test%', dummyItemDto)
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyItem)
+  })
+
+  it('should make a rest request with params', async () => {
+    const execute = createPatchNestedRequest<DummyItem, DummyItemDto>(axios, 'products', 'items')
+    const expectedUrl = '/products/id:test/items?param=yes'
+
+    mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
+
+    const result = await execute('test', dummyItemDto, { param: 'yes' })
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
     expect(result).toEqual(dummyItem)

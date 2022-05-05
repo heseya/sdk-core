@@ -90,7 +90,7 @@ export const createPostNestedRequest =
   }
 
 /**
- * Factory for the PATCH of the resource list
+ * Factory for the PATCH of the resource
  */
 export const createPatchRequest =
   <Item, ItemDto>(axios: AxiosInstance, route: string, subroute?: string) =>
@@ -100,6 +100,22 @@ export const createPatchRequest =
 
     const response = await axios.patch<HeseyaResponse<Item>>(
       encodeURI(`${prefixPath(route)}/id:${id}${suffix}?${stringParams}`),
+      payload,
+    )
+
+    return response.data.data
+  }
+
+/**
+ * Factory for the PATCH of the nested resource
+ */
+export const createPatchNestedRequest =
+  <Item, ItemDto>(axios: AxiosInstance, parentRoute: string, route: string) =>
+  async (parentId: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
+    const stringParams = stringifyQueryParams(params || {})
+
+    const response = await axios.patch<HeseyaResponse<Item>>(
+      encodeURI(`${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}?${stringParams}`),
       payload,
     )
 
