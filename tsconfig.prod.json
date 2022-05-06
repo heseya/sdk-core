@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "es2015",
-    "module": "es2015",
+    "module": "esnext",
     "importHelpers": true
   },
   "include": ["src", "types"]

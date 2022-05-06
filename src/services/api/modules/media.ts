@@ -1,5 +1,3 @@
-import { FormData } from 'formdata-polyfill'
-
 import { CdnMedia, CdnMediaUpdateDto } from '../../../interfaces/CdnMedia'
 import { DeleteEntityRequest, UpdateEntityRequest } from '../types/Requests'
 import { ServiceFactory } from '../types/Service'
@@ -25,7 +23,8 @@ export const createMediaService: ServiceFactory<MediaService> = (axios) => {
   const route = '/media'
   return {
     async create(file) {
-      const form = new FormData()
+      FormData = FormData || require('form-data')
+      const form: FormData = new FormData()
       form.append('file', file)
 
       const { data } = await axios.post<{ data: CdnMedia }>(route, form)

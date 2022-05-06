@@ -1,5 +1,3 @@
-import { FormData } from 'formdata-polyfill'
-
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { ServiceFactory } from '../types/Service'
 
@@ -30,6 +28,10 @@ export interface OrderDocumentsService {
 
 export const createOrderDocumentsService: ServiceFactory<OrderDocumentsService> = (axios) => ({
   async create(orderId, documentDto) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    FormData = window ? FormData : await import('form-data')
+
     const form = new FormData()
     form.append('type', documentDto.type)
     if (documentDto.name) form.append('name', documentDto.name)

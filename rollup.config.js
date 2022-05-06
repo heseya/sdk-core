@@ -8,6 +8,7 @@ import { terser } from 'rollup-plugin-terser'
 
 const config = {
   input: './src/index.ts',
+  inlineDynamicImports: true,
   output: {
     name: 'HeseyaStoreCore',
     sourcemap: !process.env.MINIFY,
