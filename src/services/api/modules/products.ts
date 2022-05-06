@@ -44,7 +44,7 @@ export interface ProductsService
   extends CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
     EntityMetadataService,
     EntityAuditsService<Product> {
-  getFilters(props?: { sets: UUID[] }): Promise<Attribute[]>
+  getFilters(props?: { sets?: UUID[] }): Promise<Attribute[]>
 }
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
