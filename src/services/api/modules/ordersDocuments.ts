@@ -30,7 +30,7 @@ export const createOrderDocumentsService: ServiceFactory<OrderDocumentsService> 
   async create(orderId, documentDto) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    FormData = window ? FormData : await import('form-data')
+    FormData = !process.env.NODE_ENV ? FormData : await import('form-data')
 
     const form = new FormData()
     form.append('type', documentDto.type)

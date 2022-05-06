@@ -23,7 +23,9 @@ export const createMediaService: ServiceFactory<MediaService> = (axios) => {
   const route = '/media'
   return {
     async create(file) {
-      FormData = FormData || require('form-data')
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      FormData = !process.env.NODE_ENV ? FormData : await import('form-data')
       const form: FormData = new FormData()
       form.append('file', file)
 
