@@ -10,6 +10,8 @@ import { UUID } from './UUID'
 /**
  * Webhook CRUD entry
  */
+export type WebhookEventType = string // TODO: enum with all events
+
 export interface WebhookEventEntry {
   key: string
   name: string
@@ -32,7 +34,7 @@ export interface WebhookEntry {
   secret: string
   with_issuer: boolean
   with_hidden: boolean
-  events: string[]
+  events: WebhookEventType[]
   logs: WebhookLogEntry[]
 }
 
@@ -73,7 +75,7 @@ interface WebhookAppIssuer {
 }
 
 interface WebhookEventBase<Payload, DataType = string> {
-  event: WebhookEventEntry['key']
+  event: WebhookEventType
   data_type: DataType
   /**
    * Date ISO 8601
