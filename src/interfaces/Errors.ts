@@ -1,6 +1,6 @@
 export interface HeseyaBaseError {
   message: string
-  key: HeseyaGeneralErrorCode | HeseyaClientErrorCode | HeseyaServerErrorCode
+  key: HeseyaGeneralErrorCode | HeseyaServerErrorCode
   code: number
 }
 
@@ -24,7 +24,18 @@ export interface HeseyaValidationError {
   }
 }
 
-export type HeseyaError = HeseyaBaseError | HeseyaValidationError
+export interface HeseyaClientError {
+  message: string
+  key: HeseyaClientErrorCode
+  code: number
+  errors: {
+    type?: string
+    id?: string
+    method?: string
+  }
+}
+
+export type HeseyaError = HeseyaBaseError | HeseyaValidationError | HeseyaClientError
 
 //?----------------------------------------------------------------------------
 
