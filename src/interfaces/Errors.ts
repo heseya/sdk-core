@@ -173,3 +173,4 @@ export type HeseyaErrorCode =
   | HeseyaValidationErrorCode
   | HeseyaClientErrorCode
   | HeseyaServerErrorCode
+  | 'VALIDATION_ERROR'
