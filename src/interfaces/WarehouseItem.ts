@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
 export interface WarehouseItem extends MetadataFields {
@@ -8,8 +8,15 @@ export interface WarehouseItem extends MetadataFields {
   quantity: number
 }
 
-export type WarehouseItemCreateDto = Omit<WarehouseItem, 'id'>
-export type WarehouseItemUpdateDto = WarehouseItemCreateDto
+export interface WarehouseItemCreateDto extends CreateMetadataFields {
+  name: string
+  sku: string
+}
+
+export interface WarehouseItemUpdateDto {
+  name?: string
+  sku?: string
+}
 
 /**
  * ? Deposits

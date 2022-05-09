@@ -19,7 +19,7 @@ export interface HeseyaValidationError {
       size?: number
       types?: string[]
       when?: string // Date
-      value?: any
+      value?: unknown
     }
   }
 }
