@@ -12,9 +12,9 @@ import {
  */
 export const isHeseyaErrorResponse = (error: any): error is HeseyaErrorResponse => {
   return (
-    error.error?.code !== undefined &&
-    error.error?.message !== undefined &&
-    error.error?.key !== undefined
+    error?.error?.code !== undefined &&
+    error?.error?.message !== undefined &&
+    error?.error?.key !== undefined
   )
 }
 
@@ -46,7 +46,7 @@ export const formatApiError = (error: any): FormattedError => {
 
   if (isHeseyaErrorResponse(responseData)) {
     return {
-      title: responseData.error.message, // TODO: translate
+      title: responseData.error.message,
       key: responseData.error.key as HeseyaErrorCode,
       text: isHeseyaValidationError(responseData.error)
         ? Object.values(responseData?.error?.errors || {})[0].message || ''
