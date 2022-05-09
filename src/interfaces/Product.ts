@@ -22,6 +22,7 @@ export interface ProductList extends MetadataFields {
   price_max_initial: number
   price_min_initial: number
   quantity_step: number
+  google_product_category: null | number
   tags: Tag[]
   public: boolean
   visible: boolean
@@ -49,6 +50,7 @@ export interface ProductCreateDto extends CreateMetadataFields {
   description_short: string
   public: boolean
   quantity_step: number
+  google_product_category?: number
   sets: UUID[]
   tags: UUID[]
   schemas: UUID[]
