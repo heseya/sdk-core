@@ -21,6 +21,7 @@ export interface User extends UserList {
   delivery_addresses: UserSavedAddress[]
   invoice_addresses: UserSavedAddress[]
   consents: UserConsent[]
+  preferences: UserPreferences
 }
 
 export interface UserUpdateDto {
@@ -42,6 +43,13 @@ export interface UserRegisterDto {
 
 export interface UserProfileUpdateDto {
   name?: string
-  // notification settings here
   consents?: UserConsentDto
+  preferences?: UserPreferences
+}
+
+export interface UserPreferences {
+  successfull_login_attempt_alert: boolean
+  failed_login_attempt_alert: boolean
+  new_localization_login_alert: boolean
+  recovery_code_changed_alert: boolean
 }
