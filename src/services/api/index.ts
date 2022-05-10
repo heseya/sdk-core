@@ -10,6 +10,7 @@ import { createProductSetsService } from './modules/productSets'
 import { createOrdersService } from './modules/orders'
 import { createGlobalSeoService } from './modules/globalSeo'
 import { createPaymentMethodsService } from './modules/paymentMethods'
+import { createPaymentsService } from './modules/payments'
 import { createSettingsService } from './modules/settings'
 import { createMediaService } from './modules/media'
 import { createWarehouseService } from './modules/items'
@@ -63,6 +64,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   PackagesTemplates: createPackagesTemplatesService(axios),
   GlobalSeo: createGlobalSeoService(axios),
   PaymentMethods: createPaymentMethodsService(axios),
+  Payments: createPaymentsService(axios),
   Settings: createSettingsService(axios),
   Media: createMediaService(axios),
   Webhooks: createWebhooksService(axios),

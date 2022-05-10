@@ -2,6 +2,7 @@ import { CrudService, ServiceFactory } from '../types/Service'
 import {
   createDeleteRequest,
   createGetListRequest,
+  createGetOneRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -9,9 +10,10 @@ import {
 import { UUID } from '../../../interfaces/UUID'
 import {
   PaymentMethod,
+  PaymentMethodList,
   PaymentMethodCreateDto,
   PaymentMethodUpdateDto,
-} from '../../../interfaces/PaymentMethod'
+} from '../../../interfaces/Payments'
 import { PaginationParams } from '../types/DefaultParams'
 
 interface PaymentMethodsParams extends PaginationParams {
@@ -21,18 +23,19 @@ interface PaymentMethodsParams extends PaginationParams {
 export type PaymentMethodsService = Omit<
   CrudService<
     PaymentMethod,
-    PaymentMethod,
+    PaymentMethodList,
     PaymentMethodCreateDto,
     PaymentMethodUpdateDto,
     PaymentMethodsParams
   >,
-  'getOneBySlug' | 'getOne'
+  'getOneBySlug'
 >
 
 export const createPaymentMethodsService: ServiceFactory<PaymentMethodsService> = (axios) => {
   const route = 'payment-methods'
   return {
     get: createGetListRequest(axios, route),
+    getOne: createGetOneRequest(axios, route),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),

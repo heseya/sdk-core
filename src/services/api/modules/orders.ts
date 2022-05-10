@@ -1,6 +1,6 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { OrderSummary, OrderList, Order, OrderDto, OrderUpdateDto } from '../../../interfaces/Order'
-import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
+import { OrderPayment, PaymentMethodList } from '../../../interfaces/Payments'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 import { UUID } from '../../../interfaces/UUID'
 
@@ -40,14 +40,14 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
    */
-  pay(code: string, paymentMethodSlug: string, continueUrl: string): Promise<string>
+  pay(code: string, paymentMethodId: UUID, continueUrl: string): Promise<string>
 
   /**
    * Returns the list of payment methods available for the given order
    */
   getPaymentMethods(
     code: string,
-  ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethod[]; code: string }>
+  ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethodList[]; code: string }>
 
   /**
    * Process cart by checking warehouse stock, sales and calculate total items price
@@ -85,12 +85,15 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
   const paymentMethodsService = createPaymentMethodsService(axios)
 
   return {
-    async pay(code, paymentMethodSlug, continueUrl) {
+    async pay(code, paymentMethodId, continueUrl) {
       const {
         data: { data },
-      } = await axios.post<HeseyaResponse<Payment>>(`${route}/${code}/pay/${paymentMethodSlug}`, {
-        continue_url: continueUrl,
-      })
+      } = await axios.post<HeseyaResponse<OrderPayment>>(
+        `${route}/${code}/pay/${paymentMethodId}`,
+        {
+          continue_url: continueUrl,
+        },
+      )
 
       return data.redirect_url
     },

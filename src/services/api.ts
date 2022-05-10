@@ -3,7 +3,7 @@
 import { AxiosInstance } from 'axios'
 import { OrderSummary } from '../interfaces/Order'
 import { Page } from '../interfaces/Page'
-import { PaymentMethod } from '../interfaces/PaymentMethod'
+import { PaymentMethod } from '../interfaces/Payments'
 import { SeoMetadata } from '../interfaces/Seo'
 
 /**
