@@ -13,14 +13,19 @@ import {
   ProductSetCreateDto,
   ProductSetUpdateDto,
 } from '../../../interfaces/ProductSet'
-import { DefaultParams, MetadataParams, SearchParam } from '../types/DefaultParams'
+import {
+  DefaultParams,
+  MetadataParams,
+  PaginationParams,
+  SearchParam,
+} from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
 import { UUID } from '../../../interfaces/UUID'
 import { stringifyQueryParams } from '../utils/stringifyQueryParams'
 
-interface ProductSetsListParams extends SearchParam, MetadataParams {
+interface ProductSetsListParams extends SearchParam, MetadataParams, PaginationParams {
   root?: boolean
   tree?: boolean
   name?: string
