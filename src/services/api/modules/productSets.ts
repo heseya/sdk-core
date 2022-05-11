@@ -25,6 +25,7 @@ interface ProductSetsListParams extends SearchParam, MetadataParams {
   tree?: boolean
   name?: string
   slug?: string
+  parent_id?: UUID
   public?: boolean
 }
 
