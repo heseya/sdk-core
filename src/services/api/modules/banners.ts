@@ -12,7 +12,7 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 
 interface BannersListParams extends PaginationParams, MetadataParams, PaginationParams {
-  slug: string
+  slug?: string
 }
 
 export type BannersService = Omit<
