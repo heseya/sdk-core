@@ -1,6 +1,14 @@
+import { Address } from './Address'
 import { MetadataFields } from './Metadata'
 import { PaymentMethod } from './PaymentMethod'
 import { UUID } from './UUID'
+
+export enum ShippingType {
+  None = 'none',
+  Address = 'address',
+  Point = 'point',
+  PointExternal = 'point-external',
+}
 
 export interface ShippingCountry {
   code: string
@@ -15,26 +23,33 @@ export interface ShippingMethodPriceRange {
 
 export interface ShippingMethod extends MetadataFields {
   id: UUID
-  black_list: boolean
-  countries: ShippingCountry[]
   name: string
-  price: number | null
+  shipping_type: ShippingType
   payment_methods: PaymentMethod[]
-  price_ranges: ShippingMethodPriceRange[]
   public: boolean
+  block_list: boolean
   shipping_time_max: number
   shipping_time_min: number
+  countries: ShippingCountry[]
+  price_ranges: ShippingMethodPriceRange[]
+  price: number | null
+  integration_key?: string
+  deletable: boolean
+  shipping_points: Address[]
 }
 
 export interface ShippingMethodCreateDto {
   name: string
-  public: boolean
-  black_list: boolean
-  /** List of the Country.code's */
-  countries: string[]
+  shipping_type: ShippingType
   payment_methods: UUID[]
-  price_ranges: { start: number; value: number }[]
+  public: boolean
+  block_list: boolean
   shipping_time_max: number
   shipping_time_min: number
+  /** List of the Country.code's */
+  countries: ShippingCountry['code'][]
+  price_ranges: { start: number; value: number }[]
+  app_id?: UUID
+  shipping_points?: Address[]
 }
 export type ShippingMethodUpdateDto = ShippingMethodCreateDto

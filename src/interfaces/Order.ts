@@ -1,5 +1,5 @@
 import { UUID } from './UUID'
-import { Address } from './Address'
+import { Address, AddressDto } from './Address'
 import { OrderCartItem } from './CartItem'
 import { MetadataFields } from './Metadata'
 import { ShippingMethod } from './ShippingMethod'
@@ -25,7 +25,7 @@ export interface OrderList extends MetadataFields {
   comment?: string
   created_at: string
   currency: string
-  delivery_address: Address
+  shipping_place?: Address | string
   email: string
   paid: boolean
   shipping_method: ShippingMethod
@@ -61,11 +61,12 @@ export interface OrderList extends MetadataFields {
 
 export interface Order extends OrderList {
   discounts: OrderDiscount[]
-  invoice_address: Address
+  billing_address: Address
   payable: boolean
   payments: OrderPayment[]
   products: OrderProduct[]
   shipping_number?: string
+  invoice_requested: boolean
 }
 
 export interface OrderSummary {
@@ -89,16 +90,18 @@ export interface OrderDto {
   email: string
   comment: string
   shipping_method_id: UUID
+  shipping_place?: AddressDto | UUID | string
+  billing_address: AddressDto
+  invoice_requested: boolean
   items: OrderCartItem[]
-  delivery_address: Address
-  invoice_address: Address | null
   coupons: string[]
-  sales_ids: string[]
+  sales_ids: UUID[]
 }
 
 export interface OrderUpdateDto {
   email?: string
   comment?: string
-  delivery_address?: Address
-  invoice_address?: Address
+  shipping_method_id?: UUID
+  shipping_place?: AddressDto | UUID | string
+  billing_address?: AddressDto
 }
