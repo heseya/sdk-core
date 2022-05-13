@@ -11,6 +11,7 @@ import { ProductListAttribute } from '../interfaces'
 export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
+  public children: CartItem[] | [] = []
 
   private precalculatedPrice: number | null = null
   private precalculatedInitialPrice: number | null = null
