@@ -65,7 +65,7 @@ export interface Order extends OrderList {
   payable: boolean
   payments: OrderPayment[]
   products: OrderProduct[]
-  shipping_number?: string
+  shipping_number: string | null
 }
 
 export interface OrderSummary {
@@ -101,4 +101,5 @@ export interface OrderUpdateDto {
   comment?: string
   delivery_address?: Address
   invoice_address?: Address
+  shipping_number?: string | null
 }
