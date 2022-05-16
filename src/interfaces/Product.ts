@@ -46,24 +46,24 @@ export interface ProductCreateDto extends CreateMetadataFields {
   name: string
   slug: string
   price: number
-  description_html: string
-  description_short: string
   public: boolean
-  quantity_step: number
+  description_html?: string
+  description_short?: string
+  quantity_step?: number
   google_product_category?: number
-  sets: UUID[]
-  tags: UUID[]
-  schemas: UUID[]
-  media: UUID[]
-  seo: SeoMetadataDto
+  sets?: UUID[]
+  tags?: UUID[]
+  schemas?: UUID[]
+  media?: UUID[]
+  seo?: SeoMetadataDto
   /**
    * Attribute.id -> AttributeOption.id[]
    */
-  attributes: Record<UUID, UUID[]>
-  items: ProductWarehouseItemDto[]
+  attributes?: Record<UUID, UUID[]>
+  items?: ProductWarehouseItemDto[]
 }
 
-export type ProductUpdateDto = Omit<ProductCreateDto, keyof CreateMetadataFields>
+export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields>>
 
 //? ------------------------------------------------------------
 
