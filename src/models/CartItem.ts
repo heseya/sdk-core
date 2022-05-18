@@ -11,7 +11,6 @@ import { ProductListAttribute } from '../interfaces'
 export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
-  public children: CartItem[] | [] = []
 
   private precalculatedPrice: number | null = null
   private precalculatedInitialPrice: number | null = null
@@ -19,6 +18,7 @@ export class CartItem {
   private productSchemas: Schema[]
   private product: ProductList
   private createdAt: number
+  private children: CartItem[]
 
   constructor(
     product: ProductList,
@@ -26,6 +26,7 @@ export class CartItem {
     schemas: Schema[] = [],
     schemaValues: CartItemSchema[] = [],
     createdAt = Date.now(),
+    children: CartItem[] = [],
   ) {
     if (!product) throw new Error('[HS CartItem] Provided props are not valid')
 
@@ -34,6 +35,7 @@ export class CartItem {
     this.productSchemas = schemas
     this.schemas = schemaValues
     this.createdAt = createdAt
+    this.children = children
   }
 
   getOrderObject(): CartItemDto {
@@ -52,6 +54,7 @@ export class CartItem {
       this.productSchemas,
       this.schemas,
       this.createdAt,
+      this.children,
     )
   }
 
@@ -92,6 +95,18 @@ export class CartItem {
     return round(this.initialPrice - this.price, 2)
   }
 
+  get totalDiscountValue() {
+    const baseDiscount = this.discountValue
+    const childrenDiscounts: number = this.children.reduce<number>(
+      (acc: number, item: CartItem) => {
+        return acc + item.discountValue
+      },
+      0,
+    )
+
+    return baseDiscount + childrenDiscounts
+  }
+
   // ? total prices
   get totalPrice() {
     return round(this.price * this.qty, 2)
@@ -99,14 +114,20 @@ export class CartItem {
   get totalInitialPrice() {
     return round(this.initialPrice * this.qty, 2)
   }
-  get totalDiscountValue() {
-    return round(this.totalInitialPrice - this.totalPrice, 2)
-  }
 
   setPrices(price: number, initialPrice: number) {
     this.precalculatedPrice = price
     this.precalculatedInitialPrice = initialPrice
     return this
+  }
+
+  setChildren(child: CartItem): number {
+    if (child instanceof CartItem) {
+      this.children.push(child)
+    } else {
+      throw new Error('[HS CartItem] Given parameter is not type of `CartItem[]`!')
+    }
+    return this.children.length
   }
 
   get cover() {
