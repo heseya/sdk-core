@@ -19,6 +19,7 @@ export interface ProductList extends MetadataFields {
   price: number
   price_max: number
   price_min: number
+  vat_rate: number
   price_max_initial: number
   price_min_initial: number
   quantity_step: number
@@ -46,24 +47,25 @@ export interface ProductCreateDto extends CreateMetadataFields {
   name: string
   slug: string
   price: number
-  description_html: string
-  description_short: string
   public: boolean
-  quantity_step: number
+  description_html?: string
+  description_short?: string
+  quantity_step?: number
+  vat_rate?: number
   google_product_category?: number
-  sets: UUID[]
-  tags: UUID[]
-  schemas: UUID[]
-  media: UUID[]
-  seo: SeoMetadataDto
+  sets?: UUID[]
+  tags?: UUID[]
+  schemas?: UUID[]
+  media?: UUID[]
+  seo?: SeoMetadataDto
   /**
    * Attribute.id -> AttributeOption.id[]
    */
-  attributes: Record<UUID, UUID[]>
-  items: ProductWarehouseItemDto[]
+  attributes?: Record<UUID, UUID[]>
+  items?: ProductWarehouseItemDto[]
 }
 
-export type ProductUpdateDto = Omit<ProductCreateDto, keyof CreateMetadataFields>
+export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields>>
 
 //? ------------------------------------------------------------
 
