@@ -54,8 +54,11 @@ export class CartItem {
       this.productSchemas,
       this.schemas,
       this.createdAt,
-      this.children,
     )
+  }
+
+  get totalQty() {
+    return this.qty + this.children.length
   }
 
   get id() {
@@ -121,9 +124,9 @@ export class CartItem {
     return this
   }
 
-  setChildren(child: CartItem): number {
-    if (child instanceof CartItem) {
-      this.children.push(child)
+  setChildren(childs: CartItem[]): number {
+    if (childs.every((child) => child instanceof CartItem)) {
+      this.children = childs
     } else {
       throw new Error('[HS CartItem] Given parameter is not type of `CartItem[]`!')
     }
