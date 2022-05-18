@@ -114,7 +114,7 @@ export enum OrdersPermission {
   Show = 'orders.show',
   Add = 'orders.add',
   ShowDetails = 'orders.show_details',
-  ShowHidden = 'orders.show_summary',
+  ShowSummary = 'orders.show_summary',
   Edit = 'orders.edit',
   EditStatus = 'orders.edit.status',
   ShowMetadataPrivate = 'orders.show_metadata_private',
