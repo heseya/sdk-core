@@ -1,4 +1,4 @@
-import { Attribute } from './Attribute'
+import { ProductSetAttribute } from './Attribute'
 import { CdnMedia } from './CdnMedia'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { SeoMetadata } from './Seo'
@@ -14,7 +14,7 @@ export interface ProductSetList extends MetadataFields {
   public: boolean
   visible: boolean
   hide_on_index: boolean
-  attributes: Attribute[]
+  attributes: ProductSetAttribute[]
   parent?: ProductSet | null
   parent_id?: string | null
   children?: ProductSet[]

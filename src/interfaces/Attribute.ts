@@ -151,6 +151,8 @@ export type Attribute =
   | AttributeNumber
   | AttributeDate
 
+export type ProductSetAttribute = Omit<Attribute, 'options'>
+
 export type AttributeCreateDto =
   | AttributeSingleOptionCreateDto
   | AttributeMultiOptionCreateDto
