@@ -24,6 +24,7 @@ export interface WarehouseItemUpdateDto {
 
 export interface WarehouseDeposit {
   id: UUID
+  sku: string
   quantity: number
   item_id: UUID
   order_product_id: UUID
