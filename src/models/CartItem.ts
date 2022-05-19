@@ -26,7 +26,6 @@ export class CartItem {
     schemas: Schema[] = [],
     schemaValues: CartItemSchema[] = [],
     createdAt = Date.now(),
-    children: CartItem[] = [],
   ) {
     if (!product) throw new Error('[HS CartItem] Provided props are not valid')
 
@@ -35,7 +34,6 @@ export class CartItem {
     this.productSchemas = schemas
     this.schemas = schemaValues
     this.createdAt = createdAt
-    this.children = children
   }
 
   getOrderObject(): CartItemDto {
@@ -55,6 +53,10 @@ export class CartItem {
       this.schemas,
       this.createdAt,
     )
+  }
+
+  get childrenLength() {
+    return this.children.length
   }
 
   get totalQty() {
@@ -101,9 +103,7 @@ export class CartItem {
   get totalDiscountValue() {
     const baseDiscount = this.discountValue
     const childrenDiscounts: number = this.children.reduce<number>(
-      (acc: number, item: CartItem) => {
-        return acc + item.discountValue
-      },
+      (acc: number, item: CartItem) => acc + item.discountValue,
       0,
     )
 
@@ -124,13 +124,13 @@ export class CartItem {
     return this
   }
 
-  setChildren(childs: CartItem[]): number {
+  setChildren(childs: CartItem[]) {
     if (childs.every((child) => child instanceof CartItem)) {
       this.children = childs
     } else {
       throw new Error('[HS CartItem] Given parameter is not type of `CartItem[]`!')
     }
-    return this.children.length
+    return this
   }
 
   get cover() {
