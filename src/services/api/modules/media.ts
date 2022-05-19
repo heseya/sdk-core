@@ -9,8 +9,13 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 export interface MediaService extends EntityMetadataService {
   /**
    * Allows a user to create the Media.
+   * Notice: metadata can only be strings in this method, cause you cant send type in FormData
    */
-  create: (file: File) => Promise<CdnMedia>
+  create: (data: {
+    file: File
+    alt?: string
+    metadata?: Record<string, string>
+  }) => Promise<CdnMedia>
   /**
    * Allows a user to create the Media.
    */
@@ -24,9 +29,14 @@ export interface MediaService extends EntityMetadataService {
 export const createMediaService: ServiceFactory<MediaService> = (axios) => {
   const route = '/media'
   return {
-    async create(file) {
+    async create({ file, alt, metadata }) {
       const form = new FormData()
       form.append('file', file)
+
+      if (alt) form.append('alt', alt)
+
+      if (metadata)
+        Object.entries(metadata).forEach(([key, value]) => form.append(`metadata.${key}`, value))
 
       const { data } = await axios.post<{ data: CdnMedia }>(route, form)
 
