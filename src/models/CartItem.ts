@@ -18,6 +18,8 @@ export class CartItem {
   private productSchemas: Schema[]
   private product: ProductList
   private createdAt: number
+  // field 'children' contains duplicated(due to id) products copies, which have different prices(usually discount prices)
+  // it's required to merge products that are basically the same
   private children: CartItem[]
 
   constructor(
@@ -60,7 +62,7 @@ export class CartItem {
   }
 
   get totalQty() {
-    return this.qty + this.children.length
+    return round(this.qty + this.children.length)
   }
 
   get id() {
@@ -100,6 +102,8 @@ export class CartItem {
     return round(this.initialPrice - this.price, 2)
   }
 
+  // returns sum of core-product discounts and all childrens' discounts
+  // to be able to display info about total discount on one particular product
   get totalDiscountValue() {
     const baseDiscount = this.discountValue
     const childrenDiscounts: number = this.children.reduce<number>(
@@ -107,7 +111,7 @@ export class CartItem {
       0,
     )
 
-    return baseDiscount + childrenDiscounts
+    return round(baseDiscount + childrenDiscounts, 2)
   }
 
   // ? total prices
@@ -128,7 +132,7 @@ export class CartItem {
     if (childs.every((child) => child instanceof CartItem)) {
       this.children = childs
     } else {
-      throw new Error('[HS CartItem] Given parameter is not type of `CartItem[]`!')
+      throw new Error('[HS CartItem] Given parameter is not type of `CartItem`!')
     }
     return this
   }
