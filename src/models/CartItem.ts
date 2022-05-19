@@ -62,7 +62,7 @@ export class CartItem {
   }
 
   get totalQty() {
-    return round(this.qty + this.children.length)
+    return round(this.qty + this.children.length, 2)
   }
 
   get id() {
