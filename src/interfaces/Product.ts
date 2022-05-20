@@ -9,7 +9,7 @@ import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
 import { CartItemSchemaValue } from './CartItem'
 import { OrderDiscount, Sale } from './SalesAndCoupons'
-import { ProductWarehouseItem, ProductWarehouseItemDto } from './WarehouseItem'
+import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 
 export interface ProductList extends MetadataFields {
   id: UUID
@@ -74,8 +74,9 @@ export interface OrderProduct {
   quantity: number
   price: number
   price_initial: number
+  vat_rate: number
   discounts: OrderDiscount[]
   product: Product
   schemas: CartItemSchemaValue[]
-  deposits: unknown[] // TODO: type
+  deposits: WarehouseDeposit[]
 }
