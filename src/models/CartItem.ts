@@ -62,7 +62,9 @@ export class CartItem {
   }
 
   get totalQty() {
-    return round(this.qty + this.children.length, 2)
+    const sumOfChildren = this.children.reduce((acc, child) => acc + child.qty, 0)
+
+    return round(this.qty + sumOfChildren, 2)
   }
 
   get id() {
