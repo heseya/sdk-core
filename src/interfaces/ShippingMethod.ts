@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { PaymentMethod } from './PaymentMethod'
 import { UUID } from './UUID'
 
@@ -26,7 +26,7 @@ export interface ShippingMethod extends MetadataFields {
   shipping_time_min: number
 }
 
-export interface ShippingMethodCreateDto {
+export interface ShippingMethodCreateDto extends CreateMetadataFields {
   name: string
   public: boolean
   black_list: boolean
@@ -37,4 +37,5 @@ export interface ShippingMethodCreateDto {
   shipping_time_max: number
   shipping_time_min: number
 }
-export type ShippingMethodUpdateDto = ShippingMethodCreateDto
+
+export type ShippingMethodUpdateDto = Omit<ShippingMethodCreateDto, keyof CreateMetadataFields>

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Permission, PermissionEntry } from './Permissions'
 import { UUID } from './UUID'
 
@@ -22,7 +22,7 @@ export interface App extends MetadataFields {
   permissions: Permission[]
 }
 
-export interface AppCreateDto {
+export interface AppCreateDto extends CreateMetadataFields {
   url: string
   name?: string // [TODO]
   licence_key: string

@@ -1,6 +1,6 @@
 import { FormData } from 'formdata-polyfill'
 
-import { CdnMedia, CdnMediaUpdateDto } from '../../../interfaces/CdnMedia'
+import { CdnMedia, CdnMediaUpdateDto, CdnMediaCreateDto } from '../../../interfaces/CdnMedia'
 import { DeleteEntityRequest, UpdateEntityRequest } from '../types/Requests'
 import { ServiceFactory } from '../types/Service'
 import { createDeleteRequest, createPatchRequest } from '../utils/requests'
@@ -11,11 +11,7 @@ export interface MediaService extends EntityMetadataService {
    * Allows a user to create the Media.
    * Notice: metadata can only be strings in this method, cause you cant send type in FormData
    */
-  create: (data: {
-    file: File
-    alt?: string
-    metadata?: Record<string, string>
-  }) => Promise<CdnMedia>
+  create: (data: CdnMediaCreateDto) => Promise<CdnMedia>
   /**
    * Allows a user to create the Media.
    */
@@ -29,7 +25,7 @@ export interface MediaService extends EntityMetadataService {
 export const createMediaService: ServiceFactory<MediaService> = (axios) => {
   const route = '/media'
   return {
-    async create({ file, alt, metadata }) {
+    async create({ file, alt, metadata, metadata_private }) {
       const form = new FormData()
       form.append('file', file)
 
@@ -37,6 +33,11 @@ export const createMediaService: ServiceFactory<MediaService> = (axios) => {
 
       if (metadata)
         Object.entries(metadata).forEach(([key, value]) => form.append(`metadata.${key}`, value))
+
+      if (metadata_private)
+        Object.entries(metadata_private).forEach(([key, value]) =>
+          form.append(`metadata_private.${key}`, value),
+        )
 
       const { data } = await axios.post<{ data: CdnMedia }>(route, form)
 

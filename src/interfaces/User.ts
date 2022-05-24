@@ -4,7 +4,7 @@ import { Role } from './Role'
 import { Permission } from './Permissions'
 
 import { UserSavedAddress } from './Address'
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UserConsent, UserConsentDto } from './Consent'
 
 export interface UserList extends MetadataFields {
@@ -29,7 +29,7 @@ export interface UserUpdateDto {
   roles: UUID[]
 }
 
-export interface UserCreateDto extends UserUpdateDto {
+export interface UserCreateDto extends UserUpdateDto, CreateMetadataFields {
   password: string
 }
 

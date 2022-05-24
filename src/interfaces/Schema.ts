@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { ProductList } from './Product'
 import { UUID } from './UUID'
 
@@ -60,7 +60,9 @@ export interface SchemaOptionDto extends Omit<SchemaOption, 'id' | 'items' | key
   items: UUID[]
 }
 
-export interface SchemaCreateDto extends Omit<Schema, 'id' | 'options' | keyof MetadataFields> {
+export interface SchemaCreateDto
+  extends Omit<Schema, 'id' | 'options' | keyof MetadataFields>,
+    CreateMetadataFields {
   options: SchemaOptionDto[]
 }
-export type SchemaUpdateDto = SchemaCreateDto
+export type SchemaUpdateDto = Omit<SchemaCreateDto, keyof CreateMetadataFields>

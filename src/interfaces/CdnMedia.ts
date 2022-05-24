@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 
 export enum CdnMediaType {
   Photo = 'photo',
@@ -12,6 +12,13 @@ export interface CdnMedia extends MetadataFields {
   url: string
   alt?: string
   slug?: string
+}
+
+export interface CdnMediaCreateDto extends CreateMetadataFields {
+  file: File
+  alt?: string
+  metadata?: Record<string, string>
+  metadata_private?: Record<string, string>
 }
 
 export interface CdnMediaUpdateDto {
