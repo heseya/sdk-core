@@ -20,7 +20,8 @@ export class CartItem {
   private createdAt: number
   // field 'children' contains duplicated(due to id) products copies, which have different prices(usually discount prices)
   // it's required to merge products that are basically the same
-  private children: CartItem[]
+  private children: CartItem[] = []
+  private discountValue: number
 
   constructor(
     product: ProductList,
@@ -100,10 +101,6 @@ export class CartItem {
     return this.precalculatedInitialPrice || this.price
   }
 
-  get discountValue() {
-    return round(this.initialPrice - this.price, 2)
-  }
-
   // returns sum of core-product discounts and all childrens' discounts
   // to be able to display info about total discount on one particular product
   get totalDiscountValue() {
@@ -177,3 +174,11 @@ export class CartItem {
     }
   }
 }
+
+Object.defineProperty(CartItem.prototype, 'discountValue', {
+  enumerable: true,
+  get: function () {
+    if (this.precalculatedInitialPrice && this.precalculatedPrice)
+      return round(this.precalculatedInitialPrice - this.precalculatedPrice, 2)
+  },
+})
