@@ -13,6 +13,7 @@ import {
   WebhookEntryCreateDto,
   WebhookEntryUpdateDto,
   WebhookEventEntry,
+  WebhookEventLog,
 } from '../../../interfaces/Webhook'
 import { PaginationParams } from '../types/DefaultParams'
 
@@ -36,6 +37,11 @@ export interface WebhooksService
    * Get all available webhooks events
    */
   getEvents: GetEntityRequest<WebhookEventEntry>
+
+  /**
+   * Get all logs of failed webhooks
+   */
+  getLogs: GetEntityRequest<WebhookEventLog>
 }
 
 export const createWebhooksService: ServiceFactory<WebhooksService> = (axios) => {
@@ -44,6 +50,7 @@ export const createWebhooksService: ServiceFactory<WebhooksService> = (axios) =>
     get: createGetListRequest(axios, route),
     getOne: createGetOneRequest(axios, route),
     getEvents: createGetListRequest(axios, `${route}/events`),
+    getLogs: createGetListRequest(axios, `${route}/logs`),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),

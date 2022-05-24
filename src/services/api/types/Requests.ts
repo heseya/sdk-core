@@ -1,6 +1,6 @@
 import { UUID } from '../../../interfaces/UUID'
 import { ListResponse } from '../../../interfaces/Response'
-import { DefaultParams } from './DefaultParams'
+import { DefaultParams, PaginationParams } from './DefaultParams'
 
 export type GetOneBySlugEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
   slug: string,
@@ -12,9 +12,10 @@ export type GetOneEntityRequest<Entity, Params extends DefaultParams = DefaultPa
   params?: Params,
 ) => Promise<Entity>
 
-export type GetEntityRequest<Entity, Params extends DefaultParams = DefaultParams> = (
-  params?: Params,
-) => Promise<ListResponse<Entity>>
+export type GetEntityRequest<
+  Entity,
+  Params extends DefaultParams = DefaultParams & PaginationParams,
+> = (params?: Params) => Promise<ListResponse<Entity>>
 
 export type CreateEntityRequest<Entity, EntityDto, Params extends DefaultParams = DefaultParams> = (
   entityDto: EntityDto,

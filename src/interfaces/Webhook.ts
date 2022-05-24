@@ -20,11 +20,14 @@ export interface WebhookEventEntry {
   required_hidden_permissions: Permission[]
 }
 
-export interface WebhookLogEntry {
+export interface WebhookEventLog {
   id: UUID
+  web_hook: WebhookEventEntry
   triggered_at: string
   url: string
   status_code: number
+  payload: unknown
+  response: unknown
 }
 
 export interface WebhookEntry {
@@ -35,7 +38,6 @@ export interface WebhookEntry {
   with_issuer: boolean
   with_hidden: boolean
   events: WebhookEventType[]
-  logs: WebhookLogEntry[]
 }
 
 export type WebhookEntryCreateDto = Omit<WebhookEntry, 'id' | 'logs'>
