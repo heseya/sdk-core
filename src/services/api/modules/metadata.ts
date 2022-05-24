@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios'
-import { Metadata, MetadataDto } from '../../../interfaces/Metadata'
+import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
 import { UUID } from '../../../interfaces/UUID'
 
-type UpdateMetadataRequest = (entityId: UUID, metadata: MetadataDto) => Promise<Metadata>
+type UpdateMetadataRequest = (entityId: UUID, metadata: MetadataUpdateDto) => Promise<Metadata>
 
 export interface EntityMetadataService {
   /**
@@ -17,7 +17,7 @@ export interface EntityMetadataService {
 
 export const createUpdateMetadataRequest =
   (axios: AxiosInstance, entity: string, publicMetadata = true) =>
-  async (entityId: UUID, metadata: MetadataDto): Promise<Metadata> => {
+  async (entityId: UUID, metadata: MetadataUpdateDto): Promise<Metadata> => {
     const path = publicMetadata ? 'metadata' : 'metadata-private'
     const { data } = await axios.patch<{ data: Metadata }>(
       `/${entity}/id:${entityId}/${path}`,

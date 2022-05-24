@@ -23,7 +23,7 @@ import {
   createUpdateMetadataRequest,
   EntityMetadataService,
 } from './metadata'
-import { Metadata, MetadataDto } from '../../../interfaces/Metadata'
+import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
 
 type AttributeParams = PaginationParams & MetadataParams
 
@@ -41,11 +41,15 @@ export interface AttributesService
     option: AttributeOptionDto,
   ): Promise<AttributeOption>
 
-  updateOptionMetadata(attributeId: UUID, optionId: UUID, metadata: MetadataDto): Promise<Metadata>
+  updateOptionMetadata(
+    attributeId: UUID,
+    optionId: UUID,
+    metadata: MetadataUpdateDto,
+  ): Promise<Metadata>
   updateOptionMetadataPrivate(
     attributeId: UUID,
     optionId: UUID,
-    metadata: MetadataDto,
+    metadata: MetadataUpdateDto,
   ): Promise<Metadata>
 
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
