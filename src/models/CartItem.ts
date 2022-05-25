@@ -12,6 +12,7 @@ export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
   public discountValue: number
+  public totalDiscountValue: number
 
   private precalculatedPrice: number | null = null
   private precalculatedInitialPrice: number | null = null
