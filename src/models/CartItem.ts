@@ -11,6 +11,7 @@ import { ProductListAttribute } from '../interfaces'
 export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
+  public discountValue: number
 
   private precalculatedPrice: number | null = null
   private precalculatedInitialPrice: number | null = null
@@ -21,7 +22,6 @@ export class CartItem {
   // field 'children' contains duplicated(due to id) products copies, which have different prices(usually discount prices)
   // it's required to merge products that are basically the same
   private children: CartItem[] = []
-  private discountValue: number
 
   constructor(
     product: ProductList,
@@ -101,18 +101,6 @@ export class CartItem {
     return this.precalculatedInitialPrice || this.price
   }
 
-  // returns sum of core-product discounts and all childrens' discounts
-  // to be able to display info about total discount on one particular product
-  get totalDiscountValue() {
-    const baseDiscount = this.discountValue
-    const childrenDiscounts: number = this.children.reduce<number>(
-      (acc: number, item: CartItem) => acc + item.discountValue,
-      0,
-    )
-
-    return round(baseDiscount + childrenDiscounts, 2)
-  }
-
   // ? total prices
   get totalPrice() {
     return round(this.price * this.qty, 2)
@@ -178,7 +166,19 @@ export class CartItem {
 Object.defineProperty(CartItem.prototype, 'discountValue', {
   enumerable: true,
   get: function () {
-    if (this.precalculatedInitialPrice && this.precalculatedPrice)
-      return round(this.precalculatedInitialPrice - this.precalculatedPrice, 2)
+    return round(this.precalculatedInitialPrice - this.precalculatedPrice, 2)
+  },
+})
+
+Object.defineProperty(CartItem.prototype, 'totalDiscountValue', {
+  enumerable: true,
+  get: function () {
+    const baseDiscount = this.discountValue * this.qty
+    const childrenDiscounts: number = this.children.reduce(
+      (acc: number, item: CartItem) => acc + item.discountValue,
+      0,
+    )
+
+    return round(baseDiscount + childrenDiscounts, 2)
   },
 })
