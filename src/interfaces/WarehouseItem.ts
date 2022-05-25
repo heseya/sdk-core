@@ -23,9 +23,9 @@ export interface WarehouseItem extends MetadataFields {
   /**
    * Summary of the item availability for a different time frames
    */
-  availibility: {
-    delivery_time: number | null
-    delivery_date: string | null
+  availability: {
+    shipping_time: number | null
+    shipping_date: string | null
     quantity: number
   }[]
 }
