@@ -90,7 +90,7 @@ export class CartItem {
   /**
    * Singular price of the item (without children)
    */
-  private get price() {
+  get price() {
     if (this.precalculatedPrice) return this.precalculatedPrice
 
     try {
