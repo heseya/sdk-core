@@ -22,6 +22,8 @@ export interface ProductList extends MetadataFields {
   vat_rate: number
   price_max_initial: number
   price_min_initial: number
+  shipping_time: number | null
+  shipping_date: string | null
   quantity_step: number
   google_product_category: null | number
   tags: Tag[]
