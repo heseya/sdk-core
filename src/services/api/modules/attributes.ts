@@ -24,6 +24,8 @@ import {
   EntityMetadataService,
 } from './metadata'
 import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
+import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
+import { normalizePagination } from '../utils/normalizePagination'
 
 type AttributeParams = PaginationParams & MetadataParams
 
@@ -33,7 +35,10 @@ export interface AttributesService
       'getOneBySlug'
     >,
     EntityMetadataService {
-  getOptions(attributeId: UUID, params?: MetadataParams): Promise<AttributeOption[]>
+  getOptions(
+    attributeId: UUID,
+    params?: MetadataParams & { name?: string },
+  ): Promise<ListResponse<AttributeOption>>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,
@@ -60,10 +65,12 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
   return {
     async getOptions(attributeId, params) {
       const stringParams = stringifyQueryParams(params || {})
-      const { data } = await axios.get<HeseyaResponse<AttributeOption[]>>(
+      const response = await axios.get<HeseyaPaginatedResponse<AttributeOption[]>>(
         `/attributes/id:${attributeId}/options?${stringParams}`,
       )
-      return data.data
+      const { data, meta } = response.data
+
+      return { data, pagination: normalizePagination(meta) }
     },
 
     async addOption(attributeId, option) {
