@@ -7,6 +7,6 @@ export const restoreCart = (savedCart: SavedCartItem[]) => {
     .filter(({ createdAt }) => Date.now() - createdAt < config.cartItemLifeDuration)
     .map(
       ({ product, qty, schemas, productSchemas, createdAt }) =>
-        new CartItem(product, qty, productSchemas, schemas, createdAt),
+        new CartItem(product, qty, productSchemas, schemas, [], createdAt),
     )
 }

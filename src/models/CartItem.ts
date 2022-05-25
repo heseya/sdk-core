@@ -12,14 +12,17 @@ export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
 
-  public precalculatedPrice: number | null = null
-  public precalculatedInitialPrice: number | null = null
+  private precalculatedPrice: number | null = null
+  private precalculatedInitialPrice: number | null = null
 
   private productSchemas: Schema[]
   private product: ProductList
   private createdAt: number
-  // field 'children' contains duplicated(due to id) products copies, which have different prices(usually discount prices)
-  // it's required to merge products that are basically the same
+
+  /**
+   * field 'children' contains duplicated(due to id) products copies, which have different prices(usually discount prices)
+   * it's required to merge products that are basically the same
+   */
   private children: CartItem[] = []
 
   constructor(
@@ -27,6 +30,7 @@ export class CartItem {
     quantity = 1,
     schemas: Schema[] = [],
     schemaValues: CartItemSchema[] = [],
+    children: CartItem[] = [],
     createdAt = Date.now(),
   ) {
     if (!product) throw new Error('[HS CartItem] Provided props are not valid')
@@ -35,6 +39,7 @@ export class CartItem {
     this.qty = Number(quantity)
     this.productSchemas = schemas
     this.schemas = schemaValues
+    this.children = children
     this.createdAt = createdAt
   }
 
@@ -42,7 +47,7 @@ export class CartItem {
     return {
       cartitem_id: this.id,
       product_id: this.product.id,
-      quantity: this.qty,
+      quantity: this.totalQty,
       schemas: Object.fromEntries(this.schemas.map((s) => [s.id, s.value])),
     }
   }
@@ -53,18 +58,9 @@ export class CartItem {
       newQuantity,
       this.productSchemas,
       this.schemas,
+      [],
       this.createdAt,
     )
-  }
-
-  get childrenLength() {
-    return this.children.length
-  }
-
-  get totalQty() {
-    const sumOfChildren = this.children.reduce((acc, child) => acc + child.qty, 0)
-
-    return round(this.qty + sumOfChildren, 2)
   }
 
   get id() {
@@ -83,8 +79,18 @@ export class CartItem {
     return this.product.attributes
   }
 
-  // ? Singular prices
-  get price() {
+  /**
+   * Number of given items in the cart, also includes nested items
+   */
+  get totalQty() {
+    const childrenQty = this.children.reduce((acc, child) => acc + child.qty, 0)
+    return round(this.qty + childrenQty, 2)
+  }
+
+  /**
+   * Singular price of the item (without children)
+   */
+  private get price() {
     if (this.precalculatedPrice) return this.precalculatedPrice
 
     try {
@@ -96,24 +102,43 @@ export class CartItem {
     }
   }
 
+  /**
+   * Singular initial (before discounts) price of the item (without children)
+   */
   get initialPrice() {
     return this.precalculatedInitialPrice || this.price
   }
 
-  // ? total prices
-  get totalPrice() {
-    return round(this.price * this.qty, 2)
-  }
-  get totalInitialPrice() {
-    return round(this.initialPrice * this.qty, 2)
+  /**
+   * Total price of the item including quantity and children
+   */
+  get totalPrice(): number {
+    const childrenTotalPrice = this.children.reduce((sum, child) => sum + child.totalPrice, 0)
+    return round(this.price * this.qty + childrenTotalPrice, 2)
   }
 
+  /**
+   * Total initial price (before discounts) of the item including quantity and children
+   */
+  get totalInitialPrice(): number {
+    const childrenTotalInitialPrice = this.children.reduce(
+      (sum, child) => sum + child.totalInitialPrice,
+      0,
+    )
+    return round(this.initialPrice * this.qty + childrenTotalInitialPrice, 2)
+  }
+
+  /**
+   * Total discount value of the item (without children)
+   */
   get discountValue() {
     return round((this.precalculatedInitialPrice || 0) - (this.precalculatedPrice || 0), 2)
   }
 
-  // returns sum of core-product discounts and all childrens' discounts
-  // to be able to display info about total discount on one particular product
+  /**
+   * returns sum of core-product discounts and all childrens' discounts
+   * to be able to display info about total discount on one particular product
+   */
   get totalDiscountValue() {
     const baseDiscount = this.discountValue * this.qty
     const childrenDiscounts: number = this.children.reduce(
@@ -124,7 +149,7 @@ export class CartItem {
     return round(baseDiscount + childrenDiscounts, 2)
   }
 
-  setPrices(price: number, initialPrice: number) {
+  setPrecalculatedPrices(price: number, initialPrice: number) {
     this.precalculatedPrice = price
     this.precalculatedInitialPrice = initialPrice
     return this
@@ -139,8 +164,19 @@ export class CartItem {
     return this
   }
 
+  /**
+   * @deprecated Use `coverUrl` instead
+   */
   get cover() {
+    return this.coverUrl
+  }
+
+  get coverUrl() {
     return this.product.cover?.url || ''
+  }
+
+  get coverMedia() {
+    return this.product.cover
   }
 
   get quantityStep() {
@@ -170,18 +206,10 @@ export class CartItem {
     return {
       type: 'CartItem',
       product: this.product,
-      qty: this.qty,
+      qty: this.totalQty,
       schemas: this.schemas,
       productSchemas: this.productSchemas,
       createdAt: this.createdAt,
     }
   }
 }
-
-Object.defineProperty(CartItem.prototype, 'discountValue', {
-  enumerable: true,
-})
-
-Object.defineProperty(CartItem.prototype, 'totalDiscountValue', {
-  enumerable: true,
-})

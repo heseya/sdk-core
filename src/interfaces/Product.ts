@@ -15,7 +15,7 @@ export interface ProductList extends MetadataFields {
   id: UUID
   name: string
   slug: string
-  cover: CdnMedia
+  cover: CdnMedia | null
   price: number
   price_max: number
   price_min: number
@@ -72,7 +72,7 @@ export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetada
 //? ------------------------------------------------------------
 
 export interface OrderProduct {
-  id: UUID
+  name: string
   quantity: number
   price: number
   price_initial: number
