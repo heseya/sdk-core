@@ -108,7 +108,6 @@ interface AttributeDate extends AttributeBase {
   type: AttributeType.Date
   min: string // Date
   max: string // Date
-  options: AttributeDateOption[]
 }
 type AttributeDateCreateDto = MakeAttributeDto<AttributeDate>
 type AttributeDateUpdateDto = MakeAttributeDto<Omit<AttributeDate, keyof CreateMetadataFields>>
