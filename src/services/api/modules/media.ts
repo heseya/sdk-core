@@ -1,12 +1,26 @@
 import { FormData } from 'formdata-polyfill'
 
-import { CdnMedia, CdnMediaUpdateDto, CdnMediaCreateDto } from '../../../interfaces/CdnMedia'
-import { DeleteEntityRequest, UpdateEntityRequest } from '../types/Requests'
+import {
+  CdnMedia,
+  CdnMediaType,
+  CdnMediaExtended,
+  CdnMediaUpdateDto,
+  CdnMediaCreateDto,
+} from '../../../interfaces/CdnMedia'
+import { PaginationParams } from '../types/DefaultParams'
+import { DeleteEntityRequest, GetEntityRequest, UpdateEntityRequest } from '../types/Requests'
 import { ServiceFactory } from '../types/Service'
-import { createDeleteRequest, createPatchRequest } from '../utils/requests'
+import { createGetListRequest, createDeleteRequest, createPatchRequest } from '../utils/requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 
 export interface MediaService extends EntityMetadataService {
+  /**
+   * Returns a list of media
+   */
+  get: GetEntityRequest<
+    CdnMediaExtended,
+    { type?: CdnMediaType; has_relationships?: boolean } & PaginationParams
+  >
   /**
    * Allows a user to create the Media.
    * Notice: metadata can only be strings in this method, cause you cant send type in FormData
@@ -43,6 +57,7 @@ export const createMediaService: ServiceFactory<MediaService> = (axios) => {
 
       return data.data
     },
+    get: createGetListRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
 

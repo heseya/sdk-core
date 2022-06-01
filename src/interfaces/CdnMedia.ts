@@ -1,4 +1,5 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
+import { UUID } from './UUID'
 
 export enum CdnMediaType {
   Photo = 'photo',
@@ -7,11 +8,15 @@ export enum CdnMediaType {
 }
 
 export interface CdnMedia extends MetadataFields {
-  id: string
+  id: UUID
   type: CdnMediaType
   url: string
   alt?: string
   slug?: string
+}
+
+export interface CdnMediaExtended extends CdnMedia {
+  relations_count: number
 }
 
 export interface CdnMediaCreateDto extends CreateMetadataFields {
