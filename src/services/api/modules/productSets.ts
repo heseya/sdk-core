@@ -47,7 +47,10 @@ export interface ProductSetsService
     EntityMetadataService {
   reorder: ReorderEntityRequest
   reorderChild: (parentId: UUID, ids: UUID[], params?: DefaultParams) => Promise<true>
-  getProducts: (id: UUID, params?: DefaultParams) => Promise<ListResponse<ProductList>>
+  getProducts: (
+    id: UUID,
+    params?: DefaultParams & PaginationParams,
+  ) => Promise<ListResponse<ProductList>>
   updateProducts: (
     id: UUID,
     productsIds: UUID[],
