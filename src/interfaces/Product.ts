@@ -30,6 +30,10 @@ export interface ProductList extends MetadataFields {
   public: boolean
   visible: boolean
   available: boolean
+  /**
+   * Indicates if the product has at least one schema, so it cannot be added to cart directly
+   */
+  has_schemas: boolean
   attributes: ProductListAttribute[]
 }
 
