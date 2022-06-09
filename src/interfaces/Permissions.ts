@@ -24,7 +24,6 @@ export enum AuditsPermission {
 }
 
 export enum AuthPermission {
-  Login = 'auth.login',
   Register = 'auth.register',
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
