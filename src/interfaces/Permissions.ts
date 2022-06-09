@@ -31,6 +31,11 @@ export enum AuthPermission {
   SessionsRevoke = 'auth.sessions.revoke',
 }
 
+export enum ProfilePermission {
+  AddressesManage = 'profile.addresses_manage',
+  WishlistManage = 'profile.wishlist_manage',
+}
+
 export enum AttributesPermission {
   Show = 'attributes.show',
   Add = 'attributes.add',
@@ -226,6 +231,7 @@ export type Permission =
   | AnalyticsPermission
   | AppsPermission
   | AuthPermission
+  | ProfilePermission
   | AttributesPermission
   | BannersPermission
   | ProductSetsPermission
