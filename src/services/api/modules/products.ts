@@ -36,6 +36,7 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   tags?: UUID[]
   ids?: UUID[]
   available?: boolean
+  has_cover?: boolean
   attribute?: AttributeFilter
   price?: NumberAttributeFilterValue
 }
