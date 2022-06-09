@@ -110,6 +110,14 @@ export enum CartPermission {
   Verify = 'cart.verify',
 }
 
+export enum MediaPermission {
+  Show = 'media.show',
+  ShowMetadataPrivate = 'media.show_metadata_private',
+  Add = 'media.add',
+  Edit = 'media.edit',
+  Remove = 'media.remove',
+}
+
 export enum OrdersPermission {
   Show = 'orders.show',
   Add = 'orders.add',
@@ -238,6 +246,7 @@ export type Permission =
   | ItemsPermission
   | SchemasPermission
   | CartPermission
+  | MediaPermission
   | OrdersPermission
   | PackagesPermission
   | PagesPermission
