@@ -15,7 +15,7 @@ export interface ShippingMethodPriceRange {
 
 export interface ShippingMethod extends MetadataFields {
   id: UUID
-  black_list: boolean
+  block_list: boolean
   countries: ShippingCountry[]
   name: string
   price: number | null
@@ -29,7 +29,7 @@ export interface ShippingMethod extends MetadataFields {
 export interface ShippingMethodCreateDto extends CreateMetadataFields {
   name: string
   public: boolean
-  black_list: boolean
+  block_list: boolean
   /** List of the Country.code's */
   countries: string[]
   payment_methods: UUID[]
