@@ -32,12 +32,15 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   slug?: string
   public?: boolean
   sets?: UUID[]
+  sets_not?: UUID[]
   sort?: string
   tags?: UUID[]
+  tags_not?: UUID[]
   ids?: UUID[]
   available?: boolean
   has_cover?: boolean
   attribute?: AttributeFilter
+  attribute_not?: Record<string, UUID | UUID[]>
   price?: NumberAttributeFilterValue
 }
 
