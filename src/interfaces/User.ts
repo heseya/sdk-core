@@ -22,7 +22,6 @@ export interface User extends UserList {
   delivery_addresses: UserSavedAddress[]
   invoice_addresses: UserSavedAddress[]
   consents: UserConsent[]
-  preferences: UserPreferences
 }
 
 export interface UserUpdateDto {
