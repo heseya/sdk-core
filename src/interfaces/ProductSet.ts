@@ -10,11 +10,11 @@ export interface ProductSetList extends MetadataFields {
   slug: string
   slug_suffix: string
   slug_override: boolean
-  cover: CdnMedia | null
   public: boolean
   visible: boolean
   hide_on_index: boolean
   attributes: ProductSetAttribute[]
+  cover?: CdnMedia
   parent?: ProductSet | null
   parent_id?: string | null
   children?: ProductSet[]
