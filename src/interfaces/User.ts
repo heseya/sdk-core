@@ -18,6 +18,7 @@ export interface UserList extends MetadataFields {
 
 export interface User extends UserList {
   permissions: Permission[]
+  preferences: UserPreferences
   delivery_addresses: UserSavedAddress[]
   invoice_addresses: UserSavedAddress[]
   consents: UserConsent[]
@@ -42,8 +43,8 @@ export interface UserRegisterDto {
 
 export interface UserProfileUpdateDto {
   name?: string
-  preferences?: UserPreferences
   consents?: UserConsentDto[]
+  preferences?: UserPreferences
 }
 
 export interface UserPreferences {

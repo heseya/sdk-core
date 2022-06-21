@@ -4,7 +4,7 @@ import { UUID } from './UUID'
 export interface PackagesTemplate extends MetadataFields {
   id: UUID
   name: string
-  wieght: number
+  weight: number
   width: number
   height: number
   depth: number

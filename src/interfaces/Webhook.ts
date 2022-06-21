@@ -36,9 +36,10 @@ export enum WebhookEventType {
 }
 
 export interface WebhookEventEntry {
-  key: string
+  key: WebhookEventType
   name: string
   description: string
+  encrypted: boolean
   required_permissions: Permission[]
   required_hidden_permissions: Permission[]
 }
