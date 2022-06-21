@@ -51,11 +51,11 @@ export interface ProductCreateDto extends CreateMetadataFields {
   price: number
   public: boolean
   order: number | null
+  google_product_category: number | null
   description_html?: string
   description_short?: string
   quantity_step?: number
   vat_rate?: number
-  google_product_category?: number
   sets?: UUID[]
   tags?: UUID[]
   schemas?: UUID[]
