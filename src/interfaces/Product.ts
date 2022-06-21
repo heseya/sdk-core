@@ -50,6 +50,7 @@ export interface ProductCreateDto extends CreateMetadataFields {
   slug: string
   price: number
   public: boolean
+  order: number | null
   description_html?: string
   description_short?: string
   quantity_step?: number

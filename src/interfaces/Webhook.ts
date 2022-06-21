@@ -10,7 +10,30 @@ import { UUID } from './UUID'
 /**
  * Webhook CRUD entry
  */
-export type WebhookEventType = string // TODO: enum with all events
+export enum WebhookEventType {
+  OrderCreated = 'OrderCreated',
+  OrderUpdated = 'OrderUpdated',
+  OrderUpdatedStatus = 'OrderUpdatedStatus',
+  ProductCreated = 'ProductCreated',
+  ProductUpdated = 'ProductUpdated',
+  ProductDeleted = 'ProductDeleted',
+  ItemCreated = 'ItemCreated',
+  ItemUpdated = 'ItemUpdated',
+  ItemUpdatedQuantity = 'ItemUpdatedQuantity',
+  ItemDeleted = 'ItemDeleted',
+  PageCreated = 'PageCreated',
+  PageUpdated = 'PageUpdated',
+  PageDeleted = 'PageDeleted',
+  ProductSetCreated = 'ProductSetCreated',
+  ProductSetUpdated = 'ProductSetUpdated',
+  ProductSetDeleted = 'ProductSetDeleted',
+  UserCreated = 'UserCreated',
+  UserUpdated = 'UserUpdated',
+  UserDeleted = 'UserDeleted',
+  DiscountCreated = 'DiscountCreated',
+  DiscountUpdated = 'DiscountUpdated',
+  DiscountDeleted = 'DiscountDeleted',
+}
 
 export interface WebhookEventEntry {
   key: string
@@ -28,6 +51,13 @@ export interface WebhookEventLog {
   status_code: number
   payload: unknown
   response: unknown
+}
+
+export interface WebHookEventObject {
+  key: WebhookEventType
+  name: string
+  description: string
+  encrypted: boolean
 }
 
 export interface WebhookEntry {
