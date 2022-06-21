@@ -62,6 +62,7 @@ export enum ConsentsPermission {
   Add = 'consents.add',
   Edit = 'consents.edit',
   Remove = 'consents.remove',
+  ShowMetadataPrivate = 'consents.show_metadata_private',
 }
 
 export enum CountriesPermission {

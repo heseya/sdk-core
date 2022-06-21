@@ -43,7 +43,7 @@ export interface UserRegisterDto {
 
 export interface UserProfileUpdateDto {
   name?: string
-  consents?: UserConsentDto[]
+  consents?: UserConsentDto
   preferences?: UserPreferences
 }
 
