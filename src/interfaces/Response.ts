@@ -23,6 +23,13 @@ export interface HeseyaPaginationMeta {
   total: number
 }
 
+export interface HeseyaResponseLinks {
+  first: string
+  last: string
+  prev: string
+  next: string
+}
+
 export interface HeseyaResponse<Data> {
   data: Data
   meta: HeseyaResponseMeta

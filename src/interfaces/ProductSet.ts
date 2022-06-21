@@ -1,7 +1,7 @@
 import { ProductSetAttribute } from './Attribute'
 import { CdnMedia } from './CdnMedia'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { SeoMetadata } from './Seo'
+import { SeoMetadata, SeoMetadataDto } from './Seo'
 import { UUID } from './UUID'
 
 export interface ProductSetList extends MetadataFields {
@@ -30,14 +30,14 @@ export interface ProductSetCreateDto extends CreateMetadataFields {
   name: string
   slug_suffix: string
   slug_override: boolean
+  parent_id: UUID | null
+  seo: SeoMetadataDto | null
   public?: boolean
   hide_on_index?: boolean
-  parent_id?: UUID
   children_ids?: UUID[]
   description_html?: string
   cover_id?: UUID
   attributes?: UUID[]
-  seo?: SeoMetadata
 }
 
 export type ProductSetUpdateDto = Omit<ProductSetCreateDto, keyof CreateMetadataFields>

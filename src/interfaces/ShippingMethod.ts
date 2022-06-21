@@ -10,7 +10,12 @@ export interface ShippingCountry {
 export interface ShippingMethodPriceRange {
   id: UUID
   start: number
-  prices: { id: UUID; value: number }[]
+  prices: { id: UUID; value: number; model_id: UUID }[]
+}
+
+export interface ShippingMethodPriceRangeDto {
+  start: number
+  value: number
 }
 
 export interface ShippingMethod extends MetadataFields {
