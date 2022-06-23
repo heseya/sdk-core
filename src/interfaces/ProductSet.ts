@@ -15,13 +15,13 @@ export interface ProductSetList extends MetadataFields {
   visible: boolean
   hide_on_index: boolean
   attributes: ProductSetAttribute[]
-  parent?: ProductSet | null
-  parent_id?: string | null
+  parent_id: string | null
   children?: ProductSet[]
   children_ids?: UUID[]
 }
 
-export interface ProductSet extends ProductSetList {
+export interface ProductSet extends Omit<ProductSetList, 'parent_id'> {
+  parent: ProductSetList | null
   description_html: string
   seo: SeoMetadata | null
 }
