@@ -85,7 +85,7 @@ export interface OrderSummary {
  * ------------------------------------------------------------
  */
 
-export interface OrderDto extends CreateMetadataFields {
+export interface OrderCreateDto extends CreateMetadataFields {
   email: string
   comment: string
   shipping_method_id: UUID
