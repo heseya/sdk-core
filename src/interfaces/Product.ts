@@ -47,6 +47,20 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
   items: ProductWarehouseItem[]
+  /**
+   * Quantity of the product in the system
+   * `null` means, that product has infinity quantity
+   */
+  quantity: number | null
+  /**
+   * Summary of the product availability for a different time frames
+   * `quantity == null` means, that product has infinity quantity in that time frame
+   */
+  availability: {
+    shipping_time: number | null
+    shipping_date: string | null
+    quantity: number | null
+  }[]
 }
 
 export interface ProductCreateDto extends CreateMetadataFields {
