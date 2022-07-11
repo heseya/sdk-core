@@ -11,13 +11,13 @@ import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultP
 import {
   CreateEntityRequest,
   DeleteEntityRequest,
-  GetEntityRequest,
   GetOneEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { ListResponse } from '../../../interfaces'
 
 interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
@@ -28,7 +28,8 @@ export interface UsersService extends EntityMetadataService, EntityAuditsService
   /**
    * Return a list of users
    */
-  get: GetEntityRequest<UserList, UsersListParams>
+  get(params: UsersListParams & { full?: false }): Promise<ListResponse<UserList>>
+  get(params: UsersListParams & { full: true }): Promise<ListResponse<User>>
 
   /**
    * Return a single user searched by id

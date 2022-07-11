@@ -18,7 +18,7 @@ import {
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
-import { Attribute } from '../../../interfaces'
+import { Attribute, ListResponse } from '../../../interfaces'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
@@ -45,9 +45,18 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
 }
 
 export interface ProductsService
-  extends CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
+  extends Omit<
+      CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
+      'get'
+    >,
     EntityMetadataService,
     EntityAuditsService<Product> {
+  /**
+   * Return a list of products
+   */
+  get(params: ProductsListParams & { full?: false }): Promise<ListResponse<ProductList>>
+  get(params: ProductsListParams & { full: true }): Promise<ListResponse<Product>>
+
   getFilters(props?: { sets?: UUID[] }): Promise<Attribute[]>
 }
 
