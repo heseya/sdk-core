@@ -54,6 +54,9 @@ export interface ProductCreateDto extends CreateMetadataFields {
   slug: string
   price: number
   public: boolean
+  /**
+   * Order by which the product will be sorted in the catalog (lower is the higher)
+   */
   order: number | null
   google_product_category: number | null
   description_html?: string
