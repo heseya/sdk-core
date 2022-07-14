@@ -48,6 +48,10 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   attributes: ProductAttribute[]
   items: ProductWarehouseItem[]
   /**
+   * Order by which the product will be sorted in the catalog (lower is the higher)
+   */
+  order: number | null
+  /**
    * Quantity of the product in the system
    * `null` means, that product has infinity quantity
    */
