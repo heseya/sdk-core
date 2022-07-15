@@ -46,7 +46,7 @@ export const PERMISSIONS_TREE = {
   Deposits: DepositsPermission,
   Sales: SalesPermission,
   Coupons: CouponsPermission,
-  Consetns: ConsentsPermission,
+  Consents: ConsentsPermission,
   Items: ItemsPermission,
   Schemas: SchemasPermission,
   Cart: CartPermission,
