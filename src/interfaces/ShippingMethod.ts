@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { PaymentMethod } from './Payments'
 import { UUID } from './UUID'
 
@@ -10,12 +10,17 @@ export interface ShippingCountry {
 export interface ShippingMethodPriceRange {
   id: UUID
   start: number
-  prices: { id: UUID; value: number }[]
+  prices: { id: UUID; value: number; model_id: UUID }[]
+}
+
+export interface ShippingMethodPriceRangeDto {
+  start: number
+  value: number
 }
 
 export interface ShippingMethod extends MetadataFields {
   id: UUID
-  black_list: boolean
+  block_list: boolean
   countries: ShippingCountry[]
   name: string
   price: number | null
@@ -26,10 +31,10 @@ export interface ShippingMethod extends MetadataFields {
   shipping_time_min: number
 }
 
-export interface ShippingMethodCreateDto {
+export interface ShippingMethodCreateDto extends CreateMetadataFields {
   name: string
   public: boolean
-  black_list: boolean
+  block_list: boolean
   /** List of the Country.code's */
   countries: string[]
   payment_methods: UUID[]
@@ -37,4 +42,5 @@ export interface ShippingMethodCreateDto {
   shipping_time_max: number
   shipping_time_min: number
 }
-export type ShippingMethodUpdateDto = ShippingMethodCreateDto
+
+export type ShippingMethodUpdateDto = Omit<ShippingMethodCreateDto, keyof CreateMetadataFields>

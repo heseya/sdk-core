@@ -29,6 +29,7 @@ import {
   WebhooksPermission,
   AttributesPermission,
   BannersPermission,
+  ConsentsPermission,
 } from '../interfaces/Permissions'
 
 export const PERMISSIONS_TREE = {
@@ -45,6 +46,7 @@ export const PERMISSIONS_TREE = {
   Deposits: DepositsPermission,
   Sales: SalesPermission,
   Coupons: CouponsPermission,
+  Consents: ConsentsPermission,
   Items: ItemsPermission,
   Schemas: SchemasPermission,
   Cart: CartPermission,

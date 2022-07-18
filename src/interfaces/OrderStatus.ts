@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
 export interface OrderStatus extends MetadataFields {
@@ -23,5 +23,7 @@ export interface OrderStatus extends MetadataFields {
   no_notifications: boolean
 }
 
-export type OrderStatusCreateDto = Omit<OrderStatus, 'id' | keyof MetadataFields>
-export type OrderStatusUpdateDto = OrderStatusCreateDto
+export type OrderStatusCreateDto = Omit<OrderStatus, 'id' | keyof MetadataFields> &
+  CreateMetadataFields
+
+export type OrderStatusUpdateDto = Omit<OrderStatusCreateDto, keyof CreateMetadataFields>

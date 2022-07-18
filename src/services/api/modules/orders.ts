@@ -1,5 +1,11 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
-import { OrderSummary, OrderList, Order, OrderDto, OrderUpdateDto } from '../../../interfaces/Order'
+import {
+  OrderSummary,
+  OrderList,
+  Order,
+  OrderCreateDto,
+  OrderUpdateDto,
+} from '../../../interfaces/Order'
 import { OrderPayment, PaymentMethodList } from '../../../interfaces/Payments'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 import { UUID } from '../../../interfaces/UUID'
@@ -66,7 +72,7 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
   getOneByCode: GetOneBySlugEntityRequest<OrderSummary>
   getOne: GetOneEntityRequest<Order>
   get: GetEntityRequest<OrderList, OrdersListParams>
-  create: CreateEntityRequest<Order, OrderDto>
+  create: CreateEntityRequest<Order, OrderCreateDto>
   update: UpdateEntityRequest<Order, OrderUpdateDto>
   updateStatus: UpdateEntityRequest<
     Order,

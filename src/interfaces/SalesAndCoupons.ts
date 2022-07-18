@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
 import { DiscountConditionGroup, DiscountConditionGroupDto } from './SaleCondition'
@@ -19,7 +20,7 @@ export enum DiscountTargetType {
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-export interface Sale {
+export interface Sale extends MetadataFields {
   id: UUID
   name: string
   description: string | null
@@ -41,7 +42,7 @@ export interface Coupon extends Sale {
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-export interface SaleCreateDto {
+export interface SaleCreateDto extends CreateMetadataFields {
   name: string
   description: string | null
   value: number
@@ -55,13 +56,13 @@ export interface SaleCreateDto {
   target_is_allow_list: boolean
 }
 
-export type SaleUpdateDto = SaleCreateDto
+export type SaleUpdateDto = Omit<SaleCreateDto, keyof CreateMetadataFields>
 
 export interface CouponCreateDto extends SaleCreateDto {
   code: string
 }
 
-export type CouponUpdateDto = CouponCreateDto
+export type CouponUpdateDto = Omit<CouponCreateDto, keyof CreateMetadataFields>
 
 // ? ---------------------------------------------------------------------------------------------------------------
 

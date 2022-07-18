@@ -11,8 +11,8 @@ import { Banner, BannerCreateDto, BannerUpdateDto } from '../../../interfaces/Ba
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 
-interface BannersListParams extends PaginationParams, MetadataParams {
-  slug: string
+interface BannersListParams extends PaginationParams, MetadataParams, PaginationParams {
+  slug?: string
 }
 
 export type BannersService = Omit<

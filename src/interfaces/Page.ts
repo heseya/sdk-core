@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 
@@ -20,5 +20,5 @@ export interface Page extends PageList {
   seo?: SeoMetadata
 }
 
-export type PageCreateDto = Omit<Page, 'id'>
-export type PageUpdateDto = PageCreateDto
+export type PageCreateDto = Omit<Page, 'id' | keyof MetadataFields> & CreateMetadataFields
+export type PageUpdateDto = Omit<PageCreateDto, keyof CreateMetadataFields>

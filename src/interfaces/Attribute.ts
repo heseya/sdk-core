@@ -29,7 +29,6 @@ interface AttributeBase extends CreateMetadataFields {
   type: AttributeType
   min: number | string | null
   max: number | string | null
-  options: AttributeOption[]
 }
 
 // ? ---------------------------------------------------------------
@@ -37,9 +36,7 @@ interface AttributeBase extends CreateMetadataFields {
 // ? ---------------------------------------------------------------
 
 // DtoHelper
-type MakeAttributeDto<Attr, OptionDto> = Omit<Attr, 'id' | 'min' | 'max' | 'options'> & {
-  options: (OptionDto & { id?: UUID })[]
-}
+type MakeAttributeDto<Attr> = Omit<Attr, 'id' | 'min' | 'max'>
 
 // * Single Option -------------------------------------------------
 interface AttributeSingleOptionOption extends AttributeOptionBase {
@@ -56,15 +53,10 @@ interface AttributeSingleOption extends AttributeBase {
   type: AttributeType.SingleOption
   min: null
   max: null
-  options: AttributeSingleOptionOption[]
 }
-type AttributeSingleOptionCreateDto = MakeAttributeDto<
-  AttributeSingleOption,
-  AttributeSingleOptionOptionCreateDto
->
+type AttributeSingleOptionCreateDto = MakeAttributeDto<AttributeSingleOption>
 type AttributeSingleOptionUpdateDto = MakeAttributeDto<
-  Omit<AttributeSingleOption, keyof CreateMetadataFields>,
-  AttributeSingleOptionOptionUpdateDto
+  Omit<AttributeSingleOption, keyof CreateMetadataFields>
 >
 
 // * Multi Option --------------------------------------------------------
@@ -79,15 +71,10 @@ interface AttributeMultiOption extends AttributeBase {
   type: AttributeType.MultiChoiceOption
   min: null
   max: null
-  options: AttributeMultiOptionOption[]
 }
-type AttributeMultiOptionCreateDto = MakeAttributeDto<
-  AttributeMultiOption,
-  AttributeMultiOptionOptionCreateDto
->
+type AttributeMultiOptionCreateDto = MakeAttributeDto<AttributeMultiOption>
 type AttributeMultiOptionUpdateDto = MakeAttributeDto<
-  Omit<AttributeMultiOption, keyof CreateMetadataFields>,
-  AttributeMultiOptionOptionUpdateDto
+  Omit<AttributeMultiOption, keyof CreateMetadataFields>
 >
 
 // * Number --------------------------------------------------------
@@ -105,13 +92,9 @@ interface AttributeNumber extends AttributeBase {
   type: AttributeType.Number
   min: number
   max: number
-  options: AttributeNumberOption[]
 }
-type AttributeNumberCreateDto = MakeAttributeDto<AttributeNumber, AttributeNumberOptionCreateDto>
-type AttributeNumberUpdateDto = MakeAttributeDto<
-  Omit<AttributeNumber, keyof CreateMetadataFields>,
-  AttributeNumberOptionUpdateDto
->
+type AttributeNumberCreateDto = MakeAttributeDto<AttributeNumber>
+type AttributeNumberUpdateDto = MakeAttributeDto<Omit<AttributeNumber, keyof CreateMetadataFields>>
 
 // * Date ----------------------------------------------------------
 interface AttributeDateOption extends AttributeOptionBase {
@@ -125,13 +108,9 @@ interface AttributeDate extends AttributeBase {
   type: AttributeType.Date
   min: string // Date
   max: string // Date
-  options: AttributeDateOption[]
 }
-type AttributeDateCreateDto = MakeAttributeDto<AttributeDate, AttributeDateOptionCreateDto>
-type AttributeDateUpdateDto = MakeAttributeDto<
-  Omit<AttributeDate, keyof CreateMetadataFields>,
-  AttributeDateOptionUpdateDto
->
+type AttributeDateCreateDto = MakeAttributeDto<AttributeDate>
+type AttributeDateUpdateDto = MakeAttributeDto<Omit<AttributeDate, keyof CreateMetadataFields>>
 
 // ? ---------------------------------------------------------------
 // ? SUMMARY
@@ -150,6 +129,8 @@ export type Attribute =
   | AttributeMultiOption
   | AttributeNumber
   | AttributeDate
+
+export type ProductSetAttribute = Omit<Attribute, 'options'>
 
 export type AttributeCreateDto =
   | AttributeSingleOptionCreateDto
