@@ -11,7 +11,7 @@ import {
   PaymentMethod,
   PaymentMethodCreateDto,
   PaymentMethodUpdateDto,
-} from '../../../interfaces/PaymentMethod'
+} from '../../../interfaces/PaymentMethods'
 import { PaginationParams } from '../types/DefaultParams'
 
 interface PaymentMethodsParams extends PaginationParams {

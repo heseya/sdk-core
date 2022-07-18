@@ -6,7 +6,7 @@ import {
   OrderCreateDto,
   OrderUpdateDto,
 } from '../../../interfaces/Order'
-import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethod'
+import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 import { UUID } from '../../../interfaces/UUID'
 
