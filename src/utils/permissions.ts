@@ -1,5 +1,3 @@
-import { isArray } from 'lodash'
-
 import { Permission } from '../interfaces/Permissions'
 
 /**
@@ -9,7 +7,7 @@ import { Permission } from '../interfaces/Permissions'
 export const hasAccess =
   (required: Permission | Permission[], anyOfRequired = false) =>
   (userPermissions: Permission[]): boolean => {
-    const requiredArray = isArray(required) ? required : [required]
+    const requiredArray = Array.isArray(required) ? required : [required]
 
     const callback = (requiredPermission: Permission) =>
       userPermissions.includes(requiredPermission)

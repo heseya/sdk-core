@@ -27,11 +27,11 @@ export interface MediaService extends EntityMetadataService {
    */
   create: (data: CdnMediaCreateDto) => Promise<CdnMedia>
   /**
-   * Allows a user to create the Media.
+   * Allows a user to update the Media.
    */
   update: UpdateEntityRequest<CdnMedia, CdnMediaUpdateDto>
   /**
-   * Allows a user to create the Media.
+   * Allows a user to delete the Media.
    */
   delete: DeleteEntityRequest
 }
