@@ -62,6 +62,14 @@ export enum ProductSetsPermission {
   ShowMetadataPrivate = 'product_sets.show_metadata_private',
 }
 
+export enum ConsentsPermission {
+  Show = 'consents.show',
+  Add = 'consents.add',
+  Edit = 'consents.edit',
+  Remove = 'consents.remove',
+  ShowMetadataPrivate = 'consents.show_metadata_private',
+}
+
 export enum CountriesPermission {
   Show = 'countries.show',
 }
@@ -216,6 +224,7 @@ export enum SeoPermission {
 
 export enum WebhooksPermission {
   Show = 'webhooks.show',
+  ShowDetails = 'webhooks.show_details',
   Add = 'webhooks.add',
   Edit = 'webhooks.edit',
   Remove = 'webhooks.remove',
@@ -235,6 +244,7 @@ export type Permission =
   | AttributesPermission
   | BannersPermission
   | ProductSetsPermission
+  | ConsentsPermission
   | CountriesPermission
   | ShippingMethodsPermission
   | DepositsPermission

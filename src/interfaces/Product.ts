@@ -30,6 +30,10 @@ export interface ProductList extends MetadataFields {
   public: boolean
   visible: boolean
   available: boolean
+  /**
+   * Indicates if the product has at least one schema, so it cannot be added to cart directly
+   */
+  has_schemas: boolean
   attributes: ProductListAttribute[]
 }
 
@@ -43,6 +47,24 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
   items: ProductWarehouseItem[]
+  /**
+   * Order by which the product will be sorted in the catalog (lower is the higher)
+   */
+  order: number | null
+  /**
+   * Quantity of the product in the system
+   * `null` means, that product has infinity quantity
+   */
+  quantity: number | null
+  /**
+   * Summary of the product availability for a different time frames
+   * `quantity == null` means, that product has infinity quantity in that time frame
+   */
+  availability: {
+    shipping_time: number | null
+    shipping_date: string | null
+    quantity: number | null
+  }[]
 }
 
 export interface ProductCreateDto extends CreateMetadataFields {
@@ -50,11 +72,15 @@ export interface ProductCreateDto extends CreateMetadataFields {
   slug: string
   price: number
   public: boolean
+  /**
+   * Order by which the product will be sorted in the catalog (lower is the higher)
+   */
+  order: number | null
+  google_product_category: number | null
   description_html?: string
   description_short?: string
   quantity_step?: number
   vat_rate?: number
-  google_product_category?: number
   sets?: UUID[]
   tags?: UUID[]
   schemas?: UUID[]
