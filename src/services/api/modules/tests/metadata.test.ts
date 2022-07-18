@@ -2,10 +2,10 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
 import { HeseyaResponse } from '../../../../interfaces'
-import { Metadata, MetadataDto } from '../../../../interfaces/Metadata'
+import { Metadata, MetadataUpdateDto } from '../../../../interfaces/Metadata'
 import { createEntityMetadataService } from '../metadata'
 
-const dummyMetadataDto: MetadataDto = { test: 'test', remove: null }
+const dummyMetadataDto: MetadataUpdateDto = { test: 'test', remove: null }
 
 const dummyMetadataResponse: HeseyaResponse<Metadata> = {
   data: {

@@ -1,4 +1,4 @@
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Permission } from './Permissions'
 import { UUID } from './UUID'
 
@@ -10,10 +10,10 @@ export interface Role extends MetadataFields {
   permissions: Permission[]
 }
 
-export interface RoleCreateDto {
+export interface RoleCreateDto extends CreateMetadataFields {
   name: string
   description: string
   permissions: Permission[]
 }
 
-export type RoleUpdateDto = RoleCreateDto
+export type RoleUpdateDto = Omit<RoleCreateDto, keyof CreateMetadataFields>

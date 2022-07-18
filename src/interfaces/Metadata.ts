@@ -1,6 +1,8 @@
 export type Metadata = Record<string, string | number | boolean>
 
-export type MetadataDto = Record<string, string | number | boolean | null>
+export type MetadataCreateDto = Record<string, string | number | boolean | undefined>
+
+export type MetadataUpdateDto = Record<string, string | number | boolean | null | undefined>
 
 export interface MetadataFields {
   metadata: Metadata
@@ -8,6 +10,6 @@ export interface MetadataFields {
 }
 
 export interface CreateMetadataFields {
-  metadata?: Metadata
-  metadata_private?: Metadata
+  metadata?: MetadataCreateDto
+  metadata_private?: MetadataCreateDto
 }

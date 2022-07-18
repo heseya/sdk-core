@@ -4,7 +4,7 @@ import { Role } from './Role'
 import { Permission } from './Permissions'
 
 import { UserSavedAddress } from './Address'
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UserConsent, UserConsentDto } from './Consent'
 
 export interface UserList extends MetadataFields {
@@ -18,6 +18,7 @@ export interface UserList extends MetadataFields {
 
 export interface User extends UserList {
   permissions: Permission[]
+  preferences: UserPreferences
   delivery_addresses: UserSavedAddress[]
   invoice_addresses: UserSavedAddress[]
   consents: UserConsent[]
@@ -29,7 +30,7 @@ export interface UserUpdateDto {
   roles: UUID[]
 }
 
-export interface UserCreateDto extends UserUpdateDto {
+export interface UserCreateDto extends UserUpdateDto, CreateMetadataFields {
   password: string
 }
 
@@ -42,6 +43,13 @@ export interface UserRegisterDto {
 
 export interface UserProfileUpdateDto {
   name?: string
-  // notification settings here
   consents?: UserConsentDto
+  preferences?: UserPreferences
+}
+
+export interface UserPreferences {
+  successfull_login_attempt_alert: boolean
+  failed_login_attempt_alert: boolean
+  new_localization_login_alert: boolean
+  recovery_code_changed_alert: boolean
 }

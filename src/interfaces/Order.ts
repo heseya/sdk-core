@@ -1,7 +1,7 @@
 import { UUID } from './UUID'
 import { Address, AddressDto } from './Address'
 import { OrderCartItem } from './CartItem'
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { ShippingMethod } from './ShippingMethod'
 import { OrderStatus } from './OrderStatus'
 import { OrderProduct } from './Product'
@@ -86,7 +86,7 @@ export interface OrderSummary {
  * ------------------------------------------------------------
  */
 
-export interface OrderDto {
+export interface OrderCreateDto extends CreateMetadataFields {
   email: string
   comment: string
   shipping_method_id: UUID

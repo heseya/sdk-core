@@ -1,5 +1,5 @@
 import { Address } from './Address'
-import { MetadataFields } from './Metadata'
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { PaymentMethod } from './PaymentMethod'
 import { UUID } from './UUID'
 
@@ -18,7 +18,12 @@ export interface ShippingCountry {
 export interface ShippingMethodPriceRange {
   id: UUID
   start: number
-  prices: { id: UUID; value: number }[]
+  prices: { id: UUID; value: number; model_id: UUID }[]
+}
+
+export interface ShippingMethodPriceRangeDto {
+  start: number
+  value: number
 }
 
 export interface ShippingMethod extends MetadataFields {
@@ -38,7 +43,7 @@ export interface ShippingMethod extends MetadataFields {
   shipping_points: Address[]
 }
 
-export interface ShippingMethodCreateDto {
+export interface ShippingMethodCreateDto extends CreateMetadataFields {
   name: string
   shipping_type: ShippingType
   payment_methods: UUID[]
@@ -52,4 +57,5 @@ export interface ShippingMethodCreateDto {
   app_id?: UUID
   shipping_points?: Address[]
 }
-export type ShippingMethodUpdateDto = ShippingMethodCreateDto
+
+export type ShippingMethodUpdateDto = Omit<ShippingMethodCreateDto, keyof CreateMetadataFields>

@@ -24,7 +24,6 @@ export enum AuditsPermission {
 }
 
 export enum AuthPermission {
-  Login = 'auth.login',
   Register = 'auth.register',
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
@@ -56,6 +55,14 @@ export enum ProductSetsPermission {
   Edit = 'product_sets.edit',
   Remove = 'product_sets.remove',
   ShowMetadataPrivate = 'product_sets.show_metadata_private',
+}
+
+export enum ConsentsPermission {
+  Show = 'consents.show',
+  Add = 'consents.add',
+  Edit = 'consents.edit',
+  Remove = 'consents.remove',
+  ShowMetadataPrivate = 'consents.show_metadata_private',
 }
 
 export enum CountriesPermission {
@@ -114,7 +121,7 @@ export enum OrdersPermission {
   Show = 'orders.show',
   Add = 'orders.add',
   ShowDetails = 'orders.show_details',
-  ShowHidden = 'orders.show_summary',
+  ShowSummary = 'orders.show_summary',
   Edit = 'orders.edit',
   EditStatus = 'orders.edit.status',
   ShowMetadataPrivate = 'orders.show_metadata_private',
@@ -212,6 +219,7 @@ export enum SeoPermission {
 
 export enum WebhooksPermission {
   Show = 'webhooks.show',
+  ShowDetails = 'webhooks.show_details',
   Add = 'webhooks.add',
   Edit = 'webhooks.edit',
   Remove = 'webhooks.remove',
@@ -230,6 +238,7 @@ export type Permission =
   | AttributesPermission
   | BannersPermission
   | ProductSetsPermission
+  | ConsentsPermission
   | CountriesPermission
   | ShippingMethodsPermission
   | DepositsPermission

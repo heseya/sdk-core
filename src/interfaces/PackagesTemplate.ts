@@ -1,13 +1,16 @@
+import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
-export interface PackagesTemplate {
+export interface PackagesTemplate extends MetadataFields {
   id: UUID
   name: string
-  wieght: number
+  weight: number
   width: number
   height: number
   depth: number
 }
 
-export type PackagesTemplateCreateDto = Omit<PackagesTemplate, 'id'>
-export type PackagesTemplateUpdateDto = PackagesTemplateCreateDto
+export type PackagesTemplateCreateDto = Omit<PackagesTemplate, 'id' | keyof MetadataFields> &
+  CreateMetadataFields
+
+export type PackagesTemplateUpdateDto = Omit<PackagesTemplateCreateDto, keyof CreateMetadataFields>
