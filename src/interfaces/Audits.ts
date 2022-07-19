@@ -2,7 +2,7 @@ import { App } from './App'
 import { UserList } from './User'
 import { UUID } from './UUID'
 
-export type Issuer =
+type Issuer =
   | {
       issuer_type: 'user'
       issuer: UserList
@@ -12,7 +12,7 @@ export type Issuer =
       issuer: App
     }
 
-export interface EntityAuditsList<Entity> {
+interface EntityAuditsList<Entity> {
   id: UUID
   event: 'created' | 'updated'
   created_at: string
