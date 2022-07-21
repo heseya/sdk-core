@@ -1,6 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { createAuthAxiosInstance } from '.'
+import { enhanceAxiosWithAuthTokenRefreshing } from '.'
 
 import { resolveInRandomTime } from '../../../test/helpers/utils'
 
@@ -22,7 +22,7 @@ describe('HeseyaSdkService', () => {
   const refreshedToken = 'refreshedIntegrationToken'
 
   const authAxiosConfig = {
-    baseURL: BASE_URL,
+    heseyaUrl: BASE_URL,
     getAccessToken: () => applicationState.accessToken,
     getRefreshToken: () => applicationState.refreshToken,
     setAccessToken: (token: string) => (applicationState.refreshToken = token),
@@ -93,7 +93,7 @@ describe('HeseyaSdkService', () => {
   })
 
   it('axios should make proper requests to API', async () => {
-    const heseyaAxios = createAuthAxiosInstance(authAxiosConfig)
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
 
     const result = await heseyaAxios.get('/users')
 
@@ -101,8 +101,21 @@ describe('HeseyaSdkService', () => {
     expect(mock.history.get[0].headers?.Authorization).toEqual(`Bearer ${originalToken}`)
   })
 
+  it('axios should add authorization header according to config function', async () => {
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), {
+      ...authAxiosConfig,
+      shouldIncludeAuthorizationHeader: (req) => req.url?.includes('users') || false,
+    })
+
+    await heseyaAxios.get('/users')
+    await heseyaAxios.get('/products')
+
+    expect(mock.history.get[0].headers?.Authorization).toEqual(`Bearer ${originalToken}`)
+    expect(mock.history.get[1].headers?.Authorization).toEqual(undefined)
+  })
+
   it('axios should refresh token when token expires', async () => {
-    const heseyaAxios = createAuthAxiosInstance(authAxiosConfig)
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
     const url = `/products`
 
     const result = await heseyaAxios.get(url)
@@ -115,7 +128,7 @@ describe('HeseyaSdkService', () => {
   })
 
   it('axios should refresh token when multiple async requests fails', async () => {
-    const heseyaAxios = createAuthAxiosInstance(authAxiosConfig)
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
 
     /**
      * First request will fail quickly, and token will start to refresh
@@ -133,5 +146,26 @@ describe('HeseyaSdkService', () => {
     })
     expect(mock.history.get.length).toBe(6)
     expect(refreshMethodCallsCount).toBe(1)
+  })
+
+  it('axios should not try to refresh the token if the failed request is token refresh', async () => {
+    mock.onPost(`${BASE_URL}/auth/refresh`).reply(401, { message: 'Refresh Token Expired' })
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
+
+    await expect(heseyaAxios.post('/auth/refresh')).rejects.toThrow(
+      'Request failed with status code 401',
+    )
+    expect(mock.history.post.length).toBe(1)
+  })
+
+  it('axios should return original error if token refreshing failed', async () => {
+    mock.onPost(`${BASE_URL}/auth/refresh`).reply(500, { message: 'Internal server error' })
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
+
+    await expect(heseyaAxios.get('/products')).rejects.toThrow(
+      'Request failed with status code 401',
+    )
+    expect(mock.history.get.length).toBe(1)
+    expect(mock.history.post.length).toBe(1)
   })
 })
