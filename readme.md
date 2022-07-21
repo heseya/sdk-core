@@ -3,7 +3,7 @@
 [![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/coverage.svg)](https://gitlab.com/heseya/heseya-store-core/-/graphs/develop/charts)
 [![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/pipeline.svg)](https://gitlab.com/heseya/heseya-store-core/-/pipelines)
 
-[Type definitions](https://heseya.github.io/sdk-core/docs)
+[Type definitions](https://heseya.github.io/sdk-core/index.html)
 
 ## Instalation
 
