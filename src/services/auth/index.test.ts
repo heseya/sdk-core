@@ -1,6 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { enhanceAxiosWithAuthTokenRefreshing } from '.'
+import { AxiosWithAuthTokenRefreshingConfig, enhanceAxiosWithAuthTokenRefreshing } from '.'
 
 import { resolveInRandomTime } from '../../../test/helpers/utils'
 
@@ -12,21 +12,23 @@ describe('HeseyaSdkService', () => {
   jest.setTimeout(5000)
 
   let refreshMethodCallsCount = 0
+  let tokenRefreshFailedCount = 0
 
-  const originalToken = 'integrationToken'
+  const originalToken = 'accessToken'
   const applicationState = {
     refreshToken: 'refreshToken',
     accessToken: originalToken,
     uninstallToken: 'uninstallToken',
   }
-  const refreshedToken = 'refreshedIntegrationToken'
+  const refreshedToken = 'refreshedAccessToken'
 
-  const authAxiosConfig = {
+  const authAxiosConfig: AxiosWithAuthTokenRefreshingConfig = {
     heseyaUrl: BASE_URL,
     getAccessToken: () => applicationState.accessToken,
     getRefreshToken: () => applicationState.refreshToken,
-    setAccessToken: (token: string) => (applicationState.refreshToken = token),
+    setAccessToken: (token: string) => (applicationState.accessToken = token),
     setRefreshToken: (token: string) => (applicationState.refreshToken = token),
+    onTokenRefreshError: () => tokenRefreshFailedCount++,
   }
 
   beforeAll(() => {
@@ -40,6 +42,7 @@ describe('HeseyaSdkService', () => {
   beforeEach(async () => {
     applicationState.accessToken = originalToken
     refreshMethodCallsCount = 0
+    tokenRefreshFailedCount = 0
 
     mock.onPost(`${BASE_URL}/auth/refresh`).reply(() =>
       resolveInRandomTime(() => {
@@ -116,15 +119,15 @@ describe('HeseyaSdkService', () => {
 
   it('axios should refresh token when token expires', async () => {
     const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
-    const url = `/products`
 
-    const result = await heseyaAxios.get(url)
+    const result = await heseyaAxios.get(`/products`)
 
     expect(result.data).toEqual({ data: [] })
     expect(mock.history.get[0].headers?.Authorization).toEqual(`Bearer ${refreshedToken}`)
     expect(mock.history.get[1].headers?.Authorization).toEqual(`Bearer ${refreshedToken}`)
     expect(mock.history.get.length).toBe(2)
     expect(refreshMethodCallsCount).toBe(1)
+    expect(tokenRefreshFailedCount).toBe(0)
   })
 
   it('axios should refresh token when multiple async requests fails', async () => {
@@ -146,6 +149,7 @@ describe('HeseyaSdkService', () => {
     })
     expect(mock.history.get.length).toBe(6)
     expect(refreshMethodCallsCount).toBe(1)
+    expect(tokenRefreshFailedCount).toBe(0)
   })
 
   it('axios should not try to refresh the token if the failed request is token refresh', async () => {
@@ -156,6 +160,7 @@ describe('HeseyaSdkService', () => {
       'Request failed with status code 401',
     )
     expect(mock.history.post.length).toBe(1)
+    expect(tokenRefreshFailedCount).toBe(0)
   })
 
   it('axios should return original error if token refreshing failed', async () => {
@@ -167,5 +172,6 @@ describe('HeseyaSdkService', () => {
     )
     expect(mock.history.get.length).toBe(1)
     expect(mock.history.post.length).toBe(1)
+    expect(tokenRefreshFailedCount).toBe(1)
   })
 })
