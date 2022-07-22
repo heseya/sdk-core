@@ -12,7 +12,7 @@ module.exports = {
     },
   },
 
-  ignorePatterns: ['build'],
+  ignorePatterns: ['build', 'dist'],
 
   rules: {
     'no-console': 'warn',
