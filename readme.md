@@ -1,7 +1,8 @@
 # @heseya/store-core
 
-[![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/coverage.svg)](https://gitlab.com/heseya/heseya-store-core/-/graphs/develop/charts)
-[![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/pipeline.svg)](https://gitlab.com/heseya/heseya-store-core/-/pipelines)
+[![NPM version](https://img.shields.io/npm/v/@heseya/store-core)](https://www.npmjs.com/package/@heseya/store-core) &nbsp;
+[![Code Coverage](https://codecov.io/gh/heseya/sdk-core/branch/develop/graph/badge.svg)](https://codecov.io/gh/heseya/sdk-core) &nbsp;
+![Downloads](https://img.shields.io/npm/dt/@heseya/store-core) &nbsp;
 
 [Type definitions](https://heseya.github.io/sdk-core/index.html)
 
