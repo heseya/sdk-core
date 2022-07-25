@@ -3,13 +3,14 @@ import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
 import { createHeseyaApiService } from '../api'
 import { composeBearerToken } from './utils'
 
-interface AuthAxiosConfig {
+export interface AxiosWithAuthTokenRefreshingConfig {
   heseyaUrl: string
-  getAccessToken: () => string
-  getRefreshToken: () => string
+  getAccessToken: () => string | null | Promise<string | null>
+  getRefreshToken: () => string | null | Promise<string | null>
   setAccessToken: (token: string) => void
   setRefreshToken: (token: string) => void
   setIdentityToken?: (token: string) => void
+  onTokenRefreshError?: (error: AxiosError) => void
   shouldIncludeAuthorizationHeader?: (request: AxiosRequestConfig) => boolean
 }
 
@@ -17,12 +18,11 @@ type OnRefreshFunction = (accessToken: string | null) => void
 
 export const enhanceAxiosWithAuthTokenRefreshing = (
   instance: AxiosInstance,
-  config: AuthAxiosConfig,
+  config: AxiosWithAuthTokenRefreshingConfig,
 ): AxiosInstance => {
   const sdk = createHeseyaApiService(instance)
 
   instance.defaults.baseURL = config.heseyaUrl
-  instance.defaults.headers.common.Authorization = composeBearerToken(config.getAccessToken())
 
   let isRefreshing = false
   let subscribers: OnRefreshFunction[] = []
@@ -35,28 +35,34 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
     isRefreshing = false
   }
 
-  instance.defaults.headers.common.Authorization = composeBearerToken(config.getAccessToken())
+  instance.interceptors.request.use(async (request: AxiosRequestConfig) => {
+    // Do not modify the request if its being retried
+    if (request._retried) return request
 
-  instance.interceptors.request.use((request: AxiosRequestConfig) => {
+    const accessToken = await config.getAccessToken()
+
     if (!request.headers) request.headers = {}
     request.headers.Authorization =
-      config.shouldIncludeAuthorizationHeader?.(request) ?? true
-        ? instance.defaults.headers.common.Authorization
+      (config.shouldIncludeAuthorizationHeader?.(request) ?? true) && accessToken
+        ? composeBearerToken(accessToken)
         : undefined
+
     return request
   })
 
   instance.interceptors.response.use(undefined, async (error: AxiosError) => {
     const originalRequest = error.config
+    const currentAccessToken = await config.getAccessToken()
 
     // Checks if token in axios was changed before this response was received
     const wasTokenRefreshedInTheMeantime =
-      originalRequest.headers?.Authorization !== instance.defaults.headers.common.Authorization
+      currentAccessToken &&
+      originalRequest.headers?.Authorization !== composeBearerToken(currentAccessToken)
 
     // If error is due to the token expired but token was refreshed in the meantime, simply retry the request
-    if (error.response?.status === 401 && wasTokenRefreshedInTheMeantime) {
+    if (error.response?.status === 401 && wasTokenRefreshedInTheMeantime && currentAccessToken) {
       if (originalRequest.headers)
-        originalRequest.headers.Authorization = instance.defaults.headers.common.Authorization
+        originalRequest.headers.Authorization = composeBearerToken(currentAccessToken)
 
       return instance.request(originalRequest)
     }
@@ -65,13 +71,14 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
     if (originalRequest.url === '/auth/refresh') throw error
 
     // If error is due to the token expired, refresh the token and retry the request
-    if (error.response?.status === 401 && !originalRequest._retried) {
+    const refreshToken = await config.getRefreshToken()
+    if (error.response?.status === 401 && !originalRequest._retried && refreshToken) {
       originalRequest._retried = true
 
       if (!isRefreshing) {
         isRefreshing = true
 
-        sdk.Auth.refreshToken(config.getRefreshToken())
+        sdk.Auth.refreshToken(refreshToken)
           .then(({ accessToken, refreshToken, identityToken }) => {
             config.setAccessToken(accessToken)
             config.setRefreshToken(refreshToken)
@@ -81,6 +88,7 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
           })
           .catch(() => {
             onRefreshed(null)
+            config.onTokenRefreshError?.(error)
           })
       }
 
@@ -93,8 +101,6 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
 
           if (originalRequest.headers)
             originalRequest.headers.Authorization = composeBearerToken(newAccessToken)
-
-          instance.defaults.headers.common.Authorization = composeBearerToken(newAccessToken)
 
           // If refreshed sucessfully, retry last request
           return resolve(instance.request(originalRequest))
