@@ -30,9 +30,23 @@ export enum WebhookEventType {
   UserCreated = 'UserCreated',
   UserUpdated = 'UserUpdated',
   UserDeleted = 'UserDeleted',
-  DiscountCreated = 'DiscountCreated',
-  DiscountUpdated = 'DiscountUpdated',
-  DiscountDeleted = 'DiscountDeleted',
+  SaleCreated = 'SaleCreated',
+  SaleUpdated = 'SaleUpdated',
+  SaleDeleted = 'SaleDeleted',
+  CouponCreated = 'CouponCreated',
+  CouponUpdated = 'CouponUpdated',
+  CouponDeleted = 'CouponDeleted',
+  TfaInit = 'TfaInit',
+  TfaSecurityCode = 'TfaSecurityCode',
+  TfaRecoveryCodesChanged = 'TfaRecoveryCodesChanged',
+  PasswordReset = 'PasswordReset',
+  SuccessfulLoginAttempt = 'SuccessfulLoginAttempt',
+  NewLocalizationLoginAttempt = 'NewLocalizationLoginAttempt',
+  FailedLoginAttempt = 'FailedLoginAttempt',
+  AddOrderDocument = 'AddOrderDocument',
+  RemoveOrderDocument = 'RemoveOrderDocument',
+  OrderUpdatedPaid = 'OrderUpdatedPaid',
+  OrderUpdatedShippingNumber = 'OrderUpdatedShippingNumber',
 }
 
 export interface WebhookEventEntry {
@@ -47,6 +61,7 @@ export interface WebhookEventEntry {
 export interface WebhookEventLog {
   id: UUID
   web_hook: WebhookEventEntry
+  event: string //TODO: Should be WebhookEventType, but API returns it but capitalized
   triggered_at: string
   url: string
   status_code: number
