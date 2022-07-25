@@ -82,9 +82,7 @@ describe('attributes service test', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAttributesResponse)
   })
-})
 
-describe('attributes service test', () => {
   it('should make a request to add option', async () => {
     const service = createAttributesService(axios)
     const expectedUrl = `/attributes/id:${attributeId}/options`
@@ -95,9 +93,7 @@ describe('attributes service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAttributesResponse.data)
   })
-})
 
-describe('attributes service test', () => {
   it('should make a request to update option', async () => {
     const service = createAttributesService(axios)
     const expectedUrl = `/attributes/id:${attributeId}/options/id:${optionId}`
@@ -108,9 +104,7 @@ describe('attributes service test', () => {
     expect(mock.history.patch[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAttributesResponse.data)
   })
-})
 
-describe('attributes service test', () => {
   it('should make a request to delete option', async () => {
     const attributeId = dummyOptionDto.id || '1'
     const optionId = dummyOptionDto.id || '1'

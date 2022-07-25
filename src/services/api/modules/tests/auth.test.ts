@@ -82,9 +82,7 @@ describe('auth service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAuthResponse.data)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to refresh token', async () => {
     const service = createAuthService(axios)
     const expectedUrl = '/auth/refresh'
@@ -95,9 +93,7 @@ describe('auth service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAuthResponse.data)
   })
-})
 
-describe('auth service test', () => {
   it('should make a register user', async () => {
     const service = createAuthService(axios)
     const expectedUrl = '/register'
@@ -108,9 +104,7 @@ describe('auth service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAuthRegisterResponse.data)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to logout user', async () => {
     const service = createAuthService(axios)
     const expectedUrl = '/auth/logout'
@@ -121,9 +115,7 @@ describe('auth service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to verify reset password token', async () => {
     const service = createAuthService(axios)
     const expectedUrl = `/users/reset-password/token/${email}`
@@ -134,9 +126,7 @@ describe('auth service test', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to request password reset', async () => {
     const service = createAuthService(axios)
     const expectedUrl = '/users/reset-password'
@@ -148,9 +138,7 @@ describe('auth service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to reset password', async () => {
     const service = createAuthService(axios)
     const expectedUrl = '/users/save-reset-password'
@@ -162,9 +150,7 @@ describe('auth service test', () => {
     expect(mock.history.put[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to check identity with identity token', async () => {
     const service = createAuthService(axios)
     const expectedUrl = `/auth/check/${identityToken}`
@@ -175,9 +161,7 @@ describe('auth service test', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyAuthRegisterResponse.data)
   })
-})
 
-describe('auth service test', () => {
   it('should make a request to check identity without identity token', async () => {
     const service = createAuthService(axios)
     const expectedUrl = `/auth/check`

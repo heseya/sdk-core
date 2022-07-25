@@ -125,9 +125,7 @@ describe('orders service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrdersResponse.data.redirect_url)
   })
-})
 
-describe('orders service test', () => {
   it('should process cart by checking warehouse stock, sales and calculate total items price', async () => {
     const service = createOrdersService(axios)
     const expectedUrl = `cart/process`
@@ -138,9 +136,7 @@ describe('orders service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyCardProccessResponse.data)
   })
-})
 
-describe('orders service test', () => {
   it('should return the list of payment methods available for the given order', async () => {
     const service = createOrdersService(axios)
     const expectedOrderUrl = `/orders/2137?`
@@ -155,9 +151,7 @@ describe('orders service test', () => {
     expect(mock.history.get[1]?.url).toEqual(expectedPaymentMethodsUrl)
     expect(result).toEqual(dummyPaymentMethodsResponseData)
   })
-})
 
-describe('orders service test', () => {
   it("should throw Error with message 'No code in param' when no code parameter were passed", async () => {
     const service = createOrdersService(axios)
     const orderUrl = `/orders/2137?`
@@ -166,9 +160,7 @@ describe('orders service test', () => {
 
     await expect(service.getPaymentMethods('')).rejects.toThrow('No code in param')
   })
-})
 
-describe('orders service test', () => {
   it("should throw Error with message 'Order already paid' if order was paid", async () => {
     const service = createOrdersService(axios)
     const expectedUrl = `/orders/2137?`

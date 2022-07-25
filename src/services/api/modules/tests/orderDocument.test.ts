@@ -31,9 +31,7 @@ describe('order documents test service', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrderDocumentResponse)
   })
-})
 
-describe('order documents test service', () => {
   it('should delete document', async () => {
     const service = createOrderDocumentsService(axios)
     const expectedUrl = `/orders/id:${orderId}/docs/id:${documentId}`
@@ -44,9 +42,7 @@ describe('order documents test service', () => {
     expect(mock.history.delete[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
-})
 
-describe('order documents test service', () => {
   it('should send document', async () => {
     const service = createOrderDocumentsService(axios)
     const expectedUrl = `/orders/id:${orderId}/docs/send`

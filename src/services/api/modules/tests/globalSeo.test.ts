@@ -40,7 +40,7 @@ afterEach(() => {
   mock.reset()
 })
 
-describe('attributes service test', () => {
+describe('global seo service test', () => {
   it('should make a request to get global SEO settings', async () => {
     const service = createGlobalSeoService(axios)
     const expectedUrl = '/seo'
@@ -51,9 +51,7 @@ describe('attributes service test', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyGlobalSeoResponse.data)
   })
-})
 
-describe('attributes service test', () => {
   it('should make a request to check if keywords are already used in other entities', async () => {
     const service = createGlobalSeoService(axios)
     const expectedUrl = '/seo/check'

@@ -62,9 +62,7 @@ describe('settings service test', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummySettingsResponseData)
   })
-})
 
-describe('settings service test', () => {
   it('should make a request to get settings with params', async () => {
     const service = createSettingsService(axios)
     const expectedUrl = '/settings?array'

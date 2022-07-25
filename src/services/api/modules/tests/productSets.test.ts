@@ -52,9 +52,7 @@ describe('product sets service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
-})
 
-describe('product sets service test', () => {
   it('should make a request to get products', async () => {
     const service = createProductSetsService(axios)
     const expectedUrl = `/product-sets/id:${setId}/products?`
@@ -65,9 +63,7 @@ describe('product sets service test', () => {
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyProductsListResponseData)
   })
-})
 
-describe('product sets service test', () => {
   it('should make a request to update products', async () => {
     const service = createProductSetsService(axios)
     const expectedUrl = `/product-sets/id:${setId}/products?`
@@ -78,9 +74,7 @@ describe('product sets service test', () => {
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyProductsListResponseData)
   })
-})
 
-describe('product sets service test', () => {
   it('should make a request to reorder product sets and return true', async () => {
     const service = createProductSetsService(axios)
     const expectedUrl = `/product-sets/id:${setId}/products/reorder?`
