@@ -1,10 +1,6 @@
-name: Conventional Changelog
+name: Bump version and create release
 
-on:
-  [push]
-  # push:
-  # tags:
-  #   - 'v*'
+on: workflow_dispatch
 
 jobs:
   conventional-changelog:
@@ -16,9 +12,6 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           git-message: 'chore(release): {version}'
-          tag-prefix: 'v'
-          git-branch: 'develop'
-          # skip-commit: 'true'
 
   create-release:
     needs: conventional-changelog
