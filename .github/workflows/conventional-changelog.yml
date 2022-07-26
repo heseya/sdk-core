@@ -21,7 +21,7 @@ jobs:
           # skip-commit: 'true'
 
   create-release:
-    uses: conventional-changelog
+    needs: conventional-changelog
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
