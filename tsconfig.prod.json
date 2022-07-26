@@ -5,5 +5,6 @@
     "module": "es2015",
     "importHelpers": true
   },
-  "include": ["types"]
+  "include": ["./src", "./types"],
+  "exclude": ["tests", "test"]
 }
