@@ -1087,6 +1087,20 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@heseya/store-core@^3.0.0-alpha.52":
+  version "3.0.0-alpha.52"
+  resolved "https://registry.yarnpkg.com/@heseya/store-core/-/store-core-3.0.0-alpha.52.tgz#1446e30b16136336a25ceab479b271695479dd98"
+  integrity sha512-5Gjrc3dqSRAt5FjSsZTMN+akW/4efNkBDJR93b8FQvtekJFv75OPEEp1JVFH7G9XTo6cHBItyRuolCQ3+XWUhQ==
+  dependencies:
+    "@types/flat" "^5.0.2"
+    array-to-tree "^3.3.2"
+    flat "^5.0.2"
+    formdata-polyfill "^4.0.10"
+    lodash "^4.17.21"
+    md5 "^2.3.0"
+    query-string "^7.1.1"
+    tslib "^2.3.1"
+
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.5.0.tgz"
