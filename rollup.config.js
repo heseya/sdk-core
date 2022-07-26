@@ -12,7 +12,7 @@ const config = {
     name: 'HeseyaStoreCore',
     sourcemap: !process.env.MINIFY,
   },
-  external: [], // eslint-disable-line global-require
+  external: [],
   plugins: [
     typescript({
       tsconfig: 'tsconfig.prod.json',
