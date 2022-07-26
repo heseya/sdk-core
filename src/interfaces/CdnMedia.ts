@@ -3,7 +3,8 @@ import { CreateMetadataFields, MetadataFields } from './Metadata'
 export enum CdnMediaType {
   Photo = 'photo',
   Video = 'video',
-  Pdf = 'pdf',
+  Document = 'document',
+  Other = 'other',
 }
 
 export interface CdnMedia extends MetadataFields {
