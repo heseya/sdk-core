@@ -1,14 +1,16 @@
 name: Conventional Changelog
 
 on:
-  push:
-    tags:
-      - 'v*'
+  [push]
+  # push:
+  # tags:
+  #   - 'v*'
 
 jobs:
   conventional-changelog:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v3.14.0
         with:
@@ -16,9 +18,10 @@ jobs:
           git-message: 'chore(release): {version}'
           tag-prefix: 'v'
           git-branch: 'develop'
-          skip-commit: 'true'
+          # skip-commit: 'true'
 
   create-release:
+    uses: conventional-changelog
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
