@@ -2,11 +2,13 @@ import { CartDto, Product, User } from '../../interfaces'
 
 type EventCallbackFunction<Payload = any> = (payload: Payload) => void
 
-type GetTypeFromInterface<T> = T extends EventCallbackFunction<infer Payload> ? Payload : any
+type GetTypeFromInterface<T> = T extends EventCallbackFunction<infer Payload> ? Payload : undefined
 
-// TODO: Fix emit payload type
 type EventsListenerService = () => {
-  emit: (event: keyof Events, payload: GetTypeFromInterface<Events[typeof event]>) => void
+  emit: <Key extends keyof Events>(
+    event: Key,
+    payload?: GetTypeFromInterface<Events[Key][0]> | undefined,
+  ) => void
   on: (event: keyof Events, cb: EventCallbackFunction) => void
 }
 
@@ -105,7 +107,10 @@ export const createEventsListenerInstance: EventsListenerService = () => {
     viewContent: [],
   }
   return {
-    emit: (event: keyof Events, payload: GetTypeFromInterface<Events[typeof event]>) => {
+    emit: <Key extends keyof Events>(
+      event: Key,
+      payload: GetTypeFromInterface<Events[Key][0]> | undefined = undefined,
+    ) => {
       map[event].forEach((cb: EventCallbackFunction) => {
         cb(payload)
       })
