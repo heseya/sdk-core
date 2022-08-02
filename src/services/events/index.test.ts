@@ -1,5 +1,6 @@
 import { createHeseyaEventListenerService } from './index'
 import { Product } from '../../interfaces'
+import { EventType } from './index'
 
 const dummyProduct: Product = {
   id: '1',
@@ -53,8 +54,8 @@ describe('events listener service', () => {
   it('should add event callback and emit it', async () => {
     const service = createHeseyaEventListenerService()
 
-    service.on('addToCart', dummyFunction)
-    service.emit('addToCart', dummyProduct)
+    service.on(EventType.addToCart, dummyFunction)
+    service.emit(EventType.addToCart, dummyProduct)
 
     // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith('dummy output')
@@ -63,11 +64,11 @@ describe('events listener service', () => {
   it('should unsubscribe second event callback', async () => {
     const service = createHeseyaEventListenerService()
 
-    service.on('addToCart', dummyFunction)
-    service.on('addToCart', dummySecondFunction)
-    service.unsubscribe('addToCart', dummyFunction)
+    service.on(EventType.addToCart, dummyFunction)
+    service.on(EventType.addToCart, dummySecondFunction)
+    service.unsubscribe(EventType.addToCart, dummyFunction)
 
-    service.emit('addToCart', dummyProduct)
+    service.emit(EventType.addToCart, dummyProduct)
 
     // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith('dummy second output')

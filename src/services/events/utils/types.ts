@@ -7,21 +7,21 @@ export type GetTypeFromInterface<T> = T extends EventCallbackFunction<infer Payl
   : undefined
 
 export enum EventType {
-  addToCart,
-  addToWishlist,
-  completeRegistration,
-  contact,
-  customizeProduct,
-  donate,
-  findLocation,
-  initiateCheckout,
-  lead,
-  onPurchase,
-  removeFromCart,
-  schedule,
-  search,
-  signUp,
-  viewContent,
+  addToCart = 'addToCart',
+  addToWishlist = 'addToWishList',
+  completeRegistration = 'completeRegistration',
+  contact = 'contact',
+  customizeProduct = 'customizeProduct',
+  donate = 'donate',
+  findLocation = 'findLocation',
+  initiateCheckout = 'initiateCheckout',
+  lead = 'lead',
+  onPurchase = 'onPurchase',
+  removeFromCart = 'removeFromCart',
+  schedule = 'schedule',
+  search = 'search',
+  signUp = 'signUp',
+  viewContent = 'viewContent',
 }
 
 export interface HeseyaEvents {
