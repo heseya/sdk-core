@@ -1,15 +1,18 @@
-import { HeseyaEvents, EventCallbackFunction, GetTypeFromInterface } from './utils/types'
+import { HeseyaEvents, EventCallbackFunction, EventToPayloadMap } from './utils/types'
 
-type EventCallbackWrapper<T extends keyof HeseyaEvents> = EventCallbackFunction<
-  GetTypeFromInterface<HeseyaEvents[T][0]>
->
 export interface HeseyaEventListenerService {
   emit: <Key extends keyof HeseyaEvents>(
     event: Key,
-    payload?: GetTypeFromInterface<HeseyaEvents[Key][0]> | undefined,
+    ...payloads: EventToPayloadMap[Key] extends undefined ? [undefined?] : [EventToPayloadMap[Key]]
   ) => void
-  on: <Key extends keyof HeseyaEvents>(event: Key, cb: EventCallbackWrapper<Key>) => void
-  unsubscribe: <Key extends keyof HeseyaEvents>(event: Key, cb: EventCallbackWrapper<Key>) => void
+  on: <Key extends keyof HeseyaEvents>(
+    event: Key,
+    cb: EventCallbackFunction<EventToPayloadMap[Key]>,
+  ) => void
+  unsubscribe: <Key extends keyof HeseyaEvents>(
+    event: Key,
+    cb: EventCallbackFunction<EventToPayloadMap[Key]>,
+  ) => void
 }
 
 export const createHeseyaEventListenerService = (): HeseyaEventListenerService => {
@@ -42,10 +45,9 @@ export const createHeseyaEventListenerService = (): HeseyaEventListenerService =
     },
 
     unsubscribe: (event, cb) => {
-      const filteredEvent = [...map[event]].filter((el) => el !== cb)
-      map[event] = [...filteredEvent] as EventCallbackFunction<any>[]
+      map[event] = [...map[event]].filter((el) => el !== cb) as EventCallbackFunction<any>[]
     },
   }
 }
 
-export { EventType } from './utils/types'
+export { HeseyaEventType } from './utils/types'
