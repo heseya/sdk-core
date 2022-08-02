@@ -7,113 +7,96 @@ export type GetCallbackPayload<T> = T extends EventCallbackFunction<infer Payloa
   : undefined
 
 export enum HeseyaEventType {
-  addToCart = 'addToCart',
-  addToWishlist = 'addToWishlist',
-  completeRegistration = 'completeRegistration',
-  contact = 'contact',
-  customizeProduct = 'customizeProduct',
-  donate = 'donate',
-  findLocation = 'findLocation',
-  initiateCheckout = 'initiateCheckout',
-  lead = 'lead',
-  onPurchase = 'onPurchase',
-  removeFromCart = 'removeFromCart',
-  schedule = 'schedule',
-  search = 'search',
-  signUp = 'signUp',
-  viewContent = 'viewContent',
+  AddToCart = 'addToCart',
+  AddToWishlist = 'addToWishlist',
+  CompleteRegistration = 'completeRegistration',
+  Contact = 'contact',
+  CustomizeProduct = 'customizeProduct',
+  Donate = 'donate',
+  FindLocation = 'findLocation',
+  InitiateCheckout = 'initiateCheckout',
+  Lead = 'lead',
+  OnPurchase = 'onPurchase',
+  RemoveFromCart = 'removeFromCart',
+  Schedule = 'schedule',
+  Search = 'search',
+  SignUp = 'signUp',
+  ViewContent = 'viewContent',
 }
 
-export interface HeseyaEvents {
+export interface HeseyaEventToPayloadMap {
   /**
    * The addition of an item to a shopping cart or basket.
    */
-  [HeseyaEventType.addToCart]: EventCallbackFunction<Product>[]
+  [HeseyaEventType.AddToCart]: Product
 
   /**
    * The addition of items to a wishlist.
    */
-  [HeseyaEventType.addToWishlist]: EventCallbackFunction<Product>[]
+  [HeseyaEventType.AddToWishlist]: Product
 
   /**
    * A submission of information by a customer in exchange for a service provided by your business
    */
-  [HeseyaEventType.completeRegistration]: EventCallbackFunction<User>[]
+  [HeseyaEventType.CompleteRegistration]: User
 
   /**
    * A telephone, SMS, email, chat or other type of contact between a customer and your business.
    */
-  [HeseyaEventType.contact]: EventCallbackFunction[]
+  [HeseyaEventType.Contact]: undefined
 
   /**
    * The customisation of products through a configuration tool or other application that your business owns.
    */
-  [HeseyaEventType.customizeProduct]: EventCallbackFunction<Product>[]
+  [HeseyaEventType.CustomizeProduct]: Product
 
   /**
    * The donation of funds to your organisation or cause.
    */
-  [HeseyaEventType.donate]: EventCallbackFunction[]
+  [HeseyaEventType.Donate]: undefined
+
   /**
    * When a person finds one of your locations via web, with an intention to visit.
    */
-  [HeseyaEventType.findLocation]: EventCallbackFunction[]
+  [HeseyaEventType.FindLocation]: undefined
 
   /**
-   * The start of a checkout process
+   * The start of a checkout process.
    */
-  [HeseyaEventType.initiateCheckout]: EventCallbackFunction<CartDto>[]
+  [HeseyaEventType.InitiateCheckout]: CartDto
 
   /**
    * A submission of information by a customer with the understanding that they may be contacted at a later date by your business.
    */
-  [HeseyaEventType.lead]: EventCallbackFunction[]
+  [HeseyaEventType.Lead]: undefined
 
   /**
    * The completion of a purchase, usually signified by receiving order or purchase confirmation, or a transaction receipt.
    */
-  [HeseyaEventType.onPurchase]: EventCallbackFunction<CartDto>[]
+  [HeseyaEventType.OnPurchase]: CartDto
 
   /**
    * Remove item from cart.
    */
-  [HeseyaEventType.removeFromCart]: EventCallbackFunction<Product>[]
+  [HeseyaEventType.RemoveFromCart]: Product
 
   /**
    * The booking of an appointment to visit one of your locations.
    */
-  [HeseyaEventType.schedule]: EventCallbackFunction[]
+  [HeseyaEventType.Schedule]: undefined
 
   /**
    * A search performed on your website, app or other property.
    */
-  [HeseyaEventType.search]: EventCallbackFunction<string>[]
+  [HeseyaEventType.Search]: string
 
   /**
    * User sign up.
    */
-  [HeseyaEventType.signUp]: EventCallbackFunction<User>[]
+  [HeseyaEventType.SignUp]: User
 
   /**
    * A visit to a web page you care about.
    */
-  [HeseyaEventType.viewContent]: EventCallbackFunction[]
-}
-
-export interface HeseyaEventToPayloadMap {
-  [HeseyaEventType.addToCart]: Product
-  [HeseyaEventType.addToWishlist]: Product
-  [HeseyaEventType.completeRegistration]: User
-  [HeseyaEventType.contact]: undefined
-  [HeseyaEventType.customizeProduct]: Product
-  [HeseyaEventType.donate]: undefined
-  [HeseyaEventType.findLocation]: undefined
-  [HeseyaEventType.initiateCheckout]: CartDto
-  [HeseyaEventType.lead]: undefined
-  [HeseyaEventType.onPurchase]: CartDto
-  [HeseyaEventType.removeFromCart]: Product
-  [HeseyaEventType.schedule]: undefined
-  [HeseyaEventType.search]: string
-  [HeseyaEventType.signUp]: User
-  [HeseyaEventType.viewContent]: undefined
+  [HeseyaEventType.ViewContent]: undefined
 }

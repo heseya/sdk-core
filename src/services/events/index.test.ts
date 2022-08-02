@@ -25,8 +25,8 @@ describe('events listener service', () => {
   it('should add event callback and emit it', async () => {
     const service = createHeseyaEventListenerService()
 
-    service.on(HeseyaEventType.addToCart, dummyFunction)
-    service.emit(HeseyaEventType.addToCart, dummyProduct)
+    service.on(HeseyaEventType.AddToCart, dummyFunction)
+    service.emit(HeseyaEventType.AddToCart, dummyProduct)
 
     // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith('dummy output')
@@ -35,11 +35,11 @@ describe('events listener service', () => {
   it('should unsubscribe second event callback', async () => {
     const service = createHeseyaEventListenerService()
 
-    service.on(HeseyaEventType.addToCart, dummyFunction)
-    service.on(HeseyaEventType.addToCart, dummySecondFunction)
-    service.unsubscribe(HeseyaEventType.addToCart, dummyFunction)
+    service.on(HeseyaEventType.AddToCart, dummyFunction)
+    service.on(HeseyaEventType.AddToCart, dummySecondFunction)
+    service.unsubscribe(HeseyaEventType.AddToCart, dummyFunction)
 
-    service.emit(HeseyaEventType.addToCart, dummyProduct)
+    service.emit(HeseyaEventType.AddToCart, dummyProduct)
 
     // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith('dummy second output')
