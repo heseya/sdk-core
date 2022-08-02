@@ -1,17 +1,19 @@
-import { HeseyaEvents, EventCallbackFunction, EventToPayloadMap } from './utils/types'
+import { HeseyaEvents, EventCallbackFunction, HeseyaEventToPayloadMap } from './utils/types'
 
 export interface HeseyaEventListenerService {
   emit: <Key extends keyof HeseyaEvents>(
     event: Key,
-    ...payloads: EventToPayloadMap[Key] extends undefined ? [undefined?] : [EventToPayloadMap[Key]]
+    ...payloads: HeseyaEventToPayloadMap[Key] extends undefined
+      ? [undefined?]
+      : [HeseyaEventToPayloadMap[Key]]
   ) => void
   on: <Key extends keyof HeseyaEvents>(
     event: Key,
-    cb: EventCallbackFunction<EventToPayloadMap[Key]>,
+    cb: EventCallbackFunction<HeseyaEventToPayloadMap[Key]>,
   ) => void
   unsubscribe: <Key extends keyof HeseyaEvents>(
     event: Key,
-    cb: EventCallbackFunction<EventToPayloadMap[Key]>,
+    cb: EventCallbackFunction<HeseyaEventToPayloadMap[Key]>,
   ) => void
 }
 

@@ -100,7 +100,7 @@ export interface HeseyaEvents {
   [HeseyaEventType.viewContent]: EventCallbackFunction[]
 }
 
-export interface EventToPayloadMap {
+export interface HeseyaEventToPayloadMap {
   [HeseyaEventType.addToCart]: Product
   [HeseyaEventType.addToWishlist]: Product
   [HeseyaEventType.completeRegistration]: User
