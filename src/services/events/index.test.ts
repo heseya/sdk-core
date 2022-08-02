@@ -1,4 +1,4 @@
-import { createHeseyaEventsListenerInstance } from './index'
+import { createHeseyaEventListenerService } from './index'
 import { Product } from '../../interfaces'
 
 const dummyProduct: Product = {
@@ -37,27 +37,31 @@ const dummyProduct: Product = {
 }
 
 const dummyFunction = () => {
+  // eslint-disable-next-line no-console
   console.log('dummy output')
 }
 
 const dummySecondFunction = () => {
+  // eslint-disable-next-line no-console
   console.log('dummy second output')
 }
 
 describe('events listener service', () => {
+  // eslint-disable-next-line no-console
   console.log = jest.fn()
 
   it('should add event callback and emit it', async () => {
-    const service = createHeseyaEventsListenerInstance()
+    const service = createHeseyaEventListenerService()
 
     service.on('addToCart', dummyFunction)
     service.emit('addToCart', dummyProduct)
 
+    // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith('dummy output')
   })
 
   it('should unsubscribe second event callback', async () => {
-    const service = createHeseyaEventsListenerInstance()
+    const service = createHeseyaEventListenerService()
 
     service.on('addToCart', dummyFunction)
     service.on('addToCart', dummySecondFunction)
@@ -65,6 +69,7 @@ describe('events listener service', () => {
 
     service.emit('addToCart', dummyProduct)
 
+    // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith('dummy second output')
   })
 })

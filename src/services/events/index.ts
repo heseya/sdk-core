@@ -1,4 +1,4 @@
-import { HeseyaEvents, EventCallbackFunction, GetTypeFromInterface } from './utils'
+import { HeseyaEvents, EventCallbackFunction, GetTypeFromInterface } from './utils/types'
 
 type EventCallbackWrapper<T extends keyof HeseyaEvents> = EventCallbackFunction<
   GetTypeFromInterface<HeseyaEvents[T][0]>
@@ -12,7 +12,7 @@ export interface HeseyaEventListenerService {
   unsubscribe: <Key extends keyof HeseyaEvents>(event: Key, cb: EventCallbackWrapper<Key>) => void
 }
 
-export const createHeseyaEventsListenerInstance = (): HeseyaEventListenerService => {
+export const createHeseyaEventListenerService = (): HeseyaEventListenerService => {
   const map: HeseyaEvents = {
     addToCart: [],
     addToWishlist: [],
@@ -47,3 +47,5 @@ export const createHeseyaEventsListenerInstance = (): HeseyaEventListenerService
     },
   }
 }
+
+export { EventType } from './utils/types'
