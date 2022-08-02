@@ -1,5 +1,5 @@
+import { createHeseyaEventsListenerInstance } from './index'
 import { Product } from '../../interfaces'
-import { createEventsListenerInstance } from './index'
 
 const dummyProduct: Product = {
   id: '1',
@@ -36,16 +36,35 @@ const dummyProduct: Product = {
   metadata: {},
 }
 
-describe('events listener service', () => {
-  it('should add event callback and emit it', async () => {
-    console.log = jest.fn()
-    const service = createEventsListenerInstance()
+const dummyFunction = () => {
+  console.log('dummy output')
+}
 
-    service.on('addToCart', () => {
-      console.log('add to cart event')
-    })
+const dummySecondFunction = () => {
+  console.log('dummy second output')
+}
+
+describe('events listener service', () => {
+  console.log = jest.fn()
+
+  it('should add event callback and emit it', async () => {
+    const service = createHeseyaEventsListenerInstance()
+
+    service.on('addToCart', dummyFunction)
     service.emit('addToCart', dummyProduct)
 
-    expect(console.log).toHaveBeenCalledWith('add to cart event')
+    expect(console.log).toHaveBeenCalledWith('dummy output')
+  })
+
+  it('should unsubscribe second event callback', async () => {
+    const service = createHeseyaEventsListenerInstance()
+
+    service.on('addToCart', dummyFunction)
+    service.on('addToCart', dummySecondFunction)
+    service.unsubscribe('addToCart', dummyFunction)
+
+    service.emit('addToCart', dummyProduct)
+
+    expect(console.log).toHaveBeenCalledWith('dummy second output')
   })
 })

@@ -1,95 +1,19 @@
-import { CartDto, Product, User } from '../../interfaces'
+import { HeseyaEvents, EventCallbackFunction, GetTypeFromInterface } from './utils'
 
-type EventCallbackFunction<Payload = any> = (payload: Payload) => void
-
-type GetTypeFromInterface<T> = T extends EventCallbackFunction<infer Payload> ? Payload : undefined
-
-type EventsListenerService = () => {
-  emit: <Key extends keyof Events>(
+type EventCallbackWrapper<T extends keyof HeseyaEvents> = EventCallbackFunction<
+  GetTypeFromInterface<HeseyaEvents[T][0]>
+>
+export interface HeseyaEventListenerService {
+  emit: <Key extends keyof HeseyaEvents>(
     event: Key,
-    payload?: GetTypeFromInterface<Events[Key][0]> | undefined,
+    payload?: GetTypeFromInterface<HeseyaEvents[Key][0]> | undefined,
   ) => void
-  on: (event: keyof Events, cb: EventCallbackFunction) => void
+  on: <Key extends keyof HeseyaEvents>(event: Key, cb: EventCallbackWrapper<Key>) => void
+  unsubscribe: <Key extends keyof HeseyaEvents>(event: Key, cb: EventCallbackWrapper<Key>) => void
 }
 
-export interface Events {
-  /**
-   * The addition of an item to a shopping cart or basket.
-   */
-  addToCart: EventCallbackFunction<Product>[]
-
-  /**
-   * The addition of items to a wishlist.
-   */
-  addToWishlist: EventCallbackFunction<Product>[]
-
-  /**
-   * A submission of information by a customer in exchange for a service provided by your business
-   */
-  completeRegistration: EventCallbackFunction<User>[]
-
-  /**
-   * A telephone, SMS, email, chat or other type of contact between a customer and your business.
-   */
-  contact: EventCallbackFunction[]
-
-  /**
-   * The customisation of products through a configuration tool or other application that your business owns.
-   */
-  customizeProduct: EventCallbackFunction<Product>[]
-
-  /**
-   * The donation of funds to your organisation or cause.
-   */
-  donate: EventCallbackFunction[]
-  /**
-   * When a person finds one of your locations via web, with an intention to visit.
-   */
-  findLocation: EventCallbackFunction[]
-
-  /**
-   * The start of a checkout process
-   */
-  initiateCheckout: EventCallbackFunction<CartDto>[]
-
-  /**
-   * A submission of information by a customer with the understanding that they may be contacted at a later date by your business.
-   */
-  lead: EventCallbackFunction[]
-
-  /**
-   * The completion of a purchase, usually signified by receiving order or purchase confirmation, or a transaction receipt.
-   */
-  onPurchase: EventCallbackFunction<CartDto>[]
-
-  /**
-   * Remove item from cart.
-   */
-  removeFromCart: EventCallbackFunction<Product>[]
-
-  /**
-   * The booking of an appointment to visit one of your locations.
-   */
-  schedule: EventCallbackFunction[]
-
-  /**
-   * A search performed on your website, app or other property.
-   */
-  search: EventCallbackFunction<string>[]
-
-  /**
-   * User sign up.
-   */
-  signUp: EventCallbackFunction<User>[]
-
-  /**
-   * A visit to a web page you care about.
-   */
-  viewContent: EventCallbackFunction[]
-}
-
-export const createEventsListenerInstance: EventsListenerService = () => {
-  const map: Events = {
+export const createHeseyaEventsListenerInstance = (): HeseyaEventListenerService => {
+  const map: HeseyaEvents = {
     addToCart: [],
     addToWishlist: [],
     completeRegistration: [],
@@ -107,17 +31,19 @@ export const createEventsListenerInstance: EventsListenerService = () => {
     viewContent: [],
   }
   return {
-    emit: <Key extends keyof Events>(
-      event: Key,
-      payload: GetTypeFromInterface<Events[Key][0]> | undefined = undefined,
-    ) => {
-      map[event].forEach((cb: EventCallbackFunction) => {
+    emit: (event, payload = undefined) => {
+      map[event].forEach((cb: EventCallbackFunction<any>) => {
         cb(payload)
       })
     },
 
-    on: (event: keyof Events, cb: EventCallbackFunction) => {
-      map[event].push(cb)
+    on: (event, cb) => {
+      map[event].push(cb as EventCallbackFunction<any>)
+    },
+
+    unsubscribe: (event, cb) => {
+      const filteredEvent = [...map[event]].filter((el) => el !== cb)
+      map[event] = [...filteredEvent] as EventCallbackFunction<any>[]
     },
   }
 }
