@@ -2,10 +2,6 @@ import { CartDto, Product, User } from '../../../interfaces'
 
 export type EventCallbackFunction<Payload = undefined> = (payload: Payload) => void
 
-export type GetCallbackPayload<T> = T extends EventCallbackFunction<infer Payload>
-  ? Payload
-  : undefined
-
 export enum HeseyaEventType {
   AddToCart = 'addToCart',
   AddToWishlist = 'addToWishlist',

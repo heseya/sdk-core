@@ -47,7 +47,7 @@ export const createHeseyaEventListenerService = (): HeseyaEventListenerService =
     },
 
     unsubscribe: (event, cb) => {
-      map[event] = [...map[event]].filter((el) => el !== cb)
+      map[event] = map[event].filter((el) => el !== cb)
     },
   }
 }

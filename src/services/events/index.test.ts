@@ -8,40 +8,31 @@ const dummyProduct = {
   slug: '/product',
 } as Product
 
-const dummyFunction = () => {
-  // eslint-disable-next-line no-console
-  console.log('dummy output')
-}
-
-const dummySecondFunction = () => {
-  // eslint-disable-next-line no-console
-  console.log('dummy second output')
-}
-
 describe('events listener service', () => {
-  // eslint-disable-next-line no-console
-  console.log = jest.fn()
-
   it('should add event callback and emit it', async () => {
+    const fooCallback = jest.fn()
+
     const service = createHeseyaEventListenerService()
 
-    service.on(HeseyaEventType.AddToCart, dummyFunction)
+    service.on(HeseyaEventType.AddToCart, fooCallback)
     service.emit(HeseyaEventType.AddToCart, dummyProduct)
 
-    // eslint-disable-next-line no-console
-    expect(console.log).toHaveBeenCalledWith('dummy output')
+    expect(fooCallback).toHaveBeenCalledTimes(1)
   })
 
   it('should unsubscribe second event callback', async () => {
+    const fooCallback = jest.fn()
+    const barCallback = jest.fn()
+
     const service = createHeseyaEventListenerService()
 
-    service.on(HeseyaEventType.AddToCart, dummyFunction)
-    service.on(HeseyaEventType.AddToCart, dummySecondFunction)
-    service.unsubscribe(HeseyaEventType.AddToCart, dummyFunction)
+    service.on(HeseyaEventType.AddToCart, fooCallback)
+    service.on(HeseyaEventType.AddToCart, barCallback)
+    service.unsubscribe(HeseyaEventType.AddToCart, fooCallback)
 
     service.emit(HeseyaEventType.AddToCart, dummyProduct)
 
-    // eslint-disable-next-line no-console
-    expect(console.log).toHaveBeenCalledWith('dummy second output')
+    expect(barCallback).toHaveBeenCalledTimes(1)
+    expect(fooCallback).toHaveBeenCalledTimes(0)
   })
 })
