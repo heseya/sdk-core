@@ -1,8 +1,9 @@
-import { CartDto, Product, User } from '../../../interfaces'
+import { CartDto, OrderCreateDto, Product, User } from '../../../interfaces'
+import { CartItem } from '../../../models'
 
 export type EventCallbackFunction<Payload = undefined> = (payload: Payload) => void
 
-export enum HeseyaEventType {
+export enum HeseyaEvent {
   AddToCart = 'addToCart',
   AddToWishlist = 'addToWishlist',
   CompleteRegistration = 'completeRegistration',
@@ -24,75 +25,75 @@ export interface HeseyaEventToPayloadMap {
   /**
    * The addition of an item to a shopping cart or basket.
    */
-  [HeseyaEventType.AddToCart]: Product
+  [HeseyaEvent.AddToCart]: CartItem
 
   /**
    * The addition of items to a wishlist.
    */
-  [HeseyaEventType.AddToWishlist]: Product
+  [HeseyaEvent.AddToWishlist]: Product
 
   /**
    * A submission of information by a customer in exchange for a service provided by your business
    */
-  [HeseyaEventType.CompleteRegistration]: User
+  [HeseyaEvent.CompleteRegistration]: User
 
   /**
    * A telephone, SMS, email, chat or other type of contact between a customer and your business.
    */
-  [HeseyaEventType.Contact]: undefined
+  [HeseyaEvent.Contact]: undefined
 
   /**
    * The customisation of products through a configuration tool or other application that your business owns.
    */
-  [HeseyaEventType.CustomizeProduct]: Product
+  [HeseyaEvent.CustomizeProduct]: CartItem
 
   /**
    * The donation of funds to your organisation or cause.
    */
-  [HeseyaEventType.Donate]: undefined
+  [HeseyaEvent.Donate]: undefined
 
   /**
    * When a person finds one of your locations via web, with an intention to visit.
    */
-  [HeseyaEventType.FindLocation]: undefined
+  [HeseyaEvent.FindLocation]: undefined
 
   /**
    * The start of a checkout process.
    */
-  [HeseyaEventType.InitiateCheckout]: CartDto
+  [HeseyaEvent.InitiateCheckout]: CartDto
 
   /**
    * A submission of information by a customer with the understanding that they may be contacted at a later date by your business.
    */
-  [HeseyaEventType.Lead]: undefined
+  [HeseyaEvent.Lead]: undefined
 
   /**
    * The completion of a purchase, usually signified by receiving order or purchase confirmation, or a transaction receipt.
    */
-  [HeseyaEventType.OnPurchase]: CartDto
+  [HeseyaEvent.OnPurchase]: OrderCreateDto
 
   /**
    * Remove item from cart.
    */
-  [HeseyaEventType.RemoveFromCart]: Product
+  [HeseyaEvent.RemoveFromCart]: CartItem
 
   /**
    * The booking of an appointment to visit one of your locations.
    */
-  [HeseyaEventType.Schedule]: undefined
+  [HeseyaEvent.Schedule]: undefined
 
   /**
    * A search performed on your website, app or other property.
    */
-  [HeseyaEventType.Search]: string
+  [HeseyaEvent.Search]: string
 
   /**
    * User sign up.
    */
-  [HeseyaEventType.SignUp]: User
+  [HeseyaEvent.SignUp]: User
 
   /**
    * A visit to a web page you care about.
    */
-  [HeseyaEventType.ViewContent]: undefined
+  [HeseyaEvent.ViewContent]: undefined
 }

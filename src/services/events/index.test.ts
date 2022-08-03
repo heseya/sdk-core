@@ -1,4 +1,4 @@
-import { createHeseyaEventListenerService } from './index'
+import { createHeseyaEventBusService } from './index'
 import { Product } from '../../interfaces'
 import { HeseyaEventType } from './index'
 
@@ -12,7 +12,7 @@ describe('events listener service', () => {
   it('should add event callback and emit it', async () => {
     const fooCallback = jest.fn()
 
-    const service = createHeseyaEventListenerService()
+    const service = createHeseyaEventBusService()
 
     service.on(HeseyaEventType.AddToCart, fooCallback)
     service.emit(HeseyaEventType.AddToCart, dummyProduct)
@@ -24,7 +24,7 @@ describe('events listener service', () => {
     const fooCallback = jest.fn()
     const barCallback = jest.fn()
 
-    const service = createHeseyaEventListenerService()
+    const service = createHeseyaEventBusService()
 
     service.on(HeseyaEventType.AddToCart, fooCallback)
     service.on(HeseyaEventType.AddToCart, barCallback)

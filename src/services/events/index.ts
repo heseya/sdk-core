@@ -1,55 +1,55 @@
-import { EventCallbackFunction, HeseyaEventToPayloadMap, HeseyaEventType } from './utils/types'
+import { EventCallbackFunction, HeseyaEventToPayloadMap, HeseyaEvent } from './utils/types'
 
-export interface HeseyaEventListenerService {
-  emit: <Key extends HeseyaEventType>(
+export interface HeseyaEventBusService {
+  emit: <Key extends HeseyaEvent>(
     event: Key,
     ...payloads: HeseyaEventToPayloadMap[Key] extends undefined
       ? [undefined?]
       : [HeseyaEventToPayloadMap[Key]]
   ) => void
-  on: <Key extends HeseyaEventType>(
+  on: <Key extends HeseyaEvent>(
     event: Key,
     cb: EventCallbackFunction<HeseyaEventToPayloadMap[Key]>,
   ) => void
-  unsubscribe: <Key extends HeseyaEventType>(
+  unsubscribe: <Key extends HeseyaEvent>(
     event: Key,
     cb: EventCallbackFunction<HeseyaEventToPayloadMap[Key]>,
   ) => void
 }
 
-export const createHeseyaEventListenerService = (): HeseyaEventListenerService => {
-  const map: Record<HeseyaEventType, EventCallbackFunction<unknown>[]> = {
-    [HeseyaEventType.AddToCart]: [],
-    [HeseyaEventType.AddToWishlist]: [],
-    [HeseyaEventType.CompleteRegistration]: [],
-    [HeseyaEventType.Contact]: [],
-    [HeseyaEventType.CustomizeProduct]: [],
-    [HeseyaEventType.Donate]: [],
-    [HeseyaEventType.FindLocation]: [],
-    [HeseyaEventType.InitiateCheckout]: [],
-    [HeseyaEventType.Lead]: [],
-    [HeseyaEventType.OnPurchase]: [],
-    [HeseyaEventType.RemoveFromCart]: [],
-    [HeseyaEventType.Schedule]: [],
-    [HeseyaEventType.Search]: [],
-    [HeseyaEventType.SignUp]: [],
-    [HeseyaEventType.ViewContent]: [],
+export const createHeseyaEventBusService = (): HeseyaEventBusService => {
+  const callbackMap: Record<HeseyaEvent, EventCallbackFunction<unknown>[]> = {
+    [HeseyaEvent.AddToCart]: [],
+    [HeseyaEvent.AddToWishlist]: [],
+    [HeseyaEvent.CompleteRegistration]: [],
+    [HeseyaEvent.Contact]: [],
+    [HeseyaEvent.CustomizeProduct]: [],
+    [HeseyaEvent.Donate]: [],
+    [HeseyaEvent.FindLocation]: [],
+    [HeseyaEvent.InitiateCheckout]: [],
+    [HeseyaEvent.Lead]: [],
+    [HeseyaEvent.OnPurchase]: [],
+    [HeseyaEvent.RemoveFromCart]: [],
+    [HeseyaEvent.Schedule]: [],
+    [HeseyaEvent.Search]: [],
+    [HeseyaEvent.SignUp]: [],
+    [HeseyaEvent.ViewContent]: [],
   }
   return {
     emit: (event, payload = undefined) => {
-      map[event].forEach((cb) => {
+      callbackMap[event].forEach((cb) => {
         cb(payload)
       })
     },
 
     on: (event, cb) => {
-      map[event].push(cb as EventCallbackFunction<unknown>)
+      callbackMap[event].push(cb as EventCallbackFunction<unknown>)
     },
 
     unsubscribe: (event, cb) => {
-      map[event] = map[event].filter((el) => el !== cb)
+      callbackMap[event] = callbackMap[event].filter((el) => el !== cb)
     },
   }
 }
 
-export { HeseyaEventType } from './utils/types'
+export { HeseyaEvent } from './utils/types'
