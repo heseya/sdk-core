@@ -4,24 +4,26 @@ export interface HeseyaBaseError {
   code: number
 }
 
+export interface HeseyaValidationSubErrors {
+  [field_name: string]: {
+    key: HeseyaValidationErrorCode
+    message: string
+    min?: number
+    max?: number
+    table?: string
+    field?: string
+    size?: number
+    types?: string[]
+    when?: string // Date
+    value?: unknown
+  }[]
+}
+
 export interface HeseyaValidationError {
   message: string
   key: 'VALIDATION_ERROR'
   code: 422
-  errors: {
-    [field_name: string]: {
-      key: HeseyaValidationErrorCode
-      message: string
-      min?: number
-      max?: number
-      table?: string
-      field?: string
-      size?: number
-      types?: string[]
-      when?: string // Date
-      value?: unknown
-    }
-  }
+  errors: HeseyaValidationSubErrors
 }
 
 export interface HeseyaClientError {
