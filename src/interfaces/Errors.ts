@@ -110,6 +110,7 @@ export enum HeseyaValidationErrorCode {
 }
 
 export enum HeseyaClientErrorCode {
+  CdnNotAllowedToChangeAlt = 'CDN_NOT_ALLOWED_TO_CHANGE_ALT',
   InvalidInstallationResponse = 'CLIENT_INVALID_INSTALLATION_RESPONSE',
   FailedToConnectWithApp = 'CLIENT_FAILED_TO_CONNECT_WITH_APP',
   FailedToUninstallApp = 'CLIENT_FAILED_TO_UNINSTALL_APP',
