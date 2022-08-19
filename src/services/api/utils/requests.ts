@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios'
 import { UUID } from '../../../interfaces/UUID'
 import { HeseyaPaginatedResponse, HeseyaResponse } from '../../../interfaces/Response'
 import { normalizePagination } from './normalizePagination'
-import { stringifyQueryParams } from './stringifyQueryParams'
+import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 import { ListResponse } from '../../../interfaces/Response'
 import { DefaultParams } from '../types/DefaultParams'
 
