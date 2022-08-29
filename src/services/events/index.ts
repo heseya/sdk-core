@@ -19,20 +19,20 @@ export interface HeseyaEventBusService {
 
 export const createHeseyaEventBusService = (): HeseyaEventBusService => {
   const callbackMap: Record<HeseyaEvent, EventCallbackFunction<unknown>[]> = {
+    [HeseyaEvent.ViewProduct]: [],
+    [HeseyaEvent.ViewProductList]: [],
+    [HeseyaEvent.ViewCart]: [],
+    [HeseyaEvent.AddToCart]: [],
     [HeseyaEvent.AddToCart]: [],
     [HeseyaEvent.AddToWishlist]: [],
-    [HeseyaEvent.CompleteRegistration]: [],
-    [HeseyaEvent.Contact]: [],
+    [HeseyaEvent.Login]: [],
+    [HeseyaEvent.Register]: [],
     [HeseyaEvent.CustomizeProduct]: [],
-    [HeseyaEvent.Donate]: [],
-    [HeseyaEvent.FindLocation]: [],
     [HeseyaEvent.InitiateCheckout]: [],
-    [HeseyaEvent.Lead]: [],
-    [HeseyaEvent.OnPurchase]: [],
+    [HeseyaEvent.AddShippingInfo]: [],
+    [HeseyaEvent.Purchase]: [],
     [HeseyaEvent.RemoveFromCart]: [],
-    [HeseyaEvent.Schedule]: [],
     [HeseyaEvent.Search]: [],
-    [HeseyaEvent.SignUp]: [],
     [HeseyaEvent.ViewContent]: [],
   }
   return {
