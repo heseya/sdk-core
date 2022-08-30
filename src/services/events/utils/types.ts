@@ -1,4 +1,11 @@
-import { OrderSummary, Product, ProductList, ShippingMethod, User } from '../../../interfaces'
+import {
+  OrderSummary,
+  Product,
+  ProductList,
+  ProductSetList,
+  ShippingMethod,
+  User,
+} from '../../../interfaces'
 import { CartItem } from '../../../models'
 
 export type EventCallbackFunction<Payload = undefined> = (payload: Payload) => void
@@ -64,7 +71,7 @@ export enum HeseyaEvent {
 
 export interface HeseyaEventToPayloadMap extends Record<HeseyaEvent, unknown> {
   [HeseyaEvent.ViewProduct]: Product
-  [HeseyaEvent.ViewProductList]: ProductList[]
+  [HeseyaEvent.ViewProductList]: { set?: Partial<ProductSetList>; items: ProductList[] }
   [HeseyaEvent.CustomizeProduct]: CartItem
   [HeseyaEvent.AddToCart]: CartItem
   [HeseyaEvent.ViewCart]: CartItem[]
