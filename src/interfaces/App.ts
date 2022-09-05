@@ -25,9 +25,9 @@ export interface App extends MetadataFields {
 export interface AppCreateDto extends CreateMetadataFields {
   url: string
   name?: string // [TODO]
-  licence_key: string
+  licence_key?: string
   allowed_permissions: string[]
-  public_app_permissions: string[]
+  public_app_permissions?: string[]
 }
 
 export interface IntegrationInfo {
