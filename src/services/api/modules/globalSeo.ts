@@ -1,8 +1,6 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
 
 import { ServiceFactory } from '../types/Service'
-import { UpdateEntityRequest } from '../types/Requests'
-import { createPatchRequest } from '../utils/requests'
 
 import { UUID } from '../../../interfaces/UUID'
 import {
