@@ -27,7 +27,7 @@ export const createMediaService: ServiceFactory<MediaService> = (axios) => {
     async create({ file, alt, metadata, metadata_private }) {
       const form = await createFormData()
 
-      form.append('file', file)
+      form.append('file', file, 'media')
 
       if (alt) form.append('alt', alt)
 

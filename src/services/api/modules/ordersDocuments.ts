@@ -33,7 +33,7 @@ export const createOrderDocumentsService: ServiceFactory<OrderDocumentsService> 
 
     form.append('type', documentDto.type)
     if (documentDto.name) form.append('name', documentDto.name)
-    form.append('file', documentDto.file)
+    form.append('file', documentDto.file, 'order-document')
 
     const response = await axios.post<HeseyaResponse<OrderDocument>>(
       `/orders/id:${orderId}/docs`,
