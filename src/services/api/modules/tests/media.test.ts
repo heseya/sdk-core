@@ -31,6 +31,7 @@ describe('media test service', () => {
     mock.onPost(expectedUrl).reply(200, { data: dummyMedia })
 
     const result = await service.create({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       file: createReadStream(__dirname + '/test/mock/dummy.jpg') as any,
     })
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)

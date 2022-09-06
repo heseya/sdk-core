@@ -36,6 +36,7 @@ describe('order documents test service', () => {
     mock.onPost(expectedUrl).reply(200, { data: dummyOrderDocument })
 
     const result = await service.create(orderId, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       file: createReadStream(__dirname + '/test/mock/dummy.jpg') as any,
       type: OrderDocumentType.Other,
     })
