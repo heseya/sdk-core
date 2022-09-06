@@ -17,7 +17,7 @@ export interface OrderDocumentCreateDto {
   type: OrderDocumentType
   name?: string
   /**
-   * For node environment, there can also be a ReadStream object (result of `fs.createReadStream`)
+   * For node environment, there can also be a Buffer or a ReadStream object (result of `fs.createReadStream`)
    */
   file: FileUploadDto
 }
