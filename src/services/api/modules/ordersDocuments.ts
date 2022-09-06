@@ -1,10 +1,9 @@
-import { FormData } from 'formdata-polyfill'
-
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { ServiceFactory } from '../types/Service'
 
 import { UUID } from '../../../interfaces/UUID'
 import { OrderDocument, OrderDocumentCreateDto } from '../../../interfaces/OrderDocuments'
+import { createFormData } from '../utils/createFormData'
 
 export interface OrderDocumentsService {
   /**
@@ -30,7 +29,8 @@ export interface OrderDocumentsService {
 
 export const createOrderDocumentsService: ServiceFactory<OrderDocumentsService> = (axios) => ({
   async create(orderId, documentDto) {
-    const form = new FormData()
+    const form = await createFormData()
+
     form.append('type', documentDto.type)
     if (documentDto.name) form.append('name', documentDto.name)
     form.append('file', documentDto.file)

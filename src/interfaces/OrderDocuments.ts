@@ -1,4 +1,5 @@
 import { UUID } from './UUID'
+import { FileUploadDto } from './CdnMedia'
 
 export enum OrderDocumentType {
   Other = 'other',
@@ -15,5 +16,8 @@ export interface OrderDocument {
 export interface OrderDocumentCreateDto {
   type: OrderDocumentType
   name?: string
-  file: File
+  /**
+   * For node environment, there can also be a ReadStream object (result of `fs.createReadStream`)
+   */
+  file: FileUploadDto
 }
