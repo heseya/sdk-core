@@ -62,9 +62,14 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     status: {} as OrderStatus,
     paid: false,
     payable: true,
+    cart_total_initial: 121,
+    cart_total: 121,
+    shipping_price_initial: 21,
+    shipping_price: 21,
     summary: 2134,
     shipping_method: {} as ShippingMethod,
     created_at: '2022',
+    metadata: {},
   },
 }
 
