@@ -78,6 +78,7 @@ export interface OrderSummary extends MetadataFields {
   cart_total: number
   shipping_price_initial: number
   shipping_price: number
+  summary: number
   shipping_method: Omit<ShippingMethod, 'price'>
   created_at: string
 }
