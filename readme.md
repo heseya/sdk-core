@@ -9,10 +9,13 @@
 ## Instalation
 
 ```bash
-$ yarn add @heseya/store-core
-// or
-$ npm i @heseya/store-core
+$ yarn add @heseya/store-core@dev
 ```
+
+// or
+$ npm i @heseya/store-core@dev
+
+````
 
 ## Usage
 
@@ -26,7 +29,7 @@ You can create the Heseya Api Service using the factory method.
 import { createHeseyaApiService } from '@heseya/store-core'
 
 const heseya = createHeseyaApiService(axios)
-```
+````
 
 You need to pass the `axios` instance to the factory method. This allows you to modify axios instance to your needs. For example you can add a custom header to the request or implement a custom interceptor. **Remember to pass the BaseUrl to the axios instance!**
 
