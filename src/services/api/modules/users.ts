@@ -50,6 +50,11 @@ export interface UsersService extends EntityMetadataService, EntityAuditsService
    * Delete the user
    */
   delete: DeleteEntityRequest
+
+  /**
+   * Removes two factor authentication for the user
+   */
+  removeTwoFactorAuth: (userId: string) => Promise<User>
 }
 
 export const createUsersService: ServiceFactory<UsersService> = (axios) => {
@@ -60,6 +65,8 @@ export const createUsersService: ServiceFactory<UsersService> = (axios) => {
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    removeTwoFactorAuth: (userId: string) => axios.post(`/users/id:${userId}/2fa/remove`),
 
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),

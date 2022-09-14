@@ -5,19 +5,29 @@ import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
+import autoExternal from 'rollup-plugin-auto-external'
+import bundleSize from 'rollup-plugin-bundle-size'
+
+import * as lib from './package.json'
+
+const year = new Date().getFullYear()
+const banner = `// Heseya SDK v${lib.version} Copyright (c) ${year} ${lib.author.name} and contributors`
 
 const config = {
   input: './src/index.ts',
+  inlineDynamicImports: true,
   output: {
-    name: 'HeseyaStoreCore',
+    name: 'heseya-sdk',
     sourcemap: !process.env.MINIFY,
+    banner,
   },
-  external: [], // eslint-disable-line global-require
+  external: [],
   plugins: [
     typescript({
       tsconfig: 'tsconfig.prod.json',
     }),
     json(),
+    autoExternal(),
     babel({ babelHelpers: 'bundled' }),
     commonjs(),
     resolve(),
@@ -30,6 +40,7 @@ const config = {
 
 if (process.env.MINIFY) {
   config.plugins.push(terser())
+  config.plugins.push(bundleSize())
 }
 
 export default config

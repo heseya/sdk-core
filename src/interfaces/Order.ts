@@ -58,14 +58,18 @@ export interface Order extends OrderList {
   shipping_number: string | null
 }
 
-export interface OrderSummary {
+export interface OrderSummary extends MetadataFields {
   id: UUID
   code: string
   status: OrderStatus
   paid: boolean
   payable: boolean
+  cart_total_initial: number
+  cart_total: number
+  shipping_price_initial: number
+  shipping_price: number
   summary: number
-  shipping_method: ShippingMethod
+  shipping_method: Omit<ShippingMethod, 'price'>
   created_at: string
 }
 
