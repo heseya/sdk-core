@@ -20,7 +20,7 @@ export interface CrudService<
   ListEntity = Entity,
   EntityCreateDto = Entity,
   EntityUpdateDto = Partial<EntityCreateDto>,
-  GetParams = DefaultParams,
+  GetParams extends DefaultParams = DefaultParams,
 > {
   /**
    * Return a list of entities

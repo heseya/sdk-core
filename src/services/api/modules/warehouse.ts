@@ -34,6 +34,12 @@ interface WarehouseItemsListParams extends SearchParam, PaginationParams {
   day?: Date
 }
 
+interface WarehouseDepositsListParams extends SearchParam, PaginationParams {
+  search?: string
+  sku?: string
+  sort?: string
+}
+
 export interface WarehouseService
   extends EntityMetadataService,
     EntityAuditsService<WarehouseItem> {
@@ -75,7 +81,7 @@ export interface WarehouseService
   /**
    * Returns all deposites
    */
-  getAllDeposits: GetEntityRequest<WarehouseDeposit>
+  getAllDeposits: GetEntityRequest<WarehouseDeposit, WarehouseDepositsListParams>
 }
 
 export const createWarehouseService: ServiceFactory<WarehouseService> = (axios) => {
