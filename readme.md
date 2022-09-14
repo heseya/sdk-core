@@ -66,7 +66,3 @@ After creating the instance, you can use the service as you wish. Below are usag
 heseya.Products.get({ search: 'test' }) // Returns the products that was found by the search term
 heseya.Orders.getOneByCode('ORDERCODE') // Returns the order summary with the given code
 ```
-
-### Others
-
-TODO
