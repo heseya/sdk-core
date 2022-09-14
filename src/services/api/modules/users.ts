@@ -18,10 +18,12 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { ListResponse } from '../../../interfaces'
+import { UUID } from '../../../interfaces/UUID'
 
 interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
   sort?: string
+  roles?: UUID[]
 }
 
 export interface UsersService extends EntityMetadataService, EntityAuditsService<User> {
