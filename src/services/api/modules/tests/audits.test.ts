@@ -13,7 +13,8 @@ const dummyAuditsResponse: HeseyaResponse<EntityAudits<{ id: string }>> = {
     created_at: '2015-12-03',
     old_values: { id: 'id' },
     new_values: {},
-    user: {} as UserList,
+    issuer_type: 'user',
+    issuer: {} as UserList,
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },

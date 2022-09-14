@@ -1,9 +1,15 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 
+/**
+ * For node environment, there can also or a Buffer or a ReadStream object (result of `fs.createReadStream`), but it cannot be typed this way in browsers.
+ */
+export type FileUploadDto = File // | ReadStream | Buffer
+
 export enum CdnMediaType {
   Photo = 'photo',
   Video = 'video',
-  Pdf = 'pdf',
+  Document = 'document',
+  Other = 'other',
 }
 
 export interface CdnMedia extends MetadataFields {
@@ -15,7 +21,10 @@ export interface CdnMedia extends MetadataFields {
 }
 
 export interface CdnMediaCreateDto extends CreateMetadataFields {
-  file: File
+  /**
+   * For node environment, there can also be a Buffer or a ReadStream object (result of `fs.createReadStream`)
+   */
+  file: FileUploadDto
   alt?: string
   slug?: string
   metadata?: Record<string, string>

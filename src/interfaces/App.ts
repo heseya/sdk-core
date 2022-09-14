@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Permission, PermissionEntry } from './Permissions'
 import { UUID } from './UUID'
@@ -25,9 +23,9 @@ export interface App extends MetadataFields {
 export interface AppCreateDto extends CreateMetadataFields {
   url: string
   name?: string // [TODO]
-  licence_key: string
+  licence_key?: string
   allowed_permissions: string[]
-  public_app_permissions: string[]
+  public_app_permissions?: string[]
 }
 
 export interface IntegrationInfo {
@@ -51,10 +49,9 @@ interface AppConfigBase {
   label: string
   placeholder: string
   type: string
-  // eslint-disable-next-line camelcase
-  default_value: any
+  default_value: string | number | boolean
   required: boolean
-  value?: any
+  value?: string | number | boolean
 }
 interface AppConfigInput extends AppConfigBase {
   type: 'text' | 'number' | 'color' | 'date' | 'datetime-local' | 'checkbox'
