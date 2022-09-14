@@ -2,7 +2,7 @@ import queryString from 'query-string'
 import flatten from 'flat'
 import { isBoolean, isDate } from 'lodash'
 
-import { DefaultParams } from '../types/DefaultParams'
+import { DefaultParams } from '../services/api/types/DefaultParams'
 
 const transformParam = (value: unknown): unknown => {
   if (isBoolean(value)) return +value

@@ -57,6 +57,11 @@ export interface ProductsService
   get(params: ProductsListParams & { full?: false }): Promise<ListResponse<ProductList>>
   get(params: ProductsListParams & { full: true }): Promise<ListResponse<Product>>
 
+  /**
+   * Return a list of available Google Product Categories for given language
+   */
+  getGoogleCategories(lang: string): Promise<{ id: number; name: string }[]>
+
   getFilters(props?: { sets?: UUID[] }): Promise<Attribute[]>
 }
 
@@ -69,6 +74,13 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    async getGoogleCategories(lang) {
+      const response = await axios.get<{ data: { id: number; name: string }[] }>(
+        `/google-categories/${lang}`,
+      )
+      return response.data.data
+    },
 
     getFilters: createGetSimpleListRequest(axios, 'filters'),
 

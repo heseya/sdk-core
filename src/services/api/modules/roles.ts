@@ -23,7 +23,7 @@ export interface RolesService
     >,
     EntityMetadataService,
     EntityAuditsService<Role> {
-  getPermissions: (params: { assignable?: boolean }) => Promise<PermissionEntry[]>
+  getPermissions: (params?: { assignable?: boolean }) => Promise<PermissionEntry[]>
 }
 
 export const createRolesService: ServiceFactory<RolesService> = (axios) => {

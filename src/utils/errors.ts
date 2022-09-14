@@ -5,6 +5,7 @@ import {
   HeseyaErrorCode,
   HeseyaErrorResponse,
   HeseyaValidationError,
+  HeseyaValidationSubErrors,
 } from '../interfaces/Errors'
 
 /**
@@ -36,6 +37,7 @@ interface FormattedError {
   title: string
   key?: HeseyaErrorCode
   text: string
+  errors?: HeseyaValidationSubErrors
 }
 
 /**
@@ -49,8 +51,9 @@ export const formatApiError = (error: any): FormattedError => {
       title: responseData.error.message,
       key: responseData.error.key as HeseyaErrorCode,
       text: isHeseyaValidationError(responseData.error)
-        ? Object.values(responseData?.error?.errors || {})[0].message || ''
+        ? Object.values(responseData?.error?.errors || {})[0][0].message || ''
         : '',
+      errors: isHeseyaValidationError(responseData.error) ? responseData.error?.errors : undefined,
     }
   }
 

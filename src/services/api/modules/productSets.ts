@@ -23,7 +23,7 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
 import { UUID } from '../../../interfaces/UUID'
-import { stringifyQueryParams } from '../utils/stringifyQueryParams'
+import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 import { HeseyaPaginatedResponse, ListResponse, ProductList } from '../../../interfaces'
 import { normalizePagination } from '../utils/normalizePagination'
 

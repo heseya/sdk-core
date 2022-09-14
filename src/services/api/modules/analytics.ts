@@ -2,7 +2,7 @@ import { HeseyaResponse } from '../../../interfaces'
 import { AnalyticsPaymentsSummary } from '../../../interfaces/Analytics'
 
 import { ServiceFactory } from '../types/Service'
-import { stringifyQueryParams } from '../utils/stringifyQueryParams'
+import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 
 interface AnalyticsPaymentsParams {
   from?: Date

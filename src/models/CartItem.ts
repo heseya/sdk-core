@@ -95,9 +95,9 @@ export class CartItem {
 
     try {
       return round(this.product.price + calcSchemasPrice(this.schemas), 2)
-    } catch (e: any) {
+    } catch (e: unknown) {
       // eslint-disable-next-line no-console
-      console.error('[HS CartItem]', e.message)
+      console.error('[HS CartItem]', (e as Error).message || e)
       return round(this.product.price, 2)
     }
   }

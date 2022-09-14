@@ -39,9 +39,11 @@ export const createTwoFactorAuthService: ServiceFactory<TwoFactorAuthService> = 
       type,
     })
 
-    if (data.data.type === 'app')
+    if (type === 'app' && data.data.type === 'app')
       return { secret: data.data.secret, qrCodeUrl: data.data.qr_code_url }
 
+    // This needs to be returned as any, otherwise ts is complaining
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return true as any
   },
 

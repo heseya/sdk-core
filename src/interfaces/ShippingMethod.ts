@@ -1,5 +1,5 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { PaymentMethod } from './PaymentMethod'
+import { PaymentMethod } from './PaymentMethods'
 import { UUID } from './UUID'
 
 export interface ShippingCountry {

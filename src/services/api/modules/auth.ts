@@ -2,7 +2,7 @@ import { HeseyaResponse } from '../../../interfaces/Response'
 import { User, UserRegisterDto } from '../../../interfaces/User'
 import { ServiceFactory } from '../types/Service'
 
-interface HeseyaAuthResponse {
+export interface HeseyaAuthResponse {
   user: User
   token: string
   identity_token: string
