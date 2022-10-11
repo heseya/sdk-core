@@ -1,20 +1,7 @@
+import { AuthResponse, HeseyaAuthResponse } from '../../../interfaces/Auth'
 import { HeseyaResponse } from '../../../interfaces/Response'
 import { User, UserRegisterDto } from '../../../interfaces/User'
 import { ServiceFactory } from '../types/Service'
-
-export interface HeseyaAuthResponse {
-  user: User
-  token: string
-  identity_token: string
-  refresh_token: string
-}
-
-interface AuthResponse {
-  user: User
-  accessToken: string
-  identityToken: string
-  refreshToken: string
-}
 
 export interface AuthService {
   /**

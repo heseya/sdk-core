@@ -1,3 +1,4 @@
+export * from './AuthProviders'
 export * from './Address'
 export * from './Analytics'
 export * from './App'

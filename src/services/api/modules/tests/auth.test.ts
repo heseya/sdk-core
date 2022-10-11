@@ -8,8 +8,9 @@ import {
   UserPreferences,
   UserRegisterDto,
 } from '../../../../interfaces'
+import { HeseyaAuthResponse } from '../../../../interfaces/Auth'
 
-import { createAuthService, HeseyaAuthResponse } from '../auth'
+import { createAuthService } from '../auth'
 
 const dummyAuth: { data: HeseyaAuthResponse } = {
   data: {
