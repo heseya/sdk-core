@@ -27,9 +27,9 @@ export type AuthProvidersService = Omit<
    * For user are generated tokens and he is returned
    *
    * @param providerKey - Provider key
-   * @param payload - Data from provider, that was returned after redirect via query string
+   * @param returnUrl - Must be same as the `returnRrl` used in the `.redirect()` method
    */
-  login(provider: AuthProviderKey, payload: Record<string, unknown>): Promise<AuthResponse>
+  login(provider: AuthProviderKey, returnUrl: string): Promise<AuthResponse>
 
   /**
    * Creates a url to redirect the user to the provider login page.
@@ -40,10 +40,12 @@ export type AuthProvidersService = Omit<
 export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = (axios) => {
   const route = 'auth/providers'
   return {
-    login: async (provider, payload) => {
+    login: async (provider, returnUrl) => {
       const {
         data: { data },
-      } = await axios.post<{ data: HeseyaAuthResponse }>(`${route}/${provider}/login`, payload)
+      } = await axios.get<{ data: HeseyaAuthResponse }>(
+        `${route}/${provider}/login?return_url=${returnUrl}`,
+      )
       return {
         user: data.user,
         accessToken: data.token,
