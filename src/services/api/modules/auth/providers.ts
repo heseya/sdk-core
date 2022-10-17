@@ -28,12 +28,15 @@ export type AuthProvidersService = Omit<
    * For user are generated tokens and he is returned
    *
    * @param providerKey - Provider key
-   * @param returnUrl - URL to which the user will be redirected after authorization
+   * @param returnUrl - Full URL to which the user was redirected after returning from the provider
    */
   login(provider: AuthProviderKey, returnUrl: string): Promise<AuthResponse>
 
   /**
    * Creates a url to redirect the user to the provider login page.
+   *
+   * @param providerKey - Provider key
+   * @param returnUrl - URL to which the user should be redirected after authorization
    */
   redirect(provider: AuthProviderKey, returnUrl: string): Promise<string>
 }
