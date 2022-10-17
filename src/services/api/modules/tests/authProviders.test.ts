@@ -1,9 +1,12 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-import { AuthProviderKey, HeseyaResponse, User } from '../../../../interfaces'
+import { AuthProviderKey } from '../../../../interfaces/AuthProviders'
+import { User } from '../../../../interfaces/User'
+import { HeseyaResponse } from '../../../../interfaces/Response'
 import { HeseyaAuthResponse } from '../../../../interfaces/Auth'
-import { createAuthProvidersService } from '../AuthProviders'
+
+import { createAuthProvidersService } from '../auth/providers'
 
 const dummyRedirectResponse: HeseyaResponse<{ redirect_url: string }> = {
   data: {

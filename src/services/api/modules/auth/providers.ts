@@ -1,14 +1,14 @@
-import { CrudService, ServiceFactory } from '../types/Service'
-import { createGetListRequest, createGetOneRequest, createPatchRequest } from '../utils/requests'
+import { CrudService, ServiceFactory } from '../../types/Service'
+import { createGetListRequest, createGetOneRequest, createPatchRequest } from '../../utils/requests'
 
 import {
   AuthProvider,
   AuthProviderKey,
   AuthProviderList,
   AuthProviderUpdateDto,
-} from '../../../interfaces/AuthProviders'
-import { AuthResponse, HeseyaAuthResponse } from '../../../interfaces/Auth'
-import { HeseyaResponse } from '../../../interfaces'
+} from '../../../../interfaces/AuthProviders'
+import { AuthResponse, HeseyaAuthResponse } from '../../../../interfaces/Auth'
+import { HeseyaResponse } from '../../../../interfaces'
 
 type AuthProvidersListParams = { active?: boolean }
 
