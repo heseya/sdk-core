@@ -16,10 +16,10 @@ const dummyRedirectResponse: HeseyaResponse<{ redirect_url: string }> = {
 }
 const dummyLoginResponse: HeseyaResponse<HeseyaAuthResponse> = {
   data: {
-    user: {} as User,
-    token: '',
-    identity_token: '',
-    refresh_token: '',
+    user: { name: 'John' } as User,
+    token: 'accessToken',
+    identity_token: 'identityToken',
+    refresh_token: 'refreshToken',
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
@@ -56,9 +56,14 @@ describe('AuthProviders service test', () => {
 
     mock.onPost(expectedUrl).reply(200, dummyLoginResponse)
 
-    const result = await service.login(AuthProviderKey.Google, {})
+    const result = await service.login(AuthProviderKey.Google, 'https://example.com/login?code=123')
 
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
-    expect(result).toEqual({ user: {}, accessToken: '', identityToken: '', refreshToken: '' })
+    expect(result).toEqual({
+      user: { name: 'John' },
+      accessToken: 'accessToken',
+      identityToken: 'identityToken',
+      refreshToken: 'refreshToken',
+    })
   })
 })

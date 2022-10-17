@@ -8,6 +8,7 @@ import {
   AuthProviderUpdateDto,
 } from '../../../interfaces/AuthProviders'
 import { AuthResponse, HeseyaAuthResponse } from '../../../interfaces/Auth'
+import { HeseyaResponse } from '../../../interfaces'
 
 type AuthProvidersListParams = { active?: boolean }
 
@@ -43,7 +44,7 @@ export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = 
     login: async (provider, returnUrl) => {
       const {
         data: { data },
-      } = await axios.post<{ data: HeseyaAuthResponse }>(`${route}/${provider}/login`, {
+      } = await axios.post<HeseyaResponse<HeseyaAuthResponse>>(`${route}/${provider}/login`, {
         return_url: returnUrl,
       })
       return {
@@ -57,9 +58,12 @@ export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = 
     redirect: async (provider, returnUrl) => {
       const {
         data: { data },
-      } = await axios.post<{ data: { redirect_url: string } }>(`${route}/${provider}/redirect`, {
-        return_url: returnUrl,
-      })
+      } = await axios.post<HeseyaResponse<{ redirect_url: string }>>(
+        `${route}/${provider}/redirect`,
+        {
+          return_url: returnUrl,
+        },
+      )
       return data.redirect_url
     },
 
