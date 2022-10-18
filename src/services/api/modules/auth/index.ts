@@ -1,20 +1,8 @@
-import { HeseyaResponse } from '../../../interfaces/Response'
-import { User, UserRegisterDto } from '../../../interfaces/User'
-import { ServiceFactory } from '../types/Service'
-
-export interface HeseyaAuthResponse {
-  user: User
-  token: string
-  identity_token: string
-  refresh_token: string
-}
-
-interface AuthResponse {
-  user: User
-  accessToken: string
-  identityToken: string
-  refreshToken: string
-}
+import { AuthResponse, HeseyaAuthResponse } from '../../../../interfaces/Auth'
+import { HeseyaResponse } from '../../../../interfaces/Response'
+import { User, UserRegisterDto } from '../../../../interfaces/User'
+import { ServiceFactory } from '../../types/Service'
+import { AuthProvidersService, createAuthProvidersService } from './providers'
 
 export interface AuthService {
   /**
@@ -60,6 +48,8 @@ export interface AuthService {
    * If `identityToken` is not provided, the Unauthenticated user model will be returned.
    */
   checkIdentity(identityToken?: string): Promise<User>
+
+  Providers: AuthProvidersService
 }
 
 export const createAuthService: ServiceFactory<AuthService> = (axios) => ({
@@ -120,4 +110,6 @@ export const createAuthService: ServiceFactory<AuthService> = (axios) => ({
     )
     return data.data
   },
+
+  Providers: createAuthProvidersService(axios),
 })
