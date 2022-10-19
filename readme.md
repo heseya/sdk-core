@@ -1,14 +1,19 @@
 # @heseya/store-core
 
-[![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/coverage.svg)](https://gitlab.com/heseya/heseya-store-core/-/graphs/develop/charts)
-[![Coverage](https://gitlab.com/heseya/heseya-store-core/badges/develop/pipeline.svg)](https://gitlab.com/heseya/heseya-store-core/-/pipelines)
+[![NPM version](https://img.shields.io/npm/v/@heseya/store-core)](https://www.npmjs.com/package/@heseya/store-core) &nbsp;
+[![Code Coverage](https://codecov.io/gh/heseya/sdk-core/branch/develop/graph/badge.svg)](https://codecov.io/gh/heseya/sdk-core) &nbsp;
+![Downloads](https://img.shields.io/npm/dt/@heseya/store-core) &nbsp;
+
+[Type definitions](https://heseya.github.io/sdk-core/index.html)
 
 ## Instalation
 
 ```bash
-$ yarn add @heseya/store-core
+$ yarn add @heseya/store-core@dev
+
 // or
-$ npm i @heseya/store-core
+$ npm i @heseya/store-core@dev
+
 ```
 
 ## Usage
@@ -63,7 +68,3 @@ After creating the instance, you can use the service as you wish. Below are usag
 heseya.Products.get({ search: 'test' }) // Returns the products that was found by the search term
 heseya.Orders.getOneByCode('ORDERCODE') // Returns the order summary with the given code
 ```
-
-### Others
-
-TODO

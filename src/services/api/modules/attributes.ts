@@ -17,11 +17,12 @@ import {
 import { UUID } from '../../../interfaces/UUID'
 import { HeseyaResponse } from '../../..'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
-import { stringifyQueryParams } from '../utils/stringifyQueryParams'
+import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 import {
   createEntityMetadataService,
   createUpdateMetadataRequest,
   EntityMetadataService,
+  MetadataType,
 } from './metadata'
 import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
 import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
@@ -100,7 +101,7 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return await createUpdateMetadataRequest(
         axios,
         `${route}/id:${attributeId}/options`,
-        true,
+        MetadataType.Public,
       )(optionId, metadata)
     },
 
@@ -108,7 +109,7 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return await createUpdateMetadataRequest(
         axios,
         `${route}/id:${attributeId}/options`,
-        false,
+        MetadataType.Private,
       )(optionId, metadata)
     },
 

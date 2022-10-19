@@ -1,8 +1,6 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
 
 import { ServiceFactory } from '../types/Service'
-import { UpdateEntityRequest } from '../types/Requests'
-import { createPatchRequest } from '../utils/requests'
 
 import { UUID } from '../../../interfaces/UUID'
 import {
@@ -21,7 +19,7 @@ export interface GlobalSeoService {
   /**
    * Updates the global SEO setting
    */
-  update: UpdateEntityRequest<SeoMetadata, SeoMetadataDto>
+  update(updatedGlobalSeo: SeoMetadataDto): Promise<SeoMetadata>
 
   /**
    * Allows to check if keywords are already used in other entities.
@@ -36,7 +34,12 @@ export interface GlobalSeoService {
 }
 
 export const createGlobalSeoService: ServiceFactory<GlobalSeoService> = (axios) => ({
-  update: createPatchRequest(axios, 'seo'),
+  async update(updatedGlobalSeo: SeoMetadataDto) {
+    const {
+      data: { data: globalSeo },
+    } = await axios.patch<HeseyaResponse<SeoMetadata>>('/seo', updatedGlobalSeo)
+    return globalSeo
+  },
 
   async get() {
     const {

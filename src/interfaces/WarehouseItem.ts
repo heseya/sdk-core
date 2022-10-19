@@ -62,7 +62,8 @@ export interface WarehouseDeposit {
   shipping_time: null | number
   shipping_date: null | string
   item_id: UUID
-  order_product_id: UUID
+  order: { id: UUID; code: string } | null
+  created_at: string
 }
 
 export type WarehouseDepositDto =

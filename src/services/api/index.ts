@@ -26,6 +26,7 @@ import { createCouponsService } from './modules/coupons'
 import { createSchemasService } from './modules/schema'
 import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
+import { createWishlistService } from './modules/wishlist'
 
 const createHeseyaApiServiceFromAxios = (axiosInstance: AxiosInstance) => ({
   Analytics: createAnalyticsService(axiosInstance),
@@ -53,6 +54,7 @@ const createHeseyaApiServiceFromAxios = (axiosInstance: AxiosInstance) => ({
   Settings: createSettingsService(axiosInstance),
   Media: createMediaService(axiosInstance),
   Webhooks: createWebhooksService(axiosInstance),
+  Wishlist: createWishlistService(axiosInstance),
   Consents: createConsentsService(axiosInstance),
 })
 

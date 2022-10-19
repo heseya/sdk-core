@@ -1,0 +1,21 @@
+name: Run Stryker's mutation tests
+on: workflow_dispatch
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install
+      - name: Run mutations tests
+        run: yarn test:mutations
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: styker-report
+          path: reports/mutation

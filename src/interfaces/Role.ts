@@ -6,6 +6,7 @@ export interface Role extends MetadataFields {
   id: UUID
   name: string
   description: string
+  users_count: number
   assignable: boolean
   permissions: Permission[]
 }

@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { HeseyaResponse } from '../../../interfaces'
 import { ReorderEntityRequest } from '../types/Reorder'
-import { stringifyQueryParams } from './stringifyQueryParams'
+import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 
 /**
  * Factory for the reorder of the given item
