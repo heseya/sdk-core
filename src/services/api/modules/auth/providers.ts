@@ -66,7 +66,7 @@ export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = 
     },
 
     get: createGetListRequest(axios, route),
-    getOne: createGetOneRequest(axios, route, { byId: true }),
-    update: createPatchRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: false }),
+    update: createPatchRequest(axios, route, { byId: false }),
   }
 }

@@ -8,14 +8,8 @@ import { HeseyaAuthResponse } from '../../../../interfaces/Auth'
 
 import { createAuthProvidersService } from '../auth/providers'
 
-const dummyRedirectResponse: HeseyaResponse<{ redirect_url: string }> = {
-  data: {
-    redirect_url: 'https://provider.com',
-  },
-  meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
-  },
+const dummyRedirectResponse = {
+  redirect_url: 'https://provider.com',
 }
 const dummyLoginResponse: HeseyaResponse<HeseyaAuthResponse> = {
   data: {
@@ -50,7 +44,7 @@ describe('AuthProviders service test', () => {
     const result = await service.redirect(AuthProviderKey.Google, 'https://example.com/login')
 
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
-    expect(result).toEqual(dummyRedirectResponse.data.redirect_url)
+    expect(result).toEqual(dummyRedirectResponse.redirect_url)
   })
 
   it('should make a request to login with provider', async () => {
