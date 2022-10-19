@@ -21,3 +21,12 @@ test:
   rules:
     - if: $CI_COMMIT_BRANCH != "master"
   coverage: /All files\s*\|\s*([\d\.]+)/
+
+mutation-test:
+  stage: test
+  before_script:
+    - yarn
+  script:
+    - yarn test:mutations
+  rules:
+    - when: manual

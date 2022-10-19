@@ -1,4 +1,5 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
+import { UUID } from './UUID'
 
 /**
  * For node environment, there can also or a Buffer or a ReadStream object (result of `fs.createReadStream`), but it cannot be typed this way in browsers.
@@ -13,11 +14,15 @@ export enum CdnMediaType {
 }
 
 export interface CdnMedia extends MetadataFields {
-  id: string
+  id: UUID
   type: CdnMediaType
   url: string
   alt: string | null
   slug: string | null
+}
+
+export interface CdnMediaExtended extends CdnMedia {
+  relations_count: number
 }
 
 export interface CdnMediaCreateDto extends CreateMetadataFields {

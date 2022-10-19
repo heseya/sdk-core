@@ -11,9 +11,12 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { Sale, SaleCreateDto, SaleUpdateDto } from '../../../interfaces/SalesAndCoupons'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
 interface SalesListParams extends SearchParam, PaginationParams, MetadataParams {
+  search?: string
   description?: string
+  for_role?: UUID
 }
 
 export type SalesService = Omit<
