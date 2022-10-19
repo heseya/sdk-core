@@ -31,6 +31,11 @@ export enum AuthPermission {
   SessionsRevoke = 'auth.sessions.revoke',
 }
 
+export enum ProfilePermission {
+  AddressesManage = 'profile.addresses_manage',
+  WishlistManage = 'profile.wishlist_manage',
+}
+
 export enum AttributesPermission {
   Show = 'attributes.show',
   Add = 'attributes.add',
@@ -115,6 +120,14 @@ export enum SchemasPermission {
 
 export enum CartPermission {
   Verify = 'cart.verify',
+}
+
+export enum MediaPermission {
+  Show = 'media.show',
+  ShowMetadataPrivate = 'media.show_metadata_private',
+  Add = 'media.add',
+  Edit = 'media.edit',
+  Remove = 'media.remove',
 }
 
 export enum OrdersPermission {
@@ -239,6 +252,7 @@ export type Permission =
   | AnalyticsPermission
   | AppsPermission
   | AuthPermission
+  | ProfilePermission
   | AttributesPermission
   | BannersPermission
   | ProductSetsPermission
@@ -251,6 +265,7 @@ export type Permission =
   | ItemsPermission
   | SchemasPermission
   | CartPermission
+  | MediaPermission
   | OrdersPermission
   | PackagesPermission
   | PagesPermission

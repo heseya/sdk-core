@@ -9,9 +9,11 @@
 ## Instalation
 
 ```bash
-$ yarn add @heseya/store-core
+$ yarn add @heseya/store-core@dev
+
 // or
-$ npm i @heseya/store-core
+$ npm i @heseya/store-core@dev
+
 ```
 
 ## Usage

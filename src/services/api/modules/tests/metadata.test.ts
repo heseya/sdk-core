@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 
 import { HeseyaResponse } from '../../../../interfaces'
 import { Metadata, MetadataUpdateDto } from '../../../../interfaces/Metadata'
-import { createEntityMetadataService } from '../metadata'
+import { createEntityMetadataService, createUpdateMetadataRequest, MetadataType } from '../metadata'
 
 const dummyMetadataDto: MetadataUpdateDto = { test: 'test', remove: null }
 
@@ -47,6 +47,18 @@ describe('metadata service test', () => {
     mock.onPatch(expectedUrl).reply(200, dummyMetadataResponse)
 
     const result = await service.updateMetadataPrivate('test-id', dummyMetadataDto)
+
+    expect(mock.history.patch[0]?.url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyMetadataResponse.data)
+  })
+
+  it('should make a request to save personal metadata', async () => {
+    const updatePersonal = createUpdateMetadataRequest(axios, 'products', MetadataType.Personal)
+    const expectedUrl = '/products/id:test-id/metadata-personal'
+
+    mock.onPatch(expectedUrl).reply(200, dummyMetadataResponse)
+
+    const result = await updatePersonal('test-id', dummyMetadataDto)
 
     expect(mock.history.patch[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyMetadataResponse.data)
