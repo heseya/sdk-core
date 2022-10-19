@@ -26,6 +26,7 @@ import { createCouponsService } from './modules/coupons'
 import { createSchemasService } from './modules/schema'
 import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
+import { createWishlistService } from './modules/wishlist'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -66,6 +67,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Settings: createSettingsService(axios),
   Media: createMediaService(axios),
   Webhooks: createWebhooksService(axios),
+  Wishlist: createWishlistService(axios),
   Consents: createConsentsService(axios),
 })
 

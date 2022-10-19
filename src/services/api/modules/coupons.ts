@@ -13,6 +13,7 @@ import { Coupon, CouponCreateDto, CouponUpdateDto } from '../../../interfaces/Sa
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 
 interface CouponsListParams extends SearchParam, PaginationParams, MetadataParams {
+  search?: string
   code?: string
   description?: string
 }

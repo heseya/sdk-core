@@ -299,8 +299,8 @@ describe('createPatchRequest', () => {
   })
 
   it('should make a rest request without id', async () => {
-    const execute = createPatchRequest<DummyItem, DummyItemDto>(axios, 'products')
-    const expectedUrl = '/products/id:test?param=yes'
+    const execute = createPatchRequest<DummyItem, DummyItemDto>(axios, 'products', { byId: false })
+    const expectedUrl = '/products/test?param=yes'
 
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
 
@@ -311,7 +311,12 @@ describe('createPatchRequest', () => {
   })
 
   it('should make a rest request on subroute', async () => {
-    const execute = createPatchRequest<DummyItem, DummyItemDto>(axios, 'products', 'sub')
+    const execute = createPatchRequest<DummyItem, DummyItemDto>(
+      axios,
+      'products',
+      { byId: true },
+      'sub',
+    )
     const expectedUrl = '/products/id:test/sub?'
 
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })

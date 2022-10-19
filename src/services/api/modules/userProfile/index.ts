@@ -15,6 +15,7 @@ import {
 } from '../../../../interfaces/Address'
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
+import { createUpdateMetadataRequest, MetadataType } from '../metadata'
 
 export interface UserProfileService {
   /**
@@ -80,6 +81,8 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   saveInviceAddress: createPostRequest(axios, '/auth/profile/invoice-addresses'),
   updateInviceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
   removeInviceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
+
+  updateMetadataPersonal: createUpdateMetadataRequest(axios, 'auth/profile', MetadataType.Personal),
 
   TwoFactorAuthentication: createTwoFactorAuthService(axios),
 
