@@ -36,7 +36,7 @@ export const createWishlistService: ServiceFactory<WishlistService> = (axios) =>
   const route = '/wishlist'
   return {
     get: createGetListRequest(axios, route),
-    getOne: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
     add: createPostRequest(axios, route),
     delete: createDeleteRequest(axios, route),
   }
