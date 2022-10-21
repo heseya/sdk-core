@@ -1,4 +1,6 @@
 import { WishlistProduct, WishlistProductCreateDto } from '../../../interfaces/Wishlist'
+import { stringifyQueryParams } from '../../../utils'
+import { DefaultParams } from '../types/DefaultParams'
 import {
   CreateEntityRequest,
   DeleteEntityRequest,
@@ -30,6 +32,10 @@ export interface WishlistService {
    * Removes product from wishlist by product_id
    */
   delete: DeleteEntityRequest
+  /**
+   * Clears the entire wishlist
+   */
+  clear: (params?: DefaultParams) => Promise<boolean>
 }
 
 export const createWishlistService: ServiceFactory<WishlistService> = (axios) => {
@@ -39,5 +45,10 @@ export const createWishlistService: ServiceFactory<WishlistService> = (axios) =>
     getOne: createGetOneRequest(axios, route, { byId: true }),
     add: createPostRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    clear: async (params) => {
+      const stringParams = stringifyQueryParams(params || {})
+      await axios.delete<never>(encodeURI(`${route}?${stringParams}`))
+      return true
+    },
   }
 }
