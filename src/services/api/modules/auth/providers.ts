@@ -59,10 +59,13 @@ export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = 
     },
 
     redirect: async (provider, returnUrl) => {
-      const { data } = await axios.post<{ redirect_url: string }>(`${route}/${provider}/redirect`, {
-        return_url: returnUrl,
-      })
-      return data.redirect_url
+      const { data } = await axios.post<HeseyaResponse<{ redirect_url: string }>>(
+        `${route}/${provider}/redirect`,
+        {
+          return_url: returnUrl,
+        },
+      )
+      return data.data.redirect_url
     },
 
     get: createGetListRequest(axios, route),
