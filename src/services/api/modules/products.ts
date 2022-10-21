@@ -54,7 +54,7 @@ export interface ProductsService
   /**
    * Return a list of products
    */
-  get(params: ProductsListParams & { full?: false }): Promise<ListResponse<ProductList>>
+  get(params?: ProductsListParams & { full?: false }): Promise<ListResponse<ProductList>>
   get(params: ProductsListParams & { full: true }): Promise<ListResponse<Product>>
 
   /**
