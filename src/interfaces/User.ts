@@ -33,7 +33,7 @@ export interface UserList extends MetadataFields {
   avatar: string
   is_tfa_active: boolean
   roles: Role[]
-  metadata_pesonal?: Metadata
+  metadata_personal?: Metadata
 }
 
 export interface User extends UserList {
