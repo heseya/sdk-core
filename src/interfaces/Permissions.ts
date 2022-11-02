@@ -27,8 +27,6 @@ export enum AuthPermission {
   Register = 'auth.register',
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
-  SessionsShow = 'auth.sessions.show',
-  SessionsRevoke = 'auth.sessions.revoke',
 }
 
 export enum ProfilePermission {
