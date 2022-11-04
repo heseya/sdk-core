@@ -108,6 +108,7 @@ export enum HeseyaValidationErrorCode {
   RequiredWithAll = 'VALIDATION_REQUIRED_WITH_ALL',
   Gte = 'VALIDATION_GTE',
   MediaSlug = 'VALIDATION_MEDIA_SLUG',
+  Phone = 'VALIDATION_PHONE',
 }
 
 export enum HeseyaClientErrorCode {
