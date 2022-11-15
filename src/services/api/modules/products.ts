@@ -19,6 +19,7 @@ import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultP
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { Attribute, ListResponse } from '../../../interfaces'
+import { FieldSort } from '../../../interfaces/Sort'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
@@ -33,7 +34,19 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   public?: boolean
   sets?: UUID[]
   sets_not?: UUID[]
-  sort?: string
+  /**
+   * Sort products
+   * Use array syntax, string value is deprecated and will be removed in future
+   */
+  sort?:
+    | string
+    | Array<
+        | FieldSort<'name'>
+        | FieldSort<'price'>
+        | FieldSort<'public'>
+        | FieldSort<`attribute.${string}`>
+        | FieldSort<`set.${string}`>
+      >
   tags?: UUID[]
   tags_not?: UUID[]
   ids?: UUID[]

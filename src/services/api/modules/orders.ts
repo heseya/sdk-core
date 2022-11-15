@@ -36,9 +36,14 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
 import { stringifyQueryParams } from '../../../utils'
+import { FieldSort } from '../../../interfaces/Sort'
 
 export interface OrdersListParams extends SearchParam, PaginationParams, MetadataParams {
-  sort?: string
+  /**
+   * Sort orders
+   * Use array syntax, string value is deprecated and will be removed in future
+   */
+  sort?: string | Array<FieldSort<'code'> | FieldSort<'summary'> | FieldSort<'created_at'>>
   status_id?: string
   shipping_method_id?: string
   paid?: boolean

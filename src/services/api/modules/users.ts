@@ -18,10 +18,15 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { ListResponse } from '../../../interfaces'
+import { FieldSort } from '../../../interfaces/Sort'
 
 interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
-  sort?: string
+  /**
+   * Sort users
+   * Use array syntax, string value is deprecated and will be removed in future
+   */
+  sort?: string | Array<FieldSort<'name'> | FieldSort<'created_at'>>
 }
 
 export interface UsersService extends EntityMetadataService, EntityAuditsService<User> {
