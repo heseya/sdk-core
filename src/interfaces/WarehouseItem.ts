@@ -80,6 +80,7 @@ export type WarehouseDepositDto =
  * ? Product items
  */
 export interface ProductWarehouseItem {
+  /** Product ID */
   id: UUID
   name: string
   required_quantity: number
