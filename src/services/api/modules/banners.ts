@@ -25,7 +25,7 @@ export const createBannersService: ServiceFactory<BannersService> = (axios) => {
   const route = 'banners'
   return {
     get: createGetListRequest(axios, route),
-    getOne: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
