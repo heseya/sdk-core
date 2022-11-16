@@ -9,6 +9,18 @@ describe('stringifyQueryParams', () => {
     expect(stringifyQueryParams({ test: null })).toBe('')
   })
 
+  it('should transform sort in array to string value', () => {
+    expect(stringifyQueryParams({ sort: ['name:asc', 'price:desc'] })).toBe(
+      'sort=name%3Aasc%2Cprice%3Adesc',
+    )
+  })
+
+  it('should pass sort prop if it is a string', () => {
+    expect(stringifyQueryParams({ sort: `name:asc,date:desc` })).toBe(
+      'sort=name%3Aasc%2Cdate%3Adesc',
+    )
+  })
+
   it('should transform unsafe URI components', () => {
     expect(stringifyQueryParams({ sort: 'test%' })).toBe('sort=test%25')
   })

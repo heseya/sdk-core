@@ -24,10 +24,15 @@ import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interface
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { ListResponse, Metadata, MetadataUpdateDto } from '../../../interfaces'
 import { UUID } from '../../../interfaces/UUID'
+import { FieldSort } from '../../../interfaces/Sort'
 
 interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
-  sort?: string
+  /**
+   * Sort users
+   * Use array syntax, string value is deprecated and will be removed in future
+   */
+  sort?: string | Array<FieldSort<'name'> | FieldSort<'created_at'>>
   roles?: UUID[]
 }
 
