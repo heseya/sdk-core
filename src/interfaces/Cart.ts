@@ -10,7 +10,14 @@ export interface CartDto {
   items: CartItemDto[]
   /** CouponResource.code */
   coupons: string[]
+  /**
+   * Shipping method if in cart is any product without digital shipping type
+   */
   shipping_method_id?: UUID
+  /**
+   * Shipping method if in cart is any product with digital shipping type
+   */
+  digital_shipping_method_id?: UUID
 }
 
 interface ProcessedCartItem {
@@ -34,11 +41,13 @@ export interface ProcessedCart {
 
   /**
    * Shipping price for the given cart and selected method (before diccounts)
+   * If there is phisical and digital shipping method, the price is sum of both
    */
   shipping_price_initial: number
 
   /**
    * Shipping price for the given cart and selected method
+   * If there is phisical and digital shipping method, the price is sum of both
    */
   shipping_price: number
 
