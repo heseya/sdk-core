@@ -48,7 +48,7 @@ export const createWebhooksService: ServiceFactory<WebhooksService> = (axios) =>
   const route = 'webhooks'
   return {
     get: createGetListRequest(axios, route),
-    getOne: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
     getEvents: createGetListRequest(axios, `${route}/events`),
     getLogs: createGetListRequest(axios, `${route}/logs`),
     create: createPostRequest(axios, route),

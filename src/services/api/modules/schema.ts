@@ -10,12 +10,18 @@ import {
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { Schema, SchemaCreateDto, SchemaUpdateDto, SchemaList } from '../../../interfaces/Schema'
+import { FieldSort } from '../../../interfaces/Sort'
 
 interface SchemasListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
   hidden?: boolean
   required?: boolean
-  sort?: string
+  /**
+   * Sort schemas
+   * Use array syntax, string value is deprecated and will be removed in future
+   * TODO: specify by which field to sort
+   */
+  sort?: string | Array<FieldSort<string>>
 }
 
 export type SchemasService = Omit<

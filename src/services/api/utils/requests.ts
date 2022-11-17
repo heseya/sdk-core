@@ -114,6 +114,7 @@ export const createPatchRequest =
 
 /**
  * Factory for the PATCH of the nested resource
+ * @deprecated // ! It is unused
  */
 export const createPatchNestedRequest =
   <Item, ItemDto>(axios: AxiosInstance, parentRoute: string, route: string) =>

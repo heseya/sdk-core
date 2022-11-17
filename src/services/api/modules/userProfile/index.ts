@@ -15,7 +15,7 @@ import {
 } from '../../../../interfaces/Address'
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
-import { createUpdateMetadataRequest, MetadataType } from '../metadata'
+import { Metadata, MetadataUpdateDto } from '../../../../interfaces'
 
 export interface UserProfileService {
   /**
@@ -52,6 +52,11 @@ export interface UserProfileService {
   }
 
   TwoFactorAuthentication: TwoFactorAuthService
+
+  /**
+   * Allows to update personal metadata.
+   */
+  updateMetadataPersonal: (metadata: MetadataUpdateDto) => Promise<Metadata>
 }
 
 export const createUserProfileService: ServiceFactory<UserProfileService> = (axios) => ({
@@ -82,7 +87,13 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   updateInviceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
   removeInviceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
 
-  updateMetadataPersonal: createUpdateMetadataRequest(axios, 'auth/profile', MetadataType.Personal),
+  async updateMetadataPersonal(metadata) {
+    const { data } = await axios.patch<{ data: Metadata }>(
+      `/auth/profile/metadata-personal`,
+      metadata,
+    )
+    return data.data
+  },
 
   TwoFactorAuthentication: createTwoFactorAuthService(axios),
 

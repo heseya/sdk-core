@@ -4,7 +4,8 @@ import { isBoolean, isDate } from 'lodash'
 
 import { DefaultParams } from '../services/api/types/DefaultParams'
 
-const transformParam = (value: unknown): unknown => {
+const transformParam = (key: string, value: unknown): unknown => {
+  if (key === 'sort' && Array.isArray(value)) return value.join(',')
   if (isBoolean(value)) return +value
   if (isDate(value)) return value.toISOString()
   return value
@@ -12,7 +13,7 @@ const transformParam = (value: unknown): unknown => {
 
 const transformAllParamValues = (params: DefaultParams): DefaultParams => {
   return Object.fromEntries(
-    Object.entries(params).map(([key, value]) => [key, transformParam(value)]),
+    Object.entries(params).map(([key, value]) => [key, transformParam(key, value)]),
   )
 }
 

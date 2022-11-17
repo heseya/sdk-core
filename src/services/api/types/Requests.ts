@@ -17,18 +17,18 @@ export type GetEntityRequest<
   Params extends DefaultParams = DefaultParams & PaginationParams,
 > = (params?: Params) => Promise<ListResponse<Entity>>
 
-export type CreateEntityRequest<Entity, EntityDto, Params extends DefaultParams = DefaultParams> = (
+export type CreateEntityRequest<Result, EntityDto, Params extends DefaultParams = DefaultParams> = (
   entityDto: EntityDto,
   params?: Params,
-) => Promise<Entity>
+) => Promise<Result>
 
-export type UpdateEntityRequest<Entity, EntityDto, Params extends DefaultParams = DefaultParams> = (
+export type UpdateEntityRequest<Result, EntityDto, Params extends DefaultParams = DefaultParams> = (
   id: UUID,
   entityDto: EntityDto,
   params?: Params,
-) => Promise<Entity>
+) => Promise<Result>
 
-export type DeleteEntityRequest<Params extends DefaultParams = DefaultParams> = (
+export type DeleteEntityRequest<Params extends DefaultParams = DefaultParams, Result = true> = (
   id: UUID,
   params?: Params,
-) => Promise<boolean>
+) => Promise<Result>
