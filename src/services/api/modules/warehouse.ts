@@ -25,6 +25,7 @@ import {
 } from '../types/Requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { FieldSort } from '../../../interfaces/Sort'
 
 interface WarehouseItemsListParams extends SearchParam, PaginationParams {
   name?: string
@@ -37,7 +38,13 @@ interface WarehouseItemsListParams extends SearchParam, PaginationParams {
 interface WarehouseDepositsListParams extends SearchParam, PaginationParams {
   search?: string
   sku?: string
-  sort?: string
+  /**
+   * Sort schemas
+   * Use array syntax, string value is deprecated and will be removed in future
+   */
+  sort?:
+    | string
+    | Array<FieldSort<'name'> | FieldSort<'sku'> | FieldSort<'quantity'> | FieldSort<'created_at'>>
 }
 
 export interface WarehouseService

@@ -33,7 +33,7 @@ export interface UserList extends MetadataFields {
   avatar: string
   is_tfa_active: boolean
   roles: Role[]
-  metadata_pesonal?: Metadata
+  metadata_personal?: Metadata
 }
 
 export interface User extends UserList {
@@ -92,7 +92,7 @@ export interface UserProfileUpdateDto {
 }
 
 export interface UserPreferences {
-  successfull_login_attempt_alert: boolean
+  successful_login_attempt_alert: boolean
   failed_login_attempt_alert: boolean
   new_localization_login_alert: boolean
   recovery_code_changed_alert: boolean

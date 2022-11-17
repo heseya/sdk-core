@@ -15,9 +15,12 @@ interface BannersListParams extends PaginationParams, MetadataParams, Pagination
   slug?: string
 }
 
-export type BannersService = Omit<
-  CrudService<Banner, Banner, BannerCreateDto, BannerUpdateDto, BannersListParams>,
-  'getOneBySlug'
+export type BannersService = CrudService<
+  Banner,
+  Banner,
+  BannerCreateDto,
+  BannerUpdateDto,
+  BannersListParams
 > &
   EntityMetadataService
 
@@ -25,7 +28,8 @@ export const createBannersService: ServiceFactory<BannersService> = (axios) => {
   const route = 'banners'
   return {
     get: createGetListRequest(axios, route),
-    getOne: createGetOneRequest(axios, route),
+    getOne: createGetOneRequest(axios, route, { byId: true }),
+    getOneBySlug: createGetOneRequest(axios, route),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),

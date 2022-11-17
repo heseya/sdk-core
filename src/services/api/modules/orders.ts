@@ -19,12 +19,16 @@ import {
   CreateEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
-import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
+import {
+  DefaultParams,
+  MetadataParams,
+  PaginationParams,
+  SearchParam,
+} from '../types/DefaultParams'
 
 import {
   createGetListRequest,
   createGetOneRequest,
-  createPatchNestedRequest,
   createPatchRequest,
   createPostRequest,
 } from '../utils/requests'
@@ -32,9 +36,15 @@ import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
+import { stringifyQueryParams } from '../../../utils'
+import { FieldSort } from '../../../interfaces/Sort'
 
 export interface OrdersListParams extends SearchParam, PaginationParams, MetadataParams {
-  sort?: string
+  /**
+   * Sort orders
+   * Use array syntax, string value is deprecated and will be removed in future
+   */
+  sort?: string | Array<FieldSort<'code'> | FieldSort<'summary'> | FieldSort<'created_at'>>
   status_id?: string
   shipping_method_id?: string
   paid?: boolean
@@ -76,10 +86,11 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
   create: CreateEntityRequest<Order, OrderCreateDto>
   update: UpdateEntityRequest<Order, OrderUpdateDto>
   updateStatus: UpdateEntityRequest<
-    Order,
+    true,
     {
       status_id: UUID
-    }
+    },
+    DefaultParams
   >
   Documents: OrderDocumentsService
 }
@@ -131,7 +142,11 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       }
     },
 
-    updateStatus: createPatchNestedRequest(axios, route, 'status'),
+    async updateStatus(parentId, payload, params) {
+      const stringParams = stringifyQueryParams(params || {})
+      await axios.patch(encodeURI(`/${route}/id:${parentId}/status?${stringParams}`), payload)
+      return true
+    },
 
     getOneByCode: createGetOneRequest<OrderSummary>(axios, route),
     getOne: createGetOneRequest<Order>(axios, route, { byId: true }),

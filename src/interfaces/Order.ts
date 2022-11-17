@@ -8,6 +8,8 @@ import { OrderProduct } from './Product'
 import { OrderDiscount } from './SalesAndCoupons'
 import { OrderDocument } from './OrderDocuments'
 import { OrderPayment } from './Payments'
+import { User } from './User'
+import { App } from './App'
 
 export interface OrderList extends MetadataFields {
   id: UUID
@@ -56,6 +58,7 @@ export interface Order extends OrderList {
   payments: OrderPayment[]
   products: OrderProduct[]
   shipping_number: string | null
+  buyer: User | App | null
 }
 
 export interface OrderSummary extends MetadataFields {

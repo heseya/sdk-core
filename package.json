@@ -1,6 +1,6 @@
 {
   "name": "@heseya/store-core",
-  "version": "3.1.0-beta.6",
+  "version": "3.1.0-beta.14",
   "author": {
     "name": "Heseya"
   },
@@ -22,6 +22,7 @@
     "docs:build": "typedoc --out docs src/index.ts",
     "lint": "eslint \"src/**/*\"",
     "lint:fix": "eslint --fix \"src/**/*\"",
+    "check-types": "tsc --noemit",
     "test": "cross-env NODE_ENV=test jest",
     "test:mutations": "stryker run",
     "test:coverage": "yarn test --coverage",
