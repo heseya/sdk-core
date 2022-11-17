@@ -174,4 +174,16 @@ describe('orders service test', () => {
 
     await expect(service.getPaymentMethods('2137')).rejects.toThrow('Order already paid')
   })
+
+  it('should update order status', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = '/orders/id:test/status?param=yes'
+
+    mock.onPatch(expectedUrl).reply(200, { data: {} })
+
+    const result = await service.updateStatus('test', { status_id: 'xd' }, { param: 'yes' })
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
 })

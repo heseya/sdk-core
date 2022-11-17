@@ -7,6 +7,8 @@ import { OrderStatus } from './OrderStatus'
 import { OrderProduct } from './Product'
 import { OrderDiscount } from './SalesAndCoupons'
 import { OrderDocument } from './OrderDocuments'
+import { User } from './User'
+import { App } from './App'
 
 export interface OrderPayment {
   id: UUID
@@ -65,7 +67,8 @@ export interface Order extends OrderList {
   payable: boolean
   payments: OrderPayment[]
   products: OrderProduct[]
-  shipping_number?: string
+  shipping_number: string | null
+  buyer: User | App | null
   invoice_requested: boolean
 }
 

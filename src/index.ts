@@ -1,5 +1,3 @@
-export { config } from './config/index'
-
 // INTERFACES
 export * from './interfaces/index'
 
