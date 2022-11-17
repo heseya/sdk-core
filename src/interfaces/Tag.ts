@@ -3,8 +3,19 @@ import { UUID } from './UUID'
 export interface Tag {
   id: UUID
   name: string
+  /**
+   * String representing hex color of the tag. It is saved without hash (#) sign.
+   * @example color: 'ff0000' // for red color.
+   */
   color: string
 }
 
-export type TagCreateDto = Omit<Tag, 'id'>
-export type TagUpdateDto = TagCreateDto
+export interface TagCreateDto {
+  name: string
+  /**
+   * String representing hex color of the tag. It is saved without hash (#) sign.
+   * @example color: 'ff0000' // for red color.
+   */
+  color?: string
+}
+export type TagUpdateDto = Partial<TagCreateDto>

@@ -2,6 +2,7 @@ import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
 
 import { createHeseyaApiService } from '../api'
 import { composeBearerToken } from './utils'
+import { isAxiosError } from './utils/isAxiosError'
 
 export interface AxiosWithAuthTokenRefreshingConfig {
   heseyaUrl: string
@@ -15,6 +16,9 @@ export interface AxiosWithAuthTokenRefreshingConfig {
 }
 
 type OnRefreshFunction = (accessToken: string | null) => void
+
+const LOGOUT_URL = '/auth/logout'
+const REFRESH_URL = '/auth/refresh'
 
 export const enhanceAxiosWithAuthTokenRefreshing = (
   instance: AxiosInstance,
@@ -42,25 +46,39 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
     const accessToken = await config.getAccessToken()
 
     if (!request.headers) request.headers = {}
-    request.headers.Authorization =
-      (config.shouldIncludeAuthorizationHeader?.(request) ?? true) && accessToken
-        ? composeBearerToken(accessToken)
-        : undefined
+
+    if (
+      (config.shouldIncludeAuthorizationHeader?.(request) ?? true) &&
+      accessToken &&
+      request.url !== REFRESH_URL
+    )
+      request.headers.Authorization = composeBearerToken(accessToken)
 
     return request
   })
 
-  instance.interceptors.response.use(undefined, async (error: AxiosError) => {
+  instance.interceptors.response.use(undefined, async (error: Error) => {
+    // If error is not an axios error, do not retry and rethrow
+    if (!isAxiosError(error)) throw error
+
     const originalRequest = error.config
     const currentAccessToken = await config.getAccessToken()
 
     // Checks if token in axios was changed before this response was received
     const wasTokenRefreshedInTheMeantime =
-      currentAccessToken &&
-      originalRequest.headers?.Authorization !== composeBearerToken(currentAccessToken)
+      !!currentAccessToken &&
+      originalRequest.headers?.Authorization !== composeBearerToken(currentAccessToken) &&
+      (config.shouldIncludeAuthorizationHeader?.(originalRequest) ?? true) &&
+      originalRequest.url !== REFRESH_URL
 
     // If error is due to the token expired but token was refreshed in the meantime, simply retry the request
-    if (error.response?.status === 401 && wasTokenRefreshedInTheMeantime && currentAccessToken) {
+    if (
+      error.response?.status === 401 &&
+      wasTokenRefreshedInTheMeantime &&
+      currentAccessToken &&
+      !!originalRequest.headers.Authorization &&
+      originalRequest.url !== LOGOUT_URL
+    ) {
       if (originalRequest.headers)
         originalRequest.headers.Authorization = composeBearerToken(currentAccessToken)
 
@@ -68,7 +86,7 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
     }
 
     // If error is on token refreshing endpoint, just forward the error
-    if (originalRequest.url === '/auth/refresh') throw error
+    if (originalRequest.url === REFRESH_URL) throw error
 
     // If error is due to the token expired, refresh the token and retry the request
     const refreshToken = await config.getRefreshToken()
