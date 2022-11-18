@@ -146,7 +146,7 @@ describe('orders service test', () => {
   it('should return the list of payment methods available for the given order', async () => {
     const service = createOrdersService(axios)
     const expectedOrderUrl = `/orders/2137?`
-    const expectedPaymentMethodsUrl = `/payment-methods?`
+    const expectedPaymentMethodsUrl = `/payment-methods?order_code=2137`
 
     mock.onGet(expectedOrderUrl).reply(200, dummyOrderSummaryResponse)
     mock.onGet(expectedPaymentMethodsUrl).reply(200, dummyPaymentMethodsResponse)
