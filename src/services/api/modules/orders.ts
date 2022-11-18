@@ -8,6 +8,7 @@ import {
 } from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
+import { OrderProductUrlUpdateDto } from '../../../interfaces/Product'
 import { UUID } from '../../../interfaces/UUID'
 
 import { ServiceFactory } from '../types/Service'
@@ -91,6 +92,16 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
     },
     DefaultParams
   >
+
+  /**
+   * Adds links to products in the order
+   */
+  updateProduct(orderId: UUID, productId: UUID, payload: OrderProductUrlUpdateDto): Promise<true>
+
+  /**
+   * Sends email with links to products in the order
+   */
+  sendProducts(orderId: UUID): Promise<true>
   Documents: OrderDocumentsService
 }
 
@@ -128,7 +139,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       if (order.paid) throw new Error('Order already paid')
 
       const paymentMethods = await paymentMethodsService.get({
-        shipping_method_id: order.shipping_method.id,
+        order_code: code,
       })
 
       return {
@@ -141,6 +152,16 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     async updateStatus(parentId, payload, params) {
       const stringParams = stringifyQueryParams(params || {})
       await axios.patch(encodeURI(`/${route}/id:${parentId}/status?${stringParams}`), payload)
+      return true
+    },
+
+    async updateProduct(orderId, productId, payload) {
+      await axios.patch(encodeURI(`/${route}/id:${orderId}/products/id:${productId}`), payload)
+      return true
+    },
+
+    async sendProducts(orderId) {
+      await axios.post(encodeURI(`/${route}/id:${orderId}/send-urls`))
       return true
     },
 

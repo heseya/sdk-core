@@ -30,7 +30,14 @@ export interface OrderList extends MetadataFields {
   shipping_place?: Address | string
   email: string
   paid: boolean
-  shipping_method: ShippingMethod
+  /**
+   * Phisical shipping method only exists if in order is any product without digital shipping type
+   */
+  shipping_method: ShippingMethod | null
+  /**
+   * Digital shipping method only exists if in order is any product with digital shipping type
+   */
+  digital_shipping_method: ShippingMethod | null
   status: OrderStatus
   /**
    * Basket value without discounts
@@ -88,7 +95,7 @@ export interface OrderSummary extends MetadataFields {
    */
   shipping_method: Omit<ShippingMethod, 'price'> | null
   /**
-   * Digital shipping method only exists if in order is any produc with digital shipping type
+   * Digital shipping method only exists if in order is any product with digital shipping type
    */
   digital_shipping_method: Omit<ShippingMethod, 'price'> | null
   created_at: string

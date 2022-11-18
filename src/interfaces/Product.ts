@@ -123,6 +123,11 @@ export interface OrderProductUrl {
   url: string
 }
 
+export interface OrderProductUrlUpdateDto {
+  is_delivered: boolean
+  urls: { [name: string]: string | null }
+}
+
 export interface OrderProduct {
   name: string
   quantity: number
