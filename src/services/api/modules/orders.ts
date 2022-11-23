@@ -8,7 +8,7 @@ import {
 } from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
-import { OrderProductUrlUpdateDto } from '../../../interfaces/Product'
+import { OrderProductUpdateDto } from '../../../interfaces/Product'
 import { UUID } from '../../../interfaces/UUID'
 
 import { ServiceFactory } from '../types/Service'
@@ -96,7 +96,11 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
   /**
    * Adds links to products in the order
    */
-  updateProduct(orderId: UUID, productId: UUID, payload: OrderProductUrlUpdateDto): Promise<true>
+  updateProduct(
+    orderId: UUID,
+    productId: UUID,
+    updatedProduct: OrderProductUpdateDto,
+  ): Promise<true>
 
   /**
    * Sends email with links to products in the order

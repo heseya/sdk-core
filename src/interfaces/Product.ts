@@ -38,6 +38,10 @@ export interface ProductList extends MetadataFields {
    * If true, the product will be available to deliver only via ShippingType.Digital methods
    */
   shipping_digital: boolean
+  /**
+   * If not null, single user can buy only this amount of products
+   */
+  purchase_limit_per_user: null | number
   attributes: ProductListAttribute[]
 }
 
@@ -110,7 +114,11 @@ export interface ProductCreateDto extends CreateMetadataFields {
   /**
    * If true, the product will be available to deliver only via ShippingType.Digital methods
    */
-  shipping_digital?: boolean
+  shipping_digital: boolean
+  /**
+   * If not null, single user can buy only this amount of products
+   */
+  purchase_limit_per_user: null | number
 }
 
 export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields>>
@@ -121,11 +129,6 @@ export interface OrderProductUrl {
   id: UUID
   name: string
   url: string
-}
-
-export interface OrderProductUrlUpdateDto {
-  is_delivered: boolean
-  urls: { [name: string]: string | null }
 }
 
 export interface OrderProduct {
@@ -147,4 +150,9 @@ export interface OrderProduct {
    */
   shipping_digital: boolean
   urls: OrderProductUrl[]
+}
+
+export interface OrderProductUpdateDto {
+  is_delivered: boolean
+  urls: { [name: string]: string | null }
 }
