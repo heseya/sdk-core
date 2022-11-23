@@ -4,7 +4,7 @@ import { PaymentMethod } from './PaymentMethods'
 import { UUID } from './UUID'
 
 export enum ShippingType {
-  None = 'none',
+  Digital = 'digital',
   Address = 'address',
   Point = 'point',
   PointExternal = 'point-external',
