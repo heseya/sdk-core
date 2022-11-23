@@ -152,6 +152,10 @@ export interface OrderProduct {
   urls: OrderProductUrl[]
 }
 
+export type OrderProductPublic = Omit<OrderProduct, 'discounts' | 'deposits' | 'is_delivered'> & {
+  order_id: UUID
+}
+
 export interface OrderProductUpdateDto {
   is_delivered: boolean
   urls: { [name: string]: string | null }
