@@ -15,7 +15,7 @@ import {
 } from '../../../../interfaces/Address'
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
-import { Metadata, MetadataUpdateDto } from '../../../../interfaces'
+import { Metadata, MetadataUpdateDto, ProductList } from '../../../../interfaces'
 
 export interface UserProfileService {
   /**
@@ -49,6 +49,11 @@ export interface UserProfileService {
      * Get user own order by its Code.
      */
     getOneByCode: GetOneEntityRequest<Order>
+
+    /**
+     * Get list of user owned products.
+     */
+    getProducts: GetEntityRequest<ProductList>
   }
 
   TwoFactorAuthentication: TwoFactorAuthService
@@ -100,5 +105,6 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   Orders: {
     get: createGetListRequest<OrderList>(axios, 'orders/my'),
     getOneByCode: createGetOneRequest<Order>(axios, 'orders/my'),
+    getProducts: createGetListRequest<ProductList>(axios, 'orders/my-products'),
   },
 })
