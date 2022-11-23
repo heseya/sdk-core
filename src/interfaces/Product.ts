@@ -1,4 +1,4 @@
-import { Schema } from './Schema'
+import { OrderSchema, Schema } from './Schema'
 import { ProductSet } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
@@ -7,7 +7,6 @@ import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
-import { CartItemSchemaValue } from './CartItem'
 import { OrderDiscount, Sale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 
@@ -117,6 +116,6 @@ export interface OrderProduct {
   vat_rate: number
   discounts: OrderDiscount[]
   product: Product
-  schemas: CartItemSchemaValue[]
+  schemas: OrderSchema[]
   deposits: WarehouseDeposit[]
 }

@@ -1,3 +1,4 @@
+import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { ProductList } from './Product'
 import { UUID } from './UUID'
@@ -66,3 +67,11 @@ export interface SchemaCreateDto
   options: SchemaOptionDto[]
 }
 export type SchemaUpdateDto = Omit<SchemaCreateDto, keyof CreateMetadataFields>
+
+export interface OrderSchema {
+  id: UUID
+  name: string
+  price: number
+  price_initial: number
+  value: CartItemSchemaValue
+}
