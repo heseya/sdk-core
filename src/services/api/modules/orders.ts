@@ -6,7 +6,7 @@ import {
   OrderCreateDto,
   OrderUpdateDto,
 } from '../../../interfaces/Order'
-import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethods'
+import { PaymentMethod } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 import { UUID } from '../../../interfaces/UUID'
 
@@ -37,6 +37,7 @@ import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
 import { stringifyQueryParams } from '../../../utils'
 import { FieldSort } from '../../../interfaces/Sort'
+import { Payment } from '../../../interfaces/Payments'
 
 export interface OrdersListParams extends SearchParam, PaginationParams, MetadataParams {
   /**
@@ -56,7 +57,7 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
    */
-  pay(code: string, paymentMethodSlug: string, continueUrl: string): Promise<string>
+  pay(orderIds: UUID[], paymentMethodSlug: string, continueUrl: string): Promise<string>
 
   /**
    * Returns the list of payment methods available for the given order
@@ -102,11 +103,12 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
   const paymentMethodsService = createPaymentMethodsService(axios)
 
   return {
-    async pay(code, paymentMethodSlug, continueUrl) {
+    async pay(orderIds, paymentMethodSlug, continueUrl) {
       const {
         data: { data },
-      } = await axios.post<HeseyaResponse<Payment>>(`${route}/${code}/pay/${paymentMethodSlug}`, {
+      } = await axios.post<HeseyaResponse<Payment>>(`${route}/pay/${paymentMethodSlug}`, {
         continue_url: continueUrl,
+        orders: orderIds.map((id) => ({ id })),
       })
 
       return data.redirect_url
