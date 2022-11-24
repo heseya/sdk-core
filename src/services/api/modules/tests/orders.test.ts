@@ -5,25 +5,27 @@ import {
   CartDto,
   HeseyaPaginatedResponse,
   HeseyaResponse,
+  OrderPayment,
   OrderStatus,
   OrderSummary,
-  Payment,
   PaymentMethod,
+  PaymentStatus,
   ProcessedCart,
   ShippingMethod,
 } from '../../../../interfaces'
 
 import { createOrdersService } from '../orders'
 
-const dummyOrdersResponse: HeseyaResponse<Payment> = {
+const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   data: {
     id: '1',
-    external_id: '1',
+    payment_id: '1',
     method: 'payu',
-    paid: false,
+    status: PaymentStatus.Successfull,
     amount: 2137,
     redirect_url: '/redirect',
     continue_url: '/continue',
+    date: '2020-01-01',
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
@@ -84,6 +86,9 @@ const dummyPaymentMethodsResponse: HeseyaPaginatedResponse<PaymentMethod[]> = {
       alias: 'payu',
       name: 'payu',
       public: true,
+      url: 'https://payu.com',
+      icon: 'https://payu.com/icon.png',
+      app: null,
     },
   ],
   meta: {
