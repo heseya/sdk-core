@@ -34,9 +34,9 @@ export interface UserProfileService {
   updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
   removeDeliveryAddress: DeleteEntityRequest
 
-  saveInviceAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
-  updateInviceAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
-  removeInviceAddress: DeleteEntityRequest
+  saveInvoiceAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateInvoiceAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
+  removeInvoiceAddress: DeleteEntityRequest
 
   Orders: {
     /**
@@ -77,9 +77,9 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   updateDeliveryAddress: createPatchRequest(axios, '/auth/profile/delivery-addresses'),
   removeDeliveryAddress: createDeleteRequest(axios, '/auth/profile/delivery-addresses'),
 
-  saveInviceAddress: createPostRequest(axios, '/auth/profile/invoice-addresses'),
-  updateInviceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
-  removeInviceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
+  saveInvoiceAddress: createPostRequest(axios, '/auth/profile/invoice-addresses'),
+  updateInvoiceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
+  removeInvoiceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
 
   TwoFactorAuthentication: createTwoFactorAuthService(axios),
 
