@@ -39,8 +39,8 @@ export interface UserList extends MetadataFields {
 export interface User extends UserList {
   permissions: Permission[]
   preferences: UserPreferences
-  delivery_addresses: UserSavedAddress[]
-  invoice_addresses: UserSavedAddress[]
+  shipping_addresses: UserSavedAddress[]
+  billing_addresses: UserSavedAddress[]
   consents: UserConsent[]
 }
 
