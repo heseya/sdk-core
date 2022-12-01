@@ -31,13 +31,13 @@ export interface UserProfileService {
    */
   changePassword(payload: { currentPassword: string; newPassword: string }): Promise<true>
 
-  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
-  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
-  removeDeliveryAddress: DeleteEntityRequest
+  saveShippingAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateShippingAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
+  removeShippingAddress: DeleteEntityRequest
 
-  saveInviceAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
-  updateInviceAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
-  removeInviceAddress: DeleteEntityRequest
+  saveBillingAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateBillingAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
+  removeBillingAddress: DeleteEntityRequest
 
   Orders: {
     /**
@@ -79,13 +79,13 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
     return true
   },
 
-  saveDeliveryAddress: createPostRequest(axios, '/auth/profile/delivery-addresses'),
-  updateDeliveryAddress: createPatchRequest(axios, '/auth/profile/delivery-addresses'),
-  removeDeliveryAddress: createDeleteRequest(axios, '/auth/profile/delivery-addresses'),
+  saveShippingAddress: createPostRequest(axios, '/auth/profile/shipping-addresses'),
+  updateShippingAddress: createPatchRequest(axios, '/auth/profile/shipping-addresses'),
+  removeShippingAddress: createDeleteRequest(axios, '/auth/profile/shipping-addresses'),
 
-  saveInviceAddress: createPostRequest(axios, '/auth/profile/invoice-addresses'),
-  updateInviceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
-  removeInviceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
+  saveBillingAddress: createPostRequest(axios, '/auth/profile/billing-addresses'),
+  updateBillingAddress: createPatchRequest(axios, '/auth/profile/billing-addresses'),
+  removeBillingAddress: createDeleteRequest(axios, '/auth/profile/billing-addresses'),
 
   async updateMetadataPersonal(metadata) {
     const { data } = await axios.patch<{ data: Metadata }>(
