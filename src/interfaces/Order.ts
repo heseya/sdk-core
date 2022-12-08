@@ -133,4 +133,5 @@ export interface OrderUpdateDto {
   digital_shipping_method_id?: UUID
   shipping_place?: AddressDto | UUID | string
   billing_address?: AddressDto
+  invoice_requested?: boolean
 }
