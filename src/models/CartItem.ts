@@ -143,7 +143,7 @@ export class CartItem {
     const baseDiscount = this.discountValue * this.qty
     const childrenDiscounts: number = this.children.reduce(
       (acc: number, item: CartItem) => acc + item.discountValue,
-      0,
+      0 as number,
     )
 
     return round(baseDiscount + childrenDiscounts, 2)
