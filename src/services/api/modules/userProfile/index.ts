@@ -16,6 +16,7 @@ import {
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
 import { Metadata, MetadataUpdateDto, OrderProductPublic } from '../../../../interfaces'
+import { PaginationParams } from '../../types/DefaultParams'
 
 export interface UserProfileService {
   /**
@@ -53,7 +54,10 @@ export interface UserProfileService {
     /**
      * Get list of user owned products.
      */
-    getProducts: GetEntityRequest<OrderProductPublic>
+    getProducts: GetEntityRequest<
+      OrderProductPublic,
+      PaginationParams & { shipping_digital: boolean }
+    >
   }
 
   TwoFactorAuthentication: TwoFactorAuthService
