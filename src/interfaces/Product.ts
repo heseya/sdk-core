@@ -55,27 +55,6 @@ export interface Product extends Omit<ProductList, 'attributes'> {
    * `null` means, that product has infinity quantity
    */
   quantity: number | null
-  /**
-   * Summary of the product availability for a different time frames
-   * `quantity == null` means, that product has infinity quantity in that time frame
-   */
-  availability: Array<
-    | {
-        shipping_time: number
-        shipping_date: null
-        quantity: number | null
-      }
-    | {
-        shipping_time: null
-        shipping_date: string
-        quantity: number | null
-      }
-    | {
-        shipping_time: null
-        shipping_date: null
-        quantity: number | null
-      }
-  >
 }
 
 export interface ProductCreateDto extends CreateMetadataFields {
