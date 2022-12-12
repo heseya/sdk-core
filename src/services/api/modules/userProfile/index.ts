@@ -56,7 +56,7 @@ export interface UserProfileService {
      */
     getProducts: GetEntityRequest<
       OrderProductPublic,
-      PaginationParams & { shipping_digital: boolean }
+      PaginationParams & { shipping_digital?: boolean }
     >
   }
 
