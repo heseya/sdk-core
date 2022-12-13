@@ -129,6 +129,7 @@ export interface OrderCreateDto extends CreateMetadataFields {
 export interface OrderUpdateDto {
   email?: string
   comment?: string
+  shipping_number?: string
   shipping_method_id?: UUID
   digital_shipping_method_id?: UUID
   shipping_place?: AddressDto | UUID | string
