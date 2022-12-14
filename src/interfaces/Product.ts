@@ -158,6 +158,6 @@ export type OrderProductPublic = Omit<OrderProduct, 'discounts' | 'deposits' | '
 }
 
 export interface OrderProductUpdateDto {
-  is_delivered: boolean
-  urls: { [name: string]: string | null }
+  is_delivered?: boolean
+  urls?: { [name: string]: string | null | undefined }
 }

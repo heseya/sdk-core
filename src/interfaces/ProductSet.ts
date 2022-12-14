@@ -30,7 +30,7 @@ export interface ProductSetCreateDto extends CreateMetadataFields {
   name: string
   slug_suffix: string
   slug_override: boolean
-  parent_id: UUID | null
+  parent_id?: UUID | null
   seo?: SeoMetadataDto
   public?: boolean
   hide_on_index?: boolean
