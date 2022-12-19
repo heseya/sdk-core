@@ -34,6 +34,7 @@ export interface UserList extends MetadataFields {
   is_tfa_active: boolean
   roles: Role[]
   metadata_personal?: Metadata
+  created_at: string
 }
 
 export interface User extends UserList {

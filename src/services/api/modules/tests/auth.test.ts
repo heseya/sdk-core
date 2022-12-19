@@ -31,6 +31,7 @@ const dummyAuth: { data: HeseyaAuthResponse } = {
       phone: null,
       phone_country: null,
       phone_number: null,
+      created_at: '2021-01-01T00:00:00.000Z',
     },
     token: 'dummyToken',
     identity_token: 'dummyIdentityToken',
