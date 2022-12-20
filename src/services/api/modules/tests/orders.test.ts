@@ -68,6 +68,7 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     shipping_price: 21,
     summary: 2134,
     shipping_method: {} as ShippingMethod,
+    digital_shipping_method: null,
     created_at: '2022',
     metadata: {},
   },
@@ -145,7 +146,7 @@ describe('orders service test', () => {
   it('should return the list of payment methods available for the given order', async () => {
     const service = createOrdersService(axios)
     const expectedOrderUrl = `/orders/2137?`
-    const expectedPaymentMethodsUrl = `/payment-methods?`
+    const expectedPaymentMethodsUrl = `/payment-methods?order_code=2137`
 
     mock.onGet(expectedOrderUrl).reply(200, dummyOrderSummaryResponse)
     mock.onGet(expectedPaymentMethodsUrl).reply(200, dummyPaymentMethodsResponse)
@@ -184,6 +185,35 @@ describe('orders service test', () => {
     const result = await service.updateStatus('test', { status_id: 'xd' }, { param: 'yes' })
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
+  it('should update order products links', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = '/orders/id:test/products/id:product_id'
+
+    mock.onPatch(expectedUrl).reply(200, { data: {} })
+
+    const result = await service.updateProduct('test', 'product_id', {
+      is_delivered: false,
+      urls: {
+        'test-name': 'https://example.com',
+      },
+    })
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
+  it('should send all products via email', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = '/orders/id:test/send-urls'
+
+    mock.onPost(expectedUrl).reply(200, { data: {} })
+
+    const result = await service.sendProducts('test')
+
+    expect(mock.history.post[0].url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
 })

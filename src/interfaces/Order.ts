@@ -1,5 +1,5 @@
 import { UUID } from './UUID'
-import { Address } from './Address'
+import { Address, AddressDto } from './Address'
 import { OrderCartItem } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { ShippingMethod } from './ShippingMethod'
@@ -27,10 +27,17 @@ export interface OrderList extends MetadataFields {
   comment?: string
   created_at: string
   currency: string
-  delivery_address: Address
+  shipping_place?: Address | string
   email: string
   paid: boolean
-  shipping_method: ShippingMethod
+  /**
+   * Phisical shipping method only exists if in order is any product without digital shipping type
+   */
+  shipping_method: ShippingMethod | null
+  /**
+   * Digital shipping method only exists if in order is any product with digital shipping type
+   */
+  digital_shipping_method: ShippingMethod | null
   status: OrderStatus
   /**
    * Basket value without discounts
@@ -63,12 +70,13 @@ export interface OrderList extends MetadataFields {
 
 export interface Order extends OrderList {
   discounts: OrderDiscount[]
-  invoice_address: Address
+  billing_address: Address
   payable: boolean
   payments: OrderPayment[]
   products: OrderProduct[]
   shipping_number: string | null
   buyer: User | App | null
+  invoice_requested: boolean
 }
 
 export interface OrderSummary extends MetadataFields {
@@ -82,7 +90,14 @@ export interface OrderSummary extends MetadataFields {
   shipping_price_initial: number
   shipping_price: number
   summary: number
-  shipping_method: Omit<ShippingMethod, 'price'>
+  /**
+   * Phisical shipping method only exists if in order is any product without digital shipping type
+   */
+  shipping_method: Omit<ShippingMethod, 'price'> | null
+  /**
+   * Digital shipping method only exists if in order is any product with digital shipping type
+   */
+  digital_shipping_method: Omit<ShippingMethod, 'price'> | null
   created_at: string
 }
 
@@ -95,18 +110,29 @@ export interface OrderSummary extends MetadataFields {
 export interface OrderCreateDto extends CreateMetadataFields {
   email: string
   comment: string
-  shipping_method_id: UUID
+  /**
+   * If in order is any product without digital shipping type, this field is required
+   */
+  shipping_method_id?: UUID
+  /**
+   * If in order is any product with digital shipping type, this field is required
+   */
+  digital_shipping_method_id?: UUID
+  shipping_place?: AddressDto | UUID | string
+  billing_address: AddressDto
+  invoice_requested: boolean
   items: OrderCartItem[]
-  delivery_address: Address
-  invoice_address: Address | null
   coupons: string[]
-  sales_ids: string[]
+  sales_ids: UUID[]
 }
 
 export interface OrderUpdateDto {
   email?: string
   comment?: string
-  delivery_address?: Address
-  invoice_address?: Address
-  shipping_number?: string | null
+  shipping_number?: string
+  shipping_method_id?: UUID
+  digital_shipping_method_id?: UUID
+  shipping_place?: AddressDto | UUID | string
+  billing_address?: AddressDto
+  invoice_requested?: boolean
 }

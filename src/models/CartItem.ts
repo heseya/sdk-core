@@ -75,6 +75,10 @@ export class CartItem {
     return this.product.name
   }
 
+  get shippingDigital() {
+    return this.product.shipping_digital
+  }
+
   get attributes(): ProductListAttribute[] {
     return this.product.attributes
   }
