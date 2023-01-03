@@ -8,7 +8,7 @@ import {
 } from '../../../interfaces/Order'
 import { Payment, PaymentMethod } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
-import { OrderProductUpdateDto } from '../../../interfaces/Product'
+import { OrderProduct, OrderProductUpdateDto } from '../../../interfaces/Product'
 import { UUID } from '../../../interfaces/UUID'
 
 import { ServiceFactory } from '../types/Service'
@@ -100,7 +100,7 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
     orderId: UUID,
     productId: UUID,
     updatedProduct: OrderProductUpdateDto,
-  ): Promise<true>
+  ): Promise<OrderProduct>
 
   /**
    * Sends email with links to products in the order
@@ -160,8 +160,11 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     },
 
     async updateProduct(orderId, productId, payload) {
-      await axios.patch(encodeURI(`/${route}/id:${orderId}/products/id:${productId}`), payload)
-      return true
+      const { data } = await axios.patch<HeseyaResponse<OrderProduct>>(
+        encodeURI(`/${route}/id:${orderId}/products/id:${productId}`),
+        payload,
+      )
+      return data.data
     },
 
     async sendProducts(orderId) {
