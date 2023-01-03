@@ -192,7 +192,7 @@ describe('orders service test', () => {
     const service = createOrdersService(axios)
     const expectedUrl = '/orders/id:test/products/id:product_id'
 
-    mock.onPatch(expectedUrl).reply(200, { data: {} })
+    mock.onPatch(expectedUrl).reply(200, { data: { id: 'item_id' } })
 
     const result = await service.updateProduct('test', 'product_id', {
       is_delivered: false,
@@ -202,7 +202,7 @@ describe('orders service test', () => {
     })
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
-    expect(result).toEqual(true)
+    expect(result).toEqual({ id: 'item_id' })
   })
 
   it('should send all products via email', async () => {
