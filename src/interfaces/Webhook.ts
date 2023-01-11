@@ -17,6 +17,7 @@ export enum WebhookEventType {
   ProductCreated = 'ProductCreated',
   ProductUpdated = 'ProductUpdated',
   ProductDeleted = 'ProductDeleted',
+  ProductPriceUpdate = 'ProductPriceUpdate',
   ItemCreated = 'ItemCreated',
   ItemUpdated = 'ItemUpdated',
   ItemUpdatedQuantity = 'ItemUpdatedQuantity',
