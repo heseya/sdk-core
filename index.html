@@ -21,6 +21,18 @@
 <img src="https://img.shields.io/npm/dt/@heseya/store-core" alt="Downloads"> &nbsp;</p>
 <p><a href="https://heseya.github.io/sdk-core/index.html">Type definitions</a></p>
 
+<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+  <h2>Features</h2>
+</a>
+<ul>
+<li>All Heseya API endpoints are exposed as methods on the SDK object.</li>
+<li>Full typing of all API responses and requests, as well as for the all Heseya models and enums.</li>
+<li>Automatic conversion between JSON and native types.</li>
+<li>Automatic handling request query parameters.</li>
+<li>Support for custom <a href="https://www.npmjs.com/package/axios">Axios</a> instance.</li>
+<li>Helper functions and class for handling common tasks when creating e-commerce applications.</li>
+</ul>
+
 <a href="#instalation" id="instalation" style="color: inherit; text-decoration: none;">
   <h2>Instalation</h2>
 </a>
@@ -31,6 +43,23 @@
   <h2>Usage</h2>
 </a>
 
+<a href="#type-definitions" id="type-definitions" style="color: inherit; text-decoration: none;">
+  <h3>Type definitions</h3>
+</a>
+<p>SDK package contains a set of type definitions for the Heseya API, you can import them directly into your project.</p>
+<p>Full list of exported types corresponds to the SDK modules and it is available <a href="https://heseya.github.io/sdk-core/index.html">here</a>.</p>
+<p>Each of the Heseya&#39;s Models has a corresponding type definition, with different type for the Model list, details, create and update methods.
+The convention is following:</p>
+<ul>
+<li><code>{ModelName}List</code> - type for the list of models</li>
+<li><code>{ModelName}</code> - type for the details of a model</li>
+<li><code>{ModelName}CreateDto</code> - type for the create method of a model</li>
+<li><code>{ModelName}UpdateDto</code> - type for the update method of a model</li>
+</ul>
+<p>Example for product types:</p>
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Product</span><span class="hl-0">, </span><span class="hl-2">ProductList</span><span class="hl-0">, </span><span class="hl-2">ProductCreateDto</span><span class="hl-0">, </span><span class="hl-2">ProductUpdateDto</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@heseya/store-core&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">productCreateDto</span><span class="hl-0">: </span><span class="hl-6">ProductCreateDto</span><span class="hl-0"> = {</span><br/><span class="hl-0">  ...</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">heseya</span><span class="hl-0">.</span><span class="hl-2">Products</span><span class="hl-0">.</span><span class="hl-7">create</span><span class="hl-0">(</span><span class="hl-2">productCreateDto</span><span class="hl-0">)</span>
+</code></pre>
+
 <a href="#heseya-api-service" id="heseya-api-service" style="color: inherit; text-decoration: none;">
   <h3>Heseya Api Service</h3>
 </a>
@@ -38,27 +67,32 @@
 <a href="#initialization" id="initialization" style="color: inherit; text-decoration: none;">
   <h4>Initialization</h4>
 </a>
-<p>You can create the Heseya Api Service using the factory method.</p>
-<pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createHeseyaApiService</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@heseya/store-core&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">heseya</span><span class="hl-0"> = </span><span class="hl-6">createHeseyaApiService</span><span class="hl-0">(</span><span class="hl-2">axios</span><span class="hl-0">)</span>
-</code></pre>
-<p>You need to pass the <code>axios</code> instance to the factory method. This allows you to modify axios instance to your needs. For example you can add a custom header to the request or implement a custom interceptor. <strong>Remember to pass the BaseUrl to the axios instance!</strong></p>
-<p>Example of the simple axios instance:</p>
-<pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">axios</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;axios&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">instance</span><span class="hl-0"> = </span><span class="hl-2">axios</span><span class="hl-0">.</span><span class="hl-6">create</span><span class="hl-0">({</span><br/><span class="hl-0">  </span><span class="hl-2">baseURL:</span><span class="hl-0"> </span><span class="hl-3">&#39;https://api.heseya.com&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">headers:</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-3">&#39;X-Custom-Header&#39;</span><span class="hl-2">:</span><span class="hl-0"> </span><span class="hl-3">&#39;Custom Value&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">})</span>
+<p>You can initialize the API Service by calling the <code>createHeseyaApiService</code> function. It is important to pass the <code>axios</code> instance to the function.</p>
+<p>Axios instance needs to be configured to use the URL of the Heseya API. Without it the SDK will not be able to make requests to the API.</p>
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">axios</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;axios&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createHeseyaApiService</span><span class="hl-0">, </span><span class="hl-2">HeseyaApiService</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@heseya/store-core&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">axiosInstance</span><span class="hl-0"> = </span><span class="hl-2">axios</span><span class="hl-0">.</span><span class="hl-7">create</span><span class="hl-0">({ </span><span class="hl-2">baseURL:</span><span class="hl-0"> </span><span class="hl-3">&#39;https://api.example.com&#39;</span><span class="hl-0"> })</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">heseya</span><span class="hl-0">: </span><span class="hl-6">HeseyaApiService</span><span class="hl-0"> = </span><span class="hl-7">createHeseyaApiService</span><span class="hl-0">(</span><span class="hl-2">axiosInstance</span><span class="hl-0">)</span>
 </code></pre>
 
 <a href="#initialization-in-nuxtjs" id="initialization-in-nuxtjs" style="color: inherit; text-decoration: none;">
   <h5>Initialization in Nuxt.js</h5>
 </a>
 <p>In nuxt, you can inject the service into the context. This allows you to use the service in your components. To do this you need to create the following plugin:</p>
-<pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Plugin</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@nuxt/types&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createHeseyaApiService</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@heseya/store-core&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-6">heseyaPlugin</span><span class="hl-0">: </span><span class="hl-7">Plugin</span><span class="hl-0"> = ({ </span><span class="hl-2">$axios</span><span class="hl-0"> }, </span><span class="hl-2">inject</span><span class="hl-0">) </span><span class="hl-4">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-6">inject</span><span class="hl-0">(</span><span class="hl-3">&#39;heseya&#39;</span><span class="hl-0">, </span><span class="hl-6">createHeseyaApiService</span><span class="hl-0">(</span><span class="hl-2">$axios</span><span class="hl-0">))</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-1">default</span><span class="hl-0"> </span><span class="hl-2">heseyaPlugin</span>
+<pre><code class="language-typescript"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Plugin</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@nuxt/types&#39;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createHeseyaApiService</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@heseya/store-core&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-7">heseyaPlugin</span><span class="hl-0">: </span><span class="hl-6">Plugin</span><span class="hl-0"> = ({ </span><span class="hl-2">$axios</span><span class="hl-0"> }, </span><span class="hl-2">inject</span><span class="hl-0">) </span><span class="hl-4">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-7">inject</span><span class="hl-0">(</span><span class="hl-3">&#39;heseya&#39;</span><span class="hl-0">, </span><span class="hl-7">createHeseyaApiService</span><span class="hl-0">(</span><span class="hl-2">$axios</span><span class="hl-0">))</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-1">default</span><span class="hl-0"> </span><span class="hl-2">heseyaPlugin</span>
 </code></pre>
 
 <a href="#usage-1" id="usage-1" style="color: inherit; text-decoration: none;">
   <h4>Usage</h4>
 </a>
-<p>After creating the instance, you can use the service as you wish. Below are usage examples. Every method in the service is fully typed and documented.</p>
-<pre><code class="language-typescript"><span class="hl-2">heseya</span><span class="hl-0">.</span><span class="hl-2">Products</span><span class="hl-0">.</span><span class="hl-6">get</span><span class="hl-0">({ </span><span class="hl-2">search:</span><span class="hl-0"> </span><span class="hl-3">&#39;test&#39;</span><span class="hl-0"> }) </span><span class="hl-8">// Returns the products that was found by the search term</span><br/><span class="hl-2">heseya</span><span class="hl-0">.</span><span class="hl-2">Orders</span><span class="hl-0">.</span><span class="hl-6">getOneByCode</span><span class="hl-0">(</span><span class="hl-3">&#39;ORDERCODE&#39;</span><span class="hl-0">) </span><span class="hl-8">// Returns the order summary with the given code</span>
+<p>Now, you can use the <code>HeseyaApiService</code> object to call the API for any of the endpoints.</p>
+<p>For example, you can fetch all the products:</p>
+<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">products</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">heseya</span><span class="hl-0">.</span><span class="hl-2">Products</span><span class="hl-0">.</span><span class="hl-7">get</span><span class="hl-0">()</span>
 </code></pre>
+<p>All the methods on the <code>HeseyaApiService</code> object return promises. If the request fails, the promise will be rejected with an default <code>AxiosError</code> object. This package provides a helper function to handle that errors <code>formatApiError</code>.</p>
+
+<a href="#authorization" id="authorization" style="color: inherit; text-decoration: none;">
+  <h5>Authorization</h5>
+</a>
+<p>The SDK does not provide any authorization. You need to implement your own authorization mechanism. To do this, you should use the <code>axios</code> instance that you injected into the <code>createHeseyaApiService</code> function. That instance needs to have interceptors configured to add the authorization header, as well as to handle the token refreshing.</p>
+<p>To handle auth requests you can use methods from the <code>Auth</code> module.</p>
 </div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
