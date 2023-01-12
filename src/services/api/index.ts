@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios'
+import axios, { AxiosInstance } from 'axios'
 
 import { createAuthService } from './modules/auth'
 import { createUserProfileService } from './modules/userProfile'
@@ -28,8 +28,50 @@ import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
 import { createWishlistService } from './modules/wishlist'
 
+const createHeseyaApiServiceFromAxios = (axiosInstance: AxiosInstance) => ({
+  Analytics: createAnalyticsService(axiosInstance),
+  Apps: createAppsService(axiosInstance),
+  Auth: createAuthService(axiosInstance),
+  Banners: createBannersService(axiosInstance),
+  UserProfile: createUserProfileService(axiosInstance),
+  Roles: createRolesService(axiosInstance),
+  Users: createUsersService(axiosInstance),
+  Products: createProductsService(axiosInstance),
+  Schemas: createSchemasService(axiosInstance),
+  Tags: createTagsService(axiosInstance),
+  ProductSets: createProductSetsService(axiosInstance),
+  Warehouse: createWarehouseService(axiosInstance),
+  Attributes: createAttributesService(axiosInstance),
+  Pages: createPagesService(axiosInstance),
+  Sales: createSalesService(axiosInstance),
+  Coupons: createCouponsService(axiosInstance),
+  Orders: createOrdersService(axiosInstance),
+  OrderStatuses: createOrderStatusesService(axiosInstance),
+  ShippingMethods: createShippingMethodsService(axiosInstance),
+  PackagesTemplates: createPackagesTemplatesService(axiosInstance),
+  GlobalSeo: createGlobalSeoService(axiosInstance),
+  PaymentMethods: createPaymentMethodsService(axiosInstance),
+  Settings: createSettingsService(axiosInstance),
+  Media: createMediaService(axiosInstance),
+  Webhooks: createWebhooksService(axiosInstance),
+  Wishlist: createWishlistService(axiosInstance),
+  Consents: createConsentsService(axiosInstance),
+})
+
+const createHeseyaApiServiceFromBaseUrl = (baseURL: string) =>
+  createHeseyaApiServiceFromAxios(axios.create({ baseURL }))
+
+export type HeseyaApiService = ReturnType<typeof createHeseyaApiServiceFromAxios>
+
+type HeseyaApiServiceFactory = {
+  (axios: AxiosInstance): HeseyaApiService
+  (baseURL: string): HeseyaApiService
+}
+
 /**
  * Factory to create whole Heseya e-commerce API service
+ *
+ * You can only pass the Heseya BaseURL to create the service, but it is recommended to use own Axios instance
  *
  * Why not use the default axios instance?
  * Because, user may want to extend axios instance with some middlewares/interceptors (ex. for user token refreshment)
@@ -41,34 +83,11 @@ import { createWishlistService } from './modules/wishlist'
  * @example
  * heseya.Products.get() // Return all products
  */
-export const createHeseyaApiService = (axios: AxiosInstance) => ({
-  Analytics: createAnalyticsService(axios),
-  Apps: createAppsService(axios),
-  Auth: createAuthService(axios),
-  Banners: createBannersService(axios),
-  UserProfile: createUserProfileService(axios),
-  Roles: createRolesService(axios),
-  Users: createUsersService(axios),
-  Products: createProductsService(axios),
-  Schemas: createSchemasService(axios),
-  Tags: createTagsService(axios),
-  ProductSets: createProductSetsService(axios),
-  Warehouse: createWarehouseService(axios),
-  Attributes: createAttributesService(axios),
-  Pages: createPagesService(axios),
-  Sales: createSalesService(axios),
-  Coupons: createCouponsService(axios),
-  Orders: createOrdersService(axios),
-  OrderStatuses: createOrderStatusesService(axios),
-  ShippingMethods: createShippingMethodsService(axios),
-  PackagesTemplates: createPackagesTemplatesService(axios),
-  GlobalSeo: createGlobalSeoService(axios),
-  PaymentMethods: createPaymentMethodsService(axios),
-  Settings: createSettingsService(axios),
-  Media: createMediaService(axios),
-  Webhooks: createWebhooksService(axios),
-  Wishlist: createWishlistService(axios),
-  Consents: createConsentsService(axios),
-})
+export const createHeseyaApiService: HeseyaApiServiceFactory = (axiosOrBaseUrl) => {
+  if (!axiosOrBaseUrl) throw new Error('Axios instance or base URL is required')
 
-export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
+  if (typeof axiosOrBaseUrl === 'string') {
+    return createHeseyaApiServiceFromBaseUrl(axiosOrBaseUrl)
+  }
+  return createHeseyaApiServiceFromAxios(axiosOrBaseUrl)
+}
