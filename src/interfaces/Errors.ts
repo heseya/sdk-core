@@ -176,6 +176,8 @@ export enum HeseyaClientErrorCode {
   ProviderIsNotActive = 'CLIENT_PROVIDER_IS_NOT_ACTIVE',
   ProviderHasNoConfig = 'CLIENT_PROVIDER_HAS_NO_CONFIG',
   ProviderNotFound = 'CLIENT_PROVIDER_NOT_FOUND',
+  AlreadyHasAccount = 'CLIENT_ALREADY_HAS_ACCOUNT',
+  ProviderMergeTokenExpired = 'CLIENT_PROVIDER_MERGE_TOKEN_EXPIRED',
   CdnNotAllowedToChangeAlt = 'CDN_NOT_ALLOWED_TO_CHANGE_ALT',
   NotEnaughItemsInWarehouse = 'ORDER_NOT_ENOUGH_ITEMS_IN_WAREHOUSE',
   OrderShippingMethodTypeMismatch = 'ORDER_SHIPPING_METHOD_TYPE_MISMATCH',
