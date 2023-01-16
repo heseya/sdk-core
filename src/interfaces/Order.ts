@@ -30,6 +30,8 @@ export interface OrderList extends MetadataFields {
   shipping_place?: Address | string
   email: string
   paid: boolean
+  billing_address: Address
+  invoice_requested: boolean
   /**
    * Phisical shipping method only exists if in order is any product without digital shipping type
    */
@@ -65,18 +67,16 @@ export interface OrderList extends MetadataFields {
    * Amount already paid by client
    */
   summary_paid: number
+  payable: boolean
   documents: OrderDocument[]
 }
 
 export interface Order extends OrderList {
   discounts: OrderDiscount[]
-  billing_address: Address
-  payable: boolean
   payments: OrderPayment[]
   products: OrderProduct[]
   shipping_number: string | null
   buyer: User | App | null
-  invoice_requested: boolean
 }
 
 export interface OrderSummary extends MetadataFields {
