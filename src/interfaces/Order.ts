@@ -7,19 +7,9 @@ import { OrderStatus } from './OrderStatus'
 import { OrderProduct } from './Product'
 import { OrderDiscount } from './SalesAndCoupons'
 import { OrderDocument } from './OrderDocuments'
+import { OrderPayment } from './Payments'
 import { User } from './User'
 import { App } from './App'
-
-export interface OrderPayment {
-  id: UUID
-  amount: number
-  continue_url: string
-  external_id: UUID
-  method: string
-  paid: boolean
-  redirect_url: string
-  date: string
-}
 
 export interface OrderList extends MetadataFields {
   id: UUID
