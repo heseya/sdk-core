@@ -17,7 +17,15 @@ import {
 import { PaginationParams } from '../types/DefaultParams'
 
 interface PaymentMethodsParams extends PaginationParams {
+  /**
+   * Returns only payment methods that are available for the given shipping method
+   */
   shipping_method_id?: UUID
+  /**
+   * Returns only payment methods that are available for the given order.
+   * If order is already paid, returns empty array.
+   */
+  order_code?: string
 }
 
 export type PaymentMethodsService = Omit<
