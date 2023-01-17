@@ -1,8 +1,9 @@
 import { UUID } from './UUID'
 export interface OrderPayment {
   id: UUID
-  payment_id: UUID
+  external_id: UUID
   method: string
+  method_id: null | UUID
   status: PaymentStatus
   amount: number
   redirect_url: string
@@ -13,7 +14,7 @@ export interface OrderPayment {
 export enum PaymentStatus {
   Pending = 'pending',
   Failed = 'failed',
-  Successfull = 'successfull',
+  Successful = 'successful',
 }
 
 export interface Payment {
