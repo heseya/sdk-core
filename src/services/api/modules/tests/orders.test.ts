@@ -19,9 +19,10 @@ import { createOrdersService } from '../orders'
 const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   data: {
     id: '1',
-    payment_id: '1',
+    external_id: '1',
     method: 'payu',
-    status: PaymentStatus.Successfull,
+    method_id: null,
+    status: PaymentStatus.Successful,
     amount: 2137,
     redirect_url: '/redirect',
     continue_url: '/continue',
