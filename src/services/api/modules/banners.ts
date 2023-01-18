@@ -10,9 +10,11 @@ import {
 import { Banner, BannerCreateDto, BannerUpdateDto } from '../../../interfaces/Banner'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
+import { UUID } from '../../../interfaces/UUID'
 
 interface BannersListParams extends PaginationParams, MetadataParams, PaginationParams {
   slug?: string
+  ids?: UUID[]
 }
 
 export type BannersService = CrudService<

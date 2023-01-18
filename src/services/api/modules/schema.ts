@@ -11,6 +11,7 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { Schema, SchemaCreateDto, SchemaUpdateDto, SchemaList } from '../../../interfaces/Schema'
 import { FieldSort } from '../../../interfaces/Sort'
+import { UUID } from '../../../interfaces/UUID'
 
 interface SchemasListParams extends SearchParam, PaginationParams, MetadataParams {
   name?: string
@@ -22,6 +23,7 @@ interface SchemasListParams extends SearchParam, PaginationParams, MetadataParam
    * TODO: specify by which field to sort
    */
   sort?: string | Array<FieldSort<string>>
+  ids?: UUID[]
 }
 
 export type SchemasService = Omit<

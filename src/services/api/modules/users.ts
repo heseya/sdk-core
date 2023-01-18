@@ -34,6 +34,7 @@ interface UsersListParams extends SearchParam, PaginationParams, MetadataParams 
    */
   sort?: string | Array<FieldSort<'name'> | FieldSort<'created_at'>>
   roles?: UUID[]
+  ids?: UUID[]
 }
 
 export interface UsersService extends EntityMetadataService, EntityAuditsService<User> {

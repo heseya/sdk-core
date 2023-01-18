@@ -52,6 +52,7 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
   paid?: boolean
   from?: Date
   to?: Date
+  ids?: UUID[]
 }
 
 export interface OrdersService extends EntityMetadataService, EntityAuditsService<Order> {

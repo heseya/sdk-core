@@ -17,6 +17,7 @@ interface SalesListParams extends SearchParam, PaginationParams, MetadataParams 
   search?: string
   description?: string
   for_role?: UUID
+  ids?: UUID[]
 }
 
 export type SalesService = Omit<

@@ -26,6 +26,7 @@ interface PaymentMethodsParams extends PaginationParams {
    * If order is already paid, returns empty array.
    */
   order_code?: string
+  ids?: UUID[]
 }
 
 export type PaymentMethodsService = Omit<

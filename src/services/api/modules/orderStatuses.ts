@@ -16,8 +16,9 @@ import {
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
-type OrderStatusesListParams = MetadataParams & PaginationParams
+type OrderStatusesListParams = MetadataParams & PaginationParams & { ids?: UUID[] }
 
 export interface OrderStatusesService
   extends Omit<

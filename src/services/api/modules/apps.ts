@@ -9,8 +9,9 @@ import {
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { App, AppCreateDto } from '../../../interfaces'
+import { UUID } from '../../../interfaces/UUID'
 
-type AppsListParams = MetadataParams & PaginationParams
+type AppsListParams = MetadataParams & PaginationParams & { ids?: UUID[] }
 
 export type AppsService = Omit<
   CrudService<App, App, AppCreateDto, never, AppsListParams>,

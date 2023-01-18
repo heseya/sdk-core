@@ -11,6 +11,7 @@ import { ServiceFactory } from '../types/Service'
 import { createGetListRequest, createDeleteRequest, createPatchRequest } from '../utils/requests'
 import { createFormData } from '../utils/createFormData'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import { UUID } from '../../../interfaces/UUID'
 
 export interface MediaService extends EntityMetadataService {
   /**
@@ -18,7 +19,7 @@ export interface MediaService extends EntityMetadataService {
    */
   get: GetEntityRequest<
     CdnMediaExtended,
-    { type?: CdnMediaType; has_relationships?: boolean } & PaginationParams
+    { type?: CdnMediaType; has_relationships?: boolean; ids?: UUID[] } & PaginationParams
   >
   /**
    * Allows a user to create the Media.
