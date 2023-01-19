@@ -129,13 +129,24 @@ afterEach(() => {
 describe('orders service test', () => {
   it('should make a request to create new payment for the given order', async () => {
     const service = createOrdersService(axios)
-    const expectedUrl = `orders/2137/pay/payment-slug`
+    const expectedUrl = `orders/2137/pay/id:payment-id`
 
     mock.onPost(expectedUrl).reply(200, dummyOrdersResponse)
 
-    const result = await service.pay('2137', 'payment-slug', dummyOrdersResponse.data.continue_url)
+    const result = await service.pay('2137', 'payment-id', dummyOrdersResponse.data.continue_url)
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrdersResponse.data.redirect_url)
+  })
+
+  it('should make a request to mark given order as paid', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = `orders/2137/pay/offline`
+
+    mock.onPost(expectedUrl).reply(200, dummyOrdersResponse)
+
+    const result = await service.markAsPaid('2137')
+    expect(mock.history.post[0]?.url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyOrdersResponse.data)
   })
 
   it('should process cart by checking warehouse stock, sales and calculate total items price', async () => {
