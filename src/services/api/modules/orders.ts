@@ -60,13 +60,19 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
    */
-  pay(code: string, paymentMethodId: UUID, continueUrl: string): Promise<string>
+  pay(orderCode: string, paymentMethodId: UUID, continueUrl: string): Promise<string>
+
+  /**
+   * Creates payment that is paid for the given order
+   * This allows to create payments for orders that are paid offline
+   */
+  markAsPaid(orderCode: string): Promise<OrderPayment>
 
   /**
    * Returns the list of payment methods available for the given order
    */
   getPaymentMethods(
-    code: string,
+    orderCode: string,
   ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethodList[]; code: string }>
 
   /**
@@ -124,13 +130,23 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       const {
         data: { data },
       } = await axios.post<HeseyaResponse<OrderPayment>>(
-        `${route}/${code}/pay/${paymentMethodId}`,
+        `${route}/${code}/pay/id:${paymentMethodId}`,
         {
           continue_url: continueUrl,
         },
       )
 
       return data.redirect_url
+    },
+
+    async markAsPaid(code) {
+      const {
+        data: { data },
+      } = await axios.post<HeseyaResponse<OrderPayment>>(`${route}/${code}/pay/offline`, {
+        continue_url: '/',
+      })
+
+      return data
     },
 
     async processCart(cart) {
