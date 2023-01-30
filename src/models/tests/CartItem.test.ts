@@ -1,5 +1,6 @@
-import { CartItem, CartItemSchema } from '..'
-import { Product } from '../..'
+import { CartItem } from '../../models/CartItem'
+import { CartItemSchema } from '../../interfaces/CartItem'
+import { Product } from '../../interfaces/Product'
 
 describe('usage of CartItem', () => {
   const product = {
@@ -10,14 +11,11 @@ describe('usage of CartItem', () => {
   const quantity = 2
   const schemaValues: CartItemSchema[] = []
 
-  const cartItem = new CartItem(product, quantity, schemaValues)
+  const cartItem = new CartItem(product, quantity, [], schemaValues)
 
   it('has access to static fields', () => {
     expect(cartItem.id).toBeTruthy()
     expect(cartItem.name).toBe(product.name)
-    expect(cartItem.descriptionHtml).toBe(product.description_html)
-    expect(cartItem.descriptionText).toBe(product.meta_description)
-    expect(cartItem.descriptionShort).toBe(product.description_short)
     expect(cartItem.qty).toBe(quantity)
     expect(cartItem.schemas).toBe(schemaValues)
     expect(cartItem.quantityStep).toBe(1)

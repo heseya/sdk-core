@@ -1,4 +1,5 @@
-import { Media, TwitterCardType } from '../..'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CdnMedia, TwitterCardType } from '../..'
 import { getSeoValues } from '../seo'
 
 describe('getSeoValues test', () => {
@@ -15,7 +16,7 @@ describe('getSeoValues test', () => {
     expect(getSeoValues({ keywords: ['test'] })).toEqual({ keywords: ['test'] })
     expect(getSeoValues({ no_index: true })).toEqual({ no_index: true })
     expect(getSeoValues({ no_index: false })).toEqual({ no_index: false })
-    expect(getSeoValues({ og_image: {} as Media })).toEqual({ og_image: {} as Media })
+    expect(getSeoValues({ og_image: {} as CdnMedia })).toEqual({ og_image: {} as CdnMedia })
     expect(getSeoValues({ twitter_card: TwitterCardType.Summary })).toEqual({
       twitter_card: TwitterCardType.Summary,
     })

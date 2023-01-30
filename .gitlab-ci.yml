@@ -3,21 +3,6 @@ image: node:buster
 stages:
   - test
 
-# test:
-#   stage: test
-#   image: node:alpine
-#   before_script:
-#     - yarn
-#   script:
-#     - yarn test
-#   artifacts:
-#     when: always
-#     paths:
-#       - coverage
-#     expire_in: 30 days
-#   rules:
-#     - if: $CI_COMMIT_BRANCH != "master"
-
 lint:
   stage: test
   before_script:
@@ -32,6 +17,7 @@ test:
   before_script:
     - yarn
   script:
-    - yarn test
+    - yarn test:coverage
   rules:
     - if: $CI_COMMIT_BRANCH != "master"
+  coverage: /All files\s*\|\s*([\d\.]+)/

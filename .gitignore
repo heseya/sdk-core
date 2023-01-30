@@ -6,8 +6,8 @@ node_modules
 
 dist
 build
-test
 coverage
+docs
 
 *.local
 .nyc_output

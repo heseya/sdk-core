@@ -1,8 +1,13 @@
-import { config } from '../config'
-import { CartItem, SavedCartItem } from '../models/CartItem'
+import { CartItem } from '../models/CartItem'
+import { SavedCartItem } from '../interfaces/CartItem'
 
-export const restoreCart = (savedCart: SavedCartItem[]) => {
+const ONE_WEEK = 1000 * 60 * 60 * 24 * 7
+
+export const restoreCart = (savedCart: SavedCartItem[], cartItemLifeDuration = ONE_WEEK) => {
   return savedCart
-    .filter(({ createdAt }) => Date.now() - createdAt < config.cartItemLifeDuration)
-    .map(({ product, qty, schemas, createdAt }) => new CartItem(product, qty, schemas, createdAt))
+    .filter(({ createdAt }) => Date.now() - createdAt < cartItemLifeDuration)
+    .map(
+      ({ product, qty, schemas, productSchemas, createdAt }) =>
+        new CartItem(product, qty, productSchemas, schemas, [], createdAt),
+    )
 }

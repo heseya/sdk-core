@@ -1,5 +1,3 @@
-export { config } from './config/index'
-
 // INTERFACES
 export * from './interfaces/index'
 
@@ -7,7 +5,10 @@ export * from './interfaces/index'
 export * from './models/index'
 
 // SERVICES
-export * from './services/api'
+export * from './services/index'
+
+// CONSTS
+export * from './consts/index'
 
 // UTILS
 export * from './utils/index'
