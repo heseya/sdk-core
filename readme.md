@@ -18,9 +18,9 @@
 ## Instalation
 
 ```bash
-$ yarn add @heseya/store-core@next
+$ yarn add @heseya/store-core
 // or
-$ npm i @heseya/store-core@next
+$ npm i @heseya/store-core
 ```
 
 ## Usage
