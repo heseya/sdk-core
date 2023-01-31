@@ -39,5 +39,3 @@ export interface PaymentCreateDto {
 }
 
 export type PaymentUpdateDto = Partial<PaymentCreateDto>
-
-  

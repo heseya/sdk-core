@@ -26,7 +26,7 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
     redirect_url: '/redirect',
     continue_url: '/continue',
     date: '2020-01-01',
-    orders: [],
+    external_id: 'XN-2137',
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
@@ -133,11 +133,7 @@ describe('orders service test', () => {
 
     mock.onPost(expectedUrl).reply(200, dummyOrdersResponse)
 
-    const result = await service.pay(
-      ['2137'],
-      'payment-id',
-      dummyOrdersResponse.data.continue_url,
-    )
+    const result = await service.pay(['2137'], 'payment-id', dummyOrdersResponse.data.continue_url)
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrdersResponse.data.redirect_url)
   })
