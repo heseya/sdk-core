@@ -27,6 +27,8 @@ export type AuthProvidersService = Omit<
    *
    * For user are generated tokens and he is returned
    *
+   * Can throw CLIENT_ALREADY_HAS_ACCOUNT error, in that case you should use `.Auth.Providers.mergeAccount()` method to merge accounts
+   *
    * @param providerKey - Provider key
    * @param returnUrl - Full URL to which the user was redirected after returning from the provider
    */
@@ -39,6 +41,13 @@ export type AuthProvidersService = Omit<
    * @param returnUrl - URL to which the user should be redirected after authorization
    */
   redirect(provider: AuthProviderKey, returnUrl: string): Promise<string>
+
+  /**
+   * Merges currently logged account with account from provider. Both accounts must have the same email.
+   *
+   * @param mergeToken - token throwed by `.Auth.Providers.login()` method in error body when CLIENT_ALREADY_HAS_ACCOUNT
+   */
+  mergeAccount(mergeToken: string): Promise<true>
 }
 
 export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = (axios) => {
@@ -66,6 +75,13 @@ export const createAuthProvidersService: ServiceFactory<AuthProvidersService> = 
         },
       )
       return data.data.redirect_url
+    },
+
+    mergeAccount: async (mergeToken) => {
+      await axios.post(`${route}/merge-account`, {
+        merge_token: mergeToken,
+      })
+      return true
     },
 
     get: createGetListRequest(axios, route),

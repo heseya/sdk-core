@@ -35,6 +35,7 @@ interface ProductSetsListParams extends SearchParam, MetadataParams, PaginationP
   slug?: string
   parent_id?: UUID
   public?: boolean
+  ids?: UUID[]
 }
 
 export interface ProductSetsService

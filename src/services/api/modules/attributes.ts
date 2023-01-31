@@ -28,7 +28,7 @@ import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
 import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
 import { normalizePagination } from '../utils/normalizePagination'
 
-type AttributeParams = PaginationParams & MetadataParams
+type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
 export interface AttributesService
   extends Omit<
@@ -38,7 +38,7 @@ export interface AttributesService
     EntityMetadataService {
   getOptions(
     attributeId: UUID,
-    params?: MetadataParams & { name?: string },
+    params?: MetadataParams & { name?: string; ids?: UUID[] },
   ): Promise<ListResponse<AttributeOption>>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(

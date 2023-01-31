@@ -11,11 +11,13 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
 import { Coupon, CouponCreateDto, CouponUpdateDto } from '../../../interfaces/SalesAndCoupons'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
 interface CouponsListParams extends SearchParam, PaginationParams, MetadataParams {
   search?: string
   code?: string
   description?: string
+  ids?: UUID[]
 }
 
 export type CouponsService = CrudService<

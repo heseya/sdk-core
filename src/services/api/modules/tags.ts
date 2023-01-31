@@ -8,9 +8,12 @@ import {
 
 import { PaginationParams } from '../types/DefaultParams'
 import { Tag, TagCreateDto, TagUpdateDto } from '../../../interfaces/Tag'
+import { UUID } from '../../../interfaces/UUID'
+
+type TagsListParams = PaginationParams & { ids?: UUID[] }
 
 export type TagsService = Omit<
-  CrudService<Tag, Tag, TagCreateDto, TagUpdateDto, PaginationParams>,
+  CrudService<Tag, Tag, TagCreateDto, TagUpdateDto, TagsListParams>,
   'getOneBySlug' | 'getOne'
 >
 

@@ -13,8 +13,9 @@ import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
-type PagesListParams = PaginationParams & MetadataParams
+type PagesListParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
 export interface PagesService
   extends CrudService<Page, PageList, PageCreateDto, PageUpdateDto, PagesListParams>,

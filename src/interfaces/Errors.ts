@@ -109,10 +109,10 @@ export enum HeseyaValidationErrorCode {
   Gte = 'VALIDATION_GTE',
   MediaSlug = 'VALIDATION_MEDIA_SLUG',
   Phone = 'VALIDATION_PHONE',
+  AuthProviderActive = 'VALIDATION_AUTH_PROVIDER_ACTIVE',
 }
 
 export enum HeseyaClientErrorCode {
-  CdnNotAllowedToChangeAlt = 'CDN_NOT_ALLOWED_TO_CHANGE_ALT',
   InvalidInstallationResponse = 'CLIENT_INVALID_INSTALLATION_RESPONSE',
   FailedToConnectWithApp = 'CLIENT_FAILED_TO_CONNECT_WITH_APP',
   FailedToUninstallApp = 'CLIENT_FAILED_TO_UNINSTALL_APP',
@@ -168,10 +168,29 @@ export enum HeseyaClientErrorCode {
   WebhookAppAction = 'CLIENT_WEBHOOK_APP_ACTION',
   AppsNoAccess = 'CLIENT_APPS_NO_ACCESS',
   NoAccess = 'CLIENT_NO_ACCESS',
+  UnknownStatus = 'CLIENT_UNKNOWN_STATUS',
+  RemoveDefaultAddress = 'CLIENT_REMOVE_DEFAULT_ADDRESS',
+  StatusUsed = 'CLIENT_STATUS_USED',
+  ShippingMethodNotOwner = 'CLIENT_SHIPPING_METHOD_NOT_OWNER',
+  ShippingMethodInvalidType = 'CLIENT_SHIPPING_METHOD_INVALID_TYPE',
+  ProviderIsNotActive = 'CLIENT_PROVIDER_IS_NOT_ACTIVE',
+  ProviderHasNoConfig = 'CLIENT_PROVIDER_HAS_NO_CONFIG',
+  ProviderNotFound = 'CLIENT_PROVIDER_NOT_FOUND',
+  AlreadyHasAccount = 'CLIENT_ALREADY_HAS_ACCOUNT',
+  ProviderMergeTokenExpired = 'CLIENT_PROVIDER_MERGE_TOKEN_EXPIRED',
+  ProviderMergeTokenInvalid = 'CLIENT_PROVIDER_MERGE_TOKEN_INVALID',
+  ProviderMergeTokenMismatch = 'CLIENT_PROVIDER_MERGE_TOKEN_MISMATCH',
+  CdnNotAllowedToChangeAlt = 'CDN_NOT_ALLOWED_TO_CHANGE_ALT',
+  NotEnaughItemsInWarehouse = 'ORDER_NOT_ENOUGH_ITEMS_IN_WAREHOUSE',
+  OrderShippingMethodTypeMismatch = 'ORDER_SHIPPING_METHOD_TYPE_MISMATCH',
+  ProductSetIsNotOnFavouritesList = 'PRODUCT_SET_IS_NOT_ON_FAVOURITES_LIST',
+  ProductPurchaseLimit = 'PRODUCT_PURCHASE_LIMIT',
+  PaymentMethodNotAvailableForShipping = 'PAYMENT_METHOD_NOT_AVAILABLE_FOR_SHIPPING',
 }
 
 export enum HeseyaServerErrorCode {
   CdnError = 'SERVER_CDN_ERROR',
+  TransactionError = 'SERVER_TRANSACTION_ERROR',
 }
 
 export type HeseyaErrorCode =

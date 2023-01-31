@@ -13,7 +13,6 @@ export interface ProductSetList extends MetadataFields {
   cover: CdnMedia | null
   public: boolean
   visible: boolean
-  hide_on_index: boolean
   attributes: ProductSetAttribute[]
   parent_id: string | null
   children?: ProductSet[]
@@ -30,10 +29,9 @@ export interface ProductSetCreateDto extends CreateMetadataFields {
   name: string
   slug_suffix: string
   slug_override: boolean
-  parent_id: UUID | null
-  seo: SeoMetadataDto | null
+  parent_id?: UUID | null
+  seo?: SeoMetadataDto
   public?: boolean
-  hide_on_index?: boolean
   children_ids?: UUID[]
   description_html?: string
   cover_id?: UUID

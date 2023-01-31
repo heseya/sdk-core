@@ -69,4 +69,17 @@ describe('AuthProviders service test', () => {
       refreshToken: 'refreshToken',
     })
   })
+
+  it('should make a request to merge accounts', async () => {
+    const service = createAuthProvidersService(axios)
+    const expectedUrl = 'auth/providers/merge-account'
+
+    mock.onPost(expectedUrl).reply(204)
+
+    const result = await service.mergeAccount('mergeToken')
+
+    expect(mock.history.post[0]?.url).toEqual(expectedUrl)
+    expect(mock.history.post[0]?.data).toEqual('{"merge_token":"mergeToken"}')
+    expect(result).toEqual(true)
+  })
 })

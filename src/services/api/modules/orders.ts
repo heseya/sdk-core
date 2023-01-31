@@ -6,8 +6,10 @@ import {
   OrderCreateDto,
   OrderUpdateDto,
 } from '../../../interfaces/Order'
-import { PaymentMethod } from '../../../interfaces/PaymentMethods'
+import { OrderPayment } from '../../../interfaces/Payments'
+import { PaymentMethodList } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
+import { OrderProduct, OrderProductUpdateDto } from '../../../interfaces/Product'
 import { UUID } from '../../../interfaces/UUID'
 
 import { ServiceFactory } from '../types/Service'
@@ -47,9 +49,11 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
   sort?: string | Array<FieldSort<'code'> | FieldSort<'summary'> | FieldSort<'created_at'>>
   status_id?: string
   shipping_method_id?: string
+  digital_shipping_method_id?: string
   paid?: boolean
   from?: Date
   to?: Date
+  ids?: UUID[]
 }
 
 export interface OrdersService extends EntityMetadataService, EntityAuditsService<Order> {
@@ -57,14 +61,20 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
    */
-  pay(orderIds: UUID[], paymentMethodSlug: string, continueUrl: string): Promise<string>
+  pay(orderIds: UUID[], paymentMethodId: string, continueUrl: string): Promise<string>
+
+  /**
+   * Creates payment that is paid for the given order
+   * This allows to create payments for orders that are paid offline
+   */
+  markAsPaid(orderCode: string): Promise<OrderPayment>
 
   /**
    * Returns the list of payment methods available for the given order
    */
   getPaymentMethods(
-    code: string,
-  ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethod[]; code: string }>
+    orderCode: string,
+  ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethodList[]; code: string }>
 
   /**
    * Process cart by checking warehouse stock, sales and calculate total items price
@@ -92,6 +102,20 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
     },
     DefaultParams
   >
+
+  /**
+   * Adds links to products in the order
+   */
+  updateProduct(
+    orderId: UUID,
+    productId: UUID,
+    updatedProduct: OrderProductUpdateDto,
+  ): Promise<OrderProduct>
+
+  /**
+   * Sends email with links to products in the order
+   */
+  sendProducts(orderId: UUID): Promise<true>
   Documents: OrderDocumentsService
 }
 
@@ -103,15 +127,25 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
   const paymentMethodsService = createPaymentMethodsService(axios)
 
   return {
-    async pay(orderIds, paymentMethodSlug, continueUrl) {
+    async pay(orderIds, paymentMethodId, continueUrl) {
       const {
         data: { data },
-      } = await axios.post<HeseyaResponse<Payment>>(`${route}/pay/${paymentMethodSlug}`, {
+      } = await axios.post<HeseyaResponse<OrderPayment>>(`${route}/pay/id:${paymentMethodId}`, {
         continue_url: continueUrl,
         orders: orderIds.map((id) => ({ id })),
       })
 
       return data.redirect_url
+    },
+
+    async markAsPaid(code) {
+      const {
+        data: { data },
+      } = await axios.post<HeseyaResponse<OrderPayment>>(`${route}/${code}/pay/offline`, {
+        continue_url: '/',
+      })
+
+      return data
     },
 
     async processCart(cart) {
@@ -130,7 +164,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
       if (order.paid) throw new Error('Order already paid')
 
       const paymentMethods = await paymentMethodsService.get({
-        shipping_method_id: order.shipping_method.id,
+        order_code: code,
       })
 
       return {
@@ -143,6 +177,19 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     async updateStatus(parentId, payload, params) {
       const stringParams = stringifyQueryParams(params || {})
       await axios.patch(encodeURI(`/${route}/id:${parentId}/status?${stringParams}`), payload)
+      return true
+    },
+
+    async updateProduct(orderId, productId, payload) {
+      const { data } = await axios.patch<HeseyaResponse<OrderProduct>>(
+        encodeURI(`/${route}/id:${orderId}/products/id:${productId}`),
+        payload,
+      )
+      return data.data
+    },
+
+    async sendProducts(orderId) {
+      await axios.post(encodeURI(`/${route}/id:${orderId}/send-urls`))
       return true
     },
 
