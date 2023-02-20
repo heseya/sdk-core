@@ -14,6 +14,8 @@ export enum WebhookEventType {
   OrderCreated = 'OrderCreated',
   OrderUpdated = 'OrderUpdated',
   OrderUpdatedStatus = 'OrderUpdatedStatus',
+  SendOrderUrls = 'SendOrderUrls',
+  OrderRequestedShipping = 'OrderRequestedShipping',
   ProductCreated = 'ProductCreated',
   ProductUpdated = 'ProductUpdated',
   ProductDeleted = 'ProductDeleted',
@@ -46,6 +48,7 @@ export enum WebhookEventType {
   FailedLoginAttempt = 'FailedLoginAttempt',
   AddOrderDocument = 'AddOrderDocument',
   RemoveOrderDocument = 'RemoveOrderDocument',
+  SendOrderDocument = 'SendOrderDocument',
   OrderUpdatedPaid = 'OrderUpdatedPaid',
   OrderUpdatedShippingNumber = 'OrderUpdatedShippingNumber',
 }
@@ -123,8 +126,12 @@ interface WebhookAppIssuer {
   author: string
 }
 
-interface WebhookEventBase<Payload, DataType = string> {
-  event: WebhookEventType
+interface WebhookEventBase<
+  Payload,
+  DataType = string,
+  Event extends WebhookEventType = WebhookEventType,
+> {
+  event: Event
   data_type: DataType
   /**
    * Date ISO 8601
@@ -133,11 +140,13 @@ interface WebhookEventBase<Payload, DataType = string> {
   data: Payload
 }
 
-interface WebhookEventWithUser<Payload, DataType> extends WebhookEventBase<Payload, DataType> {
+interface WebhookEventWithUser<Payload, DataType, Event extends WebhookEventType = WebhookEventType>
+  extends WebhookEventBase<Payload, DataType, Event> {
   issuer?: WebhookUserIssuer
   issuer_type: WebhookEventIssuerType.User
 }
-interface WebhookEventWithApp<Payload, DataType> extends WebhookEventBase<Payload, DataType> {
+interface WebhookEventWithApp<Payload, DataType, Event extends WebhookEventType = WebhookEventType>
+  extends WebhookEventBase<Payload, DataType, Event> {
   issuer?: WebhookAppIssuer
   issuer_type: WebhookEventIssuerType.App
 }
@@ -147,6 +156,8 @@ interface WebhookEventWithApp<Payload, DataType> extends WebhookEventBase<Payloa
  *
  * @example WebhookEvent<Order, 'order'>
  */
-export type WebhookEvent<Payload, DataType = string> =
-  | WebhookEventWithUser<Payload, DataType>
-  | WebhookEventWithApp<Payload, DataType>
+export type WebhookEvent<
+  Payload,
+  DataType = string,
+  Event extends WebhookEventType = WebhookEventType,
+> = WebhookEventWithUser<Payload, DataType, Event> | WebhookEventWithApp<Payload, DataType, Event>
