@@ -117,6 +117,17 @@ describe('HeseyaSdkService', () => {
     expect(mock.history.get[1].headers?.Authorization).toEqual(undefined)
   })
 
+  it('axios should not add authorization header to refresh endpoint', async () => {
+    const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), {
+      ...authAxiosConfig,
+      shouldIncludeAuthorizationHeader: () => true,
+    })
+
+    await heseyaAxios.post('/auth/refresh')
+
+    expect(mock.history.post[0].headers?.Authorization).toEqual(undefined)
+  })
+
   it('axios should refresh token when token expires', async () => {
     const heseyaAxios = enhanceAxiosWithAuthTokenRefreshing(axios.create(), authAxiosConfig)
 

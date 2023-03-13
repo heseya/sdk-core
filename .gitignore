@@ -12,6 +12,7 @@ docs
 *.local
 .nyc_output
 *.log
+.yarn
 
 # stryker temp files
 .stryker-tmp

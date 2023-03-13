@@ -104,9 +104,9 @@ export const enhanceAxiosWithAuthTokenRefreshing = (
 
             onRefreshed(accessToken)
           })
-          .catch(() => {
+          .catch((refreshError) => {
             onRefreshed(null)
-            config.onTokenRefreshError?.(error)
+            config.onTokenRefreshError?.(refreshError)
           })
       }
 
