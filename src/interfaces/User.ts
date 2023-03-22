@@ -74,6 +74,10 @@ export interface UserRegisterDto {
    * Full phone number
    */
   phone?: string
+  /**
+   * List of role IDs to assign to the user
+   */
+  roles?: UUID[]
   password: string
   consents: UserConsentDto
 }
