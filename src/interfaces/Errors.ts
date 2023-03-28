@@ -186,6 +186,7 @@ export enum HeseyaClientErrorCode {
   ProductSetIsNotOnFavouritesList = 'PRODUCT_SET_IS_NOT_ON_FAVOURITES_LIST',
   ProductPurchaseLimit = 'PRODUCT_PURCHASE_LIMIT',
   PaymentMethodNotAvailableForShipping = 'PAYMENT_METHOD_NOT_AVAILABLE_FOR_SHIPPING',
+  RegisterWithNotRegistrationRole = 'CLIENT_REGISTER_WITH_NON_REGISTRATION_ROLE',
 }
 
 export enum HeseyaServerErrorCode {
