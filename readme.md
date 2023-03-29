@@ -18,9 +18,9 @@
 ## Instalation
 
 ```bash
-$ yarn add @heseya/store-core
+$ yarn add @heseya/store-core@next
 // or
-$ npm i @heseya/store-core
+$ npm i @heseya/store-core@next
 ```
 
 ## Usage
@@ -100,3 +100,55 @@ All the methods on the `HeseyaApiService` object return promises. If the request
 The SDK does not provide any authorization. You need to implement your own authorization mechanism. To do this, you should use the `axios` instance that you injected into the `createHeseyaApiService` function. That instance needs to have interceptors configured to add the authorization header, as well as to handle the token refreshing.
 
 To handle auth requests you can use methods from the `Auth` module.
+
+### Auth Axios Enhancer
+
+Package provides a helper function to handle everything related to the authorization. Thanks to it, you can modify the `axios` instance to add the authorization header, and to handle the token refreshing.
+
+The instance modified in this way may be used in the `createHeseyaApiService` function.
+
+```ts
+import axios from 'axios'
+import { enhanceAxiosWithAuthTokenRefreshing } from '@heseya/store-core'
+
+const axiosInstance = enhanceAxiosWithAuthTokenRefreshing(axios.create(), {
+  heseyaUrl: 'https://api.example.com',
+  getAccessToken: () => localStorage.get('accessToken'),
+  getRefreshToken: () => localStorage.get('refreshToken'),
+  setAccessToken: (token: string) => localStorage.set('accessToken', token),
+  setRefreshToken: (token: string) => localStorage.set('refreshToken', token),
+  setIdentityToken: (token: string) => localStorage.set('identityToken', token),
+  onTokenRefreshError: (error) => handleError(error),
+  shouldIncludeAuthorizationHeader: (config) => config.url?.startsWith('/auth'),
+})
+```
+
+Modified axios will try to refresh the access token every time the request fails with the `401` response code. If token refreshing will succeed, the request will be retried, otherwise axios will throw original error.
+
+When token refreshing fails, not only the original error will be thrown, but also the `config.onTokenRefreshError` function will be called. You should use it to logout the user.
+
+### Event bus
+
+You can create an event bus to handle some events in your store. The main purpose of this feature is to create an abstract way to react to different actions that your client is performing in the store. For example, you can emit events to Google Analytics or to the Facebook Pixel.
+
+#### Creating Event Bus
+
+```ts
+import { createHeseyaEventBusService } from '@heseya/store-core'
+
+const eventBus = createHeseyaEventBusService()
+```
+
+#### Listening and emitting events
+
+```ts
+import { HeseyaEvent } from '@heseya/store-core'
+
+// somewhere in your events config file
+eventBus.on(HeseyaEvent.AddToCart, (product) => {
+  gtm.emit('add_to_cart', { product_id: product.id })
+})
+
+// somewhere in your store code
+eventBus.emit(HeseyaEvent.AddToCart, { id: '123' })
+```

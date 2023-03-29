@@ -27,8 +27,12 @@ export enum AuthPermission {
   Register = 'auth.register',
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
-  SessionsShow = 'auth.sessions.show',
-  SessionsRevoke = 'auth.sessions.revoke',
+  ProvidersManage = 'auth.providers.manage',
+}
+
+export enum ProfilePermission {
+  AddressesManage = 'profile.addresses_manage',
+  WishlistManage = 'profile.wishlist_manage',
 }
 
 export enum AttributesPermission {
@@ -117,6 +121,14 @@ export enum CartPermission {
   Verify = 'cart.verify',
 }
 
+export enum MediaPermission {
+  Show = 'media.show',
+  ShowMetadataPrivate = 'media.show_metadata_private',
+  Add = 'media.add',
+  Edit = 'media.edit',
+  Remove = 'media.remove',
+}
+
 export enum OrdersPermission {
   Show = 'orders.show',
   Add = 'orders.add',
@@ -146,12 +158,16 @@ export enum PagesPermission {
 }
 
 export enum PaymentsPermission {
-  Add = 'payments.add',
+  Show = 'payments.show',
+  ShowDetails = 'payments.show_details',
   Edit = 'payments.edit',
+  Add = 'payments.add',
+  Offline = 'payments.offline',
 }
 
 export enum PaymentMethodsPermission {
   Show = 'payment_methods.show',
+  ShowDetails = 'payment_methods.show_details',
   ShowHidden = 'payment_methods.show_hidden',
   Add = 'payment_methods.add',
   Edit = 'payment_methods.edit',
@@ -235,6 +251,7 @@ export type Permission =
   | AnalyticsPermission
   | AppsPermission
   | AuthPermission
+  | ProfilePermission
   | AttributesPermission
   | BannersPermission
   | ProductSetsPermission
@@ -247,6 +264,7 @@ export type Permission =
   | ItemsPermission
   | SchemasPermission
   | CartPermission
+  | MediaPermission
   | OrdersPermission
   | PackagesPermission
   | PagesPermission

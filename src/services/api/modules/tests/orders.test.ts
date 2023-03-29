@@ -5,25 +5,28 @@ import {
   CartDto,
   HeseyaPaginatedResponse,
   HeseyaResponse,
+  OrderPayment,
   OrderStatus,
   OrderSummary,
-  Payment,
   PaymentMethod,
+  PaymentStatus,
   ProcessedCart,
   ShippingMethod,
 } from '../../../../interfaces'
 
 import { createOrdersService } from '../orders'
 
-const dummyOrdersResponse: HeseyaResponse<Payment> = {
+const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   data: {
     id: '1',
     external_id: '1',
     method: 'payu',
-    paid: false,
+    method_id: null,
+    status: PaymentStatus.Successful,
     amount: 2137,
     redirect_url: '/redirect',
     continue_url: '/continue',
+    date: '2020-01-01',
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
@@ -68,6 +71,7 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     shipping_price: 21,
     summary: 2134,
     shipping_method: {} as ShippingMethod,
+    digital_shipping_method: null,
     created_at: '2022',
     metadata: {},
   },
@@ -84,6 +88,9 @@ const dummyPaymentMethodsResponse: HeseyaPaginatedResponse<PaymentMethod[]> = {
       alias: 'payu',
       name: 'payu',
       public: true,
+      url: 'https://payu.com',
+      icon: 'https://payu.com/icon.png',
+      app: null,
     },
   ],
   meta: {
@@ -122,13 +129,24 @@ afterEach(() => {
 describe('orders service test', () => {
   it('should make a request to create new payment for the given order', async () => {
     const service = createOrdersService(axios)
-    const expectedUrl = `orders/2137/pay/payment-slug`
+    const expectedUrl = `orders/2137/pay/id:payment-id`
 
     mock.onPost(expectedUrl).reply(200, dummyOrdersResponse)
 
-    const result = await service.pay('2137', 'payment-slug', dummyOrdersResponse.data.continue_url)
+    const result = await service.pay('2137', 'payment-id', dummyOrdersResponse.data.continue_url)
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrdersResponse.data.redirect_url)
+  })
+
+  it('should make a request to mark given order as paid', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = `orders/2137/pay/offline`
+
+    mock.onPost(expectedUrl).reply(200, dummyOrdersResponse)
+
+    const result = await service.markAsPaid('2137')
+    expect(mock.history.post[0]?.url).toEqual(expectedUrl)
+    expect(result).toEqual(dummyOrdersResponse.data)
   })
 
   it('should process cart by checking warehouse stock, sales and calculate total items price', async () => {
@@ -145,7 +163,7 @@ describe('orders service test', () => {
   it('should return the list of payment methods available for the given order', async () => {
     const service = createOrdersService(axios)
     const expectedOrderUrl = `/orders/2137?`
-    const expectedPaymentMethodsUrl = `/payment-methods?`
+    const expectedPaymentMethodsUrl = `/payment-methods?order_code=2137`
 
     mock.onGet(expectedOrderUrl).reply(200, dummyOrderSummaryResponse)
     mock.onGet(expectedPaymentMethodsUrl).reply(200, dummyPaymentMethodsResponse)
@@ -184,6 +202,35 @@ describe('orders service test', () => {
     const result = await service.updateStatus('test', { status_id: 'xd' }, { param: 'yes' })
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
+  it('should update order products links', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = '/orders/id:test/products/id:product_id'
+
+    mock.onPatch(expectedUrl).reply(200, { data: { id: 'item_id' } })
+
+    const result = await service.updateProduct('test', 'product_id', {
+      is_delivered: false,
+      urls: {
+        'test-name': 'https://example.com',
+      },
+    })
+
+    expect(mock.history.patch[0].url).toEqual(expectedUrl)
+    expect(result).toEqual({ id: 'item_id' })
+  })
+
+  it('should send all products via email', async () => {
+    const service = createOrdersService(axios)
+    const expectedUrl = '/orders/id:test/send-urls'
+
+    mock.onPost(expectedUrl).reply(200, { data: {} })
+
+    const result = await service.sendProducts('test')
+
+    expect(mock.history.post[0].url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
 })

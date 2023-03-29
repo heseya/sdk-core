@@ -19,10 +19,12 @@ import {
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
 interface ShippingMethodsParams extends PaginationParams, MetadataParams {
   country?: string
   cart_value?: number
+  ids?: UUID[]
 }
 
 export interface ShippingMethodsService

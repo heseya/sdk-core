@@ -4,6 +4,12 @@ import { UUID } from '../../../interfaces/UUID'
 
 type UpdateMetadataRequest = (entityId: UUID, metadata: MetadataUpdateDto) => Promise<Metadata>
 
+export enum MetadataType {
+  Public = 'metadata',
+  Private = 'metadata-private',
+  Personal = 'metadata-personal',
+}
+
 export interface EntityMetadataService {
   /**
    * Allows to update public metadata of an entity.
@@ -16,11 +22,10 @@ export interface EntityMetadataService {
 }
 
 export const createUpdateMetadataRequest =
-  (axios: AxiosInstance, entity: string, publicMetadata = true) =>
+  (axios: AxiosInstance, entity: string, type: MetadataType = MetadataType.Public) =>
   async (entityId: UUID, metadata: MetadataUpdateDto): Promise<Metadata> => {
-    const path = publicMetadata ? 'metadata' : 'metadata-private'
     const { data } = await axios.patch<{ data: Metadata }>(
-      `/${entity}/id:${entityId}/${path}`,
+      `/${entity}/id:${entityId}/${type}`,
       metadata,
     )
     return data.data
@@ -31,7 +36,7 @@ export const createEntityMetadataService = (
   entity: string,
 ): EntityMetadataService => {
   return {
-    updateMetadata: createUpdateMetadataRequest(axios, entity, true),
-    updateMetadataPrivate: createUpdateMetadataRequest(axios, entity, false),
+    updateMetadata: createUpdateMetadataRequest(axios, entity, MetadataType.Public),
+    updateMetadataPrivate: createUpdateMetadataRequest(axios, entity, MetadataType.Private),
   }
 }

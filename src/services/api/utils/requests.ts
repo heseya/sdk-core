@@ -93,13 +93,19 @@ export const createPostNestedRequest =
  * Factory for the PATCH of the resource
  */
 export const createPatchRequest =
-  <Item, ItemDto>(axios: AxiosInstance, route: string, subroute?: string) =>
+  <Item, ItemDto>(
+    axios: AxiosInstance,
+    route: string,
+    options: { byId: boolean } = { byId: true },
+    subroute?: string,
+  ) =>
   async (id: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
     const suffix = subroute && !subroute.startsWith('/') ? `/${subroute}` : ''
+    const prefix = options?.byId ? 'id:' : ''
 
     const response = await axios.patch<HeseyaResponse<Item>>(
-      encodeURI(`${prefixPath(route)}/id:${id}${suffix}?${stringParams}`),
+      encodeURI(`${prefixPath(route)}/${prefix}${id}${suffix}?${stringParams}`),
       payload,
     )
 
@@ -114,7 +120,6 @@ export const createPatchNestedRequest =
   <Item, ItemDto>(axios: AxiosInstance, parentRoute: string, route: string) =>
   async (parentId: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
-
     const response = await axios.patch<HeseyaResponse<Item>>(
       encodeURI(`${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}?${stringParams}`),
       payload,

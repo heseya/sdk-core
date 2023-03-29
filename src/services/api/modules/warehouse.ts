@@ -26,6 +26,7 @@ import {
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { FieldSort } from '../../../interfaces/Sort'
+import { UUID } from '../../../interfaces/UUID'
 
 interface WarehouseItemsListParams extends SearchParam, PaginationParams {
   name?: string
@@ -33,11 +34,13 @@ interface WarehouseItemsListParams extends SearchParam, PaginationParams {
   sort?: string
   sold_out?: boolean
   day?: Date
+  ids?: UUID[]
 }
 
 interface WarehouseDepositsListParams extends SearchParam, PaginationParams {
   search?: string
   sku?: string
+  ids?: UUID[]
   /**
    * Sort schemas
    * Use array syntax, string value is deprecated and will be removed in future

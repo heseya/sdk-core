@@ -1,31 +1,32 @@
-import { CrudService, ServiceFactory } from '../types/Service'
+import { CrudService, ServiceFactory } from '../../types/Service'
 import {
   createDeleteRequest,
   createGetListRequest,
   createGetOneRequest,
   createPatchRequest,
   createPostRequest,
-} from '../utils/requests'
+} from '../../utils/requests'
 
 import {
   ProductSet,
   ProductSetList,
   ProductSetCreateDto,
   ProductSetUpdateDto,
-} from '../../../interfaces/ProductSet'
+} from '../../../../interfaces/ProductSet'
 import {
   DefaultParams,
   MetadataParams,
   PaginationParams,
   SearchParam,
-} from '../types/DefaultParams'
-import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { ReorderEntityRequest } from '../types/Reorder'
-import { createReorderPostRequest } from '../utils/reorder'
-import { UUID } from '../../../interfaces/UUID'
-import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
-import { HeseyaPaginatedResponse, ListResponse, ProductList } from '../../../interfaces'
-import { normalizePagination } from '../utils/normalizePagination'
+} from '../../types/DefaultParams'
+import { createEntityMetadataService, EntityMetadataService } from '../metadata'
+import { ReorderEntityRequest } from '../../types/Reorder'
+import { createReorderPostRequest } from '../../utils/reorder'
+import { UUID } from '../../../../interfaces/UUID'
+import { stringifyQueryParams } from '../../../../utils/stringifyQueryParams'
+import { HeseyaPaginatedResponse, ListResponse, ProductList } from '../../../../interfaces'
+import { normalizePagination } from '../../utils/normalizePagination'
+import { createFavouriteProductSetService, FavouriteProductSetService } from './favourites'
 
 interface ProductSetsListParams extends SearchParam, MetadataParams, PaginationParams {
   root?: boolean
@@ -34,6 +35,7 @@ interface ProductSetsListParams extends SearchParam, MetadataParams, PaginationP
   slug?: string
   parent_id?: UUID
   public?: boolean
+  ids?: UUID[]
 }
 
 export interface ProductSetsService
@@ -61,6 +63,7 @@ export interface ProductSetsService
     products: [{ id: UUID; order: number }],
     params?: DefaultParams,
   ) => Promise<true>
+  Favourites: FavouriteProductSetService
 }
 
 export const createProductSetsService: ServiceFactory<ProductSetsService> = (axios) => {
@@ -116,6 +119,8 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
 
       return true
     },
+
+    Favourites: createFavouriteProductSetService(axios),
 
     ...createEntityMetadataService(axios, route),
   }

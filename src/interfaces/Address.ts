@@ -12,6 +12,8 @@ export interface Address {
   zip: string
 }
 
+export type AddressDto = Omit<Address, 'id'>
+
 export interface UserSavedAddressCreateDto {
   default: boolean
   name: string

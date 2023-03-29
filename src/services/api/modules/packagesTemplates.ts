@@ -13,8 +13,9 @@ import {
   PackagesTemplateCreateDto,
   PackagesTemplateUpdateDto,
 } from '../../../interfaces/PackagesTemplate'
+import { UUID } from '../../../interfaces/UUID'
 
-type PackagesTemplatesListParams = PaginationParams & MetadataParams
+type PackagesTemplatesListParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
 export type PackagesTemplatesService = Omit<
   CrudService<

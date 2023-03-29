@@ -22,12 +22,13 @@ import {
   createEntityMetadataService,
   createUpdateMetadataRequest,
   EntityMetadataService,
+  MetadataType,
 } from './metadata'
 import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
 import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
 import { normalizePagination } from '../utils/normalizePagination'
 
-type AttributeParams = PaginationParams & MetadataParams
+type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
 export interface AttributesService
   extends Omit<
@@ -37,7 +38,7 @@ export interface AttributesService
     EntityMetadataService {
   getOptions(
     attributeId: UUID,
-    params?: MetadataParams & { name?: string },
+    params?: MetadataParams & PaginationParams & { name?: string; ids?: UUID[] },
   ): Promise<ListResponse<AttributeOption>>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(
@@ -100,7 +101,7 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return await createUpdateMetadataRequest(
         axios,
         `${route}/id:${attributeId}/options`,
-        true,
+        MetadataType.Public,
       )(optionId, metadata)
     },
 
@@ -108,7 +109,7 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return await createUpdateMetadataRequest(
         axios,
         `${route}/id:${attributeId}/options`,
-        false,
+        MetadataType.Private,
       )(optionId, metadata)
     },
 

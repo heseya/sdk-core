@@ -16,10 +16,12 @@ import {
   WebhookEventLog,
 } from '../../../interfaces/Webhook'
 import { PaginationParams } from '../types/DefaultParams'
+import { UUID } from '../../../interfaces/UUID'
 
 interface WebhooksListParams extends PaginationParams {
   name?: string
   url?: string
+  ids?: UUID[]
 }
 
 export interface WebhooksService

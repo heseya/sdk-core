@@ -13,8 +13,9 @@ import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { Role, RoleCreateDto, RoleUpdateDto } from '../../../interfaces/Role'
 import { PermissionEntry } from '../../../interfaces'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { UUID } from '../../../interfaces/UUID'
 
-type RolesListParams = PaginationParams & MetadataParams
+type RolesListParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
 export interface RolesService
   extends Omit<

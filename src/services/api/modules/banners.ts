@@ -10,14 +10,19 @@ import {
 import { Banner, BannerCreateDto, BannerUpdateDto } from '../../../interfaces/Banner'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
+import { UUID } from '../../../interfaces/UUID'
 
 interface BannersListParams extends PaginationParams, MetadataParams, PaginationParams {
   slug?: string
+  ids?: UUID[]
 }
 
-export type BannersService = Omit<
-  CrudService<Banner, Banner, BannerCreateDto, BannerUpdateDto, BannersListParams>,
-  'getOneBySlug'
+export type BannersService = CrudService<
+  Banner,
+  Banner,
+  BannerCreateDto,
+  BannerUpdateDto,
+  BannersListParams
 > &
   EntityMetadataService
 
@@ -26,6 +31,7 @@ export const createBannersService: ServiceFactory<BannersService> = (axios) => {
   return {
     get: createGetListRequest(axios, route),
     getOne: createGetOneRequest(axios, route, { byId: true }),
+    getOneBySlug: createGetOneRequest(axios, route),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),

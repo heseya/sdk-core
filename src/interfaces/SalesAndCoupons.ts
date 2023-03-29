@@ -24,6 +24,7 @@ export interface Sale extends MetadataFields {
   id: UUID
   name: string
   description: string | null
+  active: boolean
   value: number
   type: DiscountType
   priority: number
@@ -46,6 +47,7 @@ export interface SaleCreateDto extends CreateMetadataFields {
   name: string
   description: string | null
   value: number
+  active: boolean
   type: DiscountType
   priority: number
   condition_groups: DiscountConditionGroupDto[]

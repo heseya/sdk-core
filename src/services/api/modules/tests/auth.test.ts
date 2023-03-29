@@ -8,8 +8,9 @@ import {
   UserPreferences,
   UserRegisterDto,
 } from '../../../../interfaces'
+import { HeseyaAuthResponse } from '../../../../interfaces/Auth'
 
-import { createAuthService, HeseyaAuthResponse } from '../auth'
+import { createAuthService } from '../auth'
 
 const dummyAuth: { data: HeseyaAuthResponse } = {
   data: {
@@ -22,10 +23,15 @@ const dummyAuth: { data: HeseyaAuthResponse } = {
       roles: [],
       permissions: [],
       preferences: {} as UserPreferences,
-      delivery_addresses: [],
-      invoice_addresses: [],
+      shipping_addresses: [],
+      billing_addresses: [],
       consents: [],
       metadata: { metadata: '' },
+      birthday_date: null,
+      phone: null,
+      phone_country: null,
+      phone_number: null,
+      created_at: '2021-01-01T00:00:00.000Z',
     },
     token: 'dummyToken',
     identity_token: 'dummyIdentityToken',

@@ -14,10 +14,16 @@ import {
   GetOneEntityRequest,
   UpdateEntityRequest,
 } from '../types/Requests'
-import { createEntityMetadataService, EntityMetadataService } from './metadata'
+import {
+  createEntityMetadataService,
+  createUpdateMetadataRequest,
+  EntityMetadataService,
+  MetadataType,
+} from './metadata'
 import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
-import { ListResponse } from '../../../interfaces'
+import { ListResponse, Metadata, MetadataUpdateDto } from '../../../interfaces'
+import { UUID } from '../../../interfaces/UUID'
 import { FieldSort } from '../../../interfaces/Sort'
 
 interface UsersListParams extends SearchParam, PaginationParams, MetadataParams {
@@ -27,6 +33,8 @@ interface UsersListParams extends SearchParam, PaginationParams, MetadataParams 
    * Use array syntax, string value is deprecated and will be removed in future
    */
   sort?: string | Array<FieldSort<'name'> | FieldSort<'created_at'>>
+  roles?: UUID[]
+  ids?: UUID[]
 }
 
 export interface UsersService extends EntityMetadataService, EntityAuditsService<User> {
@@ -60,6 +68,11 @@ export interface UsersService extends EntityMetadataService, EntityAuditsService
    * Removes two factor authentication for the user
    */
   removeTwoFactorAuth: (userId: string) => Promise<User>
+
+  /**
+   * Allows to update personal metadata of an entity.
+   */
+  updateMetadataPersonal: (entityId: UUID, metadata: MetadataUpdateDto) => Promise<Metadata>
 }
 
 export const createUsersService: ServiceFactory<UsersService> = (axios) => {
@@ -73,6 +86,7 @@ export const createUsersService: ServiceFactory<UsersService> = (axios) => {
 
     removeTwoFactorAuth: (userId: string) => axios.post(`/users/id:${userId}/2fa/remove`),
 
+    updateMetadataPersonal: createUpdateMetadataRequest(axios, route, MetadataType.Personal),
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
   }

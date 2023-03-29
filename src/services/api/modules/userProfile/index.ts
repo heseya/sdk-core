@@ -15,6 +15,8 @@ import {
 } from '../../../../interfaces/Address'
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
+import { Metadata, MetadataUpdateDto, OrderProductPublic } from '../../../../interfaces'
+import { PaginationParams } from '../../types/DefaultParams'
 
 export interface UserProfileService {
   /**
@@ -30,13 +32,13 @@ export interface UserProfileService {
    */
   changePassword(payload: { currentPassword: string; newPassword: string }): Promise<true>
 
-  saveDeliveryAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
-  updateDeliveryAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
-  removeDeliveryAddress: DeleteEntityRequest
+  saveShippingAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateShippingAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
+  removeShippingAddress: DeleteEntityRequest
 
-  saveInvoiceAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
-  updateInvoiceAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
-  removeInvoiceAddress: DeleteEntityRequest
+  saveBillingAddress: CreateEntityRequest<UserSavedAddress[], UserSavedAddressCreateDto>
+  updateBillingAddress: UpdateEntityRequest<UserSavedAddress[], UserSavedAddressUpdateDto>
+  removeBillingAddress: DeleteEntityRequest
 
   Orders: {
     /**
@@ -48,9 +50,22 @@ export interface UserProfileService {
      * Get user own order by its Code.
      */
     getOneByCode: GetOneEntityRequest<Order>
+
+    /**
+     * Get list of user owned products.
+     */
+    getProducts: GetEntityRequest<
+      OrderProductPublic,
+      PaginationParams & { shipping_digital?: boolean }
+    >
   }
 
   TwoFactorAuthentication: TwoFactorAuthService
+
+  /**
+   * Allows to update personal metadata.
+   */
+  updateMetadataPersonal: (metadata: MetadataUpdateDto) => Promise<Metadata>
 }
 
 export const createUserProfileService: ServiceFactory<UserProfileService> = (axios) => ({
@@ -73,18 +88,27 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
     return true
   },
 
-  saveDeliveryAddress: createPostRequest(axios, '/auth/profile/delivery-addresses'),
-  updateDeliveryAddress: createPatchRequest(axios, '/auth/profile/delivery-addresses'),
-  removeDeliveryAddress: createDeleteRequest(axios, '/auth/profile/delivery-addresses'),
+  saveShippingAddress: createPostRequest(axios, '/auth/profile/shipping-addresses'),
+  updateShippingAddress: createPatchRequest(axios, '/auth/profile/shipping-addresses'),
+  removeShippingAddress: createDeleteRequest(axios, '/auth/profile/shipping-addresses'),
 
-  saveInvoiceAddress: createPostRequest(axios, '/auth/profile/invoice-addresses'),
-  updateInvoiceAddress: createPatchRequest(axios, '/auth/profile/invoice-addresses'),
-  removeInvoiceAddress: createDeleteRequest(axios, '/auth/profile/invoice-addresses'),
+  saveBillingAddress: createPostRequest(axios, '/auth/profile/billing-addresses'),
+  updateBillingAddress: createPatchRequest(axios, '/auth/profile/billing-addresses'),
+  removeBillingAddress: createDeleteRequest(axios, '/auth/profile/billing-addresses'),
+
+  async updateMetadataPersonal(metadata) {
+    const { data } = await axios.patch<{ data: Metadata }>(
+      `/auth/profile/metadata-personal`,
+      metadata,
+    )
+    return data.data
+  },
 
   TwoFactorAuthentication: createTwoFactorAuthService(axios),
 
   Orders: {
     get: createGetListRequest<OrderList>(axios, 'orders/my'),
     getOneByCode: createGetOneRequest<Order>(axios, 'orders/my'),
+    getProducts: createGetListRequest<OrderProductPublic>(axios, 'orders/my-products'),
   },
 })
