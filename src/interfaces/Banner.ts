@@ -13,9 +13,9 @@ export interface Banner extends MetadataFields {
 export interface BannerMedia {
   id: UUID
   order: number
-  url: string | null
-  title: string | null
-  subtitle: string | null
+  url: string
+  title: string
+  subtitle: string
   media: { min_screen_width: number; media: CdnMedia }[]
 }
 
@@ -28,9 +28,9 @@ export interface BannerCreateDto extends CreateMetadataFields {
 export type BannerUpdateDto = Omit<BannerCreateDto, keyof CreateMetadataFields>
 
 export interface BannerMediaCreateDto {
-  url: string | null
-  title: string | null
-  subtitle: string | null
+  url: string
+  title: string
+  subtitle: string
   media: { min_screen_width: number; media: UUID }[]
 }
 export type BannerMediaUpdateDto = Partial<BannerMediaCreateDto>
