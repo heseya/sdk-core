@@ -10,6 +10,7 @@ import { Tag } from './Tag'
 import { OrderDiscount, ProductSale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
+import { PageList } from './Page'
 
 export interface ProductList extends MetadataFields {
   id: UUID
@@ -43,6 +44,7 @@ export interface ProductList extends MetadataFields {
    */
   purchase_limit_per_user: null | number
   attributes: ProductListAttribute[]
+  descriptions: PageList[]
 }
 
 export interface Product extends Omit<ProductList, 'attributes'> {
@@ -89,6 +91,10 @@ export interface ProductCreateDto extends CreateMetadataFields {
   tags?: UUID[]
   schemas?: UUID[]
   media?: UUID[]
+  /**
+   * ID[] of the Pages
+   */
+  descriptions?: UUID[]
   seo?: SeoMetadataDto
   /**
    * Attribute.id -> AttributeOption.id[]
