@@ -9,6 +9,7 @@ import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
 import { OrderDiscount, Sale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
+import { ProductAttachment } from './ProductAttachment'
 
 export interface ProductList extends MetadataFields {
   id: UUID
@@ -54,6 +55,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
   items: ProductWarehouseItem[]
+  attachments: ProductAttachment[]
   /**
    * Order by which the product will be sorted in the catalog (lower is the higher)
    */

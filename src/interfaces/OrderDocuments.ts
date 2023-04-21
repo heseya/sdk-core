@@ -1,20 +1,18 @@
 import { UUID } from './UUID'
-import { FileUploadDto } from './CdnMedia'
+import { CdnMediaAttachmentType, FileUploadDto } from './CdnMedia'
 
-export enum OrderDocumentType {
-  Other = 'other',
-  Receipt = 'receipt',
-  Invoice = 'invoice',
-}
-
+/**
+ * @deprecated Use `CdnMediaAttachmentType` instead
+ */
+export type OrderDocumentType = CdnMediaAttachmentType
 export interface OrderDocument {
   id: UUID
-  type: OrderDocumentType
+  type: CdnMediaAttachmentType
   name: string | null
 }
 
 export interface OrderDocumentCreateDto {
-  type: OrderDocumentType
+  type: CdnMediaAttachmentType
   name?: string
   /**
    * For node environment, there can also be a Buffer or a ReadStream object (result of `fs.createReadStream`)
