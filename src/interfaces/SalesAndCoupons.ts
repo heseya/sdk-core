@@ -3,7 +3,7 @@ import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
 import { DiscountConditionGroup, DiscountConditionGroupDto } from './SaleCondition'
-import { SeoMetadata } from './Seo'
+import { SeoMetadata, SeoMetadataDto } from './Seo'
 import { ShippingMethod } from './ShippingMethod'
 import { UUID } from './UUID'
 
@@ -49,7 +49,9 @@ export interface Coupon extends Sale {
 
 export interface SaleCreateDto extends CreateMetadataFields {
   name: string
+  slug: string
   description: string | null
+  description_html: string
   value: number
   active: boolean
   type: DiscountType
@@ -60,6 +62,7 @@ export interface SaleCreateDto extends CreateMetadataFields {
   target_sets: UUID[]
   target_shipping_methods: UUID[]
   target_is_allow_list: boolean
+  seo?: SeoMetadataDto
 }
 
 export type SaleUpdateDto = Omit<SaleCreateDto, keyof CreateMetadataFields>
