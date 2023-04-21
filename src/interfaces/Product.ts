@@ -7,7 +7,7 @@ import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
-import { OrderDiscount, Sale } from './SalesAndCoupons'
+import { OrderDiscount, ProductSale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
 
@@ -48,7 +48,7 @@ export interface ProductList extends MetadataFields {
 export interface Product extends Omit<ProductList, 'attributes'> {
   description_html: string
   description_short: string
-  sales: Sale[]
+  sales: ProductSale[]
   sets: ProductSet[]
   schemas: Schema[]
   gallery: CdnMedia[]
