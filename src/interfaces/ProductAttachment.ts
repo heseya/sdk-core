@@ -4,6 +4,9 @@ import { UUID } from './UUID'
 export interface ProductAttachment {
   id: UUID
   name: string
+  /**
+   * Max 1000 characters
+   */
   description: string | null
   visibility: CdnMediaAttachmentVisiblity
   type: CdnMediaAttachmentType
@@ -12,6 +15,9 @@ export interface ProductAttachment {
 
 export interface ProductAttachmentCreateDto {
   name: string
+  /**
+   * Max 1000 characters
+   */
   description?: string
   visibility: CdnMediaAttachmentVisiblity
   type: CdnMediaAttachmentType

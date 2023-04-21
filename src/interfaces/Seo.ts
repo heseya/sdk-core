@@ -8,6 +8,9 @@ export enum TwitterCardType {
 
 export interface SeoMetadata {
   title?: string
+  /**
+   * Max 1000 characters
+   */
   description?: string
   keywords?: string[]
   og_image?: CdnMedia
@@ -17,6 +20,9 @@ export interface SeoMetadata {
 
 export interface SeoMetadataDto {
   title?: string
+  /**
+   * Max 1000 characters
+   */
   description?: string
   keywords?: string[]
   og_image_id?: UUID | null

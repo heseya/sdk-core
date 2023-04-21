@@ -3,6 +3,9 @@ import { UUID } from './UUID'
 export interface Consent {
   id: UUID
   name: string
+  /**
+   * Max 16000 characters
+   */
   description_html: string
   required: boolean
   created_at: string
@@ -11,6 +14,9 @@ export interface Consent {
 
 export interface ConsentCreateDto {
   name: string
+  /**
+   * Max 16000 characters
+   */
   description_html: string
   required: boolean
 }
