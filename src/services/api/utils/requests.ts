@@ -114,14 +114,15 @@ export const createPatchRequest =
 
 /**
  * Factory for the PATCH of the nested resource
- * @deprecated // ! It is unused
  */
 export const createPatchNestedRequest =
   <Item, ItemDto>(axios: AxiosInstance, parentRoute: string, route: string) =>
-  async (parentId: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
+  async (parentId: UUID, id: UUID, payload: ItemDto, params?: DefaultParams): Promise<Item> => {
     const stringParams = stringifyQueryParams(params || {})
     const response = await axios.patch<HeseyaResponse<Item>>(
-      encodeURI(`${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}?${stringParams}`),
+      encodeURI(
+        `${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}/id:${id}?${stringParams}`,
+      ),
       payload,
     )
 
@@ -136,5 +137,20 @@ export const createDeleteRequest =
   async (id: UUID, params?: Params): Promise<true> => {
     const stringParams = stringifyQueryParams(params || {})
     await axios.delete<never>(encodeURI(`${prefixPath(route)}/id:${id}?${stringParams}`))
+    return true
+  }
+
+/**
+ * Factory for the DELETE of the nested resource
+ */
+export const createDeleteNestedRequest =
+  <Params extends DefaultParams>(axios: AxiosInstance, parentRoute: string, route: string) =>
+  async (parentId: UUID, id: UUID, params?: Params): Promise<true> => {
+    const stringParams = stringifyQueryParams(params || {})
+    await axios.delete<never>(
+      encodeURI(
+        `${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}/id:${id}?${stringParams}`,
+      ),
+    )
     return true
   }

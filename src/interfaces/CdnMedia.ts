@@ -13,6 +13,17 @@ export enum CdnMediaType {
   Other = 'other',
 }
 
+export enum CdnMediaAttachmentType {
+  Other = 'other',
+  Receipt = 'receipt',
+  Invoice = 'invoice',
+}
+
+export enum CdnMediaAttachmentVisiblity {
+  Public = 'public',
+  Private = 'private',
+}
+
 export interface CdnMedia extends MetadataFields {
   id: UUID
   type: CdnMediaType
