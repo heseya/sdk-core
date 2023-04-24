@@ -59,6 +59,10 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   items: ProductWarehouseItem[]
   attachments: ProductAttachment[]
   /**
+   * Sets of products, which are related to this product
+   */
+  related_sets: ProductSet[]
+  /**
    * Order by which the product will be sorted in the catalog (lower is the higher)
    */
   order: number | null
@@ -95,6 +99,10 @@ export interface ProductCreateDto extends CreateMetadataFields {
    * ID[] of the Pages
    */
   descriptions?: UUID[]
+  /**
+   * ID[] of the ProductSets
+   */
+  related_sets?: UUID[]
   seo?: SeoMetadataDto
   /**
    * Attribute.id -> AttributeOption.id[]
