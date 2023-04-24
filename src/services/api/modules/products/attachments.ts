@@ -17,15 +17,15 @@ import {
 
 export interface ProductAttachmentsService {
   /**
-   * Add Product to wishlist
+   * Add attachment to product
    */
-  add: CreateNestedEntityRequest<ProductAttachment, ProductAttachmentCreateDto>
+  create: CreateNestedEntityRequest<ProductAttachment, ProductAttachmentCreateDto>
   /**
-   * Add Product to wishlist
+   * Update product attachment
    */
   update: UpdateNestedEntityRequest<ProductAttachment, ProductAttachmentUpdateDto>
   /**
-   * Removes product from wishlist by product_id
+   * Removes product attachment
    */
   delete: DeleteNestedEntityRequest
 }
@@ -36,7 +36,7 @@ export const createProductAttachmentsService: ServiceFactory<ProductAttachmentsS
   const parentRoute = '/products'
   const route = '/attachments'
   return {
-    add: createPostNestedRequest(axios, parentRoute, route),
+    create: createPostNestedRequest(axios, parentRoute, route),
     update: createPatchNestedRequest(axios, parentRoute, route),
     delete: createDeleteNestedRequest(axios, parentRoute, route),
   }
