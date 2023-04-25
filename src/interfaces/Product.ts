@@ -1,5 +1,5 @@
 import { OrderSchema, Schema } from './Schema'
-import { ProductSet } from './ProductSet'
+import { ProductSet, ProductSetList } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
@@ -61,7 +61,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   /**
    * Sets of products, which are related to this product
    */
-  related_sets: ProductSet[]
+  related_sets: ProductSetList[]
   /**
    * Order by which the product will be sorted in the catalog (lower is the higher)
    */
