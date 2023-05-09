@@ -1,10 +1,15 @@
-import { CreateMetadataFields, MetadataFields } from './Metadata'
+import { MetadataFields } from './Metadata'
 import { UUID } from './UUID'
 
 /**
  * For node environment, there can also or a Buffer or a ReadStream object (result of `fs.createReadStream`), but it cannot be typed this way in browsers.
  */
 export type FileUploadDto = File // | ReadStream | Buffer
+
+export enum CdnMediaSource {
+  Silverbox = 'silverbox',
+  External = 'external',
+}
 
 export enum CdnMediaType {
   Photo = 'photo',
@@ -36,16 +41,28 @@ export interface CdnMediaExtended extends CdnMedia {
   relations_count: number
 }
 
-export interface CdnMediaCreateDto extends CreateMetadataFields {
-  /**
-   * For node environment, there can also be a Buffer or a ReadStream object (result of `fs.createReadStream`)
-   */
-  file: FileUploadDto
+interface CdnMediaCommonCreate {
   alt?: string
   slug?: string
   metadata?: Record<string, string>
   metadata_private?: Record<string, string>
 }
+
+export interface CdnMediaUploadDto extends CdnMediaCommonCreate {
+  source?: CdnMediaSource.Silverbox
+  /**
+   * For node environment, there can also be a Buffer or a ReadStream object (result of `fs.createReadStream`)
+   */
+  file: FileUploadDto
+}
+
+export interface CdnMediaExternalCreateDto extends CdnMediaCommonCreate {
+  source: CdnMediaSource.External
+  type: CdnMediaType
+  url: string
+}
+
+export type CdnMediaCreateDto = CdnMediaUploadDto | CdnMediaExternalCreateDto
 
 export interface CdnMediaUpdateDto {
   alt?: string
