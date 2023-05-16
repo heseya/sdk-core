@@ -29,16 +29,28 @@ export interface WarehouseItem extends MetadataFields {
         shipping_time: number
         shipping_date: null
         quantity: number | null
+        /**
+         * Means, that deposit was created using unlimited stock, they are not influencing current total stock quantity
+         */
+        from_unlimited: boolean
       }
     | {
         shipping_time: null
         shipping_date: string
         quantity: number | null
+        /**
+         * Means, that deposit was created using unlimited stock, they are not influencing current total stock quantity
+         */
+        from_unlimited: boolean
       }
     | {
         shipping_time: null
         shipping_date: null
         quantity: number | null
+        /**
+         * Means, that deposit was created using unlimited stock, they are not influencing current total stock quantity
+         */
+        from_unlimited: boolean
       }
   >
 }
@@ -77,16 +89,22 @@ export interface WarehouseDeposit {
   item_id: UUID
   order: { id: UUID; code: string } | null
   created_at: string
+  /**
+   * Means, that deposit was created using unlimited stock, they are not influencing current total stock quantity
+   */
+  from_unlimited: boolean
 }
 
 export type WarehouseDepositDto =
   | {
       quantity: number
-      shipping_time?: number
+      shipping_time: number
+      from_unlimited?: boolean
     }
   | {
       quantity: number
-      shipping_date?: string
+      shipping_date: string
+      from_unlimited?: boolean
     }
 
 /**

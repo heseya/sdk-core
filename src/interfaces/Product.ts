@@ -139,3 +139,9 @@ export interface OrderProductUpdateDto {
   is_delivered?: boolean
   urls?: { [name: string]: string | null | undefined }
 }
+
+export interface ProductPrice {
+  id: UUID
+  price_min: number
+  price_max: number
+}

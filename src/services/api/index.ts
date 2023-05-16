@@ -28,6 +28,7 @@ import { createSchemasService } from './modules/schema'
 import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
 import { createWishlistService } from './modules/wishlist'
+import { createPricesService } from './modules/prices'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -51,6 +52,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => ({
   Roles: createRolesService(axios),
   Users: createUsersService(axios),
   Products: createProductsService(axios),
+  Prices: createPricesService(axios),
   Schemas: createSchemasService(axios),
   Tags: createTagsService(axios),
   ProductSets: createProductSetsService(axios),
