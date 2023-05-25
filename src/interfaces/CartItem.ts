@@ -11,7 +11,7 @@ export interface SavedCartItem {
   createdAt: number
 }
 
-export type CartItemSchemaValue = string | number | boolean | null | SchemaOption
+export type CartItemSchemaValue = string | number | boolean | null | undefined | SchemaOption
 
 export interface CartItemSchema {
   id: string
