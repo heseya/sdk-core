@@ -44,7 +44,10 @@ const parseDefaultValue = (schema: Schema) => {
 
 export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
   schemas.map((schema) => {
-    const fallbackDefault = schema.default ? getDefaultFallbackForType(schema) : undefined
+    /**
+     * If schema is required, we need to set a default value no matter what.
+     */
+    const fallbackDefault = schema.required ? getDefaultFallbackForType(schema) : undefined
     const defaultValue = parseDefaultValue(schema) ?? fallbackDefault
 
     const optionPrice =
