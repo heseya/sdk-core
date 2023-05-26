@@ -79,6 +79,7 @@ export interface OrdersService extends EntityMetadataService, EntityAuditsServic
    * Process cart by checking warehouse stock, sales and calculate total items price
    *
    * If any of the products is unavailable, it is not returned in the `items` array.
+   * If product does not exist, the request throws an error.
    *
    * If any of the discount codes does not exist/is invalid, it is not returned in the `coupons` array.
    *
