@@ -6,6 +6,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.String,
         value: 'w',
         price: 100,
@@ -20,6 +21,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.String,
         value: 'w',
         price: 100,
@@ -34,6 +36,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.Select,
         value: {} as SchemaOption,
         price: 100,
@@ -48,6 +51,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.String,
         value: 'w',
         price: 100,
@@ -62,6 +66,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.String,
         value: 'w',
         price: 100,
@@ -70,6 +75,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'xdd',
+        name: 'xd',
         type: SchemaType.Numeric,
         value: 23,
         price: 99,
@@ -78,6 +84,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'xdd',
+        name: 'xd',
         type: SchemaType.Boolean,
         value: false,
         price: 1000,
@@ -86,6 +93,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'xdd',
+        name: 'xd',
         type: SchemaType.Boolean,
         value: true,
         price: 1000,
@@ -100,6 +108,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.Multiply,
         value: 3,
         price: 100,
@@ -114,6 +123,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'xd',
+        name: 'xd',
         type: SchemaType.Multiply,
         value: 3,
         price: 100,
@@ -122,6 +132,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'xdd',
+        name: 'xd',
         type: SchemaType.Boolean,
         value: true,
         price: 1000,
@@ -140,6 +151,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'A',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 3,
         price: 0,
@@ -148,6 +160,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'B',
+        name: 'xd',
         type: SchemaType.String,
         value: 'text',
         price: 100,
@@ -162,6 +175,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'A',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 2,
         price: 0,
@@ -170,6 +184,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'B',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 2,
         price: 0,
@@ -178,6 +193,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'C',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 2,
         price: 0,
@@ -186,6 +202,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'D',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 2,
         price: 0,
@@ -194,6 +211,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'E',
+        name: 'xd',
         type: SchemaType.String,
         value: 'text',
         price: 100,
@@ -208,6 +226,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'A',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 1,
         price: 0,
@@ -216,6 +235,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'B',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 2,
         price: 0,
@@ -224,6 +244,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'C',
+        name: 'xd',
         type: SchemaType.Select,
         value: {} as SchemaOption,
         price: 50,
@@ -232,6 +253,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'D',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 2,
         price: 0,
@@ -240,6 +262,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'E',
+        name: 'xd',
         type: SchemaType.String,
         value: 'text',
         price: 100,
@@ -248,6 +271,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'F',
+        name: 'xd',
         type: SchemaType.String,
         value: 'text',
         price: 200,
@@ -262,6 +286,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'A',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 3,
         price: 0,
@@ -278,6 +303,7 @@ describe('Calculating Schemas Price', () => {
     const schemas: CartItemSchema[] = [
       {
         id: 'A',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 3,
         price: 0,
@@ -286,6 +312,7 @@ describe('Calculating Schemas Price', () => {
       },
       {
         id: 'B',
+        name: 'xd',
         type: SchemaType.MultiplySchema,
         value: 3,
         price: 0,
