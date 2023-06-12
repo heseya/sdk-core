@@ -153,7 +153,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     async processCart(cart) {
       const {
         data: { data },
-      } = await axios.post<HeseyaResponse<ProcessedCart>>(`cart/process`, cart)
+      } = await axios.post<HeseyaResponse<ProcessedCart>>(`/cart/process`, cart)
 
       return data
     },
