@@ -6,6 +6,12 @@ export enum TwitterCardType {
   SummaryLargeImage = 'summary_large_image',
 }
 
+export interface SeoMetadataTag {
+  type: 'script' | 'link' | 'meta'
+  // TODO: more specific types?
+  [key: string]: string | boolean | undefined
+}
+
 export interface SeoMetadata {
   title?: string
   /**
@@ -16,6 +22,7 @@ export interface SeoMetadata {
   og_image?: CdnMedia
   twitter_card?: TwitterCardType
   no_index?: boolean
+  header_tags?: SeoMetadataTag[]
 }
 
 export interface SeoMetadataDto {
@@ -28,6 +35,7 @@ export interface SeoMetadataDto {
   og_image_id?: UUID | null
   twitter_card?: TwitterCardType
   no_index?: boolean
+  header_tags?: SeoMetadataTag[]
 }
 
 export type SeoCheckModelType = 'Product' | 'ProductSet' | 'Page'
