@@ -42,6 +42,7 @@ export interface CdnMediaExtended extends CdnMedia {
 }
 
 interface CdnMediaCommonCreate {
+  id?: UUID
   alt?: string
   slug?: string
   metadata?: Record<string, string>

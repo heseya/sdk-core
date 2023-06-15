@@ -37,13 +37,16 @@ interface AttributeBase extends CreateMetadataFields {
 
 // DtoHelper
 type MakeAttributeDto<Attr> = Omit<Attr, 'id' | 'min' | 'max'>
+type MakeAttributeCreateDto<Attr> = MakeAttributeDto<Attr> & { id?: UUID }
 
 // * Single Option -------------------------------------------------
 interface AttributeSingleOptionOption extends AttributeOptionBase {
   value_number: null
   value_date: null
 }
-type AttributeSingleOptionOptionCreateDto = Omit<AttributeSingleOptionOption, 'id' | 'index'>
+type AttributeSingleOptionOptionCreateDto = Omit<AttributeSingleOptionOption, 'id' | 'index'> & {
+  id?: UUID
+}
 // May be used in future
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeSingleOptionOptionUpdateDto = Omit<
@@ -56,14 +59,16 @@ interface AttributeSingleOption extends AttributeBase {
   min: null
   max: null
 }
-type AttributeSingleOptionCreateDto = MakeAttributeDto<AttributeSingleOption>
+type AttributeSingleOptionCreateDto = MakeAttributeCreateDto<AttributeSingleOption>
 type AttributeSingleOptionUpdateDto = MakeAttributeDto<
   Omit<AttributeSingleOption, keyof CreateMetadataFields>
 >
 
 // * Multi Option --------------------------------------------------------
 type AttributeMultiOptionOption = AttributeSingleOptionOption
-type AttributeMultiOptionOptionCreateDto = Omit<AttributeMultiOptionOption, 'id' | 'index'>
+type AttributeMultiOptionOptionCreateDto = Omit<AttributeMultiOptionOption, 'id' | 'index'> & {
+  id?: UUID
+}
 // May be used in future
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeMultiOptionOptionUpdateDto = Omit<
@@ -76,7 +81,7 @@ interface AttributeMultiOption extends AttributeBase {
   min: null
   max: null
 }
-type AttributeMultiOptionCreateDto = MakeAttributeDto<AttributeMultiOption>
+type AttributeMultiOptionCreateDto = MakeAttributeCreateDto<AttributeMultiOption>
 type AttributeMultiOptionUpdateDto = MakeAttributeDto<
   Omit<AttributeMultiOption, keyof CreateMetadataFields>
 >
@@ -86,7 +91,9 @@ interface AttributeNumberOption extends AttributeOptionBase {
   value_number: number
   value_date: null
 }
-type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index'>
+type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index'> & {
+  id?: UUID
+}
 // May be used in future
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeNumberOptionUpdateDto = Omit<
@@ -99,7 +106,7 @@ interface AttributeNumber extends AttributeBase {
   min: number
   max: number
 }
-type AttributeNumberCreateDto = MakeAttributeDto<AttributeNumber>
+type AttributeNumberCreateDto = MakeAttributeCreateDto<AttributeNumber>
 type AttributeNumberUpdateDto = MakeAttributeDto<Omit<AttributeNumber, keyof CreateMetadataFields>>
 
 // * Date ----------------------------------------------------------
@@ -107,7 +114,9 @@ interface AttributeDateOption extends AttributeOptionBase {
   value_number: null
   value_date: string // Date
 }
-type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'>
+type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'> & {
+  id?: UUID
+}
 // May be used in future
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeDateOptionUpdateDto = Omit<AttributeDateOptionCreateDto, keyof CreateMetadataFields>
@@ -117,7 +126,7 @@ interface AttributeDate extends AttributeBase {
   min: string // Date
   max: string // Date
 }
-type AttributeDateCreateDto = MakeAttributeDto<AttributeDate>
+type AttributeDateCreateDto = MakeAttributeCreateDto<AttributeDate>
 type AttributeDateUpdateDto = MakeAttributeDto<Omit<AttributeDate, keyof CreateMetadataFields>>
 
 // ? ---------------------------------------------------------------

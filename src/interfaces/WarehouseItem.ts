@@ -56,6 +56,7 @@ export interface WarehouseItem extends MetadataFields {
 }
 
 export interface WarehouseItemCreateDto extends CreateMetadataFields {
+  id?: UUID
   name: string
   sku: string
   /**
@@ -73,7 +74,7 @@ export interface WarehouseItemCreateDto extends CreateMetadataFields {
 
 export type WarehouseItemUpdateDto = Omit<
   Partial<WarehouseItemCreateDto>,
-  keyof CreateMetadataFields
+  keyof CreateMetadataFields | 'id'
 >
 
 /**

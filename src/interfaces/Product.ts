@@ -74,6 +74,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
 }
 
 export interface ProductCreateDto extends CreateMetadataFields {
+  id?: UUID
   name: string
   slug: string
   price: number
@@ -115,7 +116,7 @@ export interface ProductCreateDto extends CreateMetadataFields {
   purchase_limit_per_user?: null | number
 }
 
-export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields>>
+export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>>
 
 //? ------------------------------------------------------------
 
