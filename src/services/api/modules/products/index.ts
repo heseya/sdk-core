@@ -1,4 +1,4 @@
-import { CrudService, ServiceFactory } from '../types/Service'
+import { CrudService, ServiceFactory } from '../../types/Service'
 import {
   createDeleteRequest,
   createGetListRequest,
@@ -6,20 +6,21 @@ import {
   createGetSimpleListRequest,
   createPatchRequest,
   createPostRequest,
-} from '../utils/requests'
+} from '../../utils/requests'
 
-import { UUID } from '../../../interfaces/UUID'
+import { UUID } from '../../../../interfaces/UUID'
 import {
   Product,
   ProductList,
   ProductCreateDto,
   ProductUpdateDto,
-} from '../../../interfaces/Product'
-import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
-import { Attribute, ListResponse } from '../../../interfaces'
-import { FieldSort } from '../../../interfaces/Sort'
+} from '../../../../interfaces/Product'
+import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
+import { createEntityMetadataService, EntityMetadataService } from '../metadata'
+import { createEntityAuditsService, EntityAuditsService } from '../audits'
+import { Attribute, ListResponse } from '../../../../interfaces'
+import { FieldSort } from '../../../../interfaces/Sort'
+import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
@@ -79,6 +80,8 @@ export interface ProductsService
   getGoogleCategories(lang: string): Promise<{ id: number; name: string }[]>
 
   getFilters(props?: { sets?: UUID[] }): Promise<Attribute[]>
+
+  Attachments: ProductAttachmentsService
 }
 
 export const createProductsService: ServiceFactory<ProductsService> = (axios) => {
@@ -102,5 +105,7 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
 
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),
+
+    Attachments: createProductAttachmentsService(axios),
   }
 }

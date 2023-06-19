@@ -22,13 +22,30 @@ export type CreateEntityRequest<Result, EntityDto, Params extends DefaultParams 
   params?: Params,
 ) => Promise<Result>
 
+export type CreateNestedEntityRequest<
+  Result,
+  EntityDto,
+  Params extends DefaultParams = DefaultParams,
+> = (parentId: UUID, entityDto: EntityDto, params?: Params) => Promise<Result>
+
 export type UpdateEntityRequest<Result, EntityDto, Params extends DefaultParams = DefaultParams> = (
   id: UUID,
   entityDto: EntityDto,
   params?: Params,
 ) => Promise<Result>
 
+export type UpdateNestedEntityRequest<
+  Result,
+  EntityDto,
+  Params extends DefaultParams = DefaultParams,
+> = (parentId: UUID, id: UUID, entityDto: EntityDto, params?: Params) => Promise<Result>
+
 export type DeleteEntityRequest<Params extends DefaultParams = DefaultParams, Result = true> = (
   id: UUID,
   params?: Params,
 ) => Promise<Result>
+
+export type DeleteNestedEntityRequest<
+  Params extends DefaultParams = DefaultParams,
+  Result = true,
+> = (parentId: UUID, id: UUID, params?: Params) => Promise<Result>

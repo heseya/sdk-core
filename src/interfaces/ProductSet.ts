@@ -26,6 +26,7 @@ export interface ProductSet extends Omit<ProductSetList, 'parent_id'> {
 }
 
 export interface ProductSetCreateDto extends CreateMetadataFields {
+  id?: UUID
   name: string
   slug_suffix: string
   slug_override: boolean
@@ -38,4 +39,4 @@ export interface ProductSetCreateDto extends CreateMetadataFields {
   attributes?: UUID[]
 }
 
-export type ProductSetUpdateDto = Omit<ProductSetCreateDto, keyof CreateMetadataFields>
+export type ProductSetUpdateDto = Omit<ProductSetCreateDto, keyof CreateMetadataFields | 'id'>

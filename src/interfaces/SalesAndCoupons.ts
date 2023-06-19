@@ -3,6 +3,7 @@ import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
 import { DiscountConditionGroup, DiscountConditionGroupDto } from './SaleCondition'
+import { SeoMetadata, SeoMetadataDto } from './Seo'
 import { ShippingMethod } from './ShippingMethod'
 import { UUID } from './UUID'
 
@@ -23,7 +24,9 @@ export enum DiscountTargetType {
 export interface Sale extends MetadataFields {
   id: UUID
   name: string
+  slug: string
   description: string | null
+  description_html: string
   active: boolean
   value: number
   type: DiscountType
@@ -35,6 +38,7 @@ export interface Sale extends MetadataFields {
   target_sets: ProductSet[]
   target_shipping_methods: ShippingMethod[]
   target_is_allow_list: boolean
+  seo: SeoMetadata
 }
 
 export interface Coupon extends Sale {
@@ -45,7 +49,9 @@ export interface Coupon extends Sale {
 
 export interface SaleCreateDto extends CreateMetadataFields {
   name: string
+  slug: string
   description: string | null
+  description_html: string
   value: number
   active: boolean
   type: DiscountType
@@ -56,6 +62,7 @@ export interface SaleCreateDto extends CreateMetadataFields {
   target_sets: UUID[]
   target_shipping_methods: UUID[]
   target_is_allow_list: boolean
+  seo?: SeoMetadataDto
 }
 
 export type SaleUpdateDto = Omit<SaleCreateDto, keyof CreateMetadataFields>
@@ -65,6 +72,22 @@ export interface CouponCreateDto extends SaleCreateDto {
 }
 
 export type CouponUpdateDto = Omit<CouponCreateDto, keyof CreateMetadataFields>
+
+// ? ---------------------------------------------------------------------------------------------------------------
+
+export interface ProductSale {
+  id: string
+  name: string
+  slug: string
+  description: string
+  description_html: string
+  type: DiscountType
+  value: number
+  priority: number
+  target_type: DiscountTargetType
+  target_is_allow_list: boolean
+  active: boolean
+}
 
 // ? ---------------------------------------------------------------------------------------------------------------
 

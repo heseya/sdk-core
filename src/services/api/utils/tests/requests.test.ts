@@ -4,6 +4,7 @@ import MockAdapter from 'axios-mock-adapter'
 
 import { HeseyaPaginatedResponse } from '../../../..'
 import {
+  createDeleteNestedRequest,
   createDeleteRequest,
   createGetListRequest,
   createGetOneRequest,
@@ -331,11 +332,11 @@ describe('createPatchRequest', () => {
 describe('createPatchNestedRequest', () => {
   it('handle the / prefix in path', async () => {
     const execute = createPatchNestedRequest<DummyItem, DummyItemDto>(axios, '/products', '/items')
-    const expectedUrl = '/products/id:test/items?'
+    const expectedUrl = '/products/id:PID/items/id:ID?'
 
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
 
-    const result = await execute('test', dummyItemDto)
+    const result = await execute('PID', 'ID', dummyItemDto)
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
     expect(result).toEqual(dummyItem)
@@ -343,11 +344,11 @@ describe('createPatchNestedRequest', () => {
 
   it('encode path components', async () => {
     const execute = createPatchNestedRequest<DummyItem, DummyItemDto>(axios, '/products', '/items')
-    const expectedUrl = '/products/id:test%25/items?'
+    const expectedUrl = '/products/id:test%25/items/id:test%25?'
 
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
 
-    const result = await execute('test%', dummyItemDto)
+    const result = await execute('test%', 'test%', dummyItemDto)
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
     expect(result).toEqual(dummyItem)
@@ -355,11 +356,11 @@ describe('createPatchNestedRequest', () => {
 
   it('should make a rest request with params', async () => {
     const execute = createPatchNestedRequest<DummyItem, DummyItemDto>(axios, 'products', 'items')
-    const expectedUrl = '/products/id:test/items?param=yes'
+    const expectedUrl = '/products/id:test/items/id:test?param=yes'
 
     mock.onPatch(expectedUrl).reply(200, { data: dummyItem })
 
-    const result = await execute('test', dummyItemDto, { param: 'yes' })
+    const result = await execute('test', 'test', dummyItemDto, { param: 'yes' })
 
     expect(mock.history.patch[0].url).toEqual(expectedUrl)
     expect(result).toEqual(dummyItem)
@@ -398,6 +399,47 @@ describe('createDeleteRequest', () => {
     mock.onDelete(expectedUrl).reply(200, dummyResponseList)
 
     const result = await execute('test', { param: 'yes' })
+
+    expect(mock.history.delete[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+})
+
+describe('createDeleteNestedRequest', () => {
+  const parentRoute = 'products'
+  const childRoute = 'items'
+
+  it('should make nested delete request', async () => {
+    const execute = createDeleteNestedRequest(axios, parentRoute, childRoute)
+    const expectedUrl = `/${parentRoute}/id:PID/${childRoute}/id:ID?`
+
+    mock.onDelete(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('PID', 'ID')
+
+    expect(mock.history.delete[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
+  it('encode path components', async () => {
+    const execute = createDeleteNestedRequest(axios, parentRoute, childRoute)
+    const expectedUrl = `/${parentRoute}/id:test%25/${childRoute}/id:test%25?`
+
+    mock.onDelete(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('test%', 'test%')
+
+    expect(mock.history.delete[0].url).toEqual(expectedUrl)
+    expect(result).toEqual(true)
+  })
+
+  it('should make a rest request with params', async () => {
+    const execute = createDeleteNestedRequest(axios, parentRoute, childRoute)
+    const expectedUrl = `/${parentRoute}/id:test/${childRoute}/id:test?param=yes`
+
+    mock.onDelete(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('test', 'test', { param: 'yes' })
 
     expect(mock.history.delete[0].url).toEqual(expectedUrl)
     expect(result).toEqual(true)

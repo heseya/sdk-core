@@ -26,6 +26,8 @@ export const getSeoValues = (...seoMetadatas: SeoMetadata[]): SeoMetadata => {
     og_image: get('og_image') as CdnMedia | undefined,
     twitter_card: get('twitter_card') as TwitterCardType | undefined,
     no_index: get('no_index') as boolean | undefined,
+    // TODO: maybe newers tags should override older ones? How this should work?
+    header_tags: seoMetadatas.map((s) => s?.header_tags || []).flat(),
   }
 }
 
@@ -35,6 +37,10 @@ export const getSeoValues = (...seoMetadatas: SeoMetadata[]): SeoMetadata => {
  */
 export const createSeoMetatags = (...seoMetadatas: SeoMetadata[]) => {
   const seo = getSeoValues(...seoMetadatas)
+
+  const metaTags = seo.header_tags?.filter((t) => t.type === 'meta') || []
+  const linkTags = seo.header_tags?.filter((t) => t.type === 'link') || []
+  const scriptTags = seo.header_tags?.filter((t) => t.type === 'script') || []
 
   return {
     title: seo.title,
@@ -86,6 +92,15 @@ export const createSeoMetatags = (...seoMetadatas: SeoMetadata[]) => {
         name: 'robots',
         content: seo.no_index ? 'noindex, nowfollow' : 'index, follow',
       },
+
+      // Additional meta
+      ...metaTags,
     ].filter((m) => !isNil(m.content)),
+
+    // Addtional links
+    link: linkTags,
+
+    // Addtional scripts
+    script: scriptTags,
   }
 }

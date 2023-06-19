@@ -1,5 +1,5 @@
 import { OrderSchema, Schema } from './Schema'
-import { ProductSet } from './ProductSet'
+import { ProductSet, ProductSetList } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
@@ -7,8 +7,10 @@ import { CdnMedia } from './CdnMedia'
 import { ProductAttribute, ProductListAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
-import { OrderDiscount, Sale } from './SalesAndCoupons'
+import { OrderDiscount, ProductSale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
+import { ProductAttachment } from './ProductAttachment'
+import { PageList } from './Page'
 
 export interface ProductList extends MetadataFields {
   id: UUID
@@ -42,18 +44,24 @@ export interface ProductList extends MetadataFields {
    */
   purchase_limit_per_user: null | number
   attributes: ProductListAttribute[]
+  descriptions: PageList[]
 }
 
 export interface Product extends Omit<ProductList, 'attributes'> {
   description_html: string
   description_short: string
-  sales: Sale[]
+  sales: ProductSale[]
   sets: ProductSet[]
   schemas: Schema[]
   gallery: CdnMedia[]
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
   items: ProductWarehouseItem[]
+  attachments: ProductAttachment[]
+  /**
+   * Sets of products, which are related to this product
+   */
+  related_sets: ProductSetList[]
   /**
    * Order by which the product will be sorted in the catalog (lower is the higher)
    */
@@ -66,6 +74,7 @@ export interface Product extends Omit<ProductList, 'attributes'> {
 }
 
 export interface ProductCreateDto extends CreateMetadataFields {
+  id?: UUID
   name: string
   slug: string
   price: number
@@ -87,6 +96,14 @@ export interface ProductCreateDto extends CreateMetadataFields {
   tags?: UUID[]
   schemas?: UUID[]
   media?: UUID[]
+  /**
+   * ID[] of the Pages
+   */
+  descriptions?: UUID[]
+  /**
+   * ID[] of the ProductSets
+   */
+  related_sets?: UUID[]
   seo?: SeoMetadataDto
   /**
    * Attribute.id -> AttributeOption.id[]
@@ -99,7 +116,7 @@ export interface ProductCreateDto extends CreateMetadataFields {
   purchase_limit_per_user?: null | number
 }
 
-export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields>>
+export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>>
 
 //? ------------------------------------------------------------
 

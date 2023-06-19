@@ -22,7 +22,7 @@ import {
 } from './metadata'
 import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
-import { ListResponse, Metadata, MetadataUpdateDto } from '../../../interfaces'
+import { HeseyaResponse, ListResponse, Metadata, MetadataUpdateDto } from '../../../interfaces'
 import { UUID } from '../../../interfaces/UUID'
 import { FieldSort } from '../../../interfaces/Sort'
 
@@ -65,6 +65,11 @@ export interface UsersService extends EntityMetadataService, EntityAuditsService
   delete: DeleteEntityRequest
 
   /**
+   * Delete user (user can delete only himself)
+   */
+  deleteSelf: (password: string) => Promise<true>
+
+  /**
    * Removes two factor authentication for the user
    */
   removeTwoFactorAuth: (userId: string) => Promise<User>
@@ -84,7 +89,15 @@ export const createUsersService: ServiceFactory<UsersService> = (axios) => {
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
 
-    removeTwoFactorAuth: (userId: string) => axios.post(`/users/id:${userId}/2fa/remove`),
+    removeTwoFactorAuth: async (userId: string) => {
+      const { data } = await axios.post<HeseyaResponse<User>>(`/users/id:${userId}/2fa/remove`)
+      return data.data
+    },
+
+    deleteSelf: async (password: string) => {
+      await axios.post(`/users/self-remove`, { password })
+      return true
+    },
 
     updateMetadataPersonal: createUpdateMetadataRequest(axios, route, MetadataType.Personal),
     ...createEntityMetadataService(axios, route),

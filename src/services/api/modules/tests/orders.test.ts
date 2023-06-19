@@ -151,7 +151,7 @@ describe('orders service test', () => {
 
   it('should process cart by checking warehouse stock, sales and calculate total items price', async () => {
     const service = createOrdersService(axios)
-    const expectedUrl = `cart/process`
+    const expectedUrl = `/cart/process`
 
     mock.onPost(expectedUrl).reply(200, dummyCardProccessResponse)
 

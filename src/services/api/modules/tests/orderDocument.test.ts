@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { createReadStream } from 'fs'
 import MockAdapter from 'axios-mock-adapter'
-import { OrderDocumentType } from '../../../../interfaces'
+import { CdnMediaAttachmentType } from '../../../../interfaces'
 
 import { createOrderDocumentsService } from '../ordersDocuments'
 
 const dummyOrderDocument = {
   id: 'id',
-  type: OrderDocumentType.Other,
+  type: CdnMediaAttachmentType.Other,
   name: null,
 }
 
@@ -38,7 +38,7 @@ describe('order documents test service', () => {
     const result = await service.create(orderId, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       file: createReadStream(__dirname + '/test/mock/dummy.jpg') as any,
-      type: OrderDocumentType.Other,
+      type: CdnMediaAttachmentType.Other,
     })
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrderDocument)

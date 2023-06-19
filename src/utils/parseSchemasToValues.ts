@@ -34,9 +34,9 @@ const parseDefaultValue = (schema: Schema) => {
       // Default value for boolean comes as string
       return !!+schema.default
     case SchemaType.Select:
-      const defaultOption = schema.options.find((option) => option.id === schema.default)
+      const defaultOption = schema.options[parseInt(schema.default)]
       const isAvailable = defaultOption?.available ?? false
-      return isAvailable ? schema.default : getDefaultFallbackForType(schema)
+      return isAvailable ? defaultOption.id : undefined
     default:
       return schema.default
   }
@@ -44,7 +44,11 @@ const parseDefaultValue = (schema: Schema) => {
 
 export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
   schemas.map((schema) => {
-    const defaultValue = parseDefaultValue(schema) || getDefaultFallbackForType(schema)
+    /**
+     * If schema is required, we need to set a default value no matter what.
+     */
+    const fallbackDefault = schema.required ? getDefaultFallbackForType(schema) : undefined
+    const defaultValue = parseDefaultValue(schema) ?? fallbackDefault
 
     const optionPrice =
       schema.type === SchemaType.Select
