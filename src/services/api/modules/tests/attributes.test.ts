@@ -117,4 +117,17 @@ describe('attributes service test', () => {
     expect(mock.history.delete[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(true)
   })
+
+  it('should make a request to reorder options', async () => {
+    const attributeId = dummyOptionDto.id || '1'
+    const service = createAttributesService(axios)
+    const expectedUrl = `/attributes/id:${attributeId}/options/reorder?`
+
+    mock.onPost(expectedUrl).reply(200, {})
+
+    const result = await service.reorderOptions(attributeId, ['id', 'id2'])
+    expect(mock.history.post[0]?.url).toEqual(expectedUrl)
+    expect(JSON.parse(mock.history.post[0]?.data)).toEqual({ ids: ['id', 'id2'] })
+    expect(result).toEqual(true)
+  })
 })
