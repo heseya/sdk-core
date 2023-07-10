@@ -11,6 +11,7 @@ export interface Tag {
 }
 
 export interface TagCreateDto {
+  id?: UUID
   name: string
   /**
    * String representing hex color of the tag. It is saved without hash (#) sign.
