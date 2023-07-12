@@ -24,7 +24,7 @@ export enum DiscountTargetType {
 export interface Sale extends MetadataFields {
   id: UUID
   name: string
-  slug: string
+  slug: string | null
   description: string | null
   description_html: string
   active: boolean
@@ -49,7 +49,7 @@ export interface Coupon extends Sale {
 
 export interface SaleCreateDto extends CreateMetadataFields {
   name: string
-  slug: string
+  slug?: string
   description: string | null
   description_html: string
   value: number
