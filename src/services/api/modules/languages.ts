@@ -8,7 +8,11 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
-import { Language, LanguageCreateDto, LanguageUpdateDto } from '../../../interfaces/Language'
+import {
+  Language,
+  LanguageCreateDto,
+  LanguageUpdateDto,
+} from '../../../interfaces/languages/Language'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
 
