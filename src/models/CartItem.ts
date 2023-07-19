@@ -53,7 +53,7 @@ export class CartItem {
   }
 
   updateQuantity(newQuantity: number) {
-    return new CartItem(
+    const newItem = new CartItem(
       this.product,
       newQuantity,
       this.productSchemas,
@@ -61,6 +61,10 @@ export class CartItem {
       [],
       this.createdAt,
     )
+    // This is to make sure that precalculated prices are not lost
+    if (this.precalculatedPrice && this.precalculatedInitialPrice)
+      newItem.setPrecalculatedPrices(this.precalculatedPrice, this.precalculatedInitialPrice)
+    return newItem
   }
 
   get id() {
