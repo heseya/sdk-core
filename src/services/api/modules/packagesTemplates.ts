@@ -17,6 +17,9 @@ import { UUID } from '../../../interfaces/UUID'
 
 type PackagesTemplatesListParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
+/**
+ * @deprecated Package templates will be removed in 6.0 release
+ */
 export type PackagesTemplatesService = Omit<
   CrudService<
     PackagesTemplate,
@@ -32,9 +35,21 @@ export type PackagesTemplatesService = Omit<
 export const createPackagesTemplatesService: ServiceFactory<PackagesTemplatesService> = (axios) => {
   const route = 'apps'
   return {
+    /**
+     * @deprecated Package templates will be removed in 6.0 release
+     */
     get: createGetListRequest(axios, route),
+    /**
+     * @deprecated Package templates will be removed in 6.0 release
+     */
     create: createPostRequest(axios, route),
+    /**
+     * @deprecated Package templates will be removed in 6.0 release
+     */
     delete: createDeleteRequest(axios, route),
+    /**
+     * @deprecated Package templates will be removed in 6.0 release
+     */
     update: createPatchRequest(axios, route),
 
     ...createEntityMetadataService(axios, route),
