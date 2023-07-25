@@ -1,10 +1,23 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UUID } from './UUID'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
-export interface OrderStatus extends MetadataFields {
-  id: UUID
+interface OrderStatusTranslatable {
   name: string
   description: string
+}
+
+interface OrderStatusBase {
+  /**
+   * Color of the status
+   */
   color: string
 
   /**
@@ -23,7 +36,22 @@ export interface OrderStatus extends MetadataFields {
   no_notifications: boolean
 }
 
-export type OrderStatusCreateDto = Omit<OrderStatus, 'id' | keyof MetadataFields> &
-  CreateMetadataFields
+export interface OrderStatus
+  extends OrderStatusTranslatable,
+    OrderStatusBase,
+    Translations<OrderStatusTranslatable>,
+    PublishedTranslations,
+    MetadataFields {
+  id: UUID
+}
 
-export type OrderStatusUpdateDto = Omit<OrderStatusCreateDto, keyof CreateMetadataFields>
+export interface OrderStatusCreateDto
+  extends OrderStatusBase,
+    CreateMetadataFields,
+    PublishedTranslationsCreateDto,
+    TranslationsCreateDto<OrderStatusTranslatable> {}
+
+export interface OrderStatusUpdateDto
+  extends Partial<OrderStatusBase>,
+    PublishedTranslationsUpdateDto,
+    TranslationsUpdateDto<Partial<OrderStatusTranslatable>> {}
