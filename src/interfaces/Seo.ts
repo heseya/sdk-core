@@ -1,6 +1,11 @@
 import { CdnMedia } from './CdnMedia'
 import { UUID } from './UUID'
-import { PublishedTranslations, PublishedTranslationsUpdateDto, Translations } from './languages'
+import {
+  PublishedTranslations,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsUpdateDto,
+} from './languages'
 
 export enum TwitterCardType {
   Summary = 'summary',
@@ -36,7 +41,7 @@ export type FlatSeoMetadata = Omit<SeoMetadata, 'translations' | 'published'>
 
 export interface SeoMetadataDto
   extends PublishedTranslationsUpdateDto,
-    Translations<SeoMetadataTranslatable> {
+    TranslationsUpdateDto<SeoMetadataTranslatable> {
   og_image_id?: UUID | null
   twitter_card?: TwitterCardType
   no_index?: boolean
