@@ -17,10 +17,7 @@ interface PageTranslatableList {
 }
 interface PageTranslatable extends PageTranslatableList {
   content_html: string
-  seo?: SeoMetadata
 }
-
-type PageTranslatableDto = Omit<PageTranslatable, 'seo'> & { seo?: SeoMetadataDto }
 
 export interface PageList extends MetadataFields, Translations<PageTranslatableList> {
   id: UUID
@@ -44,14 +41,16 @@ export interface Page
 export interface PageCreateDto
   extends CreateMetadataFields,
     PublishedTranslationsCreateDto,
-    TranslationsCreateDto<PageTranslatableDto> {
+    TranslationsCreateDto<PageTranslatable> {
   slug: string
   public?: boolean
+  seo?: SeoMetadataDto
 }
 
 export interface PageUpdateDto
   extends PublishedTranslationsUpdateDto,
-    TranslationsUpdateDto<Partial<PageTranslatableDto>> {
+    TranslationsUpdateDto<Partial<PageTranslatable>> {
   slug?: string
   public?: boolean
+  seo?: SeoMetadataDto
 }

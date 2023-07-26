@@ -1,5 +1,6 @@
 import { CdnMedia } from './CdnMedia'
 import { UUID } from './UUID'
+import { PublishedTranslations, PublishedTranslationsUpdateDto, Translations } from './languages'
 
 export enum TwitterCardType {
   Summary = 'summary',
@@ -12,26 +13,28 @@ export interface SeoMetadataTag {
   [key: string]: string | boolean | undefined
 }
 
-export interface SeoMetadata {
+export interface SeoMetadataTranslatable {
   title?: string
   /**
    * Max 1000 characters
    */
   description?: string
   keywords?: string[]
+}
+
+export interface SeoMetadata
+  extends SeoMetadataTranslatable,
+    PublishedTranslations,
+    Translations<SeoMetadataTranslatable> {
   og_image?: CdnMedia
   twitter_card?: TwitterCardType
   no_index?: boolean
   header_tags?: SeoMetadataTag[]
 }
 
-export interface SeoMetadataDto {
-  title?: string
-  /**
-   * Max 1000 characters
-   */
-  description?: string
-  keywords?: string[]
+export interface SeoMetadataDto
+  extends PublishedTranslationsUpdateDto,
+    Translations<SeoMetadataTranslatable> {
   og_image_id?: UUID | null
   twitter_card?: TwitterCardType
   no_index?: boolean

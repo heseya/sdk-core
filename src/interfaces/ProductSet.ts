@@ -17,10 +17,7 @@ interface ProductSetTranslatableList {
 }
 interface ProductSetTranslatable extends ProductSetTranslatableList {
   description_html: string
-  seo?: SeoMetadata
 }
-
-type ProductSetTranslatableDto = Omit<ProductSetTranslatable, 'seo'> & { seo?: SeoMetadataDto }
 
 export interface ProductSetList
   extends ProductSetTranslatableList,
@@ -38,6 +35,7 @@ export interface ProductSetList
   parent_id: string | null
   children?: ProductSet[]
   children_ids?: UUID[]
+  seo?: SeoMetadata
 }
 
 export interface ProductSet
@@ -51,7 +49,7 @@ export interface ProductSet
 export interface ProductSetCreateDto
   extends CreateMetadataFields,
     PublishedTranslationsCreateDto,
-    TranslationsCreateDto<ProductSetTranslatableDto> {
+    TranslationsCreateDto<ProductSetTranslatable> {
   id?: UUID
   slug_suffix: string
   slug_override: boolean
@@ -60,6 +58,7 @@ export interface ProductSetCreateDto
   children_ids?: UUID[]
   cover_id?: UUID
   attributes?: UUID[]
+  seo?: SeoMetadataDto
 }
 
 export type ProductSetUpdateDto = Omit<
@@ -67,4 +66,4 @@ export type ProductSetUpdateDto = Omit<
   keyof CreateMetadataFields | 'id'
 > &
   PublishedTranslationsUpdateDto &
-  TranslationsUpdateDto<Partial<ProductSetTranslatableDto>>
+  TranslationsUpdateDto<Partial<ProductSetTranslatable>>

@@ -9,17 +9,21 @@ import {
   SeoCheckModelType,
   SeoCheckResponse,
 } from '../../../interfaces/Seo'
+import { LanguageParams } from '../../../interfaces'
+import { stringifyQueryParams } from '../../../utils'
+
+type GlobalSeoParams = LanguageParams
 
 export interface GlobalSeoService {
   /**
    * Returns the global SEO settings
    */
-  get(): Promise<SeoMetadata>
+  get(params?: GlobalSeoParams): Promise<SeoMetadata>
 
   /**
    * Updates the global SEO setting
    */
-  update(updatedGlobalSeo: SeoMetadataDto): Promise<SeoMetadata>
+  update(updatedGlobalSeo: SeoMetadataDto, params?: GlobalSeoParams): Promise<SeoMetadata>
 
   /**
    * Allows to check if keywords are already used in other entities.
@@ -34,17 +38,19 @@ export interface GlobalSeoService {
 }
 
 export const createGlobalSeoService: ServiceFactory<GlobalSeoService> = (axios) => ({
-  async update(updatedGlobalSeo: SeoMetadataDto) {
+  async update(updatedGlobalSeo, params) {
+    const stringParams = stringifyQueryParams(params || {})
     const {
       data: { data: globalSeo },
-    } = await axios.patch<HeseyaResponse<SeoMetadata>>('/seo', updatedGlobalSeo)
+    } = await axios.patch<HeseyaResponse<SeoMetadata>>(`/seo?${stringParams}`, updatedGlobalSeo)
     return globalSeo
   },
 
-  async get() {
+  async get(params) {
+    const stringParams = stringifyQueryParams(params || {})
     const {
       data: { data: globalSeo },
-    } = await axios.get<HeseyaResponse<SeoMetadata>>('/seo')
+    } = await axios.get<HeseyaResponse<SeoMetadata>>(`/seo?${stringParams}`)
     return globalSeo
   },
 
