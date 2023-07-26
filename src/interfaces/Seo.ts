@@ -32,6 +32,8 @@ export interface SeoMetadata
   header_tags?: SeoMetadataTag[]
 }
 
+export type FlatSeoMetadata = Omit<SeoMetadata, 'translations' | 'published'>
+
 export interface SeoMetadataDto
   extends PublishedTranslationsUpdateDto,
     Translations<SeoMetadataTranslatable> {
