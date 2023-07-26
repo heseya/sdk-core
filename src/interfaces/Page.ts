@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { SeoMetadata } from './Seo'
+import { SeoMetadata, SeoMetadataDto } from './Seo'
 import { UUID } from './UUID'
 import {
   PublishedTranslations,
@@ -19,6 +19,8 @@ interface PageTranslatable extends PageTranslatableList {
   content_html: string
   seo?: SeoMetadata
 }
+
+type PageTranslatableDto = Omit<PageTranslatable, 'seo'> & { seo?: SeoMetadataDto }
 
 export interface PageList extends MetadataFields, Translations<PageTranslatableList> {
   id: UUID
@@ -42,14 +44,14 @@ export interface Page
 export interface PageCreateDto
   extends CreateMetadataFields,
     PublishedTranslationsCreateDto,
-    TranslationsCreateDto<PageTranslatable> {
+    TranslationsCreateDto<PageTranslatableDto> {
   slug: string
   public?: boolean
 }
 
 export interface PageUpdateDto
   extends PublishedTranslationsUpdateDto,
-    TranslationsUpdateDto<Partial<PageTranslatable>> {
+    TranslationsUpdateDto<Partial<PageTranslatableDto>> {
   slug?: string
   public?: boolean
 }

@@ -3,10 +3,31 @@ import { CdnMedia } from './CdnMedia'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { SeoMetadata, SeoMetadataDto } from './Seo'
 import { UUID } from './UUID'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
-export interface ProductSetList extends MetadataFields {
-  id: UUID
+interface ProductSetTranslatableList {
   name: string
+}
+interface ProductSetTranslatable extends ProductSetTranslatableList {
+  description_html: string
+  seo?: SeoMetadata
+}
+
+type ProductSetTranslatableDto = Omit<ProductSetTranslatable, 'seo'> & { seo?: SeoMetadataDto }
+
+export interface ProductSetList
+  extends ProductSetTranslatableList,
+    Translations<ProductSetTranslatableList>,
+    PublishedTranslations,
+    MetadataFields {
+  id: UUID
   slug: string
   slug_suffix: string
   slug_override: boolean
@@ -19,24 +40,31 @@ export interface ProductSetList extends MetadataFields {
   children_ids?: UUID[]
 }
 
-export interface ProductSet extends Omit<ProductSetList, 'parent_id'> {
+export interface ProductSet
+  extends ProductSetTranslatable,
+    Translations<ProductSetTranslatable>,
+    PublishedTranslations,
+    Omit<ProductSetList, 'parent_id' | 'translations'> {
   parent: ProductSetList | null
-  description_html: string
-  seo: SeoMetadata | null
 }
 
-export interface ProductSetCreateDto extends CreateMetadataFields {
+export interface ProductSetCreateDto
+  extends CreateMetadataFields,
+    PublishedTranslationsCreateDto,
+    TranslationsCreateDto<ProductSetTranslatableDto> {
   id?: UUID
-  name: string
   slug_suffix: string
   slug_override: boolean
   parent_id?: UUID | null
-  seo?: SeoMetadataDto
   public?: boolean
   children_ids?: UUID[]
-  description_html?: string
   cover_id?: UUID
   attributes?: UUID[]
 }
 
-export type ProductSetUpdateDto = Omit<ProductSetCreateDto, keyof CreateMetadataFields | 'id'>
+export type ProductSetUpdateDto = Omit<
+  Partial<ProductSetCreateDto>,
+  keyof CreateMetadataFields | 'id'
+> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<Partial<ProductSetTranslatableDto>>
