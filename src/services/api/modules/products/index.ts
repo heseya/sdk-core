@@ -18,7 +18,7 @@ import {
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
 import { createEntityAuditsService, EntityAuditsService } from '../audits'
-import { Attribute, ListResponse } from '../../../../interfaces'
+import { Attribute, LanguageParams, ListResponse } from '../../../../interfaces'
 import { FieldSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
 
@@ -29,7 +29,7 @@ type AttributeFilter = Record<
   UUID | UUID[] | DateAttributeFilterValue | NumberAttributeFilterValue
 >
 
-interface ProductsListParams extends SearchParam, PaginationParams, MetadataParams {
+interface ProductsListParams extends SearchParam, PaginationParams, LanguageParams, MetadataParams {
   name?: string
   slug?: string
   public?: boolean

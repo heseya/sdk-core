@@ -1,7 +1,16 @@
 import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { ProductList } from './Product'
+import { SchemaOption, SchemaOptionDto } from './SchemaOption'
 import { UUID } from './UUID'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
 export enum SchemaType {
   String = 'string',
@@ -14,11 +23,18 @@ export enum SchemaType {
   File = 'file',
 }
 
-export interface SchemaList extends MetadataFields {
-  id: UUID
+interface SchemaTranslatable {
   name: string
-  type: SchemaType
   description: string
+}
+
+export interface SchemaList
+  extends SchemaTranslatable,
+    Translations<SchemaTranslatable>,
+    PublishedTranslations,
+    MetadataFields {
+  id: UUID
+  type: SchemaType
   price: number
   hidden: boolean
   required: boolean
@@ -37,36 +53,31 @@ export interface Schema extends SchemaList {
   products: ProductList[]
 }
 
-export interface SchemaOption extends MetadataFields {
-  id: UUID
-  name: string
-  disabled: boolean
-  available: boolean
-  price: number
-  items: SchemaItem[]
-}
-
-export interface SchemaItem {
-  id: UUID
-  name: string
-}
-
 /**
  * -----------------------------------------------------------------------------
  * ? Schema DTO
  * -----------------------------------------------------------------------------
  */
 
-export interface SchemaOptionDto extends Omit<SchemaOption, 'id' | 'items' | keyof MetadataFields> {
-  items: UUID[]
-}
-
 export interface SchemaCreateDto
-  extends Omit<Schema, 'id' | 'options' | keyof MetadataFields>,
+  extends Omit<Schema, 'id' | 'options' | 'translations' | 'published' | keyof MetadataFields>,
+    PublishedTranslationsCreateDto,
+    TranslationsCreateDto<SchemaTranslatable>,
     CreateMetadataFields {
   options: SchemaOptionDto[]
 }
-export type SchemaUpdateDto = Omit<SchemaCreateDto, keyof CreateMetadataFields>
+export type SchemaUpdateDto = Omit<
+  SchemaCreateDto,
+  keyof CreateMetadataFields | 'translations' | 'published'
+> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<SchemaTranslatable>
+
+/**
+ * -----------------------------------------------------------------------------
+ * ? Order Schema
+ * -----------------------------------------------------------------------------
+ */
 
 export interface OrderSchema {
   id: UUID
