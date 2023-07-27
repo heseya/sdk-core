@@ -11,7 +11,7 @@ import {
 
 interface OrderStatusTranslatable {
   name: string
-  description: string
+  description?: string
 }
 
 interface OrderStatusBase {

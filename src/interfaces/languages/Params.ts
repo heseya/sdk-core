@@ -10,9 +10,9 @@ export interface LangFallbackParam {
 
 export interface TranslationParam {
   /**
-   * If true, the `translation` object will be returned to all returned entities
+   * If true, the `translations` object will be returned to all returned entities
    */
-  translations?: boolean
+  with_translations?: boolean
 }
 
 export type LanguageParams = LangFallbackParam & TranslationParam
