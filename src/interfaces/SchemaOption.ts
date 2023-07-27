@@ -23,7 +23,7 @@ export interface SchemaItem {
 }
 
 export interface SchemaOptionDto
-  extends Omit<SchemaOption, 'id' | 'items' | 'translations' | keyof MetadataFields>,
+  extends Omit<SchemaOption, 'id' | 'items' | 'translations' | 'name' | keyof MetadataFields>,
     TranslationsCreateDto<SchemaOptionTranslatable> {
   items: UUID[]
 }

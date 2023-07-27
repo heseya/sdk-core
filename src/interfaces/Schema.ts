@@ -60,7 +60,16 @@ export interface Schema extends SchemaList {
  */
 
 export interface SchemaCreateDto
-  extends Omit<Schema, 'id' | 'options' | 'translations' | 'published' | keyof MetadataFields>,
+  extends Omit<
+      Schema,
+      | 'id'
+      | 'options'
+      | 'name'
+      | 'description'
+      | 'translations'
+      | 'published'
+      | keyof MetadataFields
+    >,
     PublishedTranslationsCreateDto,
     TranslationsCreateDto<SchemaTranslatable>,
     CreateMetadataFields {
