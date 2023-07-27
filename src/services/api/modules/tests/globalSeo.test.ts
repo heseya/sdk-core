@@ -43,7 +43,7 @@ afterEach(() => {
 describe('global seo service test', () => {
   it('should make a request to get global SEO settings', async () => {
     const service = createGlobalSeoService(axios)
-    const expectedUrl = '/seo'
+    const expectedUrl = '/seo?'
     mock.onGet(expectedUrl).reply(200, dummyGlobalSeoResponse)
 
     const result = await service.get()
