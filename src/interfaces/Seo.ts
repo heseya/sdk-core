@@ -20,6 +20,7 @@ export interface SeoMetadataTranslatable {
    */
   description?: string
   keywords?: string[]
+  no_index?: boolean
 }
 
 export interface SeoMetadata
@@ -28,7 +29,6 @@ export interface SeoMetadata
     TranslationsUpdateDto<SeoMetadataTranslatable> {
   og_image?: CdnMedia
   twitter_card?: TwitterCardType
-  no_index?: boolean
   header_tags?: SeoMetadataTag[]
 }
 
@@ -39,7 +39,6 @@ export interface SeoMetadataDto
     TranslationsUpdateDto<SeoMetadataTranslatable> {
   og_image_id?: UUID | null
   twitter_card?: TwitterCardType
-  no_index?: boolean
   header_tags?: SeoMetadataTag[]
 }
 
