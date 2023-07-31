@@ -27,7 +27,7 @@ export interface LanguagesService
     EntityAuditsService<Language> {}
 
 export const createLanguagesService: ServiceFactory<LanguagesService> = (axios) => {
-  const route = 'statuses'
+  const route = 'languages'
   return {
     get: createGetListRequest(axios, route),
     create: createPostRequest(axios, route),
