@@ -24,6 +24,7 @@ import { ProductAttachmentsService, createProductAttachmentsService } from './at
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
+type CurrencyAttributeFilterValue = NumberAttributeFilterValue & { currency: string }
 type AttributeFilter = Record<
   string,
   UUID | UUID[] | DateAttributeFilterValue | NumberAttributeFilterValue
@@ -58,7 +59,7 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   shipping_digital?: boolean
   attribute?: AttributeFilter
   attribute_not?: Record<string, UUID | UUID[]>
-  price?: NumberAttributeFilterValue
+  price?: CurrencyAttributeFilterValue
 }
 
 export interface ProductsService

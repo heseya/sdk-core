@@ -1,6 +1,5 @@
 import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { ProductList } from './Product'
 import { UUID } from './UUID'
 
 export enum SchemaType {
@@ -14,34 +13,38 @@ export enum SchemaType {
   File = 'file',
 }
 
-export interface SchemaList extends MetadataFields {
+export interface SchemaBase {
   id: UUID
   name: string
   type: SchemaType
-  description: string
+  // TODO: new prices?
   price: number
   hidden: boolean
   required: boolean
-  available: boolean
+  default: string | null
+}
+
+export interface SchemaList extends SchemaBase, MetadataFields {
+  description: string
   min: number | null
   max: number | null
   step: number | null
-  default: string | null
   pattern: string | null
   validation: string | null
   options: SchemaOption[]
-  used_schemas: string[]
+  used_schemas: UUID[]
+  shipping_time: number | null
+  shipping_date: string | null
 }
 
-export interface Schema extends SchemaList {
-  products: ProductList[]
-}
+export type Schema = SchemaList
 
 export interface SchemaOption extends MetadataFields {
   id: UUID
   name: string
   disabled: boolean
   available: boolean
+  // TODO: new prices?
   price: number
   items: SchemaItem[]
 }
@@ -71,7 +74,9 @@ export type SchemaUpdateDto = Omit<SchemaCreateDto, keyof CreateMetadataFields>
 export interface OrderSchema {
   id: UUID
   name: string
+  // TODO: new prices?
   price: number
+  // TODO: new prices?
   price_initial: number
   value: CartItemSchemaValue
 }
