@@ -6,12 +6,13 @@ describe('usage of CartItem', () => {
   const product = {
     id: 'product_id',
     name: 'Test Product',
-    price: 100.05,
+    prices_base: [{ gross: '100.05', currency: 'pln' }],
   } as Product
+
   const quantity = 2
   const schemaValues: CartItemSchema[] = []
 
-  const cartItem = new CartItem(product, quantity, [], schemaValues)
+  const cartItem = new CartItem(product, quantity, [], schemaValues, [], 'pln')
 
   it('has access to static fields', () => {
     expect(cartItem.id).toBeTruthy()
@@ -22,6 +23,7 @@ describe('usage of CartItem', () => {
   })
 
   it('has access to dynamic fields', () => {
+    expect(cartItem.basePrice.gross).toBe('100.05')
     expect(cartItem.totalPrice).toBe(200.1)
     expect(cartItem.price).toBe(100.05)
   })

@@ -8,6 +8,7 @@ export interface SavedCartItem {
   qty: number
   productSchemas: Schema[]
   schemas: CartItemSchema[]
+  currency: string
   createdAt: number
 }
 
