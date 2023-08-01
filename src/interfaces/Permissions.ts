@@ -242,6 +242,13 @@ export enum WebhooksPermission {
   ShowMetadataPrivate = 'webhooks.show_metadata_private',
 }
 
+export enum LanguagesPermission {
+  ShowHidden = 'languages.show_hidden',
+  Add = 'languages.add',
+  Edit = 'languages.edit',
+  Remove = 'languages.remove',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -278,6 +285,7 @@ export type Permission =
   | RolesPermission
   | WebhooksPermission
   | SeoPermission
+  | LanguagesPermission
 
 export interface PermissionEntry {
   id: UUID
