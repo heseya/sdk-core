@@ -15,6 +15,7 @@ import {
 } from '../../../../interfaces'
 
 import { createOrdersService } from '../orders'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   data: {
@@ -30,7 +31,7 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
@@ -49,7 +50,7 @@ const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
@@ -102,7 +103,7 @@ const dummyPaymentMethodsResponse: HeseyaPaginatedResponse<PaymentMethod[]> = {
     to: 2,
     path: '/path',
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

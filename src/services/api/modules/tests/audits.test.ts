@@ -5,6 +5,7 @@ import { HeseyaResponse } from '../../../../interfaces'
 import { EntityAudits } from '../../../../interfaces/Audits'
 import { UserList } from '../../../../interfaces/User'
 import { createEntityAuditsService } from '../audits'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyAuditsResponse: HeseyaResponse<EntityAudits<{ id: string }>> = {
   data: {
@@ -18,7 +19,7 @@ const dummyAuditsResponse: HeseyaResponse<EntityAudits<{ id: string }>> = {
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

@@ -11,6 +11,7 @@ import {
 import { HeseyaAuthResponse } from '../../../../interfaces/Auth'
 
 import { createAuthService } from '../auth'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyAuth: { data: HeseyaAuthResponse } = {
   data: {
@@ -56,7 +57,7 @@ const dummyAuthRegisterResponse: HeseyaResponse<User> = {
   data: dummyAuth.data.user,
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
