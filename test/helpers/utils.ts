@@ -16,7 +16,6 @@ export const resolveInRandomTime = <FuncType extends (...args: any) => any>(
 export const makeDummyHeseyaResponse = <T>(data: T): HeseyaResponse<T> => ({
   data,
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 })

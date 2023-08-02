@@ -27,7 +27,6 @@ const dummySettingsResponse: HeseyaPaginatedResponse<Setting[]> = {
     from: 1,
     to: 2,
     path: '/path',
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

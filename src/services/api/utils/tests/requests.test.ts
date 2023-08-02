@@ -31,7 +31,6 @@ const dummyResponseList: HeseyaPaginatedResponse<DummyItem[]> = {
     from: 1,
     to: 1,
     path: '/dummy',
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

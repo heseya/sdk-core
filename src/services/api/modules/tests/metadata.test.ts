@@ -12,7 +12,6 @@ const dummyMetadataResponse: HeseyaResponse<Metadata> = {
     test: 'test',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

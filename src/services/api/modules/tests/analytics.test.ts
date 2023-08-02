@@ -12,7 +12,6 @@ const dummyResponse: HeseyaResponse<AnalyticsPaymentsSummary> = {
     },
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

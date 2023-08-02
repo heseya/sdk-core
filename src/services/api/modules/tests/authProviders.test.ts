@@ -13,7 +13,6 @@ const dummyRedirectResponse: HeseyaResponse<{ redirect_url: string }> = {
     redirect_url: 'https://provider.com',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }
@@ -25,7 +24,6 @@ const dummyLoginResponse: HeseyaResponse<HeseyaAuthResponse> = {
     refresh_token: 'refreshToken',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

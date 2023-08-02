@@ -10,7 +10,6 @@ const dummyResponse: HeseyaResponse<User> = {
     name: 'John',
   } as User,
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

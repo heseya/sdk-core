@@ -17,7 +17,6 @@ const dummyAuditsResponse: HeseyaResponse<EntityAudits<{ id: string }>> = {
     issuer: {} as UserList,
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
   },
 }

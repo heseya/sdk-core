@@ -8,7 +8,6 @@ import { createProductSetsService } from '../productSets'
 const dummyProductsListResponse: HeseyaPaginatedResponse<ProductList[]> = {
   data: [],
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: { symbol: 'pl' },
     per_page: 24,
     current_page: 1,
