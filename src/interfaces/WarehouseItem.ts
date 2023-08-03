@@ -1,7 +1,9 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
+import { ProductBase } from './Product'
+import { SchemaBase } from './Schema'
 import { UUID } from './UUID'
 
-export interface WarehouseItem extends MetadataFields {
+export interface WarehouseItemList extends MetadataFields {
   id: UUID
   name: string
   sku: string
@@ -53,6 +55,17 @@ export interface WarehouseItem extends MetadataFields {
         from_unlimited: boolean
       }
   >
+}
+
+export interface WarehouseItemProduct extends ProductBase {
+  quantity: number
+}
+
+export type WarehouseItemSchema = SchemaBase
+
+export interface WarehouseItem extends WarehouseItemList {
+  products: WarehouseItemProduct[]
+  schemas: WarehouseItemSchema[]
 }
 
 export interface WarehouseItemCreateDto extends CreateMetadataFields {
