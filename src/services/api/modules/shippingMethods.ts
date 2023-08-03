@@ -23,7 +23,7 @@ import { UUID } from '../../../interfaces/UUID'
 
 interface ShippingMethodsParams extends PaginationParams, MetadataParams {
   country?: string
-  cart_value?: number
+  cart_value?: { value: string | number; currency: string }
   ids?: UUID[]
 }
 
