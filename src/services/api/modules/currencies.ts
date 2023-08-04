@@ -9,7 +9,7 @@ export interface CurrenciesService {
   /**
    * Returns the list of currencies
    */
-  get(params: CurrencyParams): Promise<Currency[]>
+  get(params?: CurrencyParams): Promise<Currency[]>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
