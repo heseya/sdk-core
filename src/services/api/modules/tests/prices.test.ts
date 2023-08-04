@@ -3,6 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 
 import { ProductPrice, HeseyaResponse } from '../../../../interfaces'
 import { createPricesService } from '../prices'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyResponse: HeseyaResponse<ProductPrice[]> = {
   data: [
@@ -14,7 +15,7 @@ const dummyResponse: HeseyaResponse<ProductPrice[]> = {
   ],
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

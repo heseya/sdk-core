@@ -1,13 +1,13 @@
 import { isNil } from 'lodash'
 import { CdnMedia } from '../interfaces/CdnMedia'
-import { SeoMetadata, TwitterCardType } from '../interfaces/Seo'
+import { FlatSeoMetadata, TwitterCardType } from '../interfaces/Seo'
 
 /**
  * Returns prioretitized SEO metadata.
  * Priority is given to the metadata that was passed first (from left to right)
  */
-export const getSeoValues = (...seoMetadatas: SeoMetadata[]): SeoMetadata => {
-  const get = (key: keyof SeoMetadata) => {
+export const getSeoValues = (...seoMetadatas: FlatSeoMetadata[]): FlatSeoMetadata => {
+  const get = (key: keyof FlatSeoMetadata) => {
     return seoMetadatas.find((s) => {
       if (!s) return false
 
@@ -35,7 +35,7 @@ export const getSeoValues = (...seoMetadatas: SeoMetadata[]): SeoMetadata => {
  * Creates prioretitized SEO metadata for a page.
  * Priority is given to the metadata that was passed first (from left to right)
  */
-export const createSeoMetatags = (...seoMetadatas: SeoMetadata[]) => {
+export const createSeoMetatags = (...seoMetadatas: FlatSeoMetadata[]) => {
   const seo = getSeoValues(...seoMetadatas)
 
   const metaTags = seo.header_tags?.filter((t) => t.type === 'meta') || []

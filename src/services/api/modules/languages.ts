@@ -9,42 +9,30 @@ import {
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import {
-  OrderStatus,
-  OrderStatusCreateDto,
-  OrderStatusUpdateDto,
-} from '../../../interfaces/OrderStatus'
-import { createReorderPostRequest } from '../utils/reorder'
-import { ReorderEntityRequest } from '../types/Reorder'
+  Language,
+  LanguageCreateDto,
+  LanguageUpdateDto,
+} from '../../../interfaces/languages/Language'
 import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
-import { LanguageParams } from '../../../interfaces'
 
-type OrderStatusesListParams = MetadataParams & PaginationParams & LanguageParams & { ids?: UUID[] }
+type LanguagesListParams = MetadataParams & PaginationParams & { ids?: UUID[] }
 
-export interface OrderStatusesService
+export interface LanguagesService
   extends Omit<
-      CrudService<
-        OrderStatus,
-        OrderStatus,
-        OrderStatusCreateDto,
-        OrderStatusUpdateDto,
-        OrderStatusesListParams
-      >,
+      CrudService<Language, Language, LanguageCreateDto, LanguageUpdateDto, LanguagesListParams>,
       'getOneBySlug' | 'getOne'
     >,
     EntityMetadataService,
-    EntityAuditsService<OrderStatus> {
-  reorder: ReorderEntityRequest
-}
+    EntityAuditsService<Language> {}
 
-export const createOrderStatusesService: ServiceFactory<OrderStatusesService> = (axios) => {
-  const route = 'statuses'
+export const createLanguagesService: ServiceFactory<LanguagesService> = (axios) => {
+  const route = 'languages'
   return {
     get: createGetListRequest(axios, route),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
-    reorder: createReorderPostRequest(axios, route, 'statuses'),
 
     ...createEntityMetadataService(axios, route),
     ...createEntityAuditsService(axios, route),

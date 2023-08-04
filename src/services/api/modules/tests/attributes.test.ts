@@ -9,6 +9,7 @@ import {
 } from '../../../../interfaces'
 
 import { createAttributesService } from '../attributes'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyAttributes: HeseyaPaginatedResponse<AttributeOption[]> = {
   data: [
@@ -29,7 +30,7 @@ const dummyAttributes: HeseyaPaginatedResponse<AttributeOption[]> = {
     to: 2,
     path: '/path',
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

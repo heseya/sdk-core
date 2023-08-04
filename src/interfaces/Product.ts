@@ -11,10 +11,29 @@ import { OrderDiscount, ProductSale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
 import { PageList } from './Page'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
-export interface ProductList extends MetadataFields {
-  id: UUID
+interface ProductListTranslatable {
   name: string
+}
+interface ProductTranslatable extends ProductListTranslatable {
+  description_html: string
+  description_short: string
+}
+
+export interface ProductList
+  extends MetadataFields,
+    PublishedTranslations,
+    ProductListTranslatable,
+    Translations<ProductListTranslatable> {
+  id: UUID
   slug: string
   cover: CdnMedia | null
   price: number
@@ -47,9 +66,11 @@ export interface ProductList extends MetadataFields {
   descriptions: PageList[]
 }
 
-export interface Product extends Omit<ProductList, 'attributes'> {
-  description_html: string
-  description_short: string
+export interface Product
+  extends Omit<ProductList, 'attributes' | 'translations'>,
+    PublishedTranslations,
+    ProductTranslatable,
+    Translations<ProductTranslatable> {
   sales: ProductSale[]
   sets: ProductSet[]
   schemas: Schema[]
@@ -73,9 +94,11 @@ export interface Product extends Omit<ProductList, 'attributes'> {
   quantity: number | null
 }
 
-export interface ProductCreateDto extends CreateMetadataFields {
+export interface ProductCreateDto
+  extends CreateMetadataFields,
+    PublishedTranslationsCreateDto,
+    TranslationsCreateDto<ProductTranslatable> {
   id?: UUID
-  name: string
   slug: string
   price: number
   public: boolean
@@ -116,7 +139,9 @@ export interface ProductCreateDto extends CreateMetadataFields {
   purchase_limit_per_user?: null | number
 }
 
-export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>>
+export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<ProductTranslatable>
 
 //? ------------------------------------------------------------
 

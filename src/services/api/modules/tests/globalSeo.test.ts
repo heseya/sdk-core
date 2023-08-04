@@ -4,6 +4,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { HeseyaResponse, SeoCheckResponse, SeoMetadata } from '../../../../interfaces'
 
 import { createGlobalSeoService } from '../globalSeo'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyGlobalSeoResponse: HeseyaResponse<SeoMetadata> = {
   data: {
@@ -13,7 +14,7 @@ const dummyGlobalSeoResponse: HeseyaResponse<SeoMetadata> = {
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
@@ -24,7 +25,7 @@ const dummyCheckGlobalSeoResponse: HeseyaResponse<SeoCheckResponse> = {
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
@@ -43,7 +44,7 @@ afterEach(() => {
 describe('global seo service test', () => {
   it('should make a request to get global SEO settings', async () => {
     const service = createGlobalSeoService(axios)
-    const expectedUrl = '/seo'
+    const expectedUrl = '/seo?'
     mock.onGet(expectedUrl).reply(200, dummyGlobalSeoResponse)
 
     const result = await service.get()
