@@ -11,6 +11,7 @@ import { ProductListAttribute } from '../interfaces'
 export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
+  public currency: string
 
   private precalculatedPrice: number | null = null
   private precalculatedInitialPrice: number | null = null
@@ -31,6 +32,7 @@ export class CartItem {
     schemas: Schema[] = [],
     schemaValues: CartItemSchema[] = [],
     children: CartItem[] = [],
+    currency: string,
     createdAt = Date.now(),
   ) {
     if (!product) throw new Error('[HS CartItem] Provided props are not valid')
@@ -40,6 +42,7 @@ export class CartItem {
     this.productSchemas = schemas
     this.schemas = schemaValues
     this.children = children
+    this.currency = currency
     this.createdAt = createdAt
   }
 
@@ -59,6 +62,7 @@ export class CartItem {
       this.productSchemas,
       this.schemas,
       [],
+      this.currency,
       this.createdAt,
     )
     // This is to make sure that precalculated prices are not lost
@@ -95,6 +99,15 @@ export class CartItem {
     return round(this.qty + childrenQty, 2)
   }
 
+  get basePrice() {
+    return (
+      this.product.prices_base.find(({ currency }) => currency === this.currency) || {
+        gross: '0',
+        currency: 'unknown',
+      }
+    )
+  }
+
   /**
    * Singular price of the item (without children)
    */
@@ -102,11 +115,11 @@ export class CartItem {
     if (this.precalculatedPrice) return this.precalculatedPrice
 
     try {
-      return round(this.product.price + calcSchemasPrice(this.schemas), 2)
+      return round(parseFloat(this.basePrice.gross) + calcSchemasPrice(this.schemas), 2)
     } catch (e: unknown) {
       // eslint-disable-next-line no-console
       console.error('[HS CartItem]', (e as Error).message || e)
-      return round(this.product.price, 2)
+      return round(parseFloat(this.basePrice.gross), 2)
     }
   }
 
@@ -217,6 +230,7 @@ export class CartItem {
       qty: this.totalQty,
       schemas: this.schemas,
       productSchemas: this.productSchemas,
+      currency: this.currency,
       createdAt: this.createdAt,
     }
   }

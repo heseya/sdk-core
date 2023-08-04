@@ -1,6 +1,7 @@
 import { Address } from './Address'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { PaymentMethod } from './PaymentMethods'
+import { Price } from './Price'
 import { UUID } from './UUID'
 
 export enum ShippingType {
@@ -17,13 +18,14 @@ export interface ShippingCountry {
 
 export interface ShippingMethodPriceRange {
   id: UUID
-  start: number
-  prices: { id: UUID; value: number; model_id: UUID }[]
+  start: Price
+  value: Price
 }
 
 export interface ShippingMethodPriceRangeDto {
-  start: number
-  value: number
+  start: string
+  value: string
+  currency: string
 }
 
 export interface ShippingMethod extends MetadataFields {
@@ -37,9 +39,8 @@ export interface ShippingMethod extends MetadataFields {
   shipping_time_min: number
   countries: ShippingCountry[]
   price_ranges: ShippingMethodPriceRange[]
-  price: number | null
+  prices: Price[]
   integration_key?: string
-  deletable: boolean
   shipping_points: Address[]
 }
 
@@ -53,7 +54,10 @@ export interface ShippingMethodCreateDto extends CreateMetadataFields {
   shipping_time_min: number
   /** List of the Country.code's */
   countries: ShippingCountry['code'][]
-  price_ranges: { start: number; value: number }[]
+  /**
+   * This field must include ranges for each of existing currencies
+   */
+  price_ranges: ShippingMethodPriceRangeDto[]
   app_id?: UUID
   shipping_points?: Address[]
 }

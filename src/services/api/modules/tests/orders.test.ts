@@ -30,7 +30,6 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
     date: '2020-01-01',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }
@@ -49,7 +48,6 @@ const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
     sales: [],
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }
@@ -102,7 +100,6 @@ const dummyPaymentMethodsResponse: HeseyaPaginatedResponse<PaymentMethod[]> = {
     from: 1,
     to: 2,
     path: '/path',
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }

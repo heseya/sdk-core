@@ -14,7 +14,6 @@ const dummyResponse: HeseyaResponse<ProductPrice[]> = {
     },
   ],
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }

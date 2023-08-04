@@ -13,6 +13,7 @@ export interface SchemaOption
   id: UUID
   disabled: boolean
   available: boolean
+  // TODO: new prices?
   price: number
   items: SchemaItem[]
 }

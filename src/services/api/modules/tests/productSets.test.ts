@@ -9,7 +9,6 @@ import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 const dummyProductsListResponse: HeseyaPaginatedResponse<ProductList[]> = {
   data: [],
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
     per_page: 24,
     current_page: 1,

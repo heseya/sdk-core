@@ -30,6 +30,7 @@ import { createConsentsService } from './modules/consents'
 import { createWishlistService } from './modules/wishlist'
 import { createPricesService } from './modules/prices'
 import { createLanguagesService } from './modules/languages'
+import { createCurrenciesService } from './modules/currencies'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -78,6 +79,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => {
     Wishlist: createWishlistService(axios),
     Consents: createConsentsService(axios),
     Languages: createLanguagesService(axios),
+    Currencies: createCurrenciesService(axios),
   }
 }
 

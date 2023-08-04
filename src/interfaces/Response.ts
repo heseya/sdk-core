@@ -2,7 +2,6 @@ import { SeoMetadata } from './Seo'
 import { Language } from './languages'
 
 export interface HeseyaResponseMeta {
-  currency: { name: string; symbol: string; decimals: number }
   language: Language
   seo?: SeoMetadata
 }

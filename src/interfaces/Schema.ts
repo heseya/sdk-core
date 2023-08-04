@@ -1,7 +1,8 @@
 import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { ProductList } from './Product'
+
 import { SchemaOption, SchemaOptionDto } from './SchemaOption'
+
 import { UUID } from './UUID'
 import {
   PublishedTranslations,
@@ -28,30 +29,38 @@ interface SchemaTranslatable {
   description: string
 }
 
+export interface SchemaBase {
+  id: UUID
+  name: string
+  type: SchemaType
+  // TODO: new prices?
+  price: number
+  hidden: boolean
+  required: boolean
+  default: string | null
+}
+
 export interface SchemaList
   extends SchemaTranslatable,
     Translations<SchemaTranslatable>,
     PublishedTranslations,
+    SchemaBase,
     MetadataFields {
   id: UUID
   type: SchemaType
-  price: number
-  hidden: boolean
-  required: boolean
-  available: boolean
+  description: string
   min: number | null
   max: number | null
   step: number | null
-  default: string | null
   pattern: string | null
   validation: string | null
   options: SchemaOption[]
-  used_schemas: string[]
+  used_schemas: UUID[]
+  shipping_time: number | null
+  shipping_date: string | null
 }
 
-export interface Schema extends SchemaList {
-  products: ProductList[]
-}
+export type Schema = SchemaList
 
 /**
  * -----------------------------------------------------------------------------
@@ -91,7 +100,9 @@ export type SchemaUpdateDto = Omit<
 export interface OrderSchema {
   id: UUID
   name: string
+  // TODO: new prices?
   price: number
+  // TODO: new prices?
   price_initial: number
   value: CartItemSchemaValue
 }

@@ -56,7 +56,6 @@ const identityToken = 'identity-token'
 const dummyAuthRegisterResponse: HeseyaResponse<User> = {
   data: dummyAuth.data.user,
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }

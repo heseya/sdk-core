@@ -19,6 +19,7 @@ import {
   TranslationsCreateDto,
   TranslationsUpdateDto,
 } from './languages'
+import { Price, PriceDto } from './Price'
 
 interface ProductListTranslatable {
   name: string
@@ -28,28 +29,35 @@ interface ProductTranslatable extends ProductListTranslatable {
   description_short: string
 }
 
-export interface ProductList
-  extends MetadataFields,
-    PublishedTranslations,
-    ProductListTranslatable,
-    Translations<ProductListTranslatable> {
+export interface ProductBase {
   id: UUID
   slug: string
+  name: string
+  /**
+   * Contains base price for every currency
+   */
+  prices_base: Price[]
+  prices_max: Price[]
+  prices_min: Price[]
+  public: boolean
+  visible: boolean
+  available: boolean
   cover: CdnMedia | null
-  price: number
-  price_max: number
-  price_min: number
+}
+
+export interface ProductList
+  extends ProductBase,
+    MetadataFields,
+    PublishedTranslations,
+    Translations<ProductListTranslatable> {
+  prices_max_initial: Price[]
+  prices_min_initial: Price[]
   vat_rate: number
-  price_max_initial: number
-  price_min_initial: number
   shipping_time: number | null
   shipping_date: string | null
   quantity_step: number
   google_product_category: null | number
   tags: Tag[]
-  public: boolean
-  visible: boolean
-  available: boolean
   /**
    * Indicates if the product has at least one schema, so it cannot be added to cart directly
    */
@@ -100,7 +108,10 @@ export interface ProductCreateDto
     TranslationsCreateDto<ProductTranslatable> {
   id?: UUID
   slug: string
-  price: number
+  /**
+   * Must contain base price for every currency
+   */
+  prices_base: PriceDto[]
   public: boolean
   /**
    * If true, the product will be available to deliver only via ShippingType.Digital methods
@@ -155,6 +166,7 @@ export interface OrderProduct {
   id: UUID
   name: string
   quantity: number
+  // TODO: new prices?
   price: number
   price_initial: number
   vat_rate: number
@@ -184,6 +196,8 @@ export interface OrderProductUpdateDto {
 
 export interface ProductPrice {
   id: UUID
+  // TODO: new prices?
   price_min: number
+  // TODO: new prices?
   price_max: number
 }

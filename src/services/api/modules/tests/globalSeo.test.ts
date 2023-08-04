@@ -13,7 +13,6 @@ const dummyGlobalSeoResponse: HeseyaResponse<SeoMetadata> = {
     keywords: ['lorem', 'ipsum'],
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }
@@ -24,7 +23,6 @@ const dummyCheckGlobalSeoResponse: HeseyaResponse<SeoCheckResponse> = {
     duplicates: [],
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
     language: META_LANGUAGE,
   },
 }
