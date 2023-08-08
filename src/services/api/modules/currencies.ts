@@ -2,6 +2,7 @@ import { Currency } from '../../../interfaces/Currency'
 import { DefaultParams } from '../types/DefaultParams'
 
 import { ServiceFactory } from '../types/Service'
+import { createGetSimpleListRequest } from '../utils/requests'
 
 type CurrencyParams = DefaultParams
 
@@ -13,21 +14,6 @@ export interface CurrenciesService {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const createCurrenciesService: ServiceFactory<CurrenciesService> = (_axios) => ({
-  // TODO: uncomment when API is ready
-  // get: createGetSimpleListRequest(axios, '/currencies'),
-  async get() {
-    return [
-      {
-        name: 'Polski Złoty',
-        code: 'PLN',
-        decimal_places: 2,
-      },
-      {
-        name: 'Euro',
-        code: 'EUR',
-        decimal_places: 2,
-      },
-    ]
-  },
+export const createCurrenciesService: ServiceFactory<CurrenciesService> = (axios) => ({
+  get: createGetSimpleListRequest(axios, '/currencies'),
 })
