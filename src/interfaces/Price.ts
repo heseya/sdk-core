@@ -4,6 +4,6 @@ export interface Price {
 }
 
 export interface PriceDto {
-  gross: string
+  value: string
   currency: string
 }
