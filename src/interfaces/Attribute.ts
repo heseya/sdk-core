@@ -27,7 +27,6 @@ interface AttributeOptionTranslatable {
 
 interface AttributeOptionBase
   extends CreateMetadataFields,
-    PublishedTranslations,
     AttributeOptionTranslatable,
     Translations<AttributeOptionTranslatable> {
   id: UUID
@@ -38,7 +37,6 @@ interface AttributeOptionBase
 
 interface AttributeTranslatable {
   name: string
-  description: string
 }
 interface AttributeBase
   extends CreateMetadataFields,
@@ -47,6 +45,7 @@ interface AttributeBase
     Translations<AttributeTranslatable> {
   id: UUID
   slug: string
+  description: string
   global: boolean
   sortable: boolean
   type: AttributeType
@@ -72,8 +71,7 @@ type AttributeSingleOptionOptionCreateDto = Omit<
   'id' | 'index' | 'name'
 > & {
   id?: UUID
-} & PublishedTranslationsCreateDto &
-  TranslationsCreateDto<AttributeOptionTranslatable>
+} & TranslationsCreateDto<AttributeOptionTranslatable>
 
 // May be used in future
 // Needs to be updated to use translations
@@ -103,8 +101,7 @@ type AttributeSingleOptionUpdateDto = MakeAttributeDto<
 type AttributeMultiOptionOption = AttributeSingleOptionOption
 type AttributeMultiOptionOptionCreateDto = Omit<AttributeMultiOptionOption, 'id' | 'index'> & {
   id?: UUID
-} & PublishedTranslationsCreateDto &
-  TranslationsCreateDto<AttributeOptionTranslatable>
+} & TranslationsCreateDto<AttributeOptionTranslatable>
 
 // May be used in future
 // Needs to be updated to use translations
@@ -136,8 +133,7 @@ interface AttributeNumberOption extends AttributeOptionBase {
 }
 type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index' | 'name'> & {
   id?: UUID
-} & PublishedTranslationsCreateDto &
-  TranslationsCreateDto<AttributeOptionTranslatable>
+} & TranslationsCreateDto<AttributeOptionTranslatable>
 
 // May be used in future
 // Needs to be updated to use translations
@@ -170,8 +166,7 @@ interface AttributeDateOption extends AttributeOptionBase {
 }
 type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index' | 'name'> & {
   id?: UUID
-} & PublishedTranslationsCreateDto &
-  TranslationsCreateDto<AttributeOptionTranslatable>
+} & TranslationsCreateDto<AttributeOptionTranslatable>
 
 // May be used in future
 // Needs to be updated to use translations
