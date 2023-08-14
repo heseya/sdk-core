@@ -58,7 +58,7 @@ interface AttributeBase
 // ? ---------------------------------------------------------------
 
 // DtoHelper
-type MakeAttributeDto<Attr> = Omit<Attr, 'id' | 'min' | 'max' | 'name' | 'description'>
+type MakeAttributeDto<Attr> = Omit<Attr, 'id' | 'min' | 'max' | 'name'>
 type MakeAttributeCreateDto<Attr> = MakeAttributeDto<Attr> & { id?: UUID }
 
 // * Single Option -------------------------------------------------
