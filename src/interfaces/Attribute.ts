@@ -1,6 +1,14 @@
 /* eslint-disable camelcase */
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { UUID } from './UUID'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
 // ? ---------------------------------------------------------------
 // ? BASE
@@ -12,16 +20,31 @@ export enum AttributeType {
   Number = 'number',
   Date = 'date',
 }
-interface AttributeOptionBase extends CreateMetadataFields {
+
+interface AttributeOptionTranslatable {
+  name: string
+}
+
+interface AttributeOptionBase
+  extends CreateMetadataFields,
+    PublishedTranslations,
+    AttributeOptionTranslatable,
+    Translations<AttributeOptionTranslatable> {
   id: UUID
   index: number
-  name: string
   value_number: number | null
   value_date: string | null // Date
 }
-interface AttributeBase extends CreateMetadataFields {
-  id: UUID
+
+interface AttributeTranslatable {
   name: string
+}
+interface AttributeBase
+  extends CreateMetadataFields,
+    PublishedTranslations,
+    AttributeTranslatable,
+    Translations<AttributeTranslatable> {
+  id: UUID
   slug: string
   description: string
   global: boolean
@@ -46,8 +69,11 @@ interface AttributeSingleOptionOption extends AttributeOptionBase {
 }
 type AttributeSingleOptionOptionCreateDto = Omit<AttributeSingleOptionOption, 'id' | 'index'> & {
   id?: UUID
-}
+} & PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeOptionTranslatable>
+
 // May be used in future
+// Needs to be updated to use translations
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeSingleOptionOptionUpdateDto = Omit<
   AttributeSingleOptionOptionCreateDto,
@@ -59,17 +85,26 @@ interface AttributeSingleOption extends AttributeBase {
   min: null
   max: null
 }
-type AttributeSingleOptionCreateDto = MakeAttributeCreateDto<AttributeSingleOption>
+
+type AttributeSingleOptionCreateDto = MakeAttributeCreateDto<AttributeSingleOption> &
+  PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeTranslatable>
+
 type AttributeSingleOptionUpdateDto = MakeAttributeDto<
   Omit<AttributeSingleOption, keyof CreateMetadataFields>
->
+> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<AttributeTranslatable>
 
 // * Multi Option --------------------------------------------------------
 type AttributeMultiOptionOption = AttributeSingleOptionOption
 type AttributeMultiOptionOptionCreateDto = Omit<AttributeMultiOptionOption, 'id' | 'index'> & {
   id?: UUID
-}
+} & PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeOptionTranslatable>
+
 // May be used in future
+// Needs to be updated to use translations
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeMultiOptionOptionUpdateDto = Omit<
   AttributeMultiOptionOptionCreateDto,
@@ -81,10 +116,15 @@ interface AttributeMultiOption extends AttributeBase {
   min: null
   max: null
 }
-type AttributeMultiOptionCreateDto = MakeAttributeCreateDto<AttributeMultiOption>
+type AttributeMultiOptionCreateDto = MakeAttributeCreateDto<AttributeMultiOption> &
+  PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeTranslatable>
+
 type AttributeMultiOptionUpdateDto = MakeAttributeDto<
   Omit<AttributeMultiOption, keyof CreateMetadataFields>
->
+> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<AttributeTranslatable>
 
 // * Number --------------------------------------------------------
 interface AttributeNumberOption extends AttributeOptionBase {
@@ -93,8 +133,11 @@ interface AttributeNumberOption extends AttributeOptionBase {
 }
 type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index'> & {
   id?: UUID
-}
+} & PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeOptionTranslatable>
+
 // May be used in future
+// Needs to be updated to use translations
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeNumberOptionUpdateDto = Omit<
   AttributeNumberOptionCreateDto,
@@ -106,8 +149,16 @@ interface AttributeNumber extends AttributeBase {
   min: number
   max: number
 }
-type AttributeNumberCreateDto = MakeAttributeCreateDto<AttributeNumber>
-type AttributeNumberUpdateDto = MakeAttributeDto<Omit<AttributeNumber, keyof CreateMetadataFields>>
+
+type AttributeNumberCreateDto = MakeAttributeCreateDto<AttributeNumber> &
+  PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeTranslatable>
+
+type AttributeNumberUpdateDto = MakeAttributeDto<
+  Omit<AttributeNumber, keyof CreateMetadataFields>
+> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<AttributeTranslatable>
 
 // * Date ----------------------------------------------------------
 interface AttributeDateOption extends AttributeOptionBase {
@@ -116,8 +167,11 @@ interface AttributeDateOption extends AttributeOptionBase {
 }
 type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'> & {
   id?: UUID
-}
+} & PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeOptionTranslatable>
+
 // May be used in future
+// Needs to be updated to use translations
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeDateOptionUpdateDto = Omit<AttributeDateOptionCreateDto, keyof CreateMetadataFields>
 
@@ -126,8 +180,13 @@ interface AttributeDate extends AttributeBase {
   min: string // Date
   max: string // Date
 }
-type AttributeDateCreateDto = MakeAttributeCreateDto<AttributeDate>
-type AttributeDateUpdateDto = MakeAttributeDto<Omit<AttributeDate, keyof CreateMetadataFields>>
+type AttributeDateCreateDto = MakeAttributeCreateDto<AttributeDate> &
+  PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeTranslatable>
+
+type AttributeDateUpdateDto = MakeAttributeDto<Omit<AttributeDate, keyof CreateMetadataFields>> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<AttributeTranslatable>
 
 // ? ---------------------------------------------------------------
 // ? SUMMARY
