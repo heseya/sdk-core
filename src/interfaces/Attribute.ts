@@ -38,6 +38,7 @@ interface AttributeOptionBase
 
 interface AttributeTranslatable {
   name: string
+  description: string
 }
 interface AttributeBase
   extends CreateMetadataFields,
@@ -46,7 +47,6 @@ interface AttributeBase
     Translations<AttributeTranslatable> {
   id: UUID
   slug: string
-  description: string
   global: boolean
   sortable: boolean
   type: AttributeType
@@ -59,7 +59,7 @@ interface AttributeBase
 // ? ---------------------------------------------------------------
 
 // DtoHelper
-type MakeAttributeDto<Attr> = Omit<Attr, 'id' | 'min' | 'max'>
+type MakeAttributeDto<Attr> = Omit<Attr, 'id' | 'min' | 'max' | 'name' | 'description'>
 type MakeAttributeCreateDto<Attr> = MakeAttributeDto<Attr> & { id?: UUID }
 
 // * Single Option -------------------------------------------------
@@ -67,7 +67,10 @@ interface AttributeSingleOptionOption extends AttributeOptionBase {
   value_number: null
   value_date: null
 }
-type AttributeSingleOptionOptionCreateDto = Omit<AttributeSingleOptionOption, 'id' | 'index'> & {
+type AttributeSingleOptionOptionCreateDto = Omit<
+  AttributeSingleOptionOption,
+  'id' | 'index' | 'name'
+> & {
   id?: UUID
 } & PublishedTranslationsCreateDto &
   TranslationsCreateDto<AttributeOptionTranslatable>
@@ -131,7 +134,7 @@ interface AttributeNumberOption extends AttributeOptionBase {
   value_number: number
   value_date: null
 }
-type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index'> & {
+type AttributeNumberOptionCreateDto = Omit<AttributeNumberOption, 'id' | 'index' | 'name'> & {
   id?: UUID
 } & PublishedTranslationsCreateDto &
   TranslationsCreateDto<AttributeOptionTranslatable>
@@ -165,7 +168,7 @@ interface AttributeDateOption extends AttributeOptionBase {
   value_number: null
   value_date: string // Date
 }
-type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index'> & {
+type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index' | 'name'> & {
   id?: UUID
 } & PublishedTranslationsCreateDto &
   TranslationsCreateDto<AttributeOptionTranslatable>
@@ -198,7 +201,10 @@ export type AttributeOption =
   | AttributeNumberOption
   | AttributeDateOption
 
-export type AttributeOptionDto = Omit<AttributeOptionBase, 'id' | 'index'> & { id?: UUID }
+export type AttributeOptionDto = Omit<AttributeOptionBase, 'id' | 'index' | 'name'> & {
+  id?: UUID
+} & PublishedTranslationsCreateDto &
+  TranslationsCreateDto<AttributeOptionTranslatable>
 
 export type Attribute =
   | AttributeSingleOption
