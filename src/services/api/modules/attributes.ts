@@ -42,22 +42,29 @@ export interface AttributesService
     attributeId: UUID,
     params?: MetadataParams & PaginationParams & { name?: string; ids?: UUID[] } & LanguageParams,
   ): Promise<ListResponse<AttributeOption>>
-  addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
+  addOption(
+    attributeId: UUID,
+    option: AttributeOptionDto,
+    params?: LanguageParams,
+  ): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,
     optionId: UUID,
     option: AttributeOptionDto,
+    params?: LanguageParams,
   ): Promise<AttributeOption>
 
   updateOptionMetadata(
     attributeId: UUID,
     optionId: UUID,
     metadata: MetadataUpdateDto,
+    params?: LanguageParams,
   ): Promise<Metadata>
   updateOptionMetadataPrivate(
     attributeId: UUID,
     optionId: UUID,
     metadata: MetadataUpdateDto,
+    params?: LanguageParams,
   ): Promise<Metadata>
 
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
@@ -79,17 +86,19 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return { data, pagination: normalizePagination(meta) }
     },
 
-    async addOption(attributeId, option) {
+    async addOption(attributeId, option, params) {
+      const stringParams = stringifyQueryParams(params || {})
       const { data } = await axios.post<HeseyaResponse<AttributeOption>>(
-        `/attributes/id:${attributeId}/options`,
+        `/attributes/id:${attributeId}/options?${stringParams}`,
         option,
       )
       return data.data
     },
 
-    async updateOption(attributeId, optionId, option) {
+    async updateOption(attributeId, optionId, option, params) {
+      const stringParams = stringifyQueryParams(params || {})
       const { data } = await axios.patch<HeseyaResponse<AttributeOption>>(
-        `/attributes/id:${attributeId}/options/id:${optionId}`,
+        `/attributes/id:${attributeId}/options/id:${optionId}?${stringParams}`,
         option,
       )
       return data.data
