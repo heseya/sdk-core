@@ -25,12 +25,12 @@ import {
   MetadataType,
 } from './metadata'
 import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
-import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
+import { HeseyaPaginatedResponse, LanguageParams, ListResponse } from '../../../interfaces'
 import { normalizePagination } from '../utils/normalizePagination'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
 
-type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] }
+type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] } & LanguageParams
 
 export interface AttributesService
   extends Omit<
@@ -40,7 +40,7 @@ export interface AttributesService
     EntityMetadataService {
   getOptions(
     attributeId: UUID,
-    params?: MetadataParams & PaginationParams & { name?: string; ids?: UUID[] },
+    params?: MetadataParams & PaginationParams & { name?: string; ids?: UUID[] } & LanguageParams,
   ): Promise<ListResponse<AttributeOption>>
   addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
   updateOption(

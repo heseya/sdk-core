@@ -88,7 +88,6 @@ interface AttributeSingleOption extends AttributeBase {
 }
 
 type AttributeSingleOptionCreateDto = MakeAttributeCreateDto<AttributeSingleOption> &
-  PublishedTranslationsCreateDto &
   TranslationsCreateDto<AttributeTranslatable>
 
 type AttributeSingleOptionUpdateDto = MakeAttributeDto<
@@ -117,7 +116,6 @@ interface AttributeMultiOption extends AttributeBase {
   max: null
 }
 type AttributeMultiOptionCreateDto = MakeAttributeCreateDto<AttributeMultiOption> &
-  PublishedTranslationsCreateDto &
   TranslationsCreateDto<AttributeTranslatable>
 
 type AttributeMultiOptionUpdateDto = MakeAttributeDto<
@@ -198,8 +196,7 @@ export type AttributeOption =
 
 export type AttributeOptionDto = Omit<AttributeOptionBase, 'id' | 'index' | 'name'> & {
   id?: UUID
-} & PublishedTranslationsCreateDto &
-  TranslationsCreateDto<AttributeOptionTranslatable>
+} & TranslationsCreateDto<AttributeOptionTranslatable>
 
 export type Attribute =
   | AttributeSingleOption
