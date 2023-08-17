@@ -249,6 +249,13 @@ export enum LanguagesPermission {
   Remove = 'languages.remove',
 }
 
+export enum SalesChannelsPermission {
+  Add = 'sales_channels.add',
+  Edit = 'sales_channels.edit',
+  Remove = 'sales_channels.remove',
+  ShowHidden = 'sales_channels.show_hidden',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -286,6 +293,7 @@ export type Permission =
   | WebhooksPermission
   | SeoPermission
   | LanguagesPermission
+  | SalesChannelsPermission
 
 export interface PermissionEntry {
   id: UUID

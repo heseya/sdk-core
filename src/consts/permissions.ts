@@ -33,6 +33,7 @@ import {
   BannersPermission,
   ConsentsPermission,
   LanguagesPermission,
+  SalesChannelsPermission,
 } from '../interfaces/Permissions'
 
 export const PERMISSIONS_TREE = {
@@ -69,6 +70,7 @@ export const PERMISSIONS_TREE = {
   Seo: SeoPermission,
   Webhooks: WebhooksPermission,
   Languages: LanguagesPermission,
+  SalesChannels: SalesChannelsPermission,
 }
 
 export const ALL_PERMISSIONS: Permission[] = Object.values(PERMISSIONS_TREE)
