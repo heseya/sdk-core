@@ -22,8 +22,8 @@ export interface SalesChannel
   vat_rate: string
   default_currency: Currency
   default_language: Language
-  country_block_list: boolean
-  country_codes: ShippingCountry['code'][]
+  countries_block_list: boolean
+  countries: ShippingCountry['code'][]
 }
 
 export interface SalesChannelCreateDto extends TranslationsCreateDto<TranslatableSalesChannel> {
@@ -31,18 +31,11 @@ export interface SalesChannelCreateDto extends TranslationsCreateDto<Translatabl
   slug: string
   status: SalesChannelStatus
   vat_rate: string
-  default_currency_id: UUID
+  default_currency: UUID
   default_language_id: UUID
-  country_block_list: boolean
-  country_codes: ShippingCountry['code'][]
+  countries_block_list: boolean
+  countries: ShippingCountry['code'][]
 }
 
-export interface SalesChannelUpdateDto extends TranslationsUpdateDto<TranslatableSalesChannel> {
-  slug?: string
-  status?: SalesChannelStatus
-  vat_rate?: string
-  default_currency_id?: UUID
-  default_language_id?: UUID
-  country_block_list?: boolean
-  country_codes?: ShippingCountry['code'][]
-}
+export type SalesChannelUpdateDto = Partial<Omit<SalesChannelCreateDto, 'id' | 'translations'>> &
+  TranslationsUpdateDto<TranslatableSalesChannel>
