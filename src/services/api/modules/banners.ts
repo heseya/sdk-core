@@ -11,8 +11,9 @@ import { Banner, BannerCreateDto, BannerUpdateDto } from '../../../interfaces/Ba
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { UUID } from '../../../interfaces/UUID'
+import { LanguageParams } from '../../../interfaces'
 
-interface BannersListParams extends PaginationParams, MetadataParams, PaginationParams {
+interface BannersListParams extends PaginationParams, MetadataParams, LanguageParams {
   slug?: string
   ids?: UUID[]
 }
