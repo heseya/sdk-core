@@ -53,7 +53,11 @@ const dummyAttributesResponse: ListResponse<AttributeOption> = {
 
 const dummyOptionDto: AttributeOptionDto = {
   id: '1',
-  name: 'Test option',
+  translations: {
+    pl: {
+      name: 'Test option',
+    },
+  },
   value_number: 0,
   value_date: null,
 }
@@ -85,7 +89,7 @@ describe('attributes service test', () => {
 
   it('should make a request to add option', async () => {
     const service = createAttributesService(axios)
-    const expectedUrl = `/attributes/id:${attributeId}/options`
+    const expectedUrl = `/attributes/id:${attributeId}/options?`
 
     mock.onPost(expectedUrl).reply(200, dummyAttributes)
 
@@ -96,7 +100,7 @@ describe('attributes service test', () => {
 
   it('should make a request to update option', async () => {
     const service = createAttributesService(axios)
-    const expectedUrl = `/attributes/id:${attributeId}/options/id:${optionId}`
+    const expectedUrl = `/attributes/id:${attributeId}/options/id:${optionId}?`
 
     mock.onPatch(expectedUrl).reply(200, dummyAttributes)
 
