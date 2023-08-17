@@ -29,7 +29,7 @@ export type SalesChannelsService = Omit<
 >
 
 export const createSalesChannelsService: ServiceFactory<SalesChannelsService> = (axios) => {
-  const route = 'sales-channel'
+  const route = 'sales-channels'
   return {
     get: createGetListRequest(axios, route),
     getOne: createGetOneRequest(axios, route, { byId: true }),
