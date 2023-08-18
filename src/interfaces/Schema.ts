@@ -1,5 +1,6 @@
 import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
+import { Price, PriceDto } from './Price'
 
 import { SchemaOption, SchemaOptionDto } from './SchemaOption'
 
@@ -33,8 +34,7 @@ export interface SchemaBase {
   id: UUID
   name: string
   type: SchemaType
-  // TODO: new prices?
-  price: number
+  prices: Price[]
   hidden: boolean
   required: boolean
   default: string | null
@@ -77,13 +77,16 @@ export interface SchemaCreateDto
       | 'description'
       | 'translations'
       | 'published'
+      | 'prices'
       | keyof MetadataFields
     >,
     PublishedTranslationsCreateDto,
     TranslationsCreateDto<SchemaTranslatable>,
     CreateMetadataFields {
   options: SchemaOptionDto[]
+  prices: PriceDto[]
 }
+
 export type SchemaUpdateDto = Omit<
   SchemaCreateDto,
   keyof CreateMetadataFields | 'translations' | 'published'
