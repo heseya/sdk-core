@@ -78,6 +78,8 @@ export interface SchemaCreateDto
       | 'translations'
       | 'published'
       | 'prices'
+      | 'shipping_date'
+      | 'shipping_time'
       | keyof MetadataFields
     >,
     PublishedTranslationsCreateDto,
