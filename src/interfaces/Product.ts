@@ -52,7 +52,6 @@ export interface ProductList
     Translations<ProductListTranslatable> {
   prices_max_initial: Price[]
   prices_min_initial: Price[]
-  vat_rate: number
   shipping_time: number | null
   shipping_date: string | null
   quantity_step: number
@@ -125,7 +124,6 @@ export interface ProductCreateDto
   description_html?: string
   description_short?: string
   quantity_step?: number
-  vat_rate?: number
   sets?: UUID[]
   tags?: UUID[]
   schemas?: UUID[]
@@ -169,7 +167,6 @@ export interface OrderProduct {
   // TODO: new prices?
   price: number
   price_initial: number
-  vat_rate: number
   discounts: OrderDiscount[]
   product: Product
   schemas: OrderSchema[]
