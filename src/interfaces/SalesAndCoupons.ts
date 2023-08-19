@@ -24,7 +24,7 @@ interface DiscountAmount {
 
 interface DiscountAmountDto {
   percentage: string
-  amounts?: null
+  amounts?: undefined
 }
 
 type DiscountValue = DiscountAmount | DiscountPercentage
@@ -35,7 +35,7 @@ interface DiscountPercentage {
 }
 
 interface DiscountPercentageDto {
-  percentage?: null
+  percentage?: undefined
   amounts: PriceDto[]
 }
 
