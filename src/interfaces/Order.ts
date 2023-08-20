@@ -114,6 +114,10 @@ export interface OrderCreateDto extends CreateMetadataFields {
   items: OrderCartItem[]
   coupons: string[]
   sales_ids: UUID[]
+  /**
+   * ID of the current sales channel
+   */
+  sales_channel_id: UUID
 }
 
 export interface OrderUpdateDto {
