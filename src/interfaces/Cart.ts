@@ -18,6 +18,10 @@ export interface CartDto {
    * Shipping method if in cart is any product with digital shipping type
    */
   digital_shipping_method_id?: UUID
+  /**
+   * ID of the current sales channel
+   */
+  sales_channel_id: UUID
 }
 
 interface ProcessedCartItem {
