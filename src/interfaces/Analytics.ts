@@ -1,8 +1,11 @@
+import { StrNumber } from './Number'
+
 export interface AnalyticsPayment {
-  amount: number
+  amount: StrNumber
   count: number
+  currency: string
 }
 
 export interface AnalyticsPaymentsSummary {
-  [key: string]: AnalyticsPayment
+  [key: string]: AnalyticsPayment[]
 }

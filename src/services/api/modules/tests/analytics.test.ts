@@ -7,10 +7,13 @@ import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyResponse: HeseyaResponse<AnalyticsPaymentsSummary> = {
   data: {
-    summary: {
-      amount: 100,
-      count: 10,
-    },
+    summary: [
+      {
+        amount: '100',
+        count: 10,
+        currency: 'PLN',
+      },
+    ],
   },
   meta: {
     language: META_LANGUAGE,
