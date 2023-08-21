@@ -137,7 +137,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
         },
       )
 
-      return data.redirect_url
+      return data.redirect_url || ''
     },
 
     async markAsPaid(code) {

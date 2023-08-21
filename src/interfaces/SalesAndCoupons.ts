@@ -8,6 +8,12 @@ import { DiscountConditionGroup, DiscountConditionGroupDto } from './SaleConditi
 import { SeoMetadata, SeoMetadataDto } from './Seo'
 import { ShippingMethod } from './ShippingMethod'
 import { UUID } from './UUID'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  Translations,
+  TranslationsCreateDto,
+} from './languages'
 
 export enum DiscountTargetType {
   OrderValue = 'order-value',
@@ -44,13 +50,19 @@ type DiscountValueDto = DiscountAmountDto | DiscountPercentageDto
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
+export interface SaleTranslatable {
+  name: string
+  description: string | null
+  description_html: string | null
+}
+
 export type Sale = MetadataFields &
-  DiscountValue & {
+  DiscountValue &
+  SaleTranslatable &
+  PublishedTranslations &
+  Translations<SaleTranslatable> & {
     id: UUID
-    name: string
     slug: string | null
-    description: string | null
-    description_html: string | null
     active: boolean
     priority: number
     uses: number
@@ -70,11 +82,10 @@ export type Coupon = Sale & {
 // ? ---------------------------------------------------------------------------------------------------------------
 
 export type SaleCreateDto = CreateMetadataFields &
-  DiscountValueDto & {
-    name: string
+  DiscountValueDto &
+  PublishedTranslationsCreateDto &
+  TranslationsCreateDto<SaleTranslatable> & {
     slug?: string
-    description?: string | null
-    description_html?: string | null
     active?: boolean
     priority: number
     condition_groups: DiscountConditionGroupDto[]
