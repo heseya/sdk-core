@@ -37,6 +37,7 @@ interface AttributeOptionBase
 
 interface AttributeTranslatable {
   name: string
+  description: string
 }
 interface AttributeBase
   extends CreateMetadataFields,
@@ -45,7 +46,6 @@ interface AttributeBase
     Translations<AttributeTranslatable> {
   id: UUID
   slug: string
-  description: string
   global: boolean
   sortable: boolean
   type: AttributeType
