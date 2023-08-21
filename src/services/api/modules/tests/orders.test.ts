@@ -36,16 +36,17 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
 
 const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
   data: {
-    cart_total_initial: 121,
-    cart_total: 200,
-    shipping_price_initial: 21,
-    shipping_price: 37,
+    cart_total_initial: '121',
+    cart_total: '200',
+    shipping_price_initial: '21',
+    shipping_price: '37',
     shipping_time: null,
     shipping_date: null,
-    summary: 1000,
+    summary: '1000',
     items: [],
     coupons: [],
     sales: [],
+    currency: 'PLN',
   },
   meta: {
     language: META_LANGUAGE,
@@ -55,6 +56,8 @@ const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
 const dummyCardDto: CartDto = {
   items: [],
   coupons: ['coupon'],
+  sales_channel_id: 'channel-uuid',
+  currency: 'PLN',
 }
 
 const dummyOrderSummaryResponse: { data: OrderSummary } = {
@@ -64,11 +67,11 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     status: {} as OrderStatus,
     paid: false,
     payable: true,
-    cart_total_initial: 121,
-    cart_total: 121,
-    shipping_price_initial: 21,
-    shipping_price: 21,
-    summary: 2134,
+    cart_total_initial: '121',
+    cart_total: '121',
+    shipping_price_initial: '21',
+    shipping_price: '21',
+    summary: '2134',
     shipping_method: {} as ShippingMethod,
     digital_shipping_method: null,
     created_at: '2022',
