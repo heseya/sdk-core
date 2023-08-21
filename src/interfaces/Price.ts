@@ -1,6 +1,8 @@
+import { StrNumber } from './Number'
+
 export interface Price {
-  gross: string
-  net: string
+  gross: StrNumber
+  net: StrNumber
   currency: string
 }
 
@@ -8,6 +10,6 @@ export interface PriceDto {
   /**
    * This is currently net value
    */
-  value: string
+  value: StrNumber
   currency: string
 }

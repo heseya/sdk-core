@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { CreateMetadataFields, MetadataFields } from './Metadata'
+import { StrNumber } from './Number'
 import { Price, PriceDto } from './Price'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
@@ -18,12 +19,12 @@ export enum DiscountTargetType {
 // ? ---------------------------------------------------------------------------------------------------------------
 
 interface DiscountAmount {
-  percentage: string
+  percentage: StrNumber
   amounts: null
 }
 
 interface DiscountAmountDto {
-  percentage: string
+  percentage: StrNumber
   amounts?: undefined
 }
 
@@ -125,14 +126,16 @@ export type CouponShort = SaleShort & {
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-export type OrderDiscount = DiscountValue & {
+export type OrderDiscount = {
   id: UUID
   discount_id: UUID
   name: string
   code: string | null
   target_type: DiscountTargetType
+  percentage: StrNumber | null
+  amount: StrNumber | null
   /**
    * The amount that the discount has been calculated
    */
-  applied_discount: number
+  applied_discount: StrNumber
 }

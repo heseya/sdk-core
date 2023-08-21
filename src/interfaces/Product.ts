@@ -20,6 +20,7 @@ import {
   TranslationsUpdateDto,
 } from './languages'
 import { Price, PriceDto } from './Price'
+import { StrNumber } from './Number'
 
 interface ProductListTranslatable {
   name: string
@@ -164,9 +165,8 @@ export interface OrderProduct {
   id: UUID
   name: string
   quantity: number
-  // TODO: new prices?
-  price: number
-  price_initial: number
+  price: StrNumber
+  price_initial: StrNumber
   discounts: OrderDiscount[]
   product: Product
   schemas: OrderSchema[]
