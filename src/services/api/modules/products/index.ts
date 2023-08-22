@@ -19,7 +19,7 @@ import { MetadataParams, PaginationParams, SearchParam } from '../../types/Defau
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
 import { createEntityAuditsService, EntityAuditsService } from '../audits'
 import { Attribute, LanguageParams, ListResponse } from '../../../../interfaces'
-import { FieldSort } from '../../../../interfaces/Sort'
+import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
@@ -44,7 +44,7 @@ interface ProductsListParams extends SearchParam, PaginationParams, LanguagePara
     | string
     | Array<
         | FieldSort<'name'>
-        | FieldSort<'price'>
+        | PriceSort
         | FieldSort<'public'>
         | FieldSort<`attribute.${string}`>
         | FieldSort<`set.${string}`>
