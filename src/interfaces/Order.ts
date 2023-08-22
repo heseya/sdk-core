@@ -11,6 +11,7 @@ import { OrderPayment } from './Payments'
 import { User } from './User'
 import { App } from './App'
 import { StrNumber } from './Number'
+import { SalesChannel } from './SalesChannel'
 
 export interface OrderList extends MetadataFields {
   id: UUID
@@ -60,6 +61,7 @@ export interface OrderList extends MetadataFields {
   summary_paid: StrNumber
   payable: boolean
   documents: OrderDocument[]
+  sales_channel: SalesChannel
 }
 
 export interface Order extends OrderList {
