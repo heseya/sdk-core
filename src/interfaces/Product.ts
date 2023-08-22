@@ -184,6 +184,7 @@ export interface OrderProduct {
 
 export type OrderProductPublic = Omit<OrderProduct, 'discounts' | 'deposits' | 'is_delivered'> & {
   order_id: UUID
+  currency: string
 }
 
 export interface OrderProductUpdateDto {
