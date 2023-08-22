@@ -194,8 +194,6 @@ export interface OrderProductUpdateDto {
 
 export interface ProductPrice {
   id: UUID
-  // TODO: new prices?
-  price_min: number
-  // TODO: new prices?
-  price_max: number
+  prices_min: Price[]
+  prices_max: Price[]
 }
