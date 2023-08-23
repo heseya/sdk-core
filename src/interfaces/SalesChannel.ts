@@ -1,7 +1,15 @@
 import { Currency } from './Currency'
 import { ShippingCountry } from './ShippingMethod'
 import { UUID } from './UUID'
-import { Language, Translations, TranslationsCreateDto, TranslationsUpdateDto } from './languages'
+import {
+  Language,
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
 export interface TranslatableSalesChannel {
   name: string
@@ -15,7 +23,8 @@ export enum SalesChannelStatus {
 
 export interface SalesChannel
   extends TranslatableSalesChannel,
-    Translations<TranslatableSalesChannel> {
+    Translations<TranslatableSalesChannel>,
+    PublishedTranslations {
   id: string
   slug: string
   status: SalesChannelStatus
@@ -26,7 +35,9 @@ export interface SalesChannel
   countries: ShippingCountry['code'][]
 }
 
-export interface SalesChannelCreateDto extends TranslationsCreateDto<TranslatableSalesChannel> {
+export interface SalesChannelCreateDto
+  extends TranslationsCreateDto<TranslatableSalesChannel>,
+    PublishedTranslationsCreateDto {
   id?: UUID
   slug: string
   status: SalesChannelStatus
@@ -37,5 +48,8 @@ export interface SalesChannelCreateDto extends TranslationsCreateDto<Translatabl
   countries: ShippingCountry['code'][]
 }
 
-export type SalesChannelUpdateDto = Partial<Omit<SalesChannelCreateDto, 'id' | 'translations'>> &
-  TranslationsUpdateDto<TranslatableSalesChannel>
+export type SalesChannelUpdateDto = Partial<
+  Omit<SalesChannelCreateDto, 'id' | 'translations' | 'published'>
+> &
+  TranslationsUpdateDto<TranslatableSalesChannel> &
+  PublishedTranslationsUpdateDto
