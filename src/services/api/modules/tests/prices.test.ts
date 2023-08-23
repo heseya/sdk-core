@@ -9,8 +9,20 @@ const dummyResponse: HeseyaResponse<ProductPrice[]> = {
   data: [
     {
       id: '1',
-      price_min: 10,
-      price_max: 10,
+      prices_min: [
+        {
+          net: '10',
+          gross: '10',
+          currency: 'PLN',
+        },
+      ],
+      prices_max: [
+        {
+          net: '10',
+          gross: '10',
+          currency: 'PLN',
+        },
+      ],
     },
   ],
   meta: {
