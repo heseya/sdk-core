@@ -139,14 +139,6 @@ export enum OrdersPermission {
   ShowMetadataPrivate = 'orders.show_metadata_private',
 }
 
-export enum PackagesPermission {
-  Show = 'packages.show',
-  Add = 'packages.add',
-  Edit = 'packages.edit',
-  Remove = 'packages.remove',
-  ShowMetadataPrivate = 'packages.show_metadata_private',
-}
-
 export enum PagesPermission {
   Show = 'pages.show',
   ShowDetails = 'pages.show_details',
@@ -280,7 +272,6 @@ export type Permission =
   | CartPermission
   | MediaPermission
   | OrdersPermission
-  | PackagesPermission
   | PagesPermission
   | PaymentsPermission
   | PaymentMethodsPermission
