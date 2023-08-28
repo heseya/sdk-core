@@ -99,7 +99,7 @@ export class CartItem {
    * Singular price of the item (without children)
    */
   get price() {
-    if (this.precalculatedPrice) return this.precalculatedPrice
+    if (this.precalculatedPrice !== null) return this.precalculatedPrice
 
     try {
       return round(this.product.price + calcSchemasPrice(this.schemas), 2)
@@ -114,7 +114,7 @@ export class CartItem {
    * Singular initial (before discounts) price of the item (without children)
    */
   get initialPrice() {
-    return this.precalculatedInitialPrice || this.price
+    return this.precalculatedInitialPrice === null ? this.price : this.precalculatedInitialPrice
   }
 
   /**
