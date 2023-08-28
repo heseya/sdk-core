@@ -21,6 +21,7 @@ export interface SchemaOption
 export interface SchemaItem {
   id: UUID
   name: string
+  sku: string
 }
 
 export interface SchemaOptionDto
