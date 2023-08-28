@@ -49,6 +49,7 @@ export interface SchemaOption extends MetadataFields {
 export interface SchemaItem {
   id: UUID
   name: string
+  sku: string
 }
 
 /**
