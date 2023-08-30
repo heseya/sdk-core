@@ -18,7 +18,6 @@ import {
 } from '../../../interfaces/ShippingMethod'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
 
 interface ShippingMethodsParams extends PaginationParams, MetadataParams {
@@ -38,8 +37,7 @@ export interface ShippingMethodsService
       >,
       'getOneBySlug'
     >,
-    EntityMetadataService,
-    EntityAuditsService<ShippingMethod> {
+    EntityMetadataService {
   getCountries: () => Promise<ShippingCountry[]>
   reorder: ReorderEntityRequest
 }
@@ -57,6 +55,5 @@ export const createShippingMethodsService: ServiceFactory<ShippingMethodsService
     getCountries: createGetSimpleListRequest(axios, 'countries'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

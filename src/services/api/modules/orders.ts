@@ -35,7 +35,6 @@ import {
 } from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
 import { stringifyQueryParams } from '../../../utils'
 import { FieldSort } from '../../../interfaces/Sort'
@@ -56,7 +55,7 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
   ids?: UUID[]
 }
 
-export interface OrdersService extends EntityMetadataService, EntityAuditsService<Order> {
+export interface OrdersService extends EntityMetadataService {
   /**
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
@@ -205,6 +204,5 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     Documents: createOrderDocumentsService(axios),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

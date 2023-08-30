@@ -12,7 +12,6 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { Role, RoleCreateDto, RoleUpdateDto } from '../../../interfaces/Role'
 import { PermissionEntry } from '../../../interfaces'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
 
 type RolesListParams = PaginationParams & MetadataParams & { ids?: UUID[] }
@@ -22,8 +21,7 @@ export interface RolesService
       CrudService<Role, Role, RoleCreateDto, RoleUpdateDto, RolesListParams>,
       'getOneBySlug'
     >,
-    EntityMetadataService,
-    EntityAuditsService<Role> {
+    EntityMetadataService {
   getPermissions: (params?: { assignable?: boolean }) => Promise<PermissionEntry[]>
 }
 
@@ -39,6 +37,5 @@ export const createRolesService: ServiceFactory<RolesService> = (axios) => {
     getPermissions: createGetSimpleListRequest(axios, 'permissions'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

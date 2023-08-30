@@ -17,7 +17,6 @@ import {
 } from '../../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
-import { createEntityAuditsService, EntityAuditsService } from '../audits'
 import { Attribute, LanguageParams, ListResponse } from '../../../../interfaces'
 import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
@@ -67,8 +66,7 @@ export interface ProductsService
       CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
       'get'
     >,
-    EntityMetadataService,
-    EntityAuditsService<Product> {
+    EntityMetadataService {
   /**
    * Return a list of products
    */
@@ -105,7 +103,6 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     getFilters: createGetSimpleListRequest(axios, 'filters'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
 
     Attachments: createProductAttachmentsService(axios),
   }

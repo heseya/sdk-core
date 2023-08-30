@@ -13,7 +13,6 @@ import {
   LanguageCreateDto,
   LanguageUpdateDto,
 } from '../../../interfaces/languages/Language'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
 
 type LanguagesListParams = MetadataParams & PaginationParams & { ids?: UUID[] }
@@ -23,8 +22,7 @@ export interface LanguagesService
       CrudService<Language, Language, LanguageCreateDto, LanguageUpdateDto, LanguagesListParams>,
       'getOneBySlug' | 'getOne'
     >,
-    EntityMetadataService,
-    EntityAuditsService<Language> {}
+    EntityMetadataService {}
 
 export const createLanguagesService: ServiceFactory<LanguagesService> = (axios) => {
   const route = 'languages'
@@ -35,6 +33,5 @@ export const createLanguagesService: ServiceFactory<LanguagesService> = (axios) 
     delete: createDeleteRequest(axios, route),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }
