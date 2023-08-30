@@ -46,9 +46,10 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
    * Use array syntax, string value is deprecated and will be removed in future
    */
   sort?: string | Array<FieldSort<'code'> | FieldSort<'summary'> | FieldSort<'created_at'>>
-  status_id?: string
-  shipping_method_id?: string
-  digital_shipping_method_id?: string
+  status_id?: UUID
+  shipping_method_id?: UUID
+  digital_shipping_method_id?: UUID
+  sales_channel_id?: UUID
   paid?: boolean
   from?: Date
   to?: Date
