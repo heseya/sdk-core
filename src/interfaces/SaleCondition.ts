@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { PriceDto } from './Price'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
 import { Role } from './Role'
@@ -35,8 +36,14 @@ export enum DiscountConditionType {
 
 export interface OrderValueDiscountConditionDto {
   type: DiscountConditionType.OrderValue
-  min_value: number | null
-  max_value: number | null
+  /**
+   * Inclues all currencies
+   */
+  min_values: PriceDto[] | null
+  /**
+   * Inclues all currencies
+   */
+  max_values: PriceDto[] | null
   include_taxes: boolean
   is_in_range: boolean
 }
