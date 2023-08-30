@@ -19,10 +19,6 @@ export enum AppsPermission {
   Remove = 'apps.remove',
 }
 
-export enum AuditsPermission {
-  Show = 'audits.show',
-}
-
 export enum AuthPermission {
   Register = 'auth.register',
   PasswordReset = 'auth.password_reset',

@@ -123,7 +123,6 @@ export enum HeseyaClientErrorCode {
   AppWantsInvalidInfo = 'CLIENT_APP_WANTS_INVALID_INFO',
   AddAppWithoutRequiredPermissions = 'CLIENT_ADD_APP_WITHOUT_REQUIRED_PERMISSIONS',
   AddPermissionnAppDoesntWant = 'CLIENT_ADD_PERMISSION_AP_DOESNT_WANT',
-  ModelNotAuditable = 'CLIENT_MODEL_NOT_AUDITABLE',
   InvalidCredentials = 'CLIENT_INVALID_CREDENTIALS',
   InvalidPassword = 'CLIENT_INVALID_PASSWORD',
   InvalidToken = 'CLIENT_INVALID_TOKEN',
