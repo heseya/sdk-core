@@ -42,6 +42,10 @@ export interface ShippingMethod extends MetadataFields {
   prices: Price[]
   integration_key?: string
   shipping_points: Address[]
+  /**
+   * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
+   */
+  payment_on_delivery: boolean
 }
 
 export interface ShippingMethodCreateDto extends CreateMetadataFields {
