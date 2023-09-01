@@ -42,6 +42,7 @@ export interface ShippingMethod extends MetadataFields {
   prices: Price[]
   integration_key?: string
   shipping_points: Address[]
+  deletable: boolean
   /**
    * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
    */
