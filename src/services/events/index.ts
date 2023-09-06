@@ -23,7 +23,6 @@ export const createHeseyaEventBusService = (): HeseyaEventBusService => {
     [HeseyaEvent.ViewProductList]: [],
     [HeseyaEvent.ViewCart]: [],
     [HeseyaEvent.AddToCart]: [],
-    [HeseyaEvent.AddToCart]: [],
     [HeseyaEvent.AddToWishlist]: [],
     [HeseyaEvent.Login]: [],
     [HeseyaEvent.Register]: [],
