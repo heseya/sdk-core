@@ -63,3 +63,21 @@ interface AppConfigSelect extends AppConfigBase {
 }
 
 export type AppConfigField = AppConfigSelect | AppConfigInput
+
+// Actions
+
+export interface AppAction {
+  method: 'post' | 'patch' | 'get' | 'put' | 'delete'
+  /**
+   * Relative string, without app domain
+   */
+  url: string
+  /**
+   * Permissions required to run action
+   */
+  permissions: string[]
+  /**
+   * Text to describe action
+   */
+  name: string
+}
