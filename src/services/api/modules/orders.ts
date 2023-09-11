@@ -49,6 +49,7 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
   shipping_method_id?: UUID
   digital_shipping_method_id?: UUID
   sales_channel_id?: UUID
+  payment_method_id?: UUID
   paid?: boolean
   from?: Date
   to?: Date
