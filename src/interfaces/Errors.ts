@@ -186,6 +186,7 @@ export enum HeseyaClientErrorCode {
   ProductPurchaseLimit = 'PRODUCT_PURCHASE_LIMIT',
   PaymentMethodNotAvailableForShipping = 'PAYMENT_METHOD_NOT_AVAILABLE_FOR_SHIPPING',
   RegisterWithNotRegistrationRole = 'CLIENT_REGISTER_WITH_NON_REGISTRATION_ROLE',
+  PublishingTranslationException = 'PUBLISHING_TRANSLATION_EXCEPTION',
 }
 
 export enum HeseyaServerErrorCode {
