@@ -29,6 +29,7 @@ import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
 import { createWishlistService } from './modules/wishlist'
 import { createPricesService } from './modules/prices'
+import { createRedirectsService } from './modules/redirects'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -76,6 +77,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => {
     Webhooks: createWebhooksService(axios),
     Wishlist: createWishlistService(axios),
     Consents: createConsentsService(axios),
+    Redirects: createRedirectsService(axios),
   }
 }
 
