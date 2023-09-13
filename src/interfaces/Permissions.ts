@@ -242,6 +242,13 @@ export enum WebhooksPermission {
   ShowMetadataPrivate = 'webhooks.show_metadata_private',
 }
 
+export enum RedirectsPermission {
+  Show = 'redirects.show',
+  Add = 'redirects.add',
+  Edit = 'redirects.edit',
+  Remove = 'redirects.remove',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -278,6 +285,7 @@ export type Permission =
   | RolesPermission
   | WebhooksPermission
   | SeoPermission
+  | RedirectsPermission
 
 export interface PermissionEntry {
   id: UUID
