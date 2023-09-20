@@ -71,7 +71,6 @@ export interface ProductList
    */
   purchase_limit_per_user: null | number
   attributes: ProductListAttribute[]
-  descriptions: PageList[]
 }
 
 export interface Product
@@ -100,6 +99,7 @@ export interface Product
    * `null` means, that product has infinity quantity
    */
   quantity: number | null
+  descriptions: PageList[]
 }
 
 export interface ProductCreateDto
