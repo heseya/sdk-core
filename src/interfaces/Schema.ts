@@ -105,9 +105,7 @@ export type SchemaUpdateDto = Omit<
 export interface OrderSchema {
   id: UUID
   name: string
-  // TODO: new prices?
-  price: number
-  // TODO: new prices?
-  price_initial: number
+  price: Price
+  price_initial: Price
   value: CartItemSchemaValue
 }
