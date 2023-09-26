@@ -244,6 +244,13 @@ export enum SalesChannelsPermission {
   ShowHidden = 'sales_channels.show_hidden',
 }
 
+export enum RedirectsPermission {
+  Show = 'redirects.show',
+  Add = 'redirects.add',
+  Edit = 'redirects.edit',
+  Remove = 'redirects.remove',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -281,6 +288,7 @@ export type Permission =
   | SeoPermission
   | LanguagesPermission
   | SalesChannelsPermission
+  | RedirectsPermission
 
 export interface PermissionEntry {
   id: UUID
