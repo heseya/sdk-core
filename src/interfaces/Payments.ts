@@ -23,6 +23,11 @@ export interface Payment {
   method_id: UUID // PaymentMethod.id
   status: PaymentStatus
   amount: number
+  date: string
+  orders: {
+    id: UUID
+    amount: number
+  }[]
 }
 
 export interface PaymentCreateDto {

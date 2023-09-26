@@ -19,7 +19,6 @@ import { createOrdersService } from '../orders'
 const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   data: {
     id: '1',
-    external_id: '1',
     method: 'payu',
     method_id: null,
     status: PaymentStatus.Successful,
@@ -27,6 +26,7 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
     redirect_url: '/redirect',
     continue_url: '/continue',
     date: '2020-01-01',
+    external_id: 'XN-2137',
   },
   meta: {
     currency: { name: 'pln', symbol: 'pln', decimals: 2 },
@@ -129,11 +129,11 @@ afterEach(() => {
 describe('orders service test', () => {
   it('should make a request to create new payment for the given order', async () => {
     const service = createOrdersService(axios)
-    const expectedUrl = `orders/2137/pay/id:payment-id`
+    const expectedUrl = `orders/pay/id:payment-id`
 
     mock.onPost(expectedUrl).reply(200, dummyOrdersResponse)
 
-    const result = await service.pay('2137', 'payment-id', dummyOrdersResponse.data.continue_url)
+    const result = await service.pay(['2137'], 'payment-id', dummyOrdersResponse.data.continue_url)
     expect(mock.history.post[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyOrdersResponse.data.redirect_url)
   })
