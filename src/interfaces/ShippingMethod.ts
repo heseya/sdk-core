@@ -34,10 +34,13 @@ export interface ShippingMethod extends MetadataFields {
   shipping_type: ShippingType
   payment_methods: PaymentMethod[]
   public: boolean
-  block_list: boolean
   shipping_time_max: number
   shipping_time_min: number
+  is_block_list_countries: boolean
   countries: ShippingCountry[]
+  is_block_list_products: boolean
+  product_ids: UUID[]
+  product_set_ids: UUID[]
   price_ranges: ShippingMethodPriceRange[]
   prices: Price[]
   integration_key?: string
@@ -54,9 +57,12 @@ export interface ShippingMethodCreateDto extends CreateMetadataFields {
   shipping_type: ShippingType
   payment_methods: UUID[]
   public: boolean
-  block_list: boolean
   shipping_time_max: number
   shipping_time_min: number
+  is_block_list_products: boolean
+  product_ids: UUID[]
+  product_set_ids: UUID[]
+  is_block_list_countries: boolean
   /** List of the Country.code's */
   countries: ShippingCountry['code'][]
   /**
