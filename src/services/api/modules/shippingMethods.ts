@@ -24,6 +24,10 @@ interface ShippingMethodsParams extends PaginationParams, MetadataParams {
   country?: string
   cart_value?: { value: string | number; currency: string }
   ids?: UUID[]
+  /**
+   * List of the Product.id's, thanks to which the list of ShippingMethods will be filtered
+   */
+  items?: UUID[]
 }
 
 export interface ShippingMethodsService

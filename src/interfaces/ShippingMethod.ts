@@ -36,10 +36,22 @@ export interface ShippingMethod extends MetadataFields {
   public: boolean
   shipping_time_max: number
   shipping_time_min: number
+  /**
+   * Indicates, if the countries list is a block list or an allow list
+   */
   is_block_list_countries: boolean
   countries: ShippingCountry[]
+  /**
+   * Indicates, if the products and productSets lists are a block list or an allow list
+   */
   is_block_list_products: boolean
+  /**
+   * Products that can or cannot be sent via this shipping method
+   */
   product_ids: UUID[]
+  /**
+   * ProductsSets that products can or cannot be sent via this shipping method
+   */
   product_set_ids: UUID[]
   price_ranges: ShippingMethodPriceRange[]
   prices: Price[]
@@ -59,9 +71,21 @@ export interface ShippingMethodCreateDto extends CreateMetadataFields {
   public: boolean
   shipping_time_max: number
   shipping_time_min: number
+  /**
+   * Indicates, if the products and productSets lists are a block list or an allow list
+   */
   is_block_list_products: boolean
+  /**
+   * Products that can or cannot be sent via this shipping method
+   */
   product_ids: UUID[]
+  /**
+   * ProductsSets that products can or cannot be sent via this shipping method
+   */
   product_set_ids: UUID[]
+  /**
+   * Indicates, if the countries list is a block list or an allow list
+   */
   is_block_list_countries: boolean
   /** List of the Country.code's */
   countries: ShippingCountry['code'][]
