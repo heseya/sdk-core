@@ -17,6 +17,7 @@ import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '.
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
 import { Metadata, MetadataUpdateDto, OrderProductPublic } from '../../../../interfaces'
 import { PaginationParams } from '../../types/DefaultParams'
+import { UUID } from '../../../../interfaces/UUID'
 
 export interface UserProfileService {
   /**
@@ -26,6 +27,12 @@ export interface UserProfileService {
   get(): Promise<User | App>
 
   update(payload: UserProfileUpdateDto): Promise<User>
+
+  /**
+   * Allow to join or leave some of the user roles.
+   * Only roles with `is_joinable` flag can be joined or left.
+   */
+  updateRoles(payload: { roles: UUID[] }): Promise<User>
 
   /**
    * Change logged user password.
@@ -76,6 +83,11 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
 
   async update(payload) {
     const { data } = await axios.patch<HeseyaResponse<User>>(`/auth/profile`, payload)
+    return data.data
+  },
+
+  async updateRoles(payload) {
+    const { data } = await axios.patch<HeseyaResponse<User>>(`/auth/profile/roles`, payload)
     return data.data
   },
 
