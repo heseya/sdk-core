@@ -17,6 +17,7 @@ import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '.
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
 import { Metadata, MetadataUpdateDto, OrderProductPublic } from '../../../../interfaces'
 import { PaginationParams } from '../../types/DefaultParams'
+import { UUID } from '../../../../interfaces/UUID'
 
 export interface UserProfileService {
   /**
@@ -26,6 +27,8 @@ export interface UserProfileService {
   get(): Promise<User | App>
 
   update(payload: UserProfileUpdateDto): Promise<User>
+
+  updateRoles(payload: { roles: UUID[] }): Promise<true>
 
   /**
    * Change logged user password.
@@ -77,6 +80,12 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   async update(payload) {
     const { data } = await axios.patch<HeseyaResponse<User>>(`/auth/profile`, payload)
     return data.data
+  },
+
+  async updateRoles(payload) {
+    // TODO: maybe this returns whole user?
+    await axios.patch<HeseyaResponse<unknown>>(`/auth/profile/roles`, payload)
+    return true
   },
 
   async changePassword({ currentPassword, newPassword }) {
