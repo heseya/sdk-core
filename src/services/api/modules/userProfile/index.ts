@@ -28,7 +28,11 @@ export interface UserProfileService {
 
   update(payload: UserProfileUpdateDto): Promise<User>
 
-  updateRoles(payload: { roles: UUID[] }): Promise<true>
+  /**
+   * Allow to join or leave some of the user roles.
+   * Only roles with `is_joinable` flag can be joined or left.
+   */
+  updateRoles(payload: { roles: UUID[] }): Promise<User>
 
   /**
    * Change logged user password.
@@ -83,9 +87,8 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   },
 
   async updateRoles(payload) {
-    // TODO: maybe this returns whole user?
-    await axios.patch<HeseyaResponse<unknown>>(`/auth/profile/roles`, payload)
-    return true
+    const { data } = await axios.patch<HeseyaResponse<User>>(`/auth/profile/roles`, payload)
+    return data.data
   },
 
   async changePassword({ currentPassword, newPassword }) {
