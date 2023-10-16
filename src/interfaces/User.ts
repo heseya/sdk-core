@@ -80,6 +80,7 @@ export interface UserRegisterDto {
   roles?: UUID[]
   password: string
   consents: UserConsentDto
+  metadata_personal?: Metadata
 }
 
 export interface UserProfileUpdateDto {

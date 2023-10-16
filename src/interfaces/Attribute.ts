@@ -167,6 +167,7 @@ export type AttributeUpdateDto =
 
 export interface ProductListAttribute {
   name: string
+  slug: string
   selected_options: AttributeOption[]
 }
 
