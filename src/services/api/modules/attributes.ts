@@ -16,7 +16,7 @@ import {
 } from '../../../interfaces/Attribute'
 import { UUID } from '../../../interfaces/UUID'
 import { HeseyaResponse } from '../../..'
-import { MetadataParams, PaginationParams } from '../types/DefaultParams'
+import { DefaultParams, MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 import {
   createEntityMetadataService,
@@ -27,6 +27,8 @@ import {
 import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
 import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
 import { normalizePagination } from '../utils/normalizePagination'
+import { createReorderPostRequest } from '../utils/reorder'
+import { ReorderEntityRequest } from '../types/Reorder'
 
 type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] }
 
@@ -59,6 +61,9 @@ export interface AttributesService
   ): Promise<Metadata>
 
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
+
+  reorder: ReorderEntityRequest
+  reorderOptions: (attributeId: UUID, optionIds: UUID[], params?: DefaultParams) => Promise<true>
 }
 
 export const createAttributesService: ServiceFactory<AttributesService> = (axios) => {
@@ -97,6 +102,16 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return true
     },
 
+    async reorderOptions(attributeId, optionIds, params) {
+      const stringParams = stringifyQueryParams(params || {})
+
+      await axios.post(`/${route}/id:${attributeId}/options/reorder?${stringParams}`, {
+        ids: optionIds,
+      })
+
+      return true
+    },
+
     async updateOptionMetadata(attributeId, optionId, metadata) {
       return await createUpdateMetadataRequest(
         axios,
@@ -118,6 +133,7 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    reorder: createReorderPostRequest(axios, route, 'ids'),
 
     ...createEntityMetadataService(axios, route),
   }

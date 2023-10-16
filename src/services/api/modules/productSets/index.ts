@@ -60,7 +60,7 @@ export interface ProductSetsService
   ) => Promise<ListResponse<ProductList>>
   reorderProducts: (
     setId: UUID,
-    products: [{ id: UUID; order: number }],
+    products: { id: UUID; order: number }[],
     params?: DefaultParams,
   ) => Promise<true>
   Favourites: FavouriteProductSetService

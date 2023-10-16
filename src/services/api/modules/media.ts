@@ -14,14 +14,18 @@ import { createFormData } from '../utils/createFormData'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { UUID } from '../../../interfaces/UUID'
 
+interface MediaListParams extends PaginationParams {
+  search?: string
+  type?: CdnMediaType
+  has_relationships?: boolean
+  ids?: UUID[]
+}
+
 export interface MediaService extends EntityMetadataService {
   /**
    * Returns a list of media
    */
-  get: GetEntityRequest<
-    CdnMediaExtended,
-    { type?: CdnMediaType; has_relationships?: boolean; ids?: UUID[] } & PaginationParams
-  >
+  get: GetEntityRequest<CdnMediaExtended, MediaListParams>
   /**
    * Allows a user to create the Media.
    * Notice: metadata can only be strings in this method, cause you cant send type in FormData

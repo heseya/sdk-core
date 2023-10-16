@@ -13,6 +13,10 @@ export interface Role extends MetadataFields {
    * If true, this role can be claimed by users during registration.
    */
   is_registration_role: boolean
+  /**
+   * If true, this role can be joined by users at any time
+   */
+  is_joinable: boolean
 }
 
 export interface RoleCreateDto extends CreateMetadataFields {
@@ -23,6 +27,10 @@ export interface RoleCreateDto extends CreateMetadataFields {
    * If true, this role can be claimed by users during registration.
    */
   is_registration_role?: boolean
+  /**
+   * If true, this role can be joined by users at any time
+   */
+  is_joinable?: boolean
 }
 
 export type RoleUpdateDto = Omit<RoleCreateDto, keyof CreateMetadataFields>

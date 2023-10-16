@@ -26,7 +26,7 @@ export interface Sale extends MetadataFields {
   name: string
   slug: string | null
   description: string | null
-  description_html: string
+  description_html: string | null
   active: boolean
   value: number
   type: DiscountType
@@ -50,10 +50,10 @@ export interface Coupon extends Sale {
 export interface SaleCreateDto extends CreateMetadataFields {
   name: string
   slug?: string
-  description: string | null
-  description_html: string
+  description?: string | null
+  description_html?: string | null
   value: number
-  active: boolean
+  active?: boolean
   type: DiscountType
   priority: number
   condition_groups: DiscountConditionGroupDto[]

@@ -29,6 +29,7 @@ import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
 import { createWishlistService } from './modules/wishlist'
 import { createPricesService } from './modules/prices'
+import { createRedirectsService } from './modules/redirects'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -43,36 +44,41 @@ import { createPricesService } from './modules/prices'
  * @example
  * heseya.Products.get() // Return all products
  */
-export const createHeseyaApiService = (axios: AxiosInstance) => ({
-  Analytics: createAnalyticsService(axios),
-  Apps: createAppsService(axios),
-  Auth: createAuthService(axios),
-  Banners: createBannersService(axios),
-  UserProfile: createUserProfileService(axios),
-  Roles: createRolesService(axios),
-  Users: createUsersService(axios),
-  Products: createProductsService(axios),
-  Prices: createPricesService(axios),
-  Schemas: createSchemasService(axios),
-  Tags: createTagsService(axios),
-  ProductSets: createProductSetsService(axios),
-  Warehouse: createWarehouseService(axios),
-  Attributes: createAttributesService(axios),
-  Pages: createPagesService(axios),
-  Sales: createSalesService(axios),
-  Coupons: createCouponsService(axios),
-  Orders: createOrdersService(axios),
-  OrderStatuses: createOrderStatusesService(axios),
-  ShippingMethods: createShippingMethodsService(axios),
-  PackagesTemplates: createPackagesTemplatesService(axios),
-  GlobalSeo: createGlobalSeoService(axios),
-  PaymentMethods: createPaymentMethodsService(axios),
-  Payments: createPaymentsService(axios),
-  Settings: createSettingsService(axios),
-  Media: createMediaService(axios),
-  Webhooks: createWebhooksService(axios),
-  Wishlist: createWishlistService(axios),
-  Consents: createConsentsService(axios),
-})
+export const createHeseyaApiService = (axios: AxiosInstance) => {
+  if (!axios) throw new Error('Axios instance is required, but it was not provided')
+
+  return {
+    Analytics: createAnalyticsService(axios),
+    Apps: createAppsService(axios),
+    Auth: createAuthService(axios),
+    Banners: createBannersService(axios),
+    UserProfile: createUserProfileService(axios),
+    Roles: createRolesService(axios),
+    Users: createUsersService(axios),
+    Products: createProductsService(axios),
+    Prices: createPricesService(axios),
+    Schemas: createSchemasService(axios),
+    Tags: createTagsService(axios),
+    ProductSets: createProductSetsService(axios),
+    Warehouse: createWarehouseService(axios),
+    Attributes: createAttributesService(axios),
+    Pages: createPagesService(axios),
+    Sales: createSalesService(axios),
+    Coupons: createCouponsService(axios),
+    Orders: createOrdersService(axios),
+    OrderStatuses: createOrderStatusesService(axios),
+    ShippingMethods: createShippingMethodsService(axios),
+    PackagesTemplates: createPackagesTemplatesService(axios),
+    GlobalSeo: createGlobalSeoService(axios),
+    PaymentMethods: createPaymentMethodsService(axios),
+    Payments: createPaymentsService(axios),
+    Settings: createSettingsService(axios),
+    Media: createMediaService(axios),
+    Webhooks: createWebhooksService(axios),
+    Wishlist: createWishlistService(axios),
+    Consents: createConsentsService(axios),
+    Redirects: createRedirectsService(axios),
+  }
+}
 
 export type HeseyaApiService = ReturnType<typeof createHeseyaApiService>
