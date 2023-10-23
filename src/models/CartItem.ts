@@ -17,7 +17,7 @@ export class CartItem {
   private precalculatedInitialPrice: number | null = null
 
   private productSchemas: Schema[]
-  private product: ProductList
+  readonly product: ProductList
   private createdAt: number
 
   /**
