@@ -19,6 +19,13 @@ export enum AppsPermission {
   Remove = 'apps.remove',
 }
 
+export enum AppWidgetsPermission {
+  Show = 'app_widgets.show',
+  Add = 'app_widgets.add',
+  Edit = 'app_widgets.edit',
+  Remove = 'app_widgets.remove',
+}
+
 export enum AuditsPermission {
   Show = 'audits.show',
 }
@@ -257,6 +264,7 @@ export type Permission =
   | AdminPermission
   | AnalyticsPermission
   | AppsPermission
+  | AppWidgetsPermission
   | AuthPermission
   | ProfilePermission
   | AttributesPermission

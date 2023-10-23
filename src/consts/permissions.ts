@@ -33,12 +33,14 @@ import {
   BannersPermission,
   ConsentsPermission,
   RedirectsPermission,
+  AppWidgetsPermission,
 } from '../interfaces/Permissions'
 
 export const PERMISSIONS_TREE = {
   Admin: AdminPermission,
   Analytics: AnalyticsPermission,
   Apps: AppsPermission,
+  AppWidgetss: AppWidgetsPermission,
   Auth: AuthPermission,
   Profile: ProfilePermission,
   Audits: AuditsPermission,
