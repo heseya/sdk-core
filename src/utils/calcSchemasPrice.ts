@@ -1,4 +1,5 @@
-import { isNumber, isString } from 'lodash'
+import isString from 'lodash/isString'
+import isNumber from 'lodash/isNumber'
 import { SchemaType } from '../interfaces'
 import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
 import { getDependenciesTree } from './tree'

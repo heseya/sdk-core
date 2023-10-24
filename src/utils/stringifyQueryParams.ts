@@ -1,6 +1,7 @@
 import queryString from 'query-string'
 import flatten from 'flat'
-import { isBoolean, isDate } from 'lodash'
+import isBoolean from 'lodash/isBoolean'
+import isDate from 'lodash/isDate'
 
 import { DefaultParams } from '../services/api/types/DefaultParams'
 

@@ -1,4 +1,4 @@
-import { isUndefined } from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 import { Schema, SchemaType } from '../interfaces'
 import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
 import { parsePrices } from './parsePrice'

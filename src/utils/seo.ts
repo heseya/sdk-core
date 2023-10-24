@@ -1,4 +1,4 @@
-import { isNil } from 'lodash'
+import isNil from 'lodash/isNil'
 import { CdnMedia } from '../interfaces/CdnMedia'
 import { FlatSeoMetadata, TwitterCardType } from '../interfaces/Seo'
 

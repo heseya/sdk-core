@@ -7,6 +7,7 @@ import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import autoExternal from 'rollup-plugin-auto-external'
 import bundleSize from 'rollup-plugin-bundle-size'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 import * as lib from './package.json'
 
@@ -35,6 +36,7 @@ const config = {
       preventAssignment: true,
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
+    visualizer(),
   ],
 }
 
