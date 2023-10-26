@@ -92,6 +92,7 @@ export interface OrderSummary extends MetadataFields {
    */
   digital_shipping_method: Omit<ShippingMethod, 'price'> | null
   created_at: string
+  currency: string
 }
 
 /**
