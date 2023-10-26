@@ -77,6 +77,7 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     digital_shipping_method: null,
     created_at: '2022',
     metadata: {},
+    currency: 'PLN',
   },
 }
 
