@@ -3,17 +3,20 @@ import MockAdapter from 'axios-mock-adapter'
 
 import { AnalyticsPaymentsSummary, HeseyaResponse } from '../../../../interfaces'
 import { createAnalyticsService } from '../analytics'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyResponse: HeseyaResponse<AnalyticsPaymentsSummary> = {
   data: {
-    summary: {
-      amount: 100,
-      count: 10,
-    },
+    summary: [
+      {
+        amount: '100',
+        count: 10,
+        currency: 'PLN',
+      },
+    ],
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

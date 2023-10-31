@@ -1,5 +1,5 @@
 import {
-  OrderSummary,
+  Order,
   Product,
   ProductList,
   ProductSetList,
@@ -79,7 +79,7 @@ export interface HeseyaEventToPayloadMap extends Record<HeseyaEvent, unknown> {
   [HeseyaEvent.AddToWishlist]: Product
   [HeseyaEvent.InitiateCheckout]: CartItem[]
   [HeseyaEvent.AddShippingInfo]: { shipping: ShippingMethod; items: CartItem[] }
-  [HeseyaEvent.Purchase]: { order: OrderSummary; items: CartItem[]; email: string }
+  [HeseyaEvent.Purchase]: Order
   [HeseyaEvent.Search]: string
   [HeseyaEvent.Register]: User
   [HeseyaEvent.Login]: User

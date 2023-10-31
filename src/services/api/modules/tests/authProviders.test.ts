@@ -7,14 +7,14 @@ import { HeseyaResponse } from '../../../../interfaces/Response'
 import { HeseyaAuthResponse } from '../../../../interfaces/Auth'
 
 import { createAuthProvidersService } from '../auth/providers'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyRedirectResponse: HeseyaResponse<{ redirect_url: string }> = {
   data: {
     redirect_url: 'https://provider.com',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 const dummyLoginResponse: HeseyaResponse<HeseyaAuthResponse> = {
@@ -25,8 +25,7 @@ const dummyLoginResponse: HeseyaResponse<HeseyaAuthResponse> = {
     refresh_token: 'refreshToken',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

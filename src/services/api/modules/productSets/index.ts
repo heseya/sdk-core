@@ -24,11 +24,20 @@ import { ReorderEntityRequest } from '../../types/Reorder'
 import { createReorderPostRequest } from '../../utils/reorder'
 import { UUID } from '../../../../interfaces/UUID'
 import { stringifyQueryParams } from '../../../../utils/stringifyQueryParams'
-import { HeseyaPaginatedResponse, ListResponse, ProductList } from '../../../../interfaces'
+import {
+  HeseyaPaginatedResponse,
+  LanguageParams,
+  ListResponse,
+  ProductList,
+} from '../../../../interfaces'
 import { normalizePagination } from '../../utils/normalizePagination'
 import { createFavouriteProductSetService, FavouriteProductSetService } from './favourites'
 
-interface ProductSetsListParams extends SearchParam, MetadataParams, PaginationParams {
+interface ProductSetsListParams
+  extends SearchParam,
+    MetadataParams,
+    PaginationParams,
+    LanguageParams {
   root?: boolean
   tree?: boolean
   name?: string

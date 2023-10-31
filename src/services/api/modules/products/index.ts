@@ -17,20 +17,20 @@ import {
 } from '../../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
-import { createEntityAuditsService, EntityAuditsService } from '../audits'
-import { Attribute, FileUploadDto, ListResponse } from '../../../../interfaces'
-import { FieldSort } from '../../../../interfaces/Sort'
+import { Attribute, FileUploadDto, LanguageParams, ListResponse } from '../../../../interfaces'
+import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
 import { createFormData } from '../../utils/createFormData'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
+type CurrencyAttributeFilterValue = NumberAttributeFilterValue & { currency: string }
 type AttributeFilter = Record<
   string,
   UUID | UUID[] | DateAttributeFilterValue | NumberAttributeFilterValue
 >
 
-interface ProductsListParams extends SearchParam, PaginationParams, MetadataParams {
+interface ProductsListParams extends SearchParam, PaginationParams, LanguageParams, MetadataParams {
   name?: string
   slug?: string
   public?: boolean
@@ -44,7 +44,7 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
     | string
     | Array<
         | FieldSort<'name'>
-        | FieldSort<'price'>
+        | PriceSort
         | FieldSort<'public'>
         | FieldSort<`attribute.${string}`>
         | FieldSort<`set.${string}`>
@@ -59,7 +59,12 @@ interface ProductsListParams extends SearchParam, PaginationParams, MetadataPara
   shipping_digital?: boolean
   attribute?: AttributeFilter
   attribute_not?: Record<string, UUID | UUID[]>
-  price?: NumberAttributeFilterValue
+  price?: CurrencyAttributeFilterValue
+  /**
+   * If present, attribute of the given slug will be returned
+   * Otherwise, product will not have any attributes
+   */
+  attribute_slug?: string
 }
 
 export interface ProductsService
@@ -67,8 +72,7 @@ export interface ProductsService
       CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
       'get'
     >,
-    EntityMetadataService,
-    EntityAuditsService<Product> {
+    EntityMetadataService {
   /**
    * Return a list of products
    */
@@ -114,7 +118,6 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     getFilters: createGetSimpleListRequest(axios, 'filters'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
 
     Attachments: createProductAttachmentsService(axios),
   }

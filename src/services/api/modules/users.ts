@@ -21,7 +21,6 @@ import {
   MetadataType,
 } from './metadata'
 import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { HeseyaResponse, ListResponse, Metadata, MetadataUpdateDto } from '../../../interfaces'
 import { UUID } from '../../../interfaces/UUID'
 import { FieldSort } from '../../../interfaces/Sort'
@@ -37,7 +36,7 @@ interface UsersListParams extends SearchParam, PaginationParams, MetadataParams 
   ids?: UUID[]
 }
 
-export interface UsersService extends EntityMetadataService, EntityAuditsService<User> {
+export interface UsersService extends EntityMetadataService {
   /**
    * Return a list of users
    */
@@ -101,6 +100,5 @@ export const createUsersService: ServiceFactory<UsersService> = (axios) => {
 
     updateMetadataPersonal: createUpdateMetadataRequest(axios, route, MetadataType.Personal),
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

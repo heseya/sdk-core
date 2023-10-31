@@ -1,4 +1,5 @@
 import { HeseyaResponse } from '../../src'
+import { META_LANGUAGE } from '../mock/responseMeta'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const resolveInRandomTime = <FuncType extends (...args: any) => any>(
@@ -16,7 +17,6 @@ export const resolveInRandomTime = <FuncType extends (...args: any) => any>(
 export const makeDummyHeseyaResponse = <T>(data: T): HeseyaResponse<T> => ({
   data,
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 })

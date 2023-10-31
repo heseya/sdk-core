@@ -14,6 +14,7 @@ import {
   createPostNestedRequest,
   createPostRequest,
 } from '../requests'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 type DummyItem = { id: number }
 type DummyItemDto = { name: string }
@@ -31,8 +32,7 @@ const dummyResponseList: HeseyaPaginatedResponse<DummyItem[]> = {
     from: 1,
     to: 1,
     path: '/dummy',
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

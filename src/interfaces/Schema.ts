@@ -1,7 +1,18 @@
 import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { ProductList } from './Product'
+import { Price, PriceDto } from './Price'
+
+import { SchemaOption, SchemaOptionDto } from './SchemaOption'
+
 import { UUID } from './UUID'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
 
 export enum SchemaType {
   String = 'string',
@@ -14,43 +25,42 @@ export enum SchemaType {
   File = 'file',
 }
 
-export interface SchemaList extends MetadataFields {
+interface SchemaTranslatable {
+  name: string
+  description: string
+}
+
+export interface SchemaBase {
   id: UUID
   name: string
   type: SchemaType
-  description: string
-  price: number
+  prices: Price[]
   hidden: boolean
   required: boolean
-  available: boolean
+  default: string | null
+}
+
+export interface SchemaList
+  extends SchemaTranslatable,
+    Translations<SchemaTranslatable>,
+    PublishedTranslations,
+    SchemaBase,
+    MetadataFields {
+  id: UUID
+  type: SchemaType
+  description: string
   min: number | null
   max: number | null
   step: number | null
-  default: string | null
   pattern: string | null
   validation: string | null
   options: SchemaOption[]
-  used_schemas: string[]
+  used_schemas: UUID[]
+  shipping_time: number | null
+  shipping_date: string | null
 }
 
-export interface Schema extends SchemaList {
-  products: ProductList[]
-}
-
-export interface SchemaOption extends MetadataFields {
-  id: UUID
-  name: string
-  disabled: boolean
-  available: boolean
-  price: number
-  items: SchemaItem[]
-}
-
-export interface SchemaItem {
-  id: UUID
-  name: string
-  sku: string
-}
+export type Schema = SchemaList
 
 /**
  * -----------------------------------------------------------------------------
@@ -58,21 +68,44 @@ export interface SchemaItem {
  * -----------------------------------------------------------------------------
  */
 
-export interface SchemaOptionDto extends Omit<SchemaOption, 'id' | 'items' | keyof MetadataFields> {
-  items: UUID[]
-}
-
 export interface SchemaCreateDto
-  extends Omit<Schema, 'id' | 'options' | keyof MetadataFields>,
+  extends Omit<
+      Schema,
+      | 'id'
+      | 'options'
+      | 'name'
+      | 'description'
+      | 'translations'
+      | 'published'
+      | 'prices'
+      | 'shipping_date'
+      | 'shipping_time'
+      | keyof MetadataFields
+    >,
+    PublishedTranslationsCreateDto,
+    TranslationsCreateDto<SchemaTranslatable>,
     CreateMetadataFields {
   options: SchemaOptionDto[]
+  prices: PriceDto[]
 }
-export type SchemaUpdateDto = Omit<SchemaCreateDto, keyof CreateMetadataFields>
+
+export type SchemaUpdateDto = Omit<
+  SchemaCreateDto,
+  keyof CreateMetadataFields | 'translations' | 'published'
+> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<SchemaTranslatable>
+
+/**
+ * -----------------------------------------------------------------------------
+ * ? Order Schema
+ * -----------------------------------------------------------------------------
+ */
 
 export interface OrderSchema {
   id: UUID
   name: string
-  price: number
-  price_initial: number
+  price: Price
+  price_initial: Price
   value: CartItemSchemaValue
 }

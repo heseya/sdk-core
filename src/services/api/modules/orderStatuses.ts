@@ -15,10 +15,10 @@ import {
 } from '../../../interfaces/OrderStatus'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
+import { LanguageParams } from '../../../interfaces'
 
-type OrderStatusesListParams = MetadataParams & PaginationParams & { ids?: UUID[] }
+type OrderStatusesListParams = MetadataParams & PaginationParams & LanguageParams & { ids?: UUID[] }
 
 export interface OrderStatusesService
   extends Omit<
@@ -31,8 +31,7 @@ export interface OrderStatusesService
       >,
       'getOneBySlug' | 'getOne'
     >,
-    EntityMetadataService,
-    EntityAuditsService<OrderStatus> {
+    EntityMetadataService {
   reorder: ReorderEntityRequest
 }
 
@@ -46,6 +45,5 @@ export const createOrderStatusesService: ServiceFactory<OrderStatusesService> = 
     reorder: createReorderPostRequest(axios, route, 'statuses'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

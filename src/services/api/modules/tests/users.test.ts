@@ -3,6 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 
 import { HeseyaResponse, User } from '../../../../interfaces'
 import { createUsersService } from '../users'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyResponse: HeseyaResponse<User> = {
   data: {
@@ -10,8 +11,7 @@ const dummyResponse: HeseyaResponse<User> = {
     name: 'John',
   } as User,
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
