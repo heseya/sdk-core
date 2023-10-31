@@ -15,14 +15,19 @@
 <li><a href="../modules.html">@heseya/store-core</a></li>
 <li><a href="SchemaOption.html">SchemaOption</a></li></ul>
 <h1>Interface SchemaOption</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>Map that contains translations for any given language (UUID is id of language)</p>
+</div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
-<li><a href="MetadataFields.html" class="tsd-signature-type" data-tsd-kind="Interface">MetadataFields</a>
+<li><a href="MetadataFields.html" class="tsd-signature-type" data-tsd-kind="Interface">MetadataFields</a></li>
+<li><span class="tsd-signature-type">SchemaOptionTranslatable</span></li>
+<li><a href="../types/Translations.html" class="tsd-signature-type" data-tsd-kind="Type alias">Translations</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SchemaOptionTranslatable</span><span class="tsd-signature-symbol">&gt;</span>
 <ul class="tsd-hierarchy">
 <li><span class="target">SchemaOption</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L40">interfaces/Schema.ts:40</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L10">interfaces/SchemaOption.ts:10</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -36,8 +41,9 @@
 <a href="SchemaOption.html#items" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>items</span></a>
 <a href="SchemaOption.html#metadata" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>metadata</span></a>
 <a href="SchemaOption.html#metadata_private" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>metadata_<wbr/>private?</span></a>
-<a href="SchemaOption.html#name" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>name</span></a>
-<a href="SchemaOption.html#price" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>price</span></a>
+<a href="SchemaOption.html#name" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>name</span></a>
+<a href="SchemaOption.html#prices" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>prices</span></a>
+<a href="SchemaOption.html#translations" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>translations?</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
@@ -45,44 +51,51 @@
 <h3 class="tsd-anchor-link"><span>available</span><a href="#available" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <div class="tsd-signature">available<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L44">interfaces/Schema.ts:44</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L16">interfaces/SchemaOption.ts:16</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="disabled" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>disabled</span><a href="#disabled" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L43">interfaces/Schema.ts:43</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L15">interfaces/SchemaOption.ts:15</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="id" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L41">interfaces/Schema.ts:41</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L14">interfaces/SchemaOption.ts:14</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="items" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>items</span><a href="#items" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">items<span class="tsd-signature-symbol">:</span> <a href="SchemaItem.html" class="tsd-signature-type" data-tsd-kind="Interface">SchemaItem</a><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L46">interfaces/Schema.ts:46</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L18">interfaces/SchemaOption.ts:18</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="metadata" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>metadata</span><a href="#metadata" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">metadata<span class="tsd-signature-symbol">:</span> <a href="../types/Metadata.html" class="tsd-signature-type" data-tsd-kind="Type alias">Metadata</a></div><aside class="tsd-sources">
 <p>Inherited from <a href="MetadataFields.html">MetadataFields</a>.<a href="MetadataFields.html#metadata">metadata</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Metadata.ts#L8">interfaces/Metadata.ts:8</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/Metadata.ts#L8">interfaces/Metadata.ts:8</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="metadata_private" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>metadata_<wbr/>private</span><a href="#metadata_private" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">metadata_<wbr/>private<span class="tsd-signature-symbol">?:</span> <a href="../types/Metadata.html" class="tsd-signature-type" data-tsd-kind="Type alias">Metadata</a></div><aside class="tsd-sources">
 <p>Inherited from <a href="MetadataFields.html">MetadataFields</a>.<a href="MetadataFields.html#metadata_private">metadata_private</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Metadata.ts#L9">interfaces/Metadata.ts:9</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="name" class="tsd-anchor"></a>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/Metadata.ts#L9">interfaces/Metadata.ts:9</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="name" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<p>Inherited from SchemaOptionTranslatable.name</p>
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L42">interfaces/Schema.ts:42</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="price" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>price</span><a href="#price" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">price<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L7">interfaces/SchemaOption.ts:7</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="prices" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>prices</span><a href="#prices" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">prices<span class="tsd-signature-symbol">:</span> <a href="Price.html" class="tsd-signature-type" data-tsd-kind="Interface">Price</a><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/152ba5e/src/interfaces/Schema.ts#L45">interfaces/Schema.ts:45</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/SchemaOption.ts#L17">interfaces/SchemaOption.ts:17</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="translations" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>translations</span><a href="#translations" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">translations<span class="tsd-signature-symbol">?:</span> <a href="../types/TranslationsRecord.html" class="tsd-signature-type" data-tsd-kind="Type alias">TranslationsRecord</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SchemaOptionTranslatable</span><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
+<p>Inherited from Translations.translations</p>
+<ul>
+<li>Defined in <a href="https://github.com/heseya/sdk-core/blob/a126972/src/interfaces/languages/Translations.ts#L19">interfaces/languages/Translations.ts:19</a></li></ul></aside></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -114,8 +127,9 @@
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="SchemaOption.html#items" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>items</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="SchemaOption.html#metadata" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>metadata</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="SchemaOption.html#metadata_private" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>metadata_<wbr/>private?</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a href="SchemaOption.html#name" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>name</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a href="SchemaOption.html#price" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>price</a></li></ul></li></ul></nav></div></div>
+<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="SchemaOption.html#name" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>name</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a href="SchemaOption.html#prices" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>prices</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="SchemaOption.html#translations" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>translations?</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div><script src="../assets/main.js"></script></body></html>
