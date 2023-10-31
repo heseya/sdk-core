@@ -18,9 +18,10 @@ import {
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
 import { createEntityAuditsService, EntityAuditsService } from '../audits'
-import { Attribute, ListResponse } from '../../../../interfaces'
+import { Attribute, FileUploadDto, ListResponse } from '../../../../interfaces'
 import { FieldSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
+import { createFormData } from '../../utils/createFormData'
 
 type DateAttributeFilterValue = { min: Date } | { max: Date } | { min: Date; max: Date }
 type NumberAttributeFilterValue = { min: number } | { max: number } | { min: number; max: number }
@@ -81,6 +82,8 @@ export interface ProductsService
 
   getFilters(props?: { sets?: UUID[] }): Promise<Attribute[]>
 
+  importPrices(csvOrXmlFile: FileUploadDto): Promise<true>
+
   Attachments: ProductAttachmentsService
 }
 
@@ -99,6 +102,13 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
         `/google-categories/${lang}`,
       )
       return response.data.data
+    },
+
+    async importPrices(file) {
+      const form = await createFormData()
+      form.append('file', file, 'media')
+      await axios.post('/products/import-prices', form)
+      return true
     },
 
     getFilters: createGetSimpleListRequest(axios, 'filters'),
