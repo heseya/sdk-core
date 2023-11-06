@@ -40,9 +40,11 @@ interface ProductSetsListParams
     LanguageParams {
   root?: boolean
   /**
-   * @deprecated in 7.0 this will be replaced with `depth`
+   * Determines how many nested levels of children to fetch
+   * This replaces old `tree` param
+   * @default 0
    */
-  tree?: boolean
+  depth?: number
   name?: string
   slug?: string
   parent_id?: UUID
