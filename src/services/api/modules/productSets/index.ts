@@ -39,6 +39,9 @@ interface ProductSetsListParams
     PaginationParams,
     LanguageParams {
   root?: boolean
+  /**
+   * @deprecated in 7.0 this will be replaced with `depth`
+   */
   tree?: boolean
   name?: string
   slug?: string
