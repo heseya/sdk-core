@@ -9,7 +9,7 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import { Sale, SaleCreateDto, SaleUpdateDto } from '../../../interfaces/SalesAndCoupons'
+import { Sale, SaleCreateDto, SaleList, SaleUpdateDto } from '../../../interfaces/SalesAndCoupons'
 import { UUID } from '../../../interfaces/UUID'
 
 interface SalesListParams extends SearchParam, PaginationParams, MetadataParams {
@@ -20,7 +20,7 @@ interface SalesListParams extends SearchParam, PaginationParams, MetadataParams 
 }
 
 export type SalesService = Omit<
-  CrudService<Sale, Sale, SaleCreateDto, SaleUpdateDto, SalesListParams>,
+  CrudService<Sale, SaleList, SaleCreateDto, SaleUpdateDto, SalesListParams>,
   'getOneBySlug'
 > &
   EntityMetadataService
