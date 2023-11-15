@@ -24,6 +24,7 @@ export enum AuthPermission {
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
   ProvidersManage = 'auth.providers.manage',
+  CheckIdentity = 'auth.check_identity',
 }
 
 export enum ProfilePermission {
