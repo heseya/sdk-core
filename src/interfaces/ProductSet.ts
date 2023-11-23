@@ -56,7 +56,7 @@ export interface ProductSetCreateDto
   parent_id?: UUID | null
   public?: boolean
   children_ids?: UUID[]
-  cover_id?: UUID
+  cover_id?: UUID | null
   attributes?: UUID[]
   seo?: SeoMetadataDto
 }

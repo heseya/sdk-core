@@ -9,7 +9,12 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import { Coupon, CouponCreateDto, CouponUpdateDto } from '../../../interfaces/SalesAndCoupons'
+import {
+  Coupon,
+  CouponCreateDto,
+  CouponList,
+  CouponUpdateDto,
+} from '../../../interfaces/SalesAndCoupons'
 import { UUID } from '../../../interfaces/UUID'
 
 interface CouponsListParams extends SearchParam, PaginationParams, MetadataParams {
@@ -21,7 +26,7 @@ interface CouponsListParams extends SearchParam, PaginationParams, MetadataParam
 
 export type CouponsService = CrudService<
   Coupon,
-  Coupon,
+  CouponList,
   CouponCreateDto,
   CouponUpdateDto,
   CouponsListParams
