@@ -25,6 +25,7 @@ interface SchemasListParams extends SearchParam, PaginationParams, LanguageParam
    */
   sort?: string | Array<FieldSort<string>>
   ids?: UUID[]
+  has_product?: boolean
 }
 
 export type SchemasService = Omit<
