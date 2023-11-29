@@ -24,7 +24,11 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
     method: 'payu',
     method_id: null,
     status: PaymentStatus.Successful,
-    amount: '2137',
+    amount: {
+      net: '2137',
+      gross: '2137',
+      currency: 'PLN',
+    },
     currency: 'pln',
     redirect_url: '/redirect',
     continue_url: '/continue',
@@ -37,13 +41,33 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
 
 const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
   data: {
-    cart_total_initial: '121',
-    cart_total: '200',
-    shipping_price_initial: '21',
-    shipping_price: '37',
+    cart_total_initial: {
+      net: '121',
+      gross: '121',
+      currency: 'PLN',
+    },
+    cart_total: {
+      net: '200',
+      gross: '200',
+      currency: 'PLN',
+    },
+    shipping_price_initial: {
+      net: '21',
+      gross: '21',
+      currency: 'PLN',
+    },
+    shipping_price: {
+      net: '37',
+      gross: '37',
+      currency: 'PLN',
+    },
     shipping_time: null,
     shipping_date: null,
-    summary: '1000',
+    summary: {
+      net: '1000',
+      gross: '1000',
+      currency: 'PLN',
+    },
     items: [],
     coupons: [],
     sales: [],
@@ -68,11 +92,31 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     status: {} as OrderStatus,
     paid: false,
     payable: true,
-    cart_total_initial: '121',
-    cart_total: '121',
-    shipping_price_initial: '21',
-    shipping_price: '21',
-    summary: '2134',
+    cart_total_initial: {
+      net: '121',
+      gross: '121',
+      currency: 'PLN',
+    },
+    cart_total: {
+      net: '121',
+      gross: '121',
+      currency: 'PLN',
+    },
+    shipping_price_initial: {
+      net: '21',
+      gross: '21',
+      currency: 'PLN',
+    },
+    shipping_price: {
+      net: '21',
+      gross: '21',
+      currency: 'PLN',
+    },
+    summary: {
+      net: '2134',
+      gross: '2134',
+      currency: 'PLN',
+    },
     shipping_method: {} as ShippingMethod,
     digital_shipping_method: null,
     created_at: '2022',

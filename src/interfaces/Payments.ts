@@ -1,12 +1,13 @@
 import { StrNumber } from './Number'
 import { UUID } from './UUID'
+import { Price } from './Price'
 export interface OrderPayment {
   id: UUID
   external_id: UUID
   method: string
   method_id: UUID | null
   status: PaymentStatus
-  amount: StrNumber
+  amount: Price
   currency: string
   redirect_url: string | null
   continue_url: string
@@ -24,7 +25,7 @@ export interface Payment {
   external_id: string
   method_id: UUID // PaymentMethod.id
   status: PaymentStatus
-  amount: StrNumber
+  amount: Price
   currency: string
 }
 
