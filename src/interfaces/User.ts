@@ -57,6 +57,7 @@ export interface UserUpdateDto {
    */
   phone?: string
   roles: UUID[]
+  email_verify_url: string
 }
 
 export interface UserCreateDto extends UserUpdateDto, CreateMetadataFields {
@@ -81,6 +82,7 @@ export interface UserRegisterDto {
   password: string
   consents: UserConsentDto
   metadata_personal?: Metadata
+  email_verify_url: string
 }
 
 export interface UserProfileUpdateDto {
