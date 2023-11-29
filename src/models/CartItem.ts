@@ -2,7 +2,7 @@ import md5 from 'md5'
 import round from 'lodash/round'
 
 import { ProductList } from '../interfaces/Product'
-import { SchemaType, Schema } from '../interfaces/Schema'
+import { Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 import { SavedCartItem, CartItemSchema, CartItemRawSchemaValue } from '../interfaces/CartItem'
 import { CartItemDto } from '../interfaces/Cart'
@@ -214,10 +214,7 @@ export class CartItem {
       const schema = this.productSchemas.find((s) => s.id === schemaValue.id)
       if (!schema) throw new Error('[HS CartItem] No schema for given schema value!')
 
-      const value =
-        schema.type === SchemaType.Select
-          ? schema.options.find((op) => op.id === schemaValue.value)?.name
-          : (schemaValue.value as CartItemRawSchemaValue)
+      const value = schema.options.find((op) => op.id === schemaValue.value)?.name
 
       return [schemaValue.name, value]
     })

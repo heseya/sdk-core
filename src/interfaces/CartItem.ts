@@ -1,5 +1,5 @@
 import { ProductList } from './Product'
-import { Schema, SchemaType } from './Schema'
+import { Schema } from './Schema'
 import { SchemaOption } from './SchemaOption'
 import { UUID } from './UUID'
 
@@ -18,10 +18,8 @@ export type CartItemRawSchemaValue = string | number | boolean | null | undefine
 
 export interface CartItemSchema {
   id: string
-  type: SchemaType
   name: string
-  price: number
-  optionPrice?: number
+  optionPrice: number
   dependencies: string[]
   value: CartItemSchemaValue
 }
