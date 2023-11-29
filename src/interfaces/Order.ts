@@ -10,8 +10,8 @@ import { OrderDocument } from './OrderDocuments'
 import { OrderPayment } from './Payments'
 import { User } from './User'
 import { App } from './App'
-import { StrNumber } from './Number'
 import { SalesChannel } from './SalesChannel'
+import { Price } from './Price'
 
 export interface OrderList extends MetadataFields {
   id: UUID
@@ -36,29 +36,29 @@ export interface OrderList extends MetadataFields {
   /**
    * Basket value without discounts
    */
-  cart_total_initial: StrNumber
+  cart_total_initial: Price
   /**
    * Basket value after discounts
    */
-  cart_total: StrNumber
+  cart_total: Price
 
   /**
    * Shipping price without discounts
    */
-  shipping_price_initial: StrNumber
+  shipping_price_initial: Price
   /**
    * Shipping price after discounts
    */
-  shipping_price: StrNumber
+  shipping_price: Price
 
   /**
    * Total order value after discounts
    */
-  summary: StrNumber
+  summary: Price
   /**
    * Amount already paid by client
    */
-  summary_paid: StrNumber
+  summary_paid: Price
   payable: boolean
   documents: OrderDocument[]
   sales_channel: SalesChannel
@@ -78,11 +78,11 @@ export interface OrderSummary extends MetadataFields {
   status: OrderStatus
   paid: boolean
   payable: boolean
-  cart_total_initial: StrNumber
-  cart_total: StrNumber
-  shipping_price_initial: StrNumber
-  shipping_price: StrNumber
-  summary: StrNumber
+  cart_total_initial: Price
+  cart_total: Price
+  shipping_price_initial: Price
+  shipping_price: Price
+  summary: Price
   /**
    * Phisical shipping method only exists if in order is any product without digital shipping type
    */

@@ -134,7 +134,7 @@ export type SaleShort = {
   /**
    * Amount by which it reduced the value of the entire contract
    */
-  value: StrNumber
+  value: Price
 }
 
 export type CouponShort = SaleShort & {
@@ -154,5 +154,5 @@ export type OrderDiscount = {
   /**
    * The amount that the discount has been calculated
    */
-  applied_discount: StrNumber
+  applied_discount: Price
 }
