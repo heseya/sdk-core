@@ -47,7 +47,7 @@ export const createOrganizationService: ServiceFactory<OrganizationService> = (a
       const {
         data: { data },
       } = await axios.post<HeseyaResponse<OrganizationDetail>>(
-        `${route}/id:${organizationId}/accept`,
+        `/${route}/id:${organizationId}/accept`,
         {
           redirect_url: redirectUrl,
           sales_channel_id: salesChannelId,
@@ -61,17 +61,20 @@ export const createOrganizationService: ServiceFactory<OrganizationService> = (a
       const {
         data: { data },
       } = await axios.post<HeseyaResponse<OrganizationDetail>>(
-        `${route}/id:${organizationId}/reject`,
+        `/${route}/id:${organizationId}/reject`,
       )
 
       return data
     },
 
     async invite(organizationId: string, redirectUrl: string, emails: string[]) {
-      await axios.post<HeseyaResponse<OrganizationDetail>>(`${route}/id:${organizationId}/invite`, {
-        redirect_url: redirectUrl,
-        emails: emails,
-      })
+      await axios.post<HeseyaResponse<OrganizationDetail>>(
+        `/${route}/id:${organizationId}/invite`,
+        {
+          redirect_url: redirectUrl,
+          emails: emails,
+        },
+      )
       return true
     },
 
