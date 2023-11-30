@@ -43,6 +43,7 @@ export interface User extends UserList {
   shipping_addresses: UserSavedAddress[]
   billing_addresses: UserSavedAddress[]
   consents: UserConsent[]
+  organization_token?: string
 }
 
 export interface UserUpdateDto {
