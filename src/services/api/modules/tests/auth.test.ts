@@ -65,6 +65,7 @@ const dummyUserRegisterDto: UserRegisterDto = {
   email: 'a@test.pl',
   password: 'password',
   consents: {} as UserConsentDto,
+  email_verify_url: 'https://heseya.com',
 }
 
 let mock: MockAdapter
