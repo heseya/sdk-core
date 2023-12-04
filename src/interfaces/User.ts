@@ -35,6 +35,7 @@ export interface UserList extends MetadataFields {
   roles: Role[]
   metadata_personal?: Metadata
   created_at: string
+  email_verified_at: string
 }
 
 export interface User extends UserList {
