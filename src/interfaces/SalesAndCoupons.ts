@@ -114,17 +114,20 @@ export type CouponUpdateDto = Omit<CouponCreateDto, keyof CreateMetadataFields>
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-export type ProductSale = DiscountValue & {
-  id: UUID
-  name: string
-  slug: string
-  description: string
-  description_html: string
-  priority: number
-  target_type: DiscountTargetType
-  target_is_allow_list: boolean
-  active: boolean
-}
+export type ProductSale = DiscountValue &
+  PublishedTranslations &
+  MetadataFields & {
+    id: UUID
+    name: string
+    slug: string | null
+    description: string
+    description_html: string
+    priority: number
+    target_type: DiscountTargetType
+    target_is_allow_list: boolean
+    active: boolean
+    uses: number
+  }
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
