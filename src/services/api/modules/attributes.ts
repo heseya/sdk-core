@@ -40,7 +40,12 @@ export interface AttributesService
     EntityMetadataService {
   getOptions(
     attributeId: UUID,
-    params?: MetadataParams & PaginationParams & { name?: string; ids?: UUID[] } & LanguageParams,
+    params?: MetadataParams &
+      PaginationParams & {
+        name?: string
+        ids?: UUID[]
+        product_set_slug?: UUID
+      } & LanguageParams,
   ): Promise<ListResponse<AttributeOption>>
   addOption(
     attributeId: UUID,
