@@ -55,7 +55,7 @@ export interface UserUpdateDto {
   /**
    * Full phone number
    */
-  phone?: string
+  phone?: string | null
   roles: UUID[]
 }
 
