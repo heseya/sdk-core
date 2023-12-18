@@ -22,6 +22,8 @@ export interface OrderList extends MetadataFields {
   shipping_place?: Address | string
   email: string
   paid: boolean
+  /** de, fr-CA, de-DE-1996 */
+  language: string
   billing_address: Address
   invoice_requested: boolean
   /**
