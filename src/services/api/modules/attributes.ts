@@ -45,6 +45,11 @@ export interface AttributesService
         name?: string
         ids?: UUID[]
         product_set_slug?: UUID
+        /**
+         * If empty, it will be sorted by position
+         * If value is provided, it will be sorted asc/desc by name (in option attributes) or by value (in number/date attributes)
+         */
+        sort?: 'asc' | 'desc'
       } & LanguageParams,
   ): Promise<ListResponse<AttributeOption>>
   addOption(
