@@ -5,6 +5,7 @@ import {
   replaceVariablesInPathPattern,
   resolveRedirect,
   trimSlash,
+  splitUrl,
 } from '../redirects'
 
 const mockRedirect = (source: string, target: string, type: RedirectType = 301): Redirect => ({
@@ -66,6 +67,23 @@ describe('Redirects | trimSlash', () => {
   })
 })
 
+describe('Redirects | splitUrl', () => {
+  test('should split url into parts', () => {
+    const url = '/new-category?limit=5#test'
+    expect(splitUrl(url)).toEqual(['/new-category', '?limit=5', '#test'])
+  })
+
+  test('should split url if query does not exists', () => {
+    const url = '/new-category#test'
+    expect(splitUrl(url)).toEqual(['/new-category', '', '#test'])
+  })
+
+  test('should split url if fragment does not exists', () => {
+    const url = '/new-category?limit=5'
+    expect(splitUrl(url)).toEqual(['/new-category', '?limit=5', ''])
+  })
+})
+
 describe('Redirects | resolveRedirect', () => {
   test('should not return redirect if pattern not match', () => {
     const sourceUrl = '/test'
@@ -81,14 +99,14 @@ describe('Redirects | resolveRedirect', () => {
     const source = '/products/some-prod'
     const target = '/promotions'
     const redirects = [mockRedirect(source, target, 301)]
-    expect(resolveRedirect(redirects, source)).toEqual([target, 301])
+    expect(resolveRedirect(redirects, source)).toEqual([`${target}?_rc=1`, 301])
   })
 
   test('should create redirect to given path and ignore slashes', () => {
     const source = '/produkty/prod-slug/'
     const target = '/products/prod-slug'
     const redirects = [mockRedirect(source, target, 301)]
-    expect(resolveRedirect(redirects, source)).toEqual([target, 301])
+    expect(resolveRedirect(redirects, source)).toEqual([`${target}?_rc=1`, 301])
   })
 
   test('should not redirect if pattern match only partialy', () => {
@@ -103,17 +121,18 @@ describe('Redirects | resolveRedirect', () => {
 
   test('should redirect if pattern has unused variable at the end', () => {
     const sourceUrl = '/category/promocje-t-mobile'
+    const targetUrl = '/promocje?_rc=1'
 
     const sourcePattern = '/category/promo{any}'
     const targetPattern = '/promocje'
     const redirects = [mockRedirect(sourcePattern, targetPattern)]
 
-    expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetPattern, 301])
+    expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
   })
 
   test('should handle multiple variables in path', () => {
     const sourceUrl = '/new-category/test-slug/new-product/test-id'
-    const targetUrl = '/categories/test-slug/product/test-id'
+    const targetUrl = '/categories/test-slug/product/test-id?_rc=1'
 
     const sourcePattern = '/new-category/{slug}/new-product/{id}'
     const targetPattern = '/categories/{slug}/product/{id}'
@@ -124,7 +143,7 @@ describe('Redirects | resolveRedirect', () => {
 
   test('should ignore trailing slashes in source', () => {
     const sourceUrl = '/produkty/prod-slug'
-    const targetUrl = '/products/prod-slug'
+    const targetUrl = '/products/prod-slug?_rc=1'
 
     const sourcePattern = '/produkty/prod-slug/'
     const targetPattern = '/products/prod-slug'
@@ -135,12 +154,55 @@ describe('Redirects | resolveRedirect', () => {
 
   test('should ignore trailing slashes in target', () => {
     const sourceUrl = '/produkty/prod-slug'
-    const targetUrl = '/products/prod-slug'
+    const targetUrl = '/products/prod-slug?_rc=1'
 
     const sourcePattern = '/produkty/prod-slug'
     const targetPattern = '/products/prod-slug/'
     const redirects = [mockRedirect(sourcePattern, targetPattern)]
 
     expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
+  })
+
+  test('should not create a redirect to itself', () => {
+    const sourceUrl = '/produkty/prod-slug'
+
+    const sourcePattern = '/produkty/prod-slug'
+    const targetPattern = '/produkty/prod-slug'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    expect(resolveRedirect(redirects, sourceUrl)).toEqual(null)
+  })
+
+  test('should create a redirect if max redirects limit is not met', () => {
+    const sourceUrl = '/produkty/prod-slug?_rc=3'
+    const targetUrl = '/products/prod-slug?_rc=4'
+
+    const sourcePattern = '/produkty/prod-slug'
+    const targetPattern = '/products/prod-slug'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
+  })
+
+  test('should not create a redirect if max redirects limit is met', () => {
+    const sourceUrl = '/produkty/prod-slug?_rc=10'
+
+    const sourcePattern = '/produkty/prod-slug'
+    const targetPattern = '/products/prod-slug'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    expect(resolveRedirect(redirects, sourceUrl)).toEqual(null)
+  })
+
+  test('should handle custom redirect config', () => {
+    const sourceUrl = '/produkty/prod-slug?limit=5'
+
+    const sourcePattern = '/produkty/prod-slug'
+    const targetPattern = '/products/prod-slug'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    expect(
+      resolveRedirect(redirects, sourceUrl, { redirectsLimit: 5, redirectsQueryParam: 'limit' }),
+    ).toEqual(null)
   })
 })
