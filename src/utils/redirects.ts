@@ -75,6 +75,10 @@ export const resolveRedirect = (
     searchParams.toString() ? `?${searchParams.toString()}` : ''
   }`
 
+  if (isRedirectsLimitReached)
+    // eslint-disable-next-line no-console
+    console.warn(`Redirects limit reached for ${currentUrl} [max: ${config.redirectsLimit}]]`)
+
   return result.target && !isTargetSameAsSource && !isRedirectsLimitReached
     ? [targetUrl, result.type]
     : null

@@ -173,6 +173,17 @@ describe('Redirects | resolveRedirect', () => {
     expect(resolveRedirect(redirects, sourceUrl)).toEqual(null)
   })
 
+  test('should increase current redirects count (from 0)', () => {
+    const sourceUrl = '/produkty/prod-slug'
+    const targetUrl = '/products/prod-slug?_rc=1'
+
+    const sourcePattern = '/produkty/prod-slug'
+    const targetPattern = '/products/prod-slug'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
+  })
+
   test('should create a redirect if max redirects limit is not met', () => {
     const sourceUrl = '/produkty/prod-slug?_rc=3'
     const targetUrl = '/products/prod-slug?_rc=4'
