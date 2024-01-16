@@ -30,7 +30,9 @@ import { normalizePagination } from '../utils/normalizePagination'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
 
-type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] } & LanguageParams
+type AttributeParams = PaginationParams &
+  MetadataParams &
+  LanguageParams & { ids?: UUID[]; global?: boolean; sortable?: boolean }
 
 export interface AttributesService
   extends Omit<
