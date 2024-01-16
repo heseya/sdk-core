@@ -101,7 +101,7 @@ export interface Product
    */
   quantity: number | null
   descriptions: PageList[]
-  banner_media: BannerMedia | null
+  banner_media: Omit<BannerMedia, 'published'> | null
 }
 
 export interface ProductCreateDto
@@ -149,7 +149,7 @@ export interface ProductCreateDto
    * If not null, single user can buy only this amount of products
    */
   purchase_limit_per_user?: null | number
-  banner_media?: BannerMediaCreateDto | null
+  banner_media?: Omit<BannerMediaCreateDto, 'published'> | null
 }
 
 export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>> &
