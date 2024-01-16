@@ -21,6 +21,7 @@ import {
 } from './languages'
 import { Price, PriceDto } from './Price'
 import { StrNumber } from './Number'
+import { BannerMedia, BannerMediaCreateDto } from './Banner'
 
 interface ProductListTranslatable {
   name: string
@@ -100,6 +101,7 @@ export interface Product
    */
   quantity: number | null
   descriptions: PageList[]
+  banner_media: BannerMedia | null
 }
 
 export interface ProductCreateDto
@@ -147,6 +149,7 @@ export interface ProductCreateDto
    * If not null, single user can buy only this amount of products
    */
   purchase_limit_per_user?: null | number
+  banner_media?: BannerMediaCreateDto | null
 }
 
 export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>> &
