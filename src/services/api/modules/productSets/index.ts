@@ -78,7 +78,7 @@ export interface ProductSetsService
    */
   getAllProducts: (
     id: UUID,
-    params?: DefaultParams & PaginationParams,
+    params?: DefaultParams & PaginationParams & { public?: boolean },
   ) => Promise<ListResponse<ProductList>>
   reorderProducts: (
     setId: UUID,
