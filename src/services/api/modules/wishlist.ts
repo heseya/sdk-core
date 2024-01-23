@@ -55,7 +55,7 @@ export const createWishlistService: ServiceFactory<WishlistService> = (axios) =>
     check: async (productIds, params) => {
       const stringParams = stringifyQueryParams({ ...(params || {}), product_ids: productIds })
       const { data } = await axios.get<HeseyaResponse<{ products_in_wishlist: UUID[] }>>(
-        encodeURI(`${route}/check?${stringParams}`),
+        `${route}/check?${stringParams}`,
       )
       return data.data.products_in_wishlist
     },
