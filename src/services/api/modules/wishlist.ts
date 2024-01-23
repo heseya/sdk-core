@@ -1,3 +1,5 @@
+import { HeseyaResponse } from '../../../interfaces'
+import { UUID } from '../../../interfaces/UUID'
 import { WishlistProduct, WishlistProductCreateDto } from '../../../interfaces/Wishlist'
 import { stringifyQueryParams } from '../../../utils'
 import { DefaultParams } from '../types/DefaultParams'
@@ -25,6 +27,11 @@ export interface WishlistService {
    */
   getOne: GetOneEntityRequest<WishlistProduct>
   /**
+   * Return a wishlist items searched by product_ids
+   * Only products that are in the wishlist will be returned
+   */
+  check: (productIds: UUID[], params?: DefaultParams) => Promise<UUID[]>
+  /**
    * Add Product to wishlist
    */
   add: CreateEntityRequest<WishlistProduct, WishlistProductCreateDto>
@@ -45,6 +52,13 @@ export const createWishlistService: ServiceFactory<WishlistService> = (axios) =>
     getOne: createGetOneRequest(axios, route, { byId: true }),
     add: createPostRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+    check: async (productIds, params) => {
+      const stringParams = stringifyQueryParams({ ...(params || {}), product_ids: productIds })
+      const { data } = await axios.get<HeseyaResponse<{ products_in_wishlist: UUID[] }>>(
+        encodeURI(`${route}/check?${stringParams}`),
+      )
+      return data.data.products_in_wishlist
+    },
     clear: async (params) => {
       const stringParams = stringifyQueryParams(params || {})
       await axios.delete<never>(encodeURI(`${route}?${stringParams}`))
