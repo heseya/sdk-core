@@ -1,7 +1,7 @@
-import isUndefined from 'lodash/isUndefined'
 import { Schema, SchemaType } from '../interfaces'
 import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
 import { parsePrices } from './parsePrice'
+import { isUndefined } from './utils'
 
 const getDefaultFallbackForType = (schema: Schema): CartItemSchemaValue => {
   switch (schema.type) {
