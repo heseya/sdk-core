@@ -15,7 +15,9 @@ import { createReorderPostRequest } from '../utils/reorder'
 import { UUID } from '../../../interfaces/UUID'
 import { LanguageParams } from '../../../interfaces'
 
-type PagesListParams = PaginationParams & MetadataParams & LanguageParams & { ids?: UUID[] }
+type PagesListParams = PaginationParams &
+  MetadataParams &
+  LanguageParams & { ids?: UUID[]; search?: string }
 
 export interface PagesService
   extends CrudService<Page, PageList, PageCreateDto, PageUpdateDto, PagesListParams>,
