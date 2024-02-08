@@ -22,7 +22,7 @@ export const extractVariables = (path: string, pattern: string) => {
   return match ? match.slice(1) : null
 }
 
-export const trimSlash = (path: string) => path.replace(/\/$/, '')
+export const trimSlash = (path: string) => (path !== '/' ? path.replace(/\/$/, '') : path)
 
 export const splitUrl = (url: string): [pathname: string, search: string, hash: string] => {
   const { pathname, search, hash } = new URL(url, 'https://example.com')

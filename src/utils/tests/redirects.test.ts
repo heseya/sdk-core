@@ -65,6 +65,12 @@ describe('Redirects | trimSlash', () => {
     const expected = '/new-category/{slug}/new-product/{id}'
     expect(trimSlash(path)).toEqual(expected)
   })
+
+  test('should ignore singe slash string', () => {
+    const path = '/'
+    const expected = '/'
+    expect(trimSlash(path)).toEqual(expected)
+  })
 })
 
 describe('Redirects | splitUrl', () => {
@@ -98,6 +104,13 @@ describe('Redirects | resolveRedirect', () => {
   test('should create redirect to given path', () => {
     const source = '/products/some-prod'
     const target = '/promotions'
+    const redirects = [mockRedirect(source, target, 301)]
+    expect(resolveRedirect(redirects, source)).toEqual([`${target}?_rc=1`, 301])
+  })
+
+  test('should create redirect to homepage', () => {
+    const source = '/products/some-prod'
+    const target = '/'
     const redirects = [mockRedirect(source, target, 301)]
     expect(resolveRedirect(redirects, source)).toEqual([`${target}?_rc=1`, 301])
   })
