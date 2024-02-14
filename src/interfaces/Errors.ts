@@ -114,6 +114,7 @@ export enum HeseyaValidationErrorCode {
   FullName = 'VALIDATION_FULL_NAME',
   StreetNumber = 'VALIDATION_STREET_NUMBER',
   ProductSchemaOption = 'VALIDATION_PRODUCT_SCHEMA_OPTION',
+  EmailTaken = 'VALIDATION_EMAIL_TAKEN',
 }
 
 export enum HeseyaClientErrorCode {
