@@ -176,6 +176,19 @@ describe('Redirects | resolveRedirect', () => {
     expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
   })
 
+  test('should handle {*} pattern to redirect to another domain', () => {
+    const sourceUrls = ['/bg/test', '/bg/', '/bg/nested/test', '/bg']
+    const targetUrl = 'https://www.bg.example.com?_rc=1'
+
+    const sourcePattern = '/bg{*}'
+    const targetPattern = 'https://www.bg.example.com'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    sourceUrls.forEach((sourceUrl) => {
+      expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
+    })
+  })
+
   test('should not create a redirect to itself', () => {
     const sourceUrl = '/produkty/prod-slug'
 

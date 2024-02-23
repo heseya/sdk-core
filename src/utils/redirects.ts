@@ -50,7 +50,7 @@ export const resolveRedirect = (
     type: 0,
   }
 
-  const [rawCurrentUrl, query] = splitUrl(currentUrl)
+  const [rawCurrentUrl, query] = splitUrl(currentUrl).map(trimSlash)
   const searchParams = new URLSearchParams(query)
 
   /**
@@ -59,10 +59,23 @@ export const resolveRedirect = (
   const redirectsCount = parseInt(searchParams.get(config.redirectsQueryParam) || '0')
 
   redirectsList.forEach((redirect) => {
-    const regExp = new RegExp(`^${replaceVariablesInPathPattern(trimSlash(redirect.source_url))}$`)
-    if (redirect.enabled && regExp.test(trimSlash(rawCurrentUrl))) {
-      const variables = extractVariables(trimSlash(rawCurrentUrl), trimSlash(redirect.source_url))
+    const variablesMatchRegExp = new RegExp(
+      `^${replaceVariablesInPathPattern(trimSlash(redirect.source_url))}$`,
+    )
+
+    if (redirect.enabled && variablesMatchRegExp.test(rawCurrentUrl)) {
+      const variables = extractVariables(rawCurrentUrl, trimSlash(redirect.source_url))
       result.target = pushVariablesToUrl(trimSlash(redirect.target_url), variables)
+      result.type = redirect.type
+    }
+
+    // TODO: this is a temporary solution, it should be replaced with a more general one
+    if (
+      redirect.enabled &&
+      redirect.source_url.includes(`{*}`) &&
+      rawCurrentUrl.startsWith(redirect.source_url.split('{*}')[0])
+    ) {
+      result.target = redirect.target_url
       result.type = redirect.type
     }
   })
