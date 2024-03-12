@@ -1,5 +1,6 @@
 import {
-  OrderSummary,
+  Order,
+  PaymentMethodList,
   Product,
   ProductList,
   ProductSetList,
@@ -48,6 +49,10 @@ export enum HeseyaEvent {
    */
   AddShippingInfo = 'addShippingInfo',
   /**
+   * Add shipping information to a checkout.
+   */
+  AddPaymentInfo = 'addPaymentInfo',
+  /**
    * The completion of a purchase, usually signified by receiving order or purchase confirmation, or a transaction receipt.
    */
   Purchase = 'purchase',
@@ -79,7 +84,8 @@ export interface HeseyaEventToPayloadMap extends Record<HeseyaEvent, unknown> {
   [HeseyaEvent.AddToWishlist]: Product
   [HeseyaEvent.InitiateCheckout]: CartItem[]
   [HeseyaEvent.AddShippingInfo]: { shipping: ShippingMethod; items: CartItem[] }
-  [HeseyaEvent.Purchase]: { order: OrderSummary; items: CartItem[]; email: string }
+  [HeseyaEvent.AddPaymentInfo]: { payment: PaymentMethodList; items: CartItem[] }
+  [HeseyaEvent.Purchase]: Order
   [HeseyaEvent.Search]: string
   [HeseyaEvent.Register]: User
   [HeseyaEvent.Login]: User

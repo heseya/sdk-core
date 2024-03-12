@@ -15,6 +15,7 @@ import {
 } from '../../../../interfaces'
 
 import { createOrdersService } from '../orders'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
   data: {
@@ -23,39 +24,41 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
     method: 'payu',
     method_id: null,
     status: PaymentStatus.Successful,
-    amount: 2137,
+    amount: '2137',
+    currency: 'pln',
     redirect_url: '/redirect',
     continue_url: '/continue',
     date: '2020-01-01',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
 const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
   data: {
-    cart_total_initial: 121,
-    cart_total: 200,
-    shipping_price_initial: 21,
-    shipping_price: 37,
+    cart_total_initial: '121',
+    cart_total: '200',
+    shipping_price_initial: '21',
+    shipping_price: '37',
     shipping_time: null,
     shipping_date: null,
-    summary: 1000,
+    summary: '1000',
     items: [],
     coupons: [],
     sales: [],
+    currency: 'PLN',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
 const dummyCardDto: CartDto = {
   items: [],
   coupons: ['coupon'],
+  sales_channel_id: 'channel-uuid',
+  currency: 'PLN',
 }
 
 const dummyOrderSummaryResponse: { data: OrderSummary } = {
@@ -65,15 +68,16 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     status: {} as OrderStatus,
     paid: false,
     payable: true,
-    cart_total_initial: 121,
-    cart_total: 121,
-    shipping_price_initial: 21,
-    shipping_price: 21,
-    summary: 2134,
+    cart_total_initial: '121',
+    cart_total: '121',
+    shipping_price_initial: '21',
+    shipping_price: '21',
+    summary: '2134',
     shipping_method: {} as ShippingMethod,
     digital_shipping_method: null,
     created_at: '2022',
     metadata: {},
+    currency: 'PLN',
   },
 }
 
@@ -101,8 +105,7 @@ const dummyPaymentMethodsResponse: HeseyaPaginatedResponse<PaymentMethod[]> = {
     from: 1,
     to: 2,
     path: '/path',
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

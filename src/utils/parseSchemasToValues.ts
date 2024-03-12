@@ -1,6 +1,7 @@
-import { isUndefined } from 'lodash'
 import { Schema, SchemaType } from '../interfaces'
 import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
+import { parsePrices } from './parsePrice'
+import { isUndefined } from './utils'
 
 const getDefaultFallbackForType = (schema: Schema): CartItemSchemaValue => {
   switch (schema.type) {
@@ -42,7 +43,7 @@ const parseDefaultValue = (schema: Schema) => {
   }
 }
 
-export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
+export const parseSchemasToValues = (schemas: Schema[], currency: string): CartItemSchema[] =>
   schemas.map((schema) => {
     /**
      * If schema is required, we need to set a default value no matter what.
@@ -52,7 +53,7 @@ export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
 
     const optionPrice =
       schema.type === SchemaType.Select
-        ? schema.options.find((s) => s.id === defaultValue)?.price || 0
+        ? parsePrices(schema.options.find((s) => s.id === defaultValue)?.prices || [], currency)
         : 0
 
     return {
@@ -60,7 +61,7 @@ export const parseSchemasToValues = (schemas: Schema[]): CartItemSchema[] =>
       type: schema.type,
       dependencies: schema.used_schemas,
       name: schema.name,
-      price: schema.price,
+      price: parsePrices(schema.prices, currency),
       optionPrice,
       value: defaultValue,
     }

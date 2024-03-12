@@ -12,8 +12,9 @@ import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultP
 import { Schema, SchemaCreateDto, SchemaUpdateDto, SchemaList } from '../../../interfaces/Schema'
 import { FieldSort } from '../../../interfaces/Sort'
 import { UUID } from '../../../interfaces/UUID'
+import { LanguageParams } from '../../../interfaces'
 
-interface SchemasListParams extends SearchParam, PaginationParams, MetadataParams {
+interface SchemasListParams extends SearchParam, PaginationParams, LanguageParams, MetadataParams {
   name?: string
   hidden?: boolean
   required?: boolean

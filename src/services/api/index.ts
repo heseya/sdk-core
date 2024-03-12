@@ -17,7 +17,6 @@ import { createWarehouseService } from './modules/warehouse'
 import { createWebhooksService } from './modules/webhooks'
 import { createShippingMethodsService } from './modules/shippingMethods'
 import { createAppsService } from './modules/apps'
-import { createPackagesTemplatesService } from './modules/packagesTemplates'
 import { createTagsService } from './modules/tags'
 import { createOrderStatusesService } from './modules/orderStatuses'
 import { createRolesService } from './modules/roles'
@@ -29,6 +28,9 @@ import { createAnalyticsService } from './modules/analytics'
 import { createConsentsService } from './modules/consents'
 import { createWishlistService } from './modules/wishlist'
 import { createPricesService } from './modules/prices'
+import { createLanguagesService } from './modules/languages'
+import { createCurrenciesService } from './modules/currencies'
+import { createSalesChannelsService } from './modules/salesChannels'
 import { createRedirectsService } from './modules/redirects'
 
 /**
@@ -68,7 +70,6 @@ export const createHeseyaApiService = (axios: AxiosInstance) => {
     Orders: createOrdersService(axios),
     OrderStatuses: createOrderStatusesService(axios),
     ShippingMethods: createShippingMethodsService(axios),
-    PackagesTemplates: createPackagesTemplatesService(axios),
     GlobalSeo: createGlobalSeoService(axios),
     PaymentMethods: createPaymentMethodsService(axios),
     Payments: createPaymentsService(axios),
@@ -77,6 +78,9 @@ export const createHeseyaApiService = (axios: AxiosInstance) => {
     Webhooks: createWebhooksService(axios),
     Wishlist: createWishlistService(axios),
     Consents: createConsentsService(axios),
+    Languages: createLanguagesService(axios),
+    Currencies: createCurrenciesService(axios),
+    SalesChannels: createSalesChannelsService(axios),
     Redirects: createRedirectsService(axios),
   }
 }

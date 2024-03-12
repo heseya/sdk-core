@@ -1,7 +1,7 @@
-import { isNumber, isString } from 'lodash'
 import { SchemaType } from '../interfaces'
 import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
 import { getDependenciesTree } from './tree'
+import { isNumber, isString } from './utils'
 
 // ? Infinite loop prevention
 let calcCallCounter = 0

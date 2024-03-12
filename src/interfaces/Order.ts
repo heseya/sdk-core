@@ -10,6 +10,8 @@ import { OrderDocument } from './OrderDocuments'
 import { OrderPayment } from './Payments'
 import { User } from './User'
 import { App } from './App'
+import { StrNumber } from './Number'
+import { SalesChannel } from './SalesChannel'
 
 export interface OrderList extends MetadataFields {
   id: UUID
@@ -20,6 +22,8 @@ export interface OrderList extends MetadataFields {
   shipping_place?: Address | string
   email: string
   paid: boolean
+  /** de, fr-CA, de-DE-1996 */
+  language: string
   billing_address: Address
   invoice_requested: boolean
   /**
@@ -34,31 +38,32 @@ export interface OrderList extends MetadataFields {
   /**
    * Basket value without discounts
    */
-  cart_total_initial: number
+  cart_total_initial: StrNumber
   /**
    * Basket value after discounts
    */
-  cart_total: number
+  cart_total: StrNumber
 
   /**
    * Shipping price without discounts
    */
-  shipping_price_initial: number
+  shipping_price_initial: StrNumber
   /**
    * Shipping price after discounts
    */
-  shipping_price: number
+  shipping_price: StrNumber
 
   /**
    * Total order value after discounts
    */
-  summary: number
+  summary: StrNumber
   /**
    * Amount already paid by client
    */
-  summary_paid: number
+  summary_paid: StrNumber
   payable: boolean
   documents: OrderDocument[]
+  sales_channel: SalesChannel
 }
 
 export interface Order extends OrderList {
@@ -75,11 +80,11 @@ export interface OrderSummary extends MetadataFields {
   status: OrderStatus
   paid: boolean
   payable: boolean
-  cart_total_initial: number
-  cart_total: number
-  shipping_price_initial: number
-  shipping_price: number
-  summary: number
+  cart_total_initial: StrNumber
+  cart_total: StrNumber
+  shipping_price_initial: StrNumber
+  shipping_price: StrNumber
+  summary: StrNumber
   /**
    * Phisical shipping method only exists if in order is any product without digital shipping type
    */
@@ -89,6 +94,7 @@ export interface OrderSummary extends MetadataFields {
    */
   digital_shipping_method: Omit<ShippingMethod, 'price'> | null
   created_at: string
+  currency: string
 }
 
 /**
@@ -114,6 +120,14 @@ export interface OrderCreateDto extends CreateMetadataFields {
   items: OrderCartItem[]
   coupons: string[]
   sales_ids: UUID[]
+  /**
+   * ID of the current sales channel
+   */
+  sales_channel_id: UUID
+  /**
+   * CODE of the current currency
+   */
+  currency: string
 }
 
 export interface OrderUpdateDto {

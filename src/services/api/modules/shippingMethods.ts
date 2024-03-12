@@ -18,13 +18,16 @@ import {
 } from '../../../interfaces/ShippingMethod'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
 
 interface ShippingMethodsParams extends PaginationParams, MetadataParams {
   country?: string
-  cart_value?: number
+  cart_value?: { value: string | number; currency: string }
   ids?: UUID[]
+  /**
+   * List of the Product.id's, thanks to which the list of ShippingMethods will be filtered
+   */
+  items?: UUID[]
 }
 
 export interface ShippingMethodsService
@@ -38,8 +41,7 @@ export interface ShippingMethodsService
       >,
       'getOneBySlug'
     >,
-    EntityMetadataService,
-    EntityAuditsService<ShippingMethod> {
+    EntityMetadataService {
   getCountries: () => Promise<ShippingCountry[]>
   reorder: ReorderEntityRequest
 }
@@ -57,6 +59,5 @@ export const createShippingMethodsService: ServiceFactory<ShippingMethodsService
     getCountries: createGetSimpleListRequest(axios, 'countries'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

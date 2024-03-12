@@ -24,7 +24,6 @@ import {
   UpdateEntityRequest,
 } from '../types/Requests'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { FieldSort } from '../../../interfaces/Sort'
 import { UUID } from '../../../interfaces/UUID'
 
@@ -50,9 +49,7 @@ interface WarehouseDepositsListParams extends SearchParam, PaginationParams {
     | Array<FieldSort<'name'> | FieldSort<'sku'> | FieldSort<'quantity'> | FieldSort<'created_at'>>
 }
 
-export interface WarehouseService
-  extends EntityMetadataService,
-    EntityAuditsService<WarehouseItem> {
+export interface WarehouseService extends EntityMetadataService {
   /**
    * Return a list of warehouse items
    */
@@ -108,6 +105,5 @@ export const createWarehouseService: ServiceFactory<WarehouseService> = (axios) 
     createDeposit: createPostNestedRequest(axios, route, 'deposits'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

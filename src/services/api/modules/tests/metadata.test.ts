@@ -4,6 +4,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { HeseyaResponse } from '../../../../interfaces'
 import { Metadata, MetadataUpdateDto } from '../../../../interfaces/Metadata'
 import { createEntityMetadataService, createUpdateMetadataRequest, MetadataType } from '../metadata'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyMetadataDto: MetadataUpdateDto = { test: 'test', remove: null }
 
@@ -12,8 +13,7 @@ const dummyMetadataResponse: HeseyaResponse<Metadata> = {
     test: 'test',
   },
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 

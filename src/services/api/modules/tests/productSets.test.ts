@@ -4,12 +4,12 @@ import MockAdapter from 'axios-mock-adapter'
 import { HeseyaPaginatedResponse, ListResponse, ProductList } from '../../../../interfaces'
 
 import { createProductSetsService } from '../productSets'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummyProductsListResponse: HeseyaPaginatedResponse<ProductList[]> = {
   data: [],
   meta: {
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
     per_page: 24,
     current_page: 1,
     last_page: 2,

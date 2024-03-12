@@ -25,12 +25,14 @@ import {
   MetadataType,
 } from './metadata'
 import { Metadata, MetadataUpdateDto } from '../../../interfaces/Metadata'
-import { HeseyaPaginatedResponse, ListResponse } from '../../../interfaces'
+import { HeseyaPaginatedResponse, LanguageParams, ListResponse } from '../../../interfaces'
 import { normalizePagination } from '../utils/normalizePagination'
 import { createReorderPostRequest } from '../utils/reorder'
 import { ReorderEntityRequest } from '../types/Reorder'
 
-type AttributeParams = PaginationParams & MetadataParams & { ids?: UUID[] }
+type AttributeParams = PaginationParams &
+  MetadataParams &
+  LanguageParams & { ids?: UUID[]; global?: boolean; sortable?: boolean }
 
 export interface AttributesService
   extends Omit<
@@ -40,24 +42,41 @@ export interface AttributesService
     EntityMetadataService {
   getOptions(
     attributeId: UUID,
-    params?: MetadataParams & PaginationParams & { name?: string; ids?: UUID[] },
+    params?: MetadataParams &
+      PaginationParams & {
+        name?: string
+        ids?: UUID[]
+        product_set_slug?: UUID
+        /**
+         * If empty, it will be sorted by position
+         * If value is provided, it will be sorted asc/desc by name (in option attributes) or by value (in number/date attributes)
+         */
+        sort?: 'asc' | 'desc'
+      } & LanguageParams,
   ): Promise<ListResponse<AttributeOption>>
-  addOption(attributeId: UUID, option: AttributeOptionDto): Promise<AttributeOption>
+  addOption(
+    attributeId: UUID,
+    option: AttributeOptionDto,
+    params?: LanguageParams,
+  ): Promise<AttributeOption>
   updateOption(
     attributeId: UUID,
     optionId: UUID,
     option: AttributeOptionDto,
+    params?: LanguageParams,
   ): Promise<AttributeOption>
 
   updateOptionMetadata(
     attributeId: UUID,
     optionId: UUID,
     metadata: MetadataUpdateDto,
+    params?: LanguageParams,
   ): Promise<Metadata>
   updateOptionMetadataPrivate(
     attributeId: UUID,
     optionId: UUID,
     metadata: MetadataUpdateDto,
+    params?: LanguageParams,
   ): Promise<Metadata>
 
   deleteOption(attributeId: UUID, optionId: UUID): Promise<true>
@@ -79,17 +98,19 @@ export const createAttributesService: ServiceFactory<AttributesService> = (axios
       return { data, pagination: normalizePagination(meta) }
     },
 
-    async addOption(attributeId, option) {
+    async addOption(attributeId, option, params) {
+      const stringParams = stringifyQueryParams(params || {})
       const { data } = await axios.post<HeseyaResponse<AttributeOption>>(
-        `/attributes/id:${attributeId}/options`,
+        `/attributes/id:${attributeId}/options?${stringParams}`,
         option,
       )
       return data.data
     },
 
-    async updateOption(attributeId, optionId, option) {
+    async updateOption(attributeId, optionId, option, params) {
+      const stringParams = stringifyQueryParams(params || {})
       const { data } = await axios.patch<HeseyaResponse<AttributeOption>>(
-        `/attributes/id:${attributeId}/options/id:${optionId}`,
+        `/attributes/id:${attributeId}/options/id:${optionId}?${stringParams}`,
         option,
       )
       return data.data

@@ -35,7 +35,6 @@ import {
 } from '../utils/requests'
 import { createPaymentMethodsService } from './paymentMethods'
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { createOrderDocumentsService, OrderDocumentsService } from './ordersDocuments'
 import { stringifyQueryParams } from '../../../utils'
 import { FieldSort } from '../../../interfaces/Sort'
@@ -46,16 +45,18 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
    * Use array syntax, string value is deprecated and will be removed in future
    */
   sort?: string | Array<FieldSort<'code'> | FieldSort<'summary'> | FieldSort<'created_at'>>
-  status_id?: string
-  shipping_method_id?: string
-  digital_shipping_method_id?: string
+  status_id?: UUID
+  shipping_method_id?: UUID
+  digital_shipping_method_id?: UUID
+  sales_channel_id?: UUID
+  payment_method_id?: UUID
   paid?: boolean
   from?: Date
   to?: Date
   ids?: UUID[]
 }
 
-export interface OrdersService extends EntityMetadataService, EntityAuditsService<Order> {
+export interface OrdersService extends EntityMetadataService {
   /**
    * Creates new payment for the given order
    * @returns The payment URL to redirect the user to
@@ -137,7 +138,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
         },
       )
 
-      return data.redirect_url
+      return data.redirect_url || ''
     },
 
     async markAsPaid(code) {
@@ -204,6 +205,5 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
     Documents: createOrderDocumentsService(axios),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

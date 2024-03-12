@@ -12,15 +12,16 @@ import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { ReorderEntityRequest } from '../types/Reorder'
 import { createReorderPostRequest } from '../utils/reorder'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
 import { UUID } from '../../../interfaces/UUID'
+import { LanguageParams } from '../../../interfaces'
 
-type PagesListParams = PaginationParams & MetadataParams & { ids?: UUID[] }
+type PagesListParams = PaginationParams &
+  MetadataParams &
+  LanguageParams & { ids?: UUID[]; search?: string }
 
 export interface PagesService
   extends CrudService<Page, PageList, PageCreateDto, PageUpdateDto, PagesListParams>,
-    EntityMetadataService,
-    EntityAuditsService<Page> {
+    EntityMetadataService {
   reorder: ReorderEntityRequest
 }
 
@@ -36,6 +37,5 @@ export const createPagesService: ServiceFactory<PagesService> = (axios) => {
     reorder: createReorderPostRequest(axios, route, 'pages'),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

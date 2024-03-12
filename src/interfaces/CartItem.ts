@@ -1,5 +1,6 @@
 import { ProductList } from './Product'
-import { Schema, SchemaOption, SchemaType } from './Schema'
+import { Schema, SchemaType } from './Schema'
+import { SchemaOption } from './SchemaOption'
 import { UUID } from './UUID'
 
 export interface SavedCartItem {
@@ -8,6 +9,7 @@ export interface SavedCartItem {
   qty: number
   productSchemas: Schema[]
   schemas: CartItemSchema[]
+  currency: string
   createdAt: number
 }
 

@@ -5,7 +5,6 @@ import {
   AppsPermission,
   AuthPermission,
   ProfilePermission,
-  AuditsPermission,
   ProductSetsPermission,
   CountriesPermission,
   ShippingMethodsPermission,
@@ -17,7 +16,6 @@ import {
   CartPermission,
   MediaPermission,
   OrdersPermission,
-  PackagesPermission,
   PagesPermission,
   PaymentsPermission,
   PaymentMethodsPermission,
@@ -32,6 +30,8 @@ import {
   AttributesPermission,
   BannersPermission,
   ConsentsPermission,
+  LanguagesPermission,
+  SalesChannelsPermission,
   RedirectsPermission,
 } from '../interfaces/Permissions'
 
@@ -41,7 +41,6 @@ export const PERMISSIONS_TREE = {
   Apps: AppsPermission,
   Auth: AuthPermission,
   Profile: ProfilePermission,
-  Audits: AuditsPermission,
   Attributes: AttributesPermission,
   Banners: BannersPermission,
   ProductSets: ProductSetsPermission,
@@ -56,7 +55,6 @@ export const PERMISSIONS_TREE = {
   Cart: CartPermission,
   Media: MediaPermission,
   Orders: OrdersPermission,
-  Packages: PackagesPermission,
   Pages: PagesPermission,
   Payments: PaymentsPermission,
   PaymentMethods: PaymentMethodsPermission,
@@ -68,6 +66,8 @@ export const PERMISSIONS_TREE = {
   Roles: RolesPermission,
   Seo: SeoPermission,
   Webhooks: WebhooksPermission,
+  Languages: LanguagesPermission,
+  SalesChannels: SalesChannelsPermission,
   Redirects: RedirectsPermission,
 }
 

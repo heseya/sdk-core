@@ -55,7 +55,7 @@ export interface UserUpdateDto {
   /**
    * Full phone number
    */
-  phone?: string
+  phone?: string | null
   roles: UUID[]
 }
 
@@ -92,7 +92,7 @@ export interface UserProfileUpdateDto {
   /**
    * Full phone number
    */
-  phone?: string
+  phone?: string | null
   consents?: UserConsentDto
   preferences?: UserPreferences
 }

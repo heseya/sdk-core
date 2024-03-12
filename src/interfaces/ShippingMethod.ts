@@ -1,6 +1,7 @@
 import { Address } from './Address'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { PaymentMethod } from './PaymentMethods'
+import { Price } from './Price'
 import { UUID } from './UUID'
 
 export enum ShippingType {
@@ -17,13 +18,14 @@ export interface ShippingCountry {
 
 export interface ShippingMethodPriceRange {
   id: UUID
-  start: number
-  prices: { id: UUID; value: number; model_id: UUID }[]
+  start: Price
+  value: Price
 }
 
 export interface ShippingMethodPriceRangeDto {
-  start: number
-  value: number
+  start: string
+  value: string
+  currency: string
 }
 
 export interface ShippingMethod extends MetadataFields {
@@ -32,15 +34,30 @@ export interface ShippingMethod extends MetadataFields {
   shipping_type: ShippingType
   payment_methods: PaymentMethod[]
   public: boolean
-  block_list: boolean
   shipping_time_max: number
   shipping_time_min: number
+  /**
+   * Indicates, if the countries list is a block list or an allow list
+   */
+  is_block_list_countries: boolean
   countries: ShippingCountry[]
+  /**
+   * Indicates, if the products and productSets lists are a block list or an allow list
+   */
+  is_block_list_products: boolean
+  /**
+   * Products that can or cannot be sent via this shipping method
+   */
+  product_ids: UUID[]
+  /**
+   * ProductsSets that products can or cannot be sent via this shipping method
+   */
+  product_set_ids: UUID[]
   price_ranges: ShippingMethodPriceRange[]
-  price: number | null
+  prices: Price[]
   integration_key?: string
-  deletable: boolean
   shipping_points: Address[]
+  deletable: boolean
   /**
    * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
    */
@@ -52,12 +69,30 @@ export interface ShippingMethodCreateDto extends CreateMetadataFields {
   shipping_type: ShippingType
   payment_methods: UUID[]
   public: boolean
-  block_list: boolean
   shipping_time_max: number
   shipping_time_min: number
+  /**
+   * Indicates, if the products and productSets lists are a block list or an allow list
+   */
+  is_block_list_products: boolean
+  /**
+   * Products that can or cannot be sent via this shipping method
+   */
+  product_ids: UUID[]
+  /**
+   * ProductsSets that products can or cannot be sent via this shipping method
+   */
+  product_set_ids: UUID[]
+  /**
+   * Indicates, if the countries list is a block list or an allow list
+   */
+  is_block_list_countries: boolean
   /** List of the Country.code's */
   countries: ShippingCountry['code'][]
-  price_ranges: { start: number; value: number }[]
+  /**
+   * This field must include ranges for each of existing currencies
+   */
+  price_ranges: ShippingMethodPriceRangeDto[]
   app_id?: UUID
   shipping_points?: Address[]
   /**

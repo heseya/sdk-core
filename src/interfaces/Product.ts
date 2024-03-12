@@ -11,26 +11,54 @@ import { OrderDiscount, ProductSale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
 import { PageList } from './Page'
+import {
+  PublishedTranslations,
+  PublishedTranslationsCreateDto,
+  PublishedTranslationsUpdateDto,
+  Translations,
+  TranslationsCreateDto,
+  TranslationsUpdateDto,
+} from './languages'
+import { Price, PriceDto } from './Price'
+import { StrNumber } from './Number'
+import { BannerMedia, BannerMediaCreateDto } from './Banner'
 
-export interface ProductList extends MetadataFields {
-  id: UUID
+interface ProductListTranslatable {
   name: string
+}
+interface ProductTranslatable extends ProductListTranslatable {
+  description_html: string
+  description_short: string
+}
+
+export interface ProductBase {
+  id: UUID
   slug: string
+  name: string
+  /**
+   * Contains base price for every currency
+   */
+  prices_base: Price[]
+  prices_max: Price[]
+  prices_min: Price[]
+  public: boolean
+  visible: boolean
+  available: boolean
   cover: CdnMedia | null
-  price: number
-  price_max: number
-  price_min: number
-  vat_rate: number
-  price_max_initial: number
-  price_min_initial: number
+}
+
+export interface ProductList
+  extends ProductBase,
+    MetadataFields,
+    PublishedTranslations,
+    Translations<ProductListTranslatable> {
+  prices_max_initial: Price[]
+  prices_min_initial: Price[]
   shipping_time: number | null
   shipping_date: string | null
   quantity_step: number
   google_product_category: null | number
   tags: Tag[]
-  public: boolean
-  visible: boolean
-  available: boolean
   /**
    * Indicates if the product has at least one schema, so it cannot be added to cart directly
    */
@@ -44,12 +72,13 @@ export interface ProductList extends MetadataFields {
    */
   purchase_limit_per_user: null | number
   attributes: ProductListAttribute[]
-  descriptions: PageList[]
 }
 
-export interface Product extends Omit<ProductList, 'attributes'> {
-  description_html: string
-  description_short: string
+export interface Product
+  extends Omit<ProductList, 'attributes' | 'translations'>,
+    PublishedTranslations,
+    ProductTranslatable,
+    Translations<ProductTranslatable> {
   sales: ProductSale[]
   sets: ProductSet[]
   schemas: Schema[]
@@ -71,13 +100,20 @@ export interface Product extends Omit<ProductList, 'attributes'> {
    * `null` means, that product has infinity quantity
    */
   quantity: number | null
+  descriptions: PageList[]
+  banner: Omit<BannerMedia, 'published'> | null
 }
 
-export interface ProductCreateDto extends CreateMetadataFields {
+export interface ProductCreateDto
+  extends CreateMetadataFields,
+    PublishedTranslationsCreateDto,
+    TranslationsCreateDto<ProductTranslatable> {
   id?: UUID
-  name: string
   slug: string
-  price: number
+  /**
+   * Must contain base price for every currency
+   */
+  prices_base: PriceDto[]
   public: boolean
   /**
    * If true, the product will be available to deliver only via ShippingType.Digital methods
@@ -91,7 +127,6 @@ export interface ProductCreateDto extends CreateMetadataFields {
   description_html?: string
   description_short?: string
   quantity_step?: number
-  vat_rate?: number
   sets?: UUID[]
   tags?: UUID[]
   schemas?: UUID[]
@@ -114,9 +149,12 @@ export interface ProductCreateDto extends CreateMetadataFields {
    * If not null, single user can buy only this amount of products
    */
   purchase_limit_per_user?: null | number
+  banner?: Omit<BannerMediaCreateDto, 'published'> | null
 }
 
-export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>>
+export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>> &
+  PublishedTranslationsUpdateDto &
+  TranslationsUpdateDto<ProductTranslatable>
 
 //? ------------------------------------------------------------
 
@@ -130,9 +168,8 @@ export interface OrderProduct {
   id: UUID
   name: string
   quantity: number
-  price: number
-  price_initial: number
-  vat_rate: number
+  price: StrNumber
+  price_initial: StrNumber
   discounts: OrderDiscount[]
   product: Product
   schemas: OrderSchema[]
@@ -150,6 +187,7 @@ export interface OrderProduct {
 
 export type OrderProductPublic = Omit<OrderProduct, 'discounts' | 'deposits' | 'is_delivered'> & {
   order_id: UUID
+  currency: string
 }
 
 export interface OrderProductUpdateDto {
@@ -159,6 +197,6 @@ export interface OrderProductUpdateDto {
 
 export interface ProductPrice {
   id: UUID
-  price_min: number
-  price_max: number
+  prices_min: Price[]
+  prices_max: Price[]
 }

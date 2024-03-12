@@ -5,7 +5,7 @@ import { stringifyQueryParams } from '../../../utils'
 
 export interface PricesService {
   /**
-   * Returns audits for the given entity.
+   * Returns prices for the given entity.
    */
   getProductsPrices: (productIds: UUID[]) => Promise<ProductPrice[]>
 }

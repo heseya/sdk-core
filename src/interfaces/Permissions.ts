@@ -19,15 +19,12 @@ export enum AppsPermission {
   Remove = 'apps.remove',
 }
 
-export enum AuditsPermission {
-  Show = 'audits.show',
-}
-
 export enum AuthPermission {
   Register = 'auth.register',
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
   ProvidersManage = 'auth.providers.manage',
+  CheckIdentity = 'auth.check_identity',
 }
 
 export enum ProfilePermission {
@@ -139,14 +136,6 @@ export enum OrdersPermission {
   ShowMetadataPrivate = 'orders.show_metadata_private',
 }
 
-export enum PackagesPermission {
-  Show = 'packages.show',
-  Add = 'packages.add',
-  Edit = 'packages.edit',
-  Remove = 'packages.remove',
-  ShowMetadataPrivate = 'packages.show_metadata_private',
-}
-
 export enum PagesPermission {
   Show = 'pages.show',
   ShowDetails = 'pages.show_details',
@@ -242,6 +231,20 @@ export enum WebhooksPermission {
   ShowMetadataPrivate = 'webhooks.show_metadata_private',
 }
 
+export enum LanguagesPermission {
+  ShowHidden = 'languages.show_hidden',
+  Add = 'languages.add',
+  Edit = 'languages.edit',
+  Remove = 'languages.remove',
+}
+
+export enum SalesChannelsPermission {
+  Add = 'sales_channels.add',
+  Edit = 'sales_channels.edit',
+  Remove = 'sales_channels.remove',
+  ShowHidden = 'sales_channels.show_hidden',
+}
+
 export enum RedirectsPermission {
   Show = 'redirects.show',
   Add = 'redirects.add',
@@ -273,7 +276,6 @@ export type Permission =
   | CartPermission
   | MediaPermission
   | OrdersPermission
-  | PackagesPermission
   | PagesPermission
   | PaymentsPermission
   | PaymentMethodsPermission
@@ -285,6 +287,8 @@ export type Permission =
   | RolesPermission
   | WebhooksPermission
   | SeoPermission
+  | LanguagesPermission
+  | SalesChannelsPermission
   | RedirectsPermission
 
 export interface PermissionEntry {

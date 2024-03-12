@@ -9,8 +9,7 @@ import {
 
 import { createEntityMetadataService, EntityMetadataService } from './metadata'
 import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultParams'
-import { Sale, SaleCreateDto, SaleUpdateDto } from '../../../interfaces/SalesAndCoupons'
-import { createEntityAuditsService, EntityAuditsService } from './audits'
+import { Sale, SaleCreateDto, SaleList, SaleUpdateDto } from '../../../interfaces/SalesAndCoupons'
 import { UUID } from '../../../interfaces/UUID'
 
 interface SalesListParams extends SearchParam, PaginationParams, MetadataParams {
@@ -21,11 +20,10 @@ interface SalesListParams extends SearchParam, PaginationParams, MetadataParams 
 }
 
 export type SalesService = Omit<
-  CrudService<Sale, Sale, SaleCreateDto, SaleUpdateDto, SalesListParams>,
+  CrudService<Sale, SaleList, SaleCreateDto, SaleUpdateDto, SalesListParams>,
   'getOneBySlug'
 > &
-  EntityMetadataService &
-  EntityAuditsService<Sale>
+  EntityMetadataService
 
 export const createSalesService: ServiceFactory<SalesService> = (axios) => {
   const route = 'sales'
@@ -37,6 +35,5 @@ export const createSalesService: ServiceFactory<SalesService> = (axios) => {
     delete: createDeleteRequest(axios, route),
 
     ...createEntityMetadataService(axios, route),
-    ...createEntityAuditsService(axios, route),
   }
 }

@@ -1,7 +1,6 @@
 import { WebhookEvent, WebhookEventType as WebEv } from './Webhook'
 
 import { Order } from './Order'
-import { PackagesTemplate } from './PackagesTemplate'
 import { Product } from './Product'
 import { WarehouseItem } from './WarehouseItem'
 import { Page } from './Page'
@@ -20,12 +19,6 @@ export type WebhookEventOrderUpdatedShippingNumber = WebhookEvent<
   WebEv.OrderUpdatedShippingNumber
 >
 export type WebhookEventSendOrderUrls = WebhookEvent<Order, 'Order', WebEv.SendOrderUrls>
-
-export type WebhookEventOrderRequestedShipping = WebhookEvent<
-  { order: Order; package: PackagesTemplate },
-  'ShippingRequest',
-  WebEv.OrderRequestedShipping
->
 
 export type WebhookEventProductCreated = WebhookEvent<Product, 'Product', WebEv.ProductCreated>
 export type WebhookEventProductUpdated = WebhookEvent<Product, 'Product', WebEv.ProductUpdated>

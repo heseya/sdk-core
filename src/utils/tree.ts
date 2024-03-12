@@ -1,4 +1,5 @@
-import arrayToTree from 'array-to-tree'
+import { arrayToTree } from 'performant-array-to-tree'
+import { CartItemSchemaWithDependecies } from './calcSchemasPrice'
 
 export const getDependenciesTree = <T extends { id: string; dependencies: string[] }>(
   schemas: T[],
@@ -14,6 +15,9 @@ export const getDependenciesTree = <T extends { id: string; dependencies: string
   })
 
   return arrayToTree(data, {
-    parentProperty: 'parentId',
-  })
+    id: 'id',
+    parentId: 'parentId',
+    childrenField: 'children',
+    dataField: null,
+  }) as CartItemSchemaWithDependecies[]
 }

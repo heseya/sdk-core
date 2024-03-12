@@ -8,6 +8,7 @@ import {
   SettingsRecord,
 } from '../../../../interfaces'
 import { createSettingsService } from '../settings'
+import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
 const dummySettingsResponse: HeseyaPaginatedResponse<Setting[]> = {
   data: [
@@ -27,8 +28,7 @@ const dummySettingsResponse: HeseyaPaginatedResponse<Setting[]> = {
     from: 1,
     to: 2,
     path: '/path',
-    currency: { name: 'pln', symbol: 'pln', decimals: 2 },
-    language: { symbol: 'pl' },
+    language: META_LANGUAGE,
   },
 }
 
