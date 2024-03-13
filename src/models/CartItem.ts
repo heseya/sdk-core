@@ -1,5 +1,4 @@
 import md5 from 'md5'
-import round from 'lodash/round'
 
 import { ProductList } from '../interfaces/Product'
 import { Schema } from '../interfaces/Schema'
@@ -7,6 +6,7 @@ import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 import { SavedCartItem, CartItemSchema, CartItemRawSchemaValue } from '../interfaces/CartItem'
 import { CartItemDto } from '../interfaces/Cart'
 import { ProductListAttribute } from '../interfaces'
+import { round } from '../utils/utils'
 
 export class CartItem {
   public qty: number

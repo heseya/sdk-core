@@ -1,6 +1,7 @@
-import { Schema } from '../interfaces'
-import { CartItemSchema } from '../interfaces/CartItem'
+import { Schema, SchemaType } from '../interfaces'
+import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
 import { parsePrices } from './parsePrice'
+import { isUndefined } from './utils'
 
 export const parseSchemasToValues = (schemas: Schema[], currency: string): CartItemSchema[] =>
   schemas.map((schema) => {

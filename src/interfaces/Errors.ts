@@ -110,6 +110,10 @@ export enum HeseyaValidationErrorCode {
   MediaSlug = 'VALIDATION_MEDIA_SLUG',
   Phone = 'VALIDATION_PHONE',
   AuthProviderActive = 'VALIDATION_AUTH_PROVIDER_ACTIVE',
+  ShippingPlace = 'VALIDATION_SHIPPING_PLACE',
+  FullName = 'VALIDATION_FULL_NAME',
+  ProductSchemaOption = 'VALIDATION_PRODUCT_SCHEMA_OPTION',
+  EmailTaken = 'VALIDATION_EMAIL_TAKEN',
 }
 
 export enum HeseyaClientErrorCode {

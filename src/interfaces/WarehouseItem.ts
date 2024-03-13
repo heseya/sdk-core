@@ -128,6 +128,7 @@ export interface ProductWarehouseItem {
   /** Product ID */
   id: UUID
   name: string
+  sku: string
   required_quantity: number
 }
 

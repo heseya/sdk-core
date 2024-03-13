@@ -63,6 +63,9 @@ export interface ProductSetsService
     EntityMetadataService {
   reorder: ReorderEntityRequest
   reorderChild: (parentId: UUID, ids: UUID[], params?: DefaultParams) => Promise<true>
+  /**
+   * Returns all products that are connected directly to the set
+   */
   getProducts: (
     id: UUID,
     params?: DefaultParams & PaginationParams,
@@ -71,6 +74,13 @@ export interface ProductSetsService
     id: UUID,
     productsIds: UUID[],
     params?: DefaultParams,
+  ) => Promise<ListResponse<ProductList>>
+  /**
+   * Returns all products that are connected directly or indirectly (inherited from child sets) to the set
+   */
+  getAllProducts: (
+    id: UUID,
+    params?: DefaultParams & PaginationParams & { public?: boolean },
   ) => Promise<ListResponse<ProductList>>
   reorderProducts: (
     setId: UUID,
@@ -119,6 +129,16 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
       const { data } = await axios.post<HeseyaPaginatedResponse<ProductList[]>>(
         `/${route}/id:${setId}/products?${stringParams}`,
         { products: productsIds },
+      )
+
+      return { data: data.data, pagination: normalizePagination(data.meta) }
+    },
+
+    async getAllProducts(setId, params) {
+      const stringParams = stringifyQueryParams(params || {})
+
+      const { data } = await axios.get<HeseyaPaginatedResponse<ProductList[]>>(
+        `/${route}/id:${setId}/products-all?${stringParams}`,
       )
 
       return { data: data.data, pagination: normalizePagination(data.meta) }

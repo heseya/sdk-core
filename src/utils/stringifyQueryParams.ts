@@ -1,9 +1,8 @@
 import queryString from 'query-string'
 import flatten from 'flat'
-import isBoolean from 'lodash/isBoolean'
-import isDate from 'lodash/isDate'
 
 import { DefaultParams } from '../services/api/types/DefaultParams'
+import { isBoolean, isDate } from './utils'
 
 const transformParam = (key: string, value: unknown): unknown => {
   if (key === 'sort' && Array.isArray(value)) return value.join(',')

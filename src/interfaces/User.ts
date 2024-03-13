@@ -57,7 +57,7 @@ export interface UserUpdateDto {
   /**
    * Full phone number
    */
-  phone?: string
+  phone?: string | null
   roles: UUID[]
   email_verify_url: string
 }
@@ -96,7 +96,7 @@ export interface UserProfileUpdateDto {
   /**
    * Full phone number
    */
-  phone?: string
+  phone?: string | null
   consents?: UserConsentDto
   preferences?: UserPreferences
 }
