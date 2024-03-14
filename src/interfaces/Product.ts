@@ -20,7 +20,6 @@ import {
   TranslationsUpdateDto,
 } from './languages'
 import { Price, PriceDto } from './Price'
-import { StrNumber } from './Number'
 import { BannerMedia, BannerMediaCreateDto } from './Banner'
 
 interface ProductListTranslatable {

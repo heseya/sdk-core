@@ -1,7 +1,5 @@
-import { SchemaType } from '../interfaces'
-import { CartItemSchema, CartItemSchemaValue } from '../interfaces/CartItem'
+import { CartItemSchema } from '../interfaces/CartItem'
 import { getDependenciesTree } from './tree'
-import { isNumber, isString } from './utils'
 
 const ERROR_MESSAGES = {
   dependecyLoop: 'Dependecy Loop in MuliplySchema',
