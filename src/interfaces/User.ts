@@ -81,6 +81,10 @@ export interface UserRegisterDto {
   password: string
   consents: UserConsentDto
   metadata_personal?: Metadata
+  /**
+   * Captcha token, optional
+   */
+  captcha_token?: string
 }
 
 export interface UserProfileUpdateDto {
