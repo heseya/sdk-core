@@ -2,7 +2,7 @@ import { HeseyaResponse } from '../../../interfaces'
 import { UUID } from '../../../interfaces/UUID'
 import { WishlistProduct, WishlistProductCreateDto } from '../../../interfaces/Wishlist'
 import { stringifyQueryParams } from '../../../utils'
-import { DefaultParams } from '../types/DefaultParams'
+import { DefaultParams, PaginationParams } from '../types/DefaultParams'
 import {
   CreateEntityRequest,
   DeleteEntityRequest,
@@ -17,11 +17,20 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
+type WishlistParams = DefaultParams &
+  PaginationParams & {
+    /**
+     * If present, attribute of the given slug will be returned
+     * Otherwise, product will not have any attributes
+     */
+    attribute_slug?: string
+  }
+
 export interface WishlistService {
   /**
    * Return a list of entities
    */
-  get: GetEntityRequest<WishlistProduct>
+  get: GetEntityRequest<WishlistProduct, WishlistParams>
   /**
    * Return a single wishlist item searched by product_id
    */

@@ -63,7 +63,14 @@ export interface UserProfileService {
      */
     getProducts: GetEntityRequest<
       OrderProductPublic,
-      PaginationParams & { shipping_digital?: boolean }
+      PaginationParams & {
+        shipping_digital?: boolean
+        /**
+         * If present, attribute of the given slug will be returned
+         * Otherwise, product will not have any attributes
+         */
+        attribute_slug?: string
+      }
     >
   }
 
