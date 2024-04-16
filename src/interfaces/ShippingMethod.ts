@@ -1,4 +1,5 @@
 import { Address } from './Address'
+import { CdnMedia } from './CdnMedia'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { PaymentMethod } from './PaymentMethods'
 import { Price } from './Price'
@@ -36,6 +37,7 @@ export interface ShippingMethod extends MetadataFields {
   public: boolean
   shipping_time_max: number
   shipping_time_min: number
+  logo: CdnMedia | null
   /**
    * Indicates, if the countries list is a block list or an allow list
    */
@@ -71,6 +73,10 @@ export interface ShippingMethodCreateDto extends CreateMetadataFields {
   public: boolean
   shipping_time_max: number
   shipping_time_min: number
+  /**
+   * Media ID of the logo
+   */
+  logo_id?: UUID | null
   /**
    * Indicates, if the products and productSets lists are a block list or an allow list
    */
