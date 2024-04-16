@@ -12,7 +12,7 @@ import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultP
 import {
   Coupon,
   CouponCreateDto,
-  CouponList,
+  CouponListed,
   CouponUpdateDto,
 } from '../../../interfaces/SalesAndCoupons'
 import { UUID } from '../../../interfaces/UUID'
@@ -26,7 +26,7 @@ interface CouponsListParams extends SearchParam, PaginationParams, MetadataParam
 
 export type CouponsService = CrudService<
   Coupon,
-  CouponList,
+  CouponListed,
   CouponCreateDto,
   CouponUpdateDto,
   CouponsListParams

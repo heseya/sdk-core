@@ -40,7 +40,7 @@ export interface SchemaBase {
   default: string | null
 }
 
-export interface SchemaList
+export interface SchemaListed
   extends SchemaTranslatable,
     Translations<SchemaTranslatable>,
     PublishedTranslations,
@@ -60,7 +60,12 @@ export interface SchemaList
   shipping_date: string | null
 }
 
-export type Schema = SchemaList
+/**
+ * @deprecated use SchemaListed instead
+ */
+export type SchemaList = SchemaListed
+
+export type Schema = SchemaListed
 
 /**
  * -----------------------------------------------------------------------------

@@ -20,7 +20,7 @@ import {
   EntityMetadataService,
   MetadataType,
 } from './metadata'
-import { UserCreateDto, UserUpdateDto, User, UserList } from '../../../interfaces/User'
+import { UserCreateDto, UserUpdateDto, User, UserListed } from '../../../interfaces/User'
 import { HeseyaResponse, ListResponse, Metadata, MetadataUpdateDto } from '../../../interfaces'
 import { UUID } from '../../../interfaces/UUID'
 import { FieldSort } from '../../../interfaces/Sort'
@@ -40,7 +40,7 @@ export interface UsersService extends EntityMetadataService {
   /**
    * Return a list of users
    */
-  get(params: UsersListParams & { full?: false }): Promise<ListResponse<UserList>>
+  get(params: UsersListParams & { full?: false }): Promise<ListResponse<UserListed>>
   get(params: UsersListParams & { full: true }): Promise<ListResponse<User>>
 
   /**

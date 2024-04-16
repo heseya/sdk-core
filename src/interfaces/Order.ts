@@ -13,7 +13,7 @@ import { App } from './App'
 import { StrNumber } from './Number'
 import { SalesChannel } from './SalesChannel'
 
-export interface OrderList extends MetadataFields {
+export interface OrderListed extends MetadataFields {
   id: UUID
   code: string
   comment?: string
@@ -65,8 +65,12 @@ export interface OrderList extends MetadataFields {
   documents: OrderDocument[]
   sales_channel: SalesChannel
 }
+/**
+ * @deprecated use OrderListed instead
+ */
+export type OrderList = OrderListed
 
-export interface Order extends OrderList {
+export interface Order extends OrderListed {
   discounts: OrderDiscount[]
   payments: OrderPayment[]
   products: OrderProduct[]

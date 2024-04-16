@@ -10,7 +10,7 @@ import {
 import { UUID } from '../../../interfaces/UUID'
 import {
   PaymentMethod,
-  PaymentMethodList,
+  PaymentMethodListed,
   PaymentMethodCreateDto,
   PaymentMethodUpdateDto,
 } from '../../../interfaces/PaymentMethods'
@@ -32,7 +32,7 @@ interface PaymentMethodsParams extends PaginationParams {
 export type PaymentMethodsService = Omit<
   CrudService<
     PaymentMethod,
-    PaymentMethodList,
+    PaymentMethodListed,
     PaymentMethodCreateDto,
     PaymentMethodUpdateDto,
     PaymentMethodsParams
