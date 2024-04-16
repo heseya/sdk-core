@@ -2,7 +2,7 @@ import { HeseyaResponse } from '../../../../interfaces/Response'
 import { User, UserProfileUpdateDto } from '../../../../interfaces/User'
 import { App } from '../../../../interfaces/App'
 import { ServiceFactory } from '../../types/Service'
-import { Order, OrderList } from '../../../../interfaces/Order'
+import { Order, OrderListed } from '../../../../interfaces/Order'
 
 import { createTwoFactorAuthService, TwoFactorAuthService } from './twoFactorAuth'
 import { createGetListRequest, createGetOneRequest } from '../../utils/requests'
@@ -51,7 +51,7 @@ export interface UserProfileService {
     /**
      * Get list of user owned orders.
      */
-    get: GetEntityRequest<OrderList, OrdersListParams>
+    get: GetEntityRequest<OrderListed, OrdersListParams>
 
     /**
      * Get user own order by its Code.
@@ -135,7 +135,7 @@ export const createUserProfileService: ServiceFactory<UserProfileService> = (axi
   TwoFactorAuthentication: createTwoFactorAuthService(axios),
 
   Orders: {
-    get: createGetListRequest<OrderList>(axios, 'orders/my'),
+    get: createGetListRequest<OrderListed>(axios, 'orders/my'),
     getOneByCode: createGetOneRequest<Order>(axios, 'orders/my'),
     getProducts: createGetListRequest<OrderProductPublic>(axios, 'orders/my-products'),
   },

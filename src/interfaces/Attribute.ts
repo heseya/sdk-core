@@ -223,13 +223,17 @@ export type AttributeUpdateDto =
 // ? Attributes in products
 // ? ---------------------------------------------------------------
 
-export interface ProductListAttribute {
+export interface ProductListedAttribute {
   name: string
   slug: string
   selected_options: AttributeOption[]
 }
+/**
+ * @deprecated use ProductListedAttribute instead
+ */
+export type ProductListAttribute = ProductListedAttribute
 
-interface ProductAttributeBase extends ProductListAttribute, MetadataFields {
+interface ProductAttributeBase extends ProductListedAttribute, MetadataFields {
   id: UUID
   slug: string
   description: string

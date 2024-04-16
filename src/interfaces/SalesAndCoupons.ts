@@ -56,7 +56,7 @@ export interface SaleTranslatable {
   description_html: string | null
 }
 
-export type SaleList = MetadataFields &
+export type SaleListed = MetadataFields &
   DiscountValue &
   SaleTranslatable &
   PublishedTranslations &
@@ -69,8 +69,12 @@ export type SaleList = MetadataFields &
     target_type: DiscountTargetType
     target_is_allow_list: boolean
   }
+/**
+ * @deprecated use SaleListed instead
+ */
+export type SaleList = SaleListed
 
-export type Sale = SaleList & {
+export type Sale = SaleListed & {
   condition_groups: DiscountConditionGroup[]
   target_products: Product[]
   target_sets: ProductSet[]
@@ -78,9 +82,13 @@ export type Sale = SaleList & {
   seo: SeoMetadata
 }
 
-export type CouponList = SaleList & {
+export type CouponListed = SaleListed & {
   code: string
 }
+/**
+ * @deprecated use CouponListed instead
+ */
+export type CouponList = CouponListed
 
 export type Coupon = Sale & {
   code: string
@@ -148,7 +156,7 @@ export type CouponShort = SaleShort & {
 
 export type OrderDiscount = {
   id: UUID
-  discount: SaleList | CouponList
+  discount: SaleListed | CouponListed
   name: string
   code: string | null
   target_type: DiscountTargetType

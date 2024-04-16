@@ -12,19 +12,24 @@ import {
   TranslationsUpdateDto,
 } from './languages'
 
-interface PageTranslatableList {
+interface PageTranslatableListed {
   name: string
 }
-interface PageTranslatable extends PageTranslatableList {
+interface PageTranslatable extends PageTranslatableListed {
   content_html: string
 }
 
-export interface PageList extends MetadataFields, Translations<PageTranslatableList> {
+export interface PageListed extends MetadataFields, Translations<PageTranslatableListed> {
   id: UUID
   name: string
   slug: string
   public: boolean
 }
+
+/**
+ * @deprecated use PageListed instead
+ */
+export type PageList = PageListed
 
 export interface Page
   extends MetadataFields,
