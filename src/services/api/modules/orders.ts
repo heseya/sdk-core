@@ -91,7 +91,16 @@ export interface OrdersService extends EntityMetadataService {
   /**
    * Returns the order summary with the given code
    */
-  getOneByCode: GetOneBySlugEntityRequest<OrderSummary>
+  getOneByCode: GetOneBySlugEntityRequest<
+    OrderSummary,
+    DefaultParams & {
+      /**
+       * If present, attribute of the given slug will be returned
+       * Otherwise, product will not have any attributes
+       */
+      attribute_slug?: string
+    }
+  >
   getOne: GetOneEntityRequest<Order>
   get: GetEntityRequest<OrderList, OrdersListParams>
   create: CreateEntityRequest<Order, OrderCreateDto>

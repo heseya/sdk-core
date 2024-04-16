@@ -18,9 +18,9 @@
 ## Instalation
 
 ```bash
-$ yarn add @heseya/store-core@next
+$ yarn add @heseya/store-core
 // or
-$ npm i @heseya/store-core@next
+$ npm i @heseya/store-core
 ```
 
 ## Usage
@@ -152,3 +152,7 @@ eventBus.on(HeseyaEvent.AddToCart, (product) => {
 // somewhere in your store code
 eventBus.emit(HeseyaEvent.AddToCart, { id: '123' })
 ```
+
+## License
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fheseya%2Fsdk-core.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fheseya%2Fsdk-core?ref=badge_large)
