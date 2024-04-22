@@ -5,7 +5,7 @@ import { UUID } from './UUID'
 
 export interface SavedCartItem {
   type: 'CartItem'
-  product: ProductList
+  product: ProductListed
   qty: number
   productSchemas: Schema[]
   schemas: CartItemSchema[]

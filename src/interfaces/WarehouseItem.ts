@@ -3,7 +3,7 @@ import { ProductBase } from './Product'
 import { SchemaBase } from './Schema'
 import { UUID } from './UUID'
 
-export interface WarehouseItemList extends MetadataFields {
+export interface WarehouseItemListed extends MetadataFields {
   id: UUID
   name: string
   sku: string
@@ -56,6 +56,10 @@ export interface WarehouseItemList extends MetadataFields {
       }
   >
 }
+/**
+ * @deprecated use WarehouseItemListed instead
+ */
+export type WarehouseItemList = WarehouseItemListed
 
 export interface WarehouseItemProduct extends ProductBase {
   quantity: number
@@ -63,7 +67,7 @@ export interface WarehouseItemProduct extends ProductBase {
 
 export type WarehouseItemSchema = SchemaBase
 
-export interface WarehouseItem extends WarehouseItemList {
+export interface WarehouseItem extends WarehouseItemListed {
   products: WarehouseItemProduct[]
   schemas: WarehouseItemSchema[]
 }

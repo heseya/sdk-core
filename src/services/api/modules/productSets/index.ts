@@ -9,7 +9,7 @@ import {
 
 import {
   ProductSet,
-  ProductSetList,
+  ProductSetListed,
   ProductSetCreateDto,
   ProductSetUpdateDto,
 } from '../../../../interfaces/ProductSet'
@@ -28,7 +28,7 @@ import {
   HeseyaPaginatedResponse,
   LanguageParams,
   ListResponse,
-  ProductList,
+  ProductListed,
 } from '../../../../interfaces'
 import { normalizePagination } from '../../utils/normalizePagination'
 import { createFavouriteProductSetService, FavouriteProductSetService } from './favourites'
@@ -55,7 +55,7 @@ interface ProductSetsListParams
 export interface ProductSetsService
   extends CrudService<
       ProductSet,
-      ProductSetList,
+      ProductSetListed,
       ProductSetCreateDto,
       ProductSetUpdateDto,
       ProductSetsListParams
@@ -69,19 +69,19 @@ export interface ProductSetsService
   getProducts: (
     id: UUID,
     params?: DefaultParams & PaginationParams,
-  ) => Promise<ListResponse<ProductList>>
+  ) => Promise<ListResponse<ProductListed>>
   updateProducts: (
     id: UUID,
     productsIds: UUID[],
     params?: DefaultParams,
-  ) => Promise<ListResponse<ProductList>>
+  ) => Promise<ListResponse<ProductListed>>
   /**
    * Returns all products that are connected directly or indirectly (inherited from child sets) to the set
    */
   getAllProducts: (
     id: UUID,
     params?: DefaultParams & PaginationParams & { public?: boolean },
-  ) => Promise<ListResponse<ProductList>>
+  ) => Promise<ListResponse<ProductListed>>
   reorderProducts: (
     setId: UUID,
     products: { id: UUID; order: number }[],
@@ -116,7 +116,7 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
     async getProducts(setId, params) {
       const stringParams = stringifyQueryParams(params || {})
 
-      const { data } = await axios.get<HeseyaPaginatedResponse<ProductList[]>>(
+      const { data } = await axios.get<HeseyaPaginatedResponse<ProductListed[]>>(
         `/${route}/id:${setId}/products?${stringParams}`,
       )
 
@@ -126,7 +126,7 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
     async updateProducts(setId, productsIds, params) {
       const stringParams = stringifyQueryParams(params || {})
 
-      const { data } = await axios.post<HeseyaPaginatedResponse<ProductList[]>>(
+      const { data } = await axios.post<HeseyaPaginatedResponse<ProductListed[]>>(
         `/${route}/id:${setId}/products?${stringParams}`,
         { products: productsIds },
       )
@@ -137,7 +137,7 @@ export const createProductSetsService: ServiceFactory<ProductSetsService> = (axi
     async getAllProducts(setId, params) {
       const stringParams = stringifyQueryParams(params || {})
 
-      const { data } = await axios.get<HeseyaPaginatedResponse<ProductList[]>>(
+      const { data } = await axios.get<HeseyaPaginatedResponse<ProductListed[]>>(
         `/${route}/id:${setId}/products-all?${stringParams}`,
       )
 

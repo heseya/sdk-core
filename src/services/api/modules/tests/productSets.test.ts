@@ -1,12 +1,12 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-import { HeseyaPaginatedResponse, ListResponse, ProductList } from '../../../../interfaces'
+import { HeseyaPaginatedResponse, ListResponse, ProductListed } from '../../../../interfaces'
 
 import { createProductSetsService } from '../productSets'
 import { META_LANGUAGE } from '../../../../../test/mock/responseMeta'
 
-const dummyProductsListResponse: HeseyaPaginatedResponse<ProductList[]> = {
+const dummyProductsListResponse: HeseyaPaginatedResponse<ProductListed[]> = {
   data: [],
   meta: {
     language: META_LANGUAGE,
@@ -20,7 +20,7 @@ const dummyProductsListResponse: HeseyaPaginatedResponse<ProductList[]> = {
   },
 }
 
-const dummyProductsListResponseData: ListResponse<ProductList> = {
+const dummyProductsListResponseData: ListResponse<ProductListed> = {
   data: [],
   pagination: {
     perPage: 24,

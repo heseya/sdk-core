@@ -1,13 +1,13 @@
 import { HeseyaResponse } from '../../../interfaces/Response'
 import {
   OrderSummary,
-  OrderList,
+  OrderListed,
   Order,
   OrderCreateDto,
   OrderUpdateDto,
 } from '../../../interfaces/Order'
 import { OrderPayment } from '../../../interfaces/Payments'
-import { PaymentMethodList } from '../../../interfaces/PaymentMethods'
+import { PaymentMethodListed } from '../../../interfaces/PaymentMethods'
 import { CartDto, ProcessedCart } from '../../../interfaces/Cart'
 import { OrderProduct, OrderProductUpdateDto } from '../../../interfaces/Product'
 import { UUID } from '../../../interfaces/UUID'
@@ -74,7 +74,7 @@ export interface OrdersService extends EntityMetadataService {
    */
   getPaymentMethods(
     orderCode: string,
-  ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethodList[]; code: string }>
+  ): Promise<{ order: OrderSummary; paymentMethods: PaymentMethodListed[]; code: string }>
 
   /**
    * Process cart by checking warehouse stock, sales and calculate total items price
@@ -102,7 +102,7 @@ export interface OrdersService extends EntityMetadataService {
     }
   >
   getOne: GetOneEntityRequest<Order>
-  get: GetEntityRequest<OrderList, OrdersListParams>
+  get: GetEntityRequest<OrderListed, OrdersListParams>
   create: CreateEntityRequest<Order, OrderCreateDto>
   update: UpdateEntityRequest<Order, OrderUpdateDto>
   updateStatus: UpdateEntityRequest<
@@ -207,7 +207,7 @@ export const createOrdersService: ServiceFactory<OrdersService> = (axios) => {
 
     getOneByCode: createGetOneRequest<OrderSummary>(axios, route),
     getOne: createGetOneRequest<Order>(axios, route, { byId: true }),
-    get: createGetListRequest<OrderList>(axios, route),
+    get: createGetListRequest<OrderListed>(axios, route),
     update: createPatchRequest(axios, route),
     create: createPostRequest(axios, route),
 

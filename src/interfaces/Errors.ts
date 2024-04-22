@@ -192,11 +192,13 @@ export enum HeseyaClientErrorCode {
   RegisterWithNotRegistrationRole = 'CLIENT_REGISTER_WITH_NON_REGISTRATION_ROLE',
   PublishingTranslationException = 'PUBLISHING_TRANSLATION_EXCEPTION',
   UpdateNotRegularJoinable = 'CLIENT_UPDATE_NOT_REGULAR_JOINABLE',
+  CaptchaFailed = 'CLIENT_CAPTCHA_FAILED',
 }
 
 export enum HeseyaServerErrorCode {
   CdnError = 'SERVER_CDN_ERROR',
   TransactionError = 'SERVER_TRANSACTION_ERROR',
+  CaptchaError = 'SERVER_CAPTCHA_ERROR',
 }
 
 export type HeseyaErrorCode =

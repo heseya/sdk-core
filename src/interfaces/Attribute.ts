@@ -47,7 +47,8 @@ interface AttributeBase
   id: UUID
   slug: string
   global: boolean
-  include_in_text_search: boolean
+  include_in_text_search?: boolean
+  match_any?: boolean
   sortable: boolean
   type: AttributeType
   min: number | string | null
@@ -223,13 +224,17 @@ export type AttributeUpdateDto =
 // ? Attributes in products
 // ? ---------------------------------------------------------------
 
-export interface ProductListAttribute {
+export interface ProductListedAttribute {
   name: string
   slug: string
   selected_options: AttributeOption[]
 }
+/**
+ * @deprecated use ProductListedAttribute instead
+ */
+export type ProductListAttribute = ProductListedAttribute
 
-interface ProductAttributeBase extends ProductListAttribute, MetadataFields {
+interface ProductAttributeBase extends ProductListedAttribute, MetadataFields {
   id: UUID
   slug: string
   description: string
