@@ -47,7 +47,8 @@ interface AttributeBase
   id: UUID
   slug: string
   global: boolean
-  include_in_text_search: boolean
+  include_in_text_search?: boolean
+  match_any?: boolean
   sortable: boolean
   type: AttributeType
   min: number | string | null
