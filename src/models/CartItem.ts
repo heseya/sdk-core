@@ -1,6 +1,6 @@
 import md5 from 'md5'
 
-import { ProductList } from '../interfaces/Product'
+import { ProductListed } from '../interfaces/Product'
 import { Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 import { SavedCartItem, CartItemSchema, CartItemRawSchemaValue } from '../interfaces/CartItem'

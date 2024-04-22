@@ -42,7 +42,7 @@ The convention is following:
 Example for product types:
 
 ```ts
-import { Product, ProductList, ProductCreateDto, ProductUpdateDto } from '@heseya/store-core'
+import { Product, ProductListed, ProductCreateDto, ProductUpdateDto } from '@heseya/store-core'
 
 const productCreateDto: ProductCreateDto = {
   ...

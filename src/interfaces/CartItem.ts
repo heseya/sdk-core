@@ -1,4 +1,4 @@
-import { ProductList } from './Product'
+import { ProductListed } from './Product'
 import { Schema } from './Schema'
 import { SchemaOption } from './SchemaOption'
 import { UUID } from './UUID'
