@@ -16,7 +16,7 @@ import {
 import { CreateEntityRequest, DeleteEntityRequest, UpdateEntityRequest } from '../../types/Requests'
 import { createDeleteRequest, createPatchRequest, createPostRequest } from '../../utils/requests'
 import { Metadata, MetadataUpdateDto, OrderProductPublic } from '../../../../interfaces'
-import { PaginationParams } from '../../types/DefaultParams'
+import { DefaultParams, PaginationParams } from '../../types/DefaultParams'
 import { UUID } from '../../../../interfaces/UUID'
 
 export interface UserProfileService {
@@ -56,14 +56,30 @@ export interface UserProfileService {
     /**
      * Get user own order by its Code.
      */
-    getOneByCode: GetOneEntityRequest<Order>
+    getOneByCode: GetOneEntityRequest<
+      Order,
+      DefaultParams & {
+        /**
+         * If present, attribute of the given slug will be returned
+         * Otherwise, product will not have any attributes
+         */
+        attribute_slug?: string
+      }
+    >
 
     /**
      * Get list of user owned products.
      */
     getProducts: GetEntityRequest<
       OrderProductPublic,
-      PaginationParams & { shipping_digital?: boolean }
+      PaginationParams & {
+        shipping_digital?: boolean
+        /**
+         * If present, attribute of the given slug will be returned
+         * Otherwise, product will not have any attributes
+         */
+        attribute_slug?: string
+      }
     >
   }
 
