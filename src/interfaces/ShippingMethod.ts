@@ -29,10 +29,18 @@ export interface ShippingMethodPriceRangeDto {
   currency: string
 }
 
-export interface ShippingMethod extends MetadataFields {
+export interface OrderShippingMethod extends MetadataFields {
   id: UUID
   name: string
   shipping_type: ShippingType
+  /**
+   * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
+   */
+  payment_on_delivery: boolean
+  integration_key?: string
+}
+
+export interface ShippingMethod extends OrderShippingMethod {
   payment_methods: PaymentMethod[]
   public: boolean
   shipping_time_max: number
@@ -57,13 +65,9 @@ export interface ShippingMethod extends MetadataFields {
   product_set_ids: UUID[]
   price_ranges: ShippingMethodPriceRange[]
   prices: Price[]
-  integration_key?: string
+
   shipping_points: Address[]
   deletable: boolean
-  /**
-   * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
-   */
-  payment_on_delivery: boolean
 }
 
 export interface ShippingMethodCreateDto extends CreateMetadataFields {

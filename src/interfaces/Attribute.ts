@@ -264,3 +264,19 @@ export type ProductAttribute =
   | ProductAttributeMultiOption
   | ProductAttributeNumber
   | ProductAttributeDate
+
+// ? ---------------------------------------------------------------
+// ? Attributes in order products
+// ? ---------------------------------------------------------------
+
+export type OrderProductAttributeOption = Omit<
+  AttributeOption,
+  'metadata' | 'metadata_private' | 'translations' | 'index'
+>
+
+export interface OrderProductAttribute {
+  id: UUID
+  name: string
+  slug: string
+  selected_options: OrderProductAttributeOption[]
+}

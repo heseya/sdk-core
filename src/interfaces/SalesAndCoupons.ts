@@ -156,7 +156,7 @@ export type CouponShort = SaleShort & {
 
 export type OrderDiscount = {
   id: UUID
-  discount: SaleListed | CouponListed
+  discount_id: UUID
   name: string
   code: string | null
   target_type: DiscountTargetType
