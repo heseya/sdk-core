@@ -50,6 +50,12 @@ export interface ProductSet
   parent: ProductSetListed | null
 }
 
+export interface OrderProductSet extends MetadataFields {
+  id: UUID
+  name: string
+  slug: string
+}
+
 export interface ProductSetCreateDto
   extends CreateMetadataFields,
     PublishedTranslationsCreateDto,
