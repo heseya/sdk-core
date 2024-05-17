@@ -11,7 +11,7 @@ import {
 import { UUID } from '../../../../interfaces/UUID'
 import {
   Product,
-  ProductList,
+  ProductListed,
   ProductCreateDto,
   ProductUpdateDto,
 } from '../../../../interfaces/Product'
@@ -69,14 +69,14 @@ interface ProductsListParams extends SearchParam, PaginationParams, LanguagePara
 
 export interface ProductsService
   extends Omit<
-      CrudService<Product, ProductList, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
+      CrudService<Product, ProductListed, ProductCreateDto, ProductUpdateDto, ProductsListParams>,
       'get'
     >,
     EntityMetadataService {
   /**
    * Return a list of products
    */
-  get(params?: ProductsListParams & { full?: false }): Promise<ListResponse<ProductList>>
+  get(params?: ProductsListParams & { full?: false }): Promise<ListResponse<ProductListed>>
   get(params: ProductsListParams & { full: true }): Promise<ListResponse<Product>>
 
   /**

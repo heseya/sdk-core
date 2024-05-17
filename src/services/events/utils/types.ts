@@ -1,9 +1,9 @@
 import {
   Order,
-  PaymentMethodList,
+  PaymentMethodListed,
   Product,
-  ProductList,
-  ProductSetList,
+  ProductListed,
+  ProductSetListed,
   ShippingMethod,
   User,
 } from '../../../interfaces'
@@ -76,7 +76,7 @@ export enum HeseyaEvent {
 
 export interface HeseyaEventToPayloadMap extends Record<HeseyaEvent, unknown> {
   [HeseyaEvent.ViewProduct]: Product
-  [HeseyaEvent.ViewProductList]: { set?: Partial<ProductSetList>; items: ProductList[] }
+  [HeseyaEvent.ViewProductList]: { set?: Partial<ProductSetListed>; items: ProductListed[] }
   [HeseyaEvent.CustomizeProduct]: CartItem
   [HeseyaEvent.AddToCart]: CartItem
   [HeseyaEvent.ViewCart]: CartItem[]
@@ -84,7 +84,7 @@ export interface HeseyaEventToPayloadMap extends Record<HeseyaEvent, unknown> {
   [HeseyaEvent.AddToWishlist]: Product
   [HeseyaEvent.InitiateCheckout]: CartItem[]
   [HeseyaEvent.AddShippingInfo]: { shipping: ShippingMethod; items: CartItem[] }
-  [HeseyaEvent.AddPaymentInfo]: { payment: PaymentMethodList; items: CartItem[] }
+  [HeseyaEvent.AddPaymentInfo]: { payment: PaymentMethodListed; items: CartItem[] }
   [HeseyaEvent.Purchase]: Order
   [HeseyaEvent.Search]: string
   [HeseyaEvent.Register]: User

@@ -12,16 +12,16 @@ import {
   TranslationsUpdateDto,
 } from './languages'
 
-interface ProductSetTranslatableList {
+interface ProductSetTranslatableListed {
   name: string
 }
-interface ProductSetTranslatable extends ProductSetTranslatableList {
+interface ProductSetTranslatable extends ProductSetTranslatableListed {
   description_html: string
 }
 
-export interface ProductSetList
-  extends ProductSetTranslatableList,
-    Translations<ProductSetTranslatableList>,
+export interface ProductSetListed
+  extends ProductSetTranslatableListed,
+    Translations<ProductSetTranslatableListed>,
     PublishedTranslations,
     MetadataFields {
   id: UUID
@@ -37,13 +37,17 @@ export interface ProductSetList
   children_ids?: UUID[]
   seo?: SeoMetadata
 }
+/**
+ * @deprecated use ProductSetListed instead
+ */
+export type ProductSetList = ProductSetListed
 
 export interface ProductSet
   extends ProductSetTranslatable,
     Translations<ProductSetTranslatable>,
     PublishedTranslations,
-    Omit<ProductSetList, 'parent_id' | 'translations'> {
-  parent: ProductSetList | null
+    Omit<ProductSetListed, 'parent_id' | 'translations'> {
+  parent: ProductSetListed | null
 }
 
 export interface ProductSetCreateDto
