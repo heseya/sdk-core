@@ -1,7 +1,7 @@
 import { App } from './App'
 import { UUID } from './UUID'
 
-export interface PaymentMethodList {
+export interface PaymentMethodListed {
   id: UUID
   name: string
   icon: string
@@ -12,7 +12,12 @@ export interface PaymentMethodList {
   public: boolean
 }
 
-export interface PaymentMethod extends PaymentMethodList {
+/**
+ * @deprecated use PaymentMethodListed instead
+ */
+export type PaymentMethodList = PaymentMethodListed
+
+export interface PaymentMethod extends PaymentMethodListed {
   url: string
   app: App | null
 }

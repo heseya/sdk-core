@@ -1,9 +1,9 @@
 import { UUID } from './UUID'
-import { ProductList } from './Product'
+import { ProductListed } from './Product'
 
 export interface WishlistProduct {
   id: UUID
-  product: ProductList
+  product: ProductListed
   created_at: string
 }
 

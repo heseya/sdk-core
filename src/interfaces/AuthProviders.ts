@@ -8,12 +8,16 @@ export enum AuthProviderKey {
   LinkedIn = 'linkedin',
 }
 
-export interface AuthProviderList {
+export interface AuthProviderListed {
   key: AuthProviderKey
   active: boolean
 }
+/**
+ * @deprecated use AuthProviderListed instead
+ */
+export type AuthProviderList = AuthProviderListed
 
-export interface AuthProvider extends AuthProviderList {
+export interface AuthProvider extends AuthProviderListed {
   client_id: string | null
   client_secret: string | null
 }

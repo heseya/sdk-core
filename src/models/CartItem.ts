@@ -1,11 +1,11 @@
 import md5 from 'md5'
 
-import { ProductList } from '../interfaces/Product'
+import { ProductListed } from '../interfaces/Product'
 import { SchemaType, Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
 import { SavedCartItem, CartItemSchema, CartItemRawSchemaValue } from '../interfaces/CartItem'
 import { CartItemDto } from '../interfaces/Cart'
-import { ProductListAttribute } from '../interfaces'
+import { ProductListedAttribute } from '../interfaces'
 import { round } from '../utils/utils'
 
 export class CartItem {
@@ -17,7 +17,7 @@ export class CartItem {
   private precalculatedInitialPrice: number | null = null
 
   private productSchemas: Schema[]
-  readonly product: ProductList
+  readonly product: ProductListed
   private createdAt: number
 
   /**
@@ -27,7 +27,7 @@ export class CartItem {
   private children: CartItem[] = []
 
   constructor(
-    product: ProductList,
+    product: ProductListed,
     quantity = 1,
     schemas: Schema[] = [],
     schemaValues: CartItemSchema[] = [],
@@ -87,7 +87,7 @@ export class CartItem {
     return this.product.shipping_digital
   }
 
-  get attributes(): ProductListAttribute[] {
+  get attributes(): ProductListedAttribute[] {
     return this.product.attributes
   }
 

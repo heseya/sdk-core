@@ -4,7 +4,7 @@ import { createGetListRequest, createGetOneRequest, createPatchRequest } from '.
 import {
   AuthProvider,
   AuthProviderKey,
-  AuthProviderList,
+  AuthProviderListed,
   AuthProviderUpdateDto,
 } from '../../../../interfaces/AuthProviders'
 import { AuthResponse, HeseyaAuthResponse } from '../../../../interfaces/Auth'
@@ -15,7 +15,7 @@ type AuthProvidersListParams = { active?: boolean }
 export type AuthProvidersService = Omit<
   CrudService<
     AuthProvider,
-    AuthProviderList,
+    AuthProviderListed,
     never,
     AuthProviderUpdateDto,
     AuthProvidersListParams

@@ -1,16 +1,16 @@
 import { OrderSchema, Schema } from './Schema'
-import { ProductSet, ProductSetList } from './ProductSet'
+import { ProductSet, ProductSetListed } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
 import { CdnMedia } from './CdnMedia'
-import { ProductAttribute, ProductListAttribute } from './Attribute'
+import { ProductAttribute, ProductListedAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
 import { OrderDiscount, ProductSale } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
-import { PageList } from './Page'
+import { PageListed } from './Page'
 import {
   PublishedTranslations,
   PublishedTranslationsCreateDto,
@@ -23,10 +23,10 @@ import { Price, PriceDto } from './Price'
 import { StrNumber } from './Number'
 import { BannerMedia, BannerMediaCreateDto } from './Banner'
 
-interface ProductListTranslatable {
+interface ProductListedTranslatable {
   name: string
 }
-interface ProductTranslatable extends ProductListTranslatable {
+interface ProductTranslatable extends ProductListedTranslatable {
   description_html: string
   description_short: string
 }
@@ -47,11 +47,11 @@ export interface ProductBase {
   cover: CdnMedia | null
 }
 
-export interface ProductList
+export interface ProductListed
   extends ProductBase,
     MetadataFields,
     PublishedTranslations,
-    Translations<ProductListTranslatable> {
+    Translations<ProductListedTranslatable> {
   prices_max_initial: Price[]
   prices_min_initial: Price[]
   shipping_time: number | null
@@ -71,11 +71,15 @@ export interface ProductList
    * If not null, single user can buy only this amount of products
    */
   purchase_limit_per_user: null | number
-  attributes: ProductListAttribute[]
+  attributes: ProductListedAttribute[]
 }
+/**
+ * @deprecated use ProductListed instead
+ */
+export type ProductList = ProductListed
 
 export interface Product
-  extends Omit<ProductList, 'attributes' | 'translations'>,
+  extends Omit<ProductListed, 'attributes' | 'translations'>,
     PublishedTranslations,
     ProductTranslatable,
     Translations<ProductTranslatable> {
@@ -90,7 +94,7 @@ export interface Product
   /**
    * Sets of products, which are related to this product
    */
-  related_sets: ProductSetList[]
+  related_sets: ProductSetListed[]
   /**
    * Order by which the product will be sorted in the catalog (lower is the higher)
    */
@@ -100,7 +104,7 @@ export interface Product
    * `null` means, that product has infinity quantity
    */
   quantity: number | null
-  descriptions: PageList[]
+  descriptions: PageListed[]
   banner: Omit<BannerMedia, 'published'> | null
 }
 

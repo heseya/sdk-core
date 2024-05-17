@@ -1,9 +1,9 @@
 import { UUID } from './UUID'
-import { ProductSetList } from './ProductSet'
+import { ProductSetListed } from './ProductSet'
 
 export interface FavouriteProductSet {
   id: UUID
-  product_set: ProductSetList
+  product_set: ProductSetListed
   created_at: string
 }
 

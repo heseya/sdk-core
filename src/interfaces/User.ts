@@ -7,7 +7,7 @@ import { UserSavedAddress } from './Address'
 import { CreateMetadataFields, Metadata, MetadataFields } from './Metadata'
 import { UserConsent, UserConsentDto } from './Consent'
 
-export interface UserList extends MetadataFields {
+export interface UserListed extends MetadataFields {
   id: UUID
   name: string
   email: string
@@ -37,7 +37,12 @@ export interface UserList extends MetadataFields {
   created_at: string
 }
 
-export interface User extends UserList {
+/**
+ * @deprecated use UserListed instead
+ */
+export type UserList = UserListed
+
+export interface User extends UserListed {
   permissions: Permission[]
   preferences: UserPreferences
   shipping_addresses: UserSavedAddress[]
@@ -81,6 +86,10 @@ export interface UserRegisterDto {
   password: string
   consents: UserConsentDto
   metadata_personal?: Metadata
+  /**
+   * Captcha token, optional
+   */
+  captcha_token?: string
 }
 
 export interface UserProfileUpdateDto {
