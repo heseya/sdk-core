@@ -36,9 +36,6 @@ export interface SchemaListed
   id: UUID
   product_id: UUID
   description: string
-  min: number | null
-  max: number | null
-  step: number | null
   options: SchemaOption[]
   used_schemas: UUID[]
   shipping_time: number | null
