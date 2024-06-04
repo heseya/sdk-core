@@ -1,6 +1,7 @@
 # @heseya/store-core
 
-[![NPM version](https://img.shields.io/npm/v/@heseya/store-core)](https://www.npmjs.com/package/@heseya/store-core) &nbsp;
+[![NPM version](https://img.shields.io/npm/v/@heseya/store-core)](https://www.npmjs.com/package/@heseya/store-core) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fheseya%2Fsdk-core.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fheseya%2Fsdk-core?ref=badge_shield)
+&nbsp;
 [![Code Coverage](https://codecov.io/gh/heseya/sdk-core/branch/develop/graph/badge.svg)](https://codecov.io/gh/heseya/sdk-core) &nbsp;
 ![Downloads](https://img.shields.io/npm/dt/@heseya/store-core) &nbsp;
 
