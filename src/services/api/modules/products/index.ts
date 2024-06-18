@@ -17,7 +17,14 @@ import {
 } from '../../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
-import { Attribute, FileUploadDto, LanguageParams, ListResponse } from '../../../../interfaces'
+import {
+  Attribute,
+  FileUploadDto,
+  HeseyaResponse,
+  LanguageParams,
+  ListResponse,
+  ProductSale,
+} from '../../../../interfaces'
 import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
 import { createFormData } from '../../utils/createFormData'
@@ -84,6 +91,8 @@ export interface ProductsService
    */
   getGoogleCategories(lang: string): Promise<{ id: number; name: string }[]>
 
+  getProductSales(productId: UUID): Promise<ProductSale[]>
+
   getFilters(props?: { sets?: UUID[] }): Promise<Attribute[]>
 
   importPrices(csvOrXmlFile: FileUploadDto): Promise<true>
@@ -104,6 +113,13 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     async getGoogleCategories(lang) {
       const response = await axios.get<{ data: { id: number; name: string }[] }>(
         `/google-categories/${lang}`,
+      )
+      return response.data.data
+    },
+
+    async getProductSales(productId) {
+      const response = await axios.get<HeseyaResponse<ProductSale[]>>(
+        `/products/id:${productId}/sales`,
       )
       return response.data.data
     },
