@@ -7,7 +7,7 @@ import { CdnMedia } from './CdnMedia'
 import { OrderProductAttribute, ProductAttribute, ProductListedAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
-import { OrderDiscount, ProductSale } from './SalesAndCoupons'
+import { OrderDiscount } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
 import { PageListed } from './Page'
@@ -83,7 +83,6 @@ export interface Product
     PublishedTranslations,
     ProductTranslatable,
     Translations<ProductTranslatable> {
-  sales: ProductSale[]
   sets: ProductSet[]
   schemas: Schema[]
   gallery: CdnMedia[]
