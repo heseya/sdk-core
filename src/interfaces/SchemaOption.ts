@@ -12,7 +12,6 @@ export interface SchemaOption
     SchemaOptionTranslatable,
     Translations<SchemaOptionTranslatable> {
   id: UUID
-  disabled: boolean
   available: boolean
   prices: Price[]
   items: SchemaItem[]
