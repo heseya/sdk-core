@@ -6,6 +6,7 @@ import { HeseyaPaginatedResponse } from '../../../..'
 import {
   createDeleteNestedRequest,
   createDeleteRequest,
+  createGetListNestedRequest,
   createGetListRequest,
   createGetOneRequest,
   createGetSimpleListRequest,
@@ -129,6 +130,34 @@ describe('createGetListRequest', () => {
     mock.onGet(expectedUrl).reply(200, dummyResponseList)
 
     const result = await execute()
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result.data).toEqual(dummyResponseList.data)
+    expect(result.pagination).toEqual({ perPage: 1, currentPage: 1, total: 1, lastPage: 1 })
+  })
+})
+
+describe('createGetListNestedRequest', () => {
+  it('should make a rest request with params', async () => {
+    const execute = createGetListNestedRequest<DummyItem[]>(axios, 'products', 'items')
+    const expectedUrl = '/products/id:1/items?param=yes'
+
+    mock.onGet(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('1', { param: 'yes' })
+
+    expect(mock.history.get[0].url).toEqual(expectedUrl)
+    expect(result.data).toEqual(dummyResponseList.data)
+    expect(result.pagination).toEqual({ perPage: 1, currentPage: 1, total: 1, lastPage: 1 })
+  })
+
+  it('handle the / prefix in path', async () => {
+    const execute = createGetListNestedRequest<DummyItem[]>(axios, '/products', 'items')
+    const expectedUrl = '/products/id:1/items?'
+
+    mock.onGet(expectedUrl).reply(200, dummyResponseList)
+
+    const result = await execute('1')
 
     expect(mock.history.get[0].url).toEqual(expectedUrl)
     expect(result.data).toEqual(dummyResponseList.data)

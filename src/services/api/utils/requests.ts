@@ -43,6 +43,22 @@ export const createGetListRequest =
   }
 
 /**
+ * Factory for the GET of the resource list
+ */
+export const createGetListNestedRequest =
+  <Item>(axios: AxiosInstance, parentRoute: string, route: string) =>
+  async (parentId: UUID, params?: DefaultParams): Promise<ListResponse<Item>> => {
+    const stringParams = stringifyQueryParams(params || {})
+
+    const response = await axios.get<HeseyaPaginatedResponse<Item[]>>(
+      encodeURI(`${prefixPath(parentRoute)}/id:${parentId}${prefixPath(route)}?${stringParams}`),
+    )
+    const { data, meta } = response.data
+
+    return { data, pagination: normalizePagination(meta) }
+  }
+
+/**
  * Factory for the GET of the resource list - without pagination
  */
 export const createGetSimpleListRequest =

@@ -17,6 +17,11 @@ export type GetEntityRequest<
   Params extends DefaultParams = DefaultParams & PaginationParams,
 > = (params?: Params) => Promise<ListResponse<Entity>>
 
+export type GetNestedEntityRequest<
+  Entity,
+  Params extends DefaultParams = DefaultParams & PaginationParams,
+> = (parentId: UUID, params?: Params) => Promise<ListResponse<Entity>>
+
 export type CreateEntityRequest<Result, EntityDto, Params extends DefaultParams = DefaultParams> = (
   entityDto: EntityDto,
   params?: Params,

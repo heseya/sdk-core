@@ -1,87 +1,84 @@
 import { CrudService, ServiceFactory } from '../types/Service'
 import {
-  OrganizationBase,
+  OrganizationListed,
   OrganizationCreateDto,
-  OrganizationDetail,
-  OrganizationStatus,
+  Organization,
   OrganizationUpdateDto,
+  OrganizationRegisterDto,
+  OrganizationSavedAddressCreateDto,
+  OrganizationSavedAddress,
+  OrganizationSavedAddressUpdateDto,
 } from '../../../interfaces/Organization'
-import { PaginationParams } from '../types/DefaultParams'
 import {
+  createDeleteNestedRequest,
   createDeleteRequest,
+  createGetListNestedRequest,
   createGetListRequest,
   createGetOneRequest,
+  createPatchNestedRequest,
   createPatchRequest,
+  createPostNestedRequest,
   createPostRequest,
 } from '../utils/requests'
-import { HeseyaResponse } from '../../../interfaces'
+import { DefaultParams, PaginationParams } from '../types/DefaultParams'
+import {
+  CreateEntityRequest,
+  CreateNestedEntityRequest,
+  DeleteNestedEntityRequest,
+  GetNestedEntityRequest,
+  GetOneEntityRequest,
+  UpdateNestedEntityRequest,
+} from '../types/Requests'
+import { User } from '../../../interfaces'
 
-interface OrganizationListParams extends PaginationParams {
-  status?: OrganizationStatus
-}
+type OrganizationListParams = PaginationParams
 
 export interface OrganizationService
   extends Omit<
     CrudService<
-      OrganizationDetail,
-      OrganizationBase,
+      Organization,
+      OrganizationListed,
       OrganizationCreateDto,
       OrganizationUpdateDto,
       OrganizationListParams
     >,
     'getOneBySlug'
   > {
-  accept(
-    organizationId: string,
-    redirectUrl: string,
-    salesChannelId?: string,
-  ): Promise<OrganizationDetail>
-  reject(organizationId: string): Promise<OrganizationDetail>
-  invite(organizationId: string, redirectUrl: string, emails: string[]): Promise<true>
+  register: CreateEntityRequest<Organization, OrganizationRegisterDto>
+  getOneByClientId: GetOneEntityRequest<Organization, DefaultParams>
+
+  Users: {
+    get: GetNestedEntityRequest<User[]>
+  }
+
+  ShippingAddresses: {
+    get: GetNestedEntityRequest<OrganizationSavedAddress[]>
+    add: CreateNestedEntityRequest<OrganizationSavedAddress, OrganizationSavedAddressCreateDto>
+    update: UpdateNestedEntityRequest<OrganizationSavedAddress, OrganizationSavedAddressUpdateDto>
+    delete: DeleteNestedEntityRequest
+  }
 }
 
 export const createOrganizationService: ServiceFactory<OrganizationService> = (axios) => {
   const route = 'organizations'
   return {
-    async accept(organizationId: string, redirectUrl: string, salesChannelId?: string) {
-      const {
-        data: { data },
-      } = await axios.post<HeseyaResponse<OrganizationDetail>>(
-        `/${route}/id:${organizationId}/accept`,
-        {
-          redirect_url: redirectUrl,
-          sales_channel_id: salesChannelId,
-        },
-      )
-
-      return data
-    },
-
-    async reject(organizationId: string) {
-      const {
-        data: { data },
-      } = await axios.post<HeseyaResponse<OrganizationDetail>>(
-        `/${route}/id:${organizationId}/reject`,
-      )
-
-      return data
-    },
-
-    async invite(organizationId: string, redirectUrl: string, emails: string[]) {
-      await axios.post<HeseyaResponse<OrganizationDetail>>(
-        `/${route}/id:${organizationId}/invite`,
-        {
-          redirect_url: redirectUrl,
-          emails: emails,
-        },
-      )
-      return true
-    },
-
     get: createGetListRequest(axios, route),
     getOne: createGetOneRequest(axios, route, { byId: true }),
+    getOneByClientId: createGetOneRequest(axios, route, { byId: false }),
+    register: createPostRequest(axios, route),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    Users: {
+      get: createGetListNestedRequest(axios, route, `users`),
+    },
+
+    ShippingAddresses: {
+      get: createGetListNestedRequest(axios, route, `shipping-addresses`),
+      add: createPostNestedRequest(axios, route, `shipping-addresses`),
+      update: createPatchNestedRequest(axios, route, `shipping-addresses`),
+      delete: createDeleteNestedRequest(axios, route, `shipping-addresses`),
+    },
   }
 }
