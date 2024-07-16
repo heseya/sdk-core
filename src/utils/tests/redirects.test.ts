@@ -165,6 +165,17 @@ describe('Redirects | resolveRedirect', () => {
     expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
   })
 
+  test('should redirect a path with extension', () => {
+    const sourceUrl = '/support-phone/user_manual.pdf'
+    const targetUrl = 'https://download.com/User_Manual/user-manual.pdf?_rc=1'
+
+    const sourcePattern = '/support-phone/user_manual.pdf'
+    const targetPattern = 'https://download.com/User_Manual/user-manual.pdf'
+    const redirects = [mockRedirect(sourcePattern, targetPattern)]
+
+    expect(resolveRedirect(redirects, sourceUrl)).toEqual([targetUrl, 301])
+  })
+
   test('should ignore trailing slashes in target', () => {
     const sourceUrl = '/produkty/prod-slug'
     const targetUrl = '/products/prod-slug?_rc=1'

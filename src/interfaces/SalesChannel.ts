@@ -21,12 +21,15 @@ export enum SalesChannelStatus {
   Hidden = 'hidden',
 }
 
-export interface SalesChannel
-  extends TranslatableSalesChannel,
-    Translations<TranslatableSalesChannel>,
-    PublishedTranslations {
+export interface OrderSalesChannel extends TranslatableSalesChannel {
   id: string
   slug: string
+}
+
+export interface SalesChannel
+  extends OrderSalesChannel,
+    Translations<TranslatableSalesChannel>,
+    PublishedTranslations {
   status: SalesChannelStatus
   vat_rate: string
   default_currency: Currency
