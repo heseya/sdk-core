@@ -1,13 +1,13 @@
 import { OrderSchema, Schema } from './Schema'
-import { ProductSet, ProductSetListed } from './ProductSet'
+import { OrderProductSet, ProductSet, ProductSetListed } from './ProductSet'
 import { SeoMetadata } from './Seo'
 import { UUID } from './UUID'
 import { SeoMetadataDto } from './Seo'
 import { CdnMedia } from './CdnMedia'
-import { ProductAttribute, ProductListedAttribute } from './Attribute'
+import { OrderProductAttribute, ProductAttribute, ProductListedAttribute } from './Attribute'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Tag } from './Tag'
-import { OrderDiscount, ProductSale } from './SalesAndCoupons'
+import { OrderDiscount } from './SalesAndCoupons'
 import { ProductWarehouseItem, ProductWarehouseItemDto, WarehouseDeposit } from './WarehouseItem'
 import { ProductAttachment } from './ProductAttachment'
 import { PageListed } from './Page'
@@ -83,7 +83,6 @@ export interface Product
     PublishedTranslations,
     ProductTranslatable,
     Translations<ProductTranslatable> {
-  sales: ProductSale[]
   sets: ProductSet[]
   schemas: Schema[]
   gallery: CdnMedia[]
@@ -168,6 +167,16 @@ export interface OrderProductUrl {
   url: string
 }
 
+export interface OrderProductDetails extends MetadataFields {
+  id: UUID
+  slug: string
+  name: string
+  cover: CdnMedia | null
+  gallery: CdnMedia[]
+  sets: OrderProductSet[]
+  attributes: OrderProductAttribute[]
+}
+
 export interface OrderProduct {
   id: UUID
   name: string
@@ -175,7 +184,7 @@ export interface OrderProduct {
   price: StrNumber
   price_initial: StrNumber
   discounts: OrderDiscount[]
-  product: Product
+  product: OrderProductDetails
   schemas: OrderSchema[]
   deposits: WarehouseDeposit[]
   /**

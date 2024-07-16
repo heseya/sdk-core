@@ -134,7 +134,6 @@ export type ProductSale = DiscountValue &
     target_type: DiscountTargetType
     target_is_allow_list: boolean
     active: boolean
-    uses: number
   }
 
 // ? ---------------------------------------------------------------------------------------------------------------
@@ -156,7 +155,7 @@ export type CouponShort = SaleShort & {
 
 export type OrderDiscount = {
   id: UUID
-  discount: SaleListed | CouponListed
+  discount_id: UUID
   name: string
   code: string | null
   target_type: DiscountTargetType

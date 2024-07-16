@@ -42,7 +42,7 @@ export interface SeoMetadataDto
   header_tags?: SeoMetadataTag[]
 }
 
-export type SeoCheckModelType = 'Product' | 'ProductSet' | 'Page'
+export type SeoCheckModelType = 'Product' | 'ProductSet' | 'Page' | 'Sale'
 
 export interface SeoCheckResponse {
   duplicated: boolean

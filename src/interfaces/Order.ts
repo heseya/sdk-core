@@ -2,7 +2,7 @@ import { UUID } from './UUID'
 import { Address, AddressDto } from './Address'
 import { OrderCartItem } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { ShippingMethod } from './ShippingMethod'
+import { OrderShippingMethod } from './ShippingMethod'
 import { OrderStatus } from './OrderStatus'
 import { OrderProduct } from './Product'
 import { OrderDiscount } from './SalesAndCoupons'
@@ -11,7 +11,7 @@ import { OrderPayment } from './Payments'
 import { User } from './User'
 import { App } from './App'
 import { StrNumber } from './Number'
-import { SalesChannel } from './SalesChannel'
+import { OrderSalesChannel } from './SalesChannel'
 
 export interface OrderListed extends MetadataFields {
   id: UUID
@@ -29,11 +29,11 @@ export interface OrderListed extends MetadataFields {
   /**
    * Phisical shipping method only exists if in order is any product without digital shipping type
    */
-  shipping_method: ShippingMethod | null
+  shipping_method: OrderShippingMethod | null
   /**
    * Digital shipping method only exists if in order is any product with digital shipping type
    */
-  digital_shipping_method: ShippingMethod | null
+  digital_shipping_method: OrderShippingMethod | null
   status: OrderStatus
   /**
    * Basket value without discounts
@@ -63,7 +63,7 @@ export interface OrderListed extends MetadataFields {
   summary_paid: StrNumber
   payable: boolean
   documents: OrderDocument[]
-  sales_channel: SalesChannel
+  sales_channel: OrderSalesChannel
 }
 /**
  * @deprecated use OrderListed instead
@@ -92,11 +92,11 @@ export interface OrderSummary extends MetadataFields {
   /**
    * Phisical shipping method only exists if in order is any product without digital shipping type
    */
-  shipping_method: Omit<ShippingMethod, 'price'> | null
+  shipping_method: OrderShippingMethod | null
   /**
    * Digital shipping method only exists if in order is any product with digital shipping type
    */
-  digital_shipping_method: Omit<ShippingMethod, 'price'> | null
+  digital_shipping_method: OrderShippingMethod | null
   created_at: string
   currency: string
 }
