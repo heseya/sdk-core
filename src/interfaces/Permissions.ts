@@ -21,6 +21,7 @@ export enum AppsPermission {
 
 export enum AuthPermission {
   Register = 'auth.register',
+  OrganizationRegister = 'auth.organization_register',
   PasswordReset = 'auth.password_reset',
   PasswordChange = 'auth.password_change',
   ProvidersManage = 'auth.providers.manage',
@@ -252,6 +253,14 @@ export enum RedirectsPermission {
   Remove = 'redirects.remove',
 }
 
+export enum OrganizationsPermission {
+  Show = 'organizations.show',
+  ShowDetails = 'organizations.show_details',
+  Add = 'organizations.add',
+  Edit = 'organizations.edit',
+  Remove = 'organizations.remove',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -290,6 +299,7 @@ export type Permission =
   | LanguagesPermission
   | SalesChannelsPermission
   | RedirectsPermission
+  | OrganizationsPermission
 
 export interface PermissionEntry {
   id: UUID
