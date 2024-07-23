@@ -29,7 +29,7 @@ import {
   GetOneEntityRequest,
   UpdateNestedEntityRequest,
 } from '../types/Requests'
-import { User } from '../../../interfaces'
+import { UserListed } from '../../../interfaces'
 
 type OrganizationListParams = PaginationParams
 
@@ -48,7 +48,7 @@ export interface OrganizationService
   getOneByClientId: GetOneEntityRequest<Organization, DefaultParams>
 
   Users: {
-    get: GetNestedEntityRequest<User[]>
+    get: GetNestedEntityRequest<UserListed>
   }
 
   ShippingAddresses: {

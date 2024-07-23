@@ -11,7 +11,7 @@ import { Consent } from './Consent'
 
 export interface OrganizationCreateDto {
   id?: UUID
-  client_id: string
+  client_id: string | null
   billing_email: string
   billing_address: Address
   consents: Record<UUID, boolean>
@@ -32,11 +32,11 @@ export interface OrganizationRegisterDto {
 }
 
 export interface OrganizationUpdateDto {
-  client_id?: string
+  client_id?: string | null
   billing_email?: string
   billing_address?: Address
   sales_channel_id?: UUID
-  consents: Record<UUID, boolean>
+  consents?: Record<UUID, boolean>
 }
 
 export interface OrganizationPublicUpdateDto {
