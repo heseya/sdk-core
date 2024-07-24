@@ -52,7 +52,7 @@ export interface OrganizationService
   }
 
   ShippingAddresses: {
-    get: GetNestedEntityRequest<OrganizationSavedAddress[]>
+    get: GetNestedEntityRequest<OrganizationSavedAddress>
     add: CreateNestedEntityRequest<OrganizationSavedAddress, OrganizationSavedAddressCreateDto>
     update: UpdateNestedEntityRequest<OrganizationSavedAddress, OrganizationSavedAddressUpdateDto>
     delete: DeleteNestedEntityRequest
