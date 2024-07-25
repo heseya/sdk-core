@@ -112,4 +112,5 @@ export interface UserPreferences {
   failed_login_attempt_alert: boolean
   new_localization_login_alert: boolean
   recovery_code_changed_alert: boolean
+  new_organization_alert: boolean
 }
