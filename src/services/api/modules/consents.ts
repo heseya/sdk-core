@@ -7,11 +7,20 @@ import {
   createPostRequest,
 } from '../utils/requests'
 
-import { Consent, ConsentCreateDto, ConsentUpdateDto } from '../../../interfaces/Consent'
+import {
+  Consent,
+  ConsentCreateDto,
+  ConsentType,
+  ConsentUpdateDto,
+} from '../../../interfaces/Consent'
 import { MetadataParams, PaginationParams } from '../types/DefaultParams'
 import { LanguageParams } from '../../../interfaces'
 
-type ConsentsListParams = PaginationParams & MetadataParams & LanguageParams
+type ConsentsListParams = PaginationParams &
+  MetadataParams &
+  LanguageParams & {
+    type?: ConsentType
+  }
 
 export type ConsentsService = Omit<
   CrudService<Consent, Consent, ConsentCreateDto, ConsentUpdateDto, ConsentsListParams>,
