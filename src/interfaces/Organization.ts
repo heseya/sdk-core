@@ -1,7 +1,7 @@
 import { UUID } from './UUID'
 import { Address } from './Address'
 import { SalesChannel } from './SalesChannel'
-import { Consent } from './Consent'
+import { OrganizationConsent, OrganizationConsentDto } from './Consent'
 
 /**
  * ? -----------------------------------------------------------------------------
@@ -14,7 +14,7 @@ export interface OrganizationCreateDto {
   client_id: string | null
   billing_email: string
   billing_address: Address
-  consents: Record<UUID, boolean>
+  consents: OrganizationConsentDto
   sales_channel_id?: UUID
   shipping_addresses: OrganizationSavedAddress[]
 }
@@ -24,7 +24,7 @@ export interface OrganizationRegisterDto {
   billing_address: Address
   // Wszystkie adresy dostawy są niezweryfikowane
   shipping_adresses: OrganizationSavedAddressCreateDto[]
-  consents: Record<UUID, boolean>
+  consents: OrganizationConsentDto
   // Dane osoby tworzącej organizacje, na ich podstawie utworzony zostanie użytkownik
   creator_email: string
   creator_password: string
@@ -36,13 +36,13 @@ export interface OrganizationUpdateDto {
   billing_email?: string
   billing_address?: Address
   sales_channel_id?: UUID
-  consents?: Record<UUID, boolean>
+  consents?: OrganizationConsentDto
 }
 
 export interface OrganizationPublicUpdateDto {
   billing_email?: string
   billing_address?: Address
-  consents: Record<UUID, boolean>
+  consents: OrganizationConsentDto
 }
 
 /**
@@ -60,7 +60,7 @@ export interface OrganizationListed {
 }
 
 export interface Organization extends OrganizationListed {
-  consents: (Consent & { value: boolean })[]
+  consents: OrganizationConsent[]
 }
 
 /**
