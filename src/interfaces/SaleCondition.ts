@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { OrganizationListed } from './Organization'
 import { Price, PriceDto } from './Price'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
@@ -30,6 +31,7 @@ export enum DiscountConditionType {
   WeekdayIn = 'weekday-in',
   CartLength = 'cart-length',
   CouponsCount = 'coupons-count',
+  UserInOrganization = 'user-in-organization',
 }
 
 // ? ------------------------------------------------------------------------------------
@@ -156,6 +158,19 @@ export interface CouponsCountDiscountConditionDto {
 }
 export type CouponsCountDiscountCondition = CouponsCountDiscountConditionDto & { id: UUID }
 
+export interface UserInOrganizationDiscountConditionDto {
+  type: DiscountConditionType.UserInOrganization
+  organizations: UUID[]
+  is_allow_list: boolean
+}
+export type UserInOrganizationDiscountCondition = Omit<
+  UserInOrganizationDiscountConditionDto,
+  'organizations'
+> & {
+  id: UUID
+  organizations: OrganizationListed[]
+}
+
 // ? ------------------------------------------------------------------------------------
 
 export type DiscountCondition =
@@ -171,6 +186,7 @@ export type DiscountCondition =
   | WeekdayInDiscountCondition
   | CartLengthDiscountCondition
   | CouponsCountDiscountCondition
+  | UserInOrganizationDiscountCondition
 
 export type DiscountConditionDto =
   | OrderValueDiscountConditionDto
@@ -185,3 +201,4 @@ export type DiscountConditionDto =
   | WeekdayInDiscountConditionDto
   | CartLengthDiscountConditionDto
   | CouponsCountDiscountConditionDto
+  | UserInOrganizationDiscountConditionDto
