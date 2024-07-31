@@ -16,6 +16,7 @@ interface SalesListParams extends SearchParam, PaginationParams, MetadataParams 
   search?: string
   description?: string
   for_role?: UUID
+  for_organization?: UUID
   ids?: UUID[]
 }
 

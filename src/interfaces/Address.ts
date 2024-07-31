@@ -2,11 +2,12 @@ import { UUID } from './UUID'
 
 export interface Address {
   id?: UUID
+  name: string
+  company_name?: string
   address: string
   city: string
   country: string
   country_name: string
-  name: string
   phone: string
   vat?: string
   zip: string
