@@ -28,6 +28,10 @@ interface ShippingMethodsParams extends PaginationParams, MetadataParams {
    * List of the Product.id's, thanks to which the list of ShippingMethods will be filtered
    */
   items?: UUID[]
+  /**
+   * Returns only the ShippingMethods that are available for the given SalesChannel
+   */
+  sales_channel_id?: UUID
 }
 
 export interface ShippingMethodsService
