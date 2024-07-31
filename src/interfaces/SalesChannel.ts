@@ -1,5 +1,6 @@
-import { Currency } from './Currency'
-import { ShippingCountry } from './ShippingMethod'
+import { PaymentMethodListed } from './PaymentMethods'
+import { PriceMapListed } from './PriceMap'
+import { ShippingMethod } from './ShippingMethod'
 import { UUID } from './UUID'
 import {
   Language,
@@ -16,26 +17,40 @@ export interface TranslatableSalesChannel {
 }
 
 export enum SalesChannelStatus {
+  Public = 'public',
+  Private = 'private',
+}
+
+export enum SalesChannelActivity {
   Active = 'active',
   Inactive = 'inactive',
-  Hidden = 'hidden',
 }
 
 export interface OrderSalesChannel extends TranslatableSalesChannel {
-  id: string
+  id: UUID
   slug: string
 }
 
+interface SalesChannelListed {
+  id: UUID
+  slug: string
+  name: string
+  status: SalesChannelStatus
+  activity: SalesChannelActivity
+  language: Language
+  default: boolean
+}
+
 export interface SalesChannel
-  extends OrderSalesChannel,
+  extends SalesChannelListed,
     Translations<TranslatableSalesChannel>,
     PublishedTranslations {
-  status: SalesChannelStatus
   vat_rate: string
-  default_currency: Currency
-  default_language: Language
-  countries_block_list: boolean
-  countries: ShippingCountry['code'][]
+  price_map: PriceMapListed
+  language: Language
+  shipping_methods: ShippingMethod[]
+  payment_methods: PaymentMethodListed[]
+  organization_count: number
 }
 
 export interface SalesChannelCreateDto
@@ -44,11 +59,13 @@ export interface SalesChannelCreateDto
   id?: UUID
   slug: string
   status: SalesChannelStatus
+  activity: SalesChannelActivity
   vat_rate: string
-  default_currency: UUID
-  default_language_id: UUID
-  countries_block_list: boolean
-  countries: ShippingCountry['code'][]
+  language_id: UUID
+  price_map_id: UUID
+  shipping_method_ids: UUID[]
+  payment_methods_ids: UUID[]
+  default: boolean
 }
 
 export type SalesChannelUpdateDto = Partial<
