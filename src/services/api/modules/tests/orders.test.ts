@@ -9,6 +9,7 @@ import {
   OrderStatus,
   OrderSummary,
   PaymentMethod,
+  PaymentMethodType,
   PaymentStatus,
   ProcessedCart,
   ShippingMethod,
@@ -95,6 +96,8 @@ const dummyPaymentMethodsResponse: HeseyaPaginatedResponse<PaymentMethod[]> = {
       url: 'https://payu.com',
       icon: 'https://payu.com/icon.png',
       app: null,
+      type: PaymentMethodType.Prepaid,
+      creates_default_payment: true,
     },
   ],
   meta: {
