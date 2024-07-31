@@ -1,15 +1,19 @@
 import { App } from './App'
 import { UUID } from './UUID'
 
+export enum PaymentMethodType {
+  Prepaid = 'prepaid',
+  Postpaid = 'postpaid',
+}
+
 export interface PaymentMethodListed {
   id: UUID
   name: string
   icon: string
-  /**
-   * @deprecated
-   */
   alias: string
   public: boolean
+  type: PaymentMethodType
+  creates_default_payment: boolean
 }
 
 /**

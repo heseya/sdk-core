@@ -12,6 +12,7 @@ import { User } from './User'
 import { App } from './App'
 import { StrNumber } from './Number'
 import { OrderSalesChannel } from './SalesChannel'
+import { PaymentMethodType } from './PaymentMethods'
 
 export interface OrderListed extends MetadataFields {
   id: UUID
@@ -64,6 +65,7 @@ export interface OrderListed extends MetadataFields {
   payable: boolean
   documents: OrderDocument[]
   sales_channel: OrderSalesChannel
+  payment_method_type: PaymentMethodType
 }
 /**
  * @deprecated use OrderListed instead
@@ -132,6 +134,10 @@ export interface OrderCreateDto extends CreateMetadataFields {
    * CODE of the current currency
    */
   currency: string
+  /**
+   * ID of the initial payment method. It forces the client to pay with the method of the same type
+   */
+  payment_method_id: UUID
 }
 
 export interface OrderUpdateDto {
