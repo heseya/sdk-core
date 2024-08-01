@@ -56,13 +56,13 @@ export const createSchemasService: ServiceFactory<SchemasService> = (axios) => {
 
     async getPrices(productId) {
       const response = await axios.get<HeseyaResponse<PriceMapSchemaPrice[]>>(
-        `/products/id:${productId}/prices`,
+        `/${route}/id:${productId}/prices`,
       )
       return response.data.data
     },
     async updatePrices(productId, data) {
       const response = await axios.patch<HeseyaResponse<PriceMapSchemaPrice[]>>(
-        `/products/id:${productId}/prices`,
+        `/${route}/id:${productId}/prices`,
         data,
       )
       return response.data.data

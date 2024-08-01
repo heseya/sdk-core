@@ -42,7 +42,7 @@ export interface OrganizationUpdateDto {
 export interface OrganizationPublicUpdateDto {
   billing_email?: string
   billing_address?: Address
-  consents: OrganizationConsentDto
+  consents?: OrganizationConsentDto
 }
 
 /**

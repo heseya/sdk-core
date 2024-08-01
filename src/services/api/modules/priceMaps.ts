@@ -52,14 +52,14 @@ export const createPriceMapsService: ServiceFactory<PriceMapsService> = (axios) 
       const {
         data: { data, meta },
       } = await axios.get<HeseyaPaginatedResponse<PriceMapPrice[]>>(
-        `${prefixPath(route)}/${id}/prices?${stringParams}`,
+        `${prefixPath(route)}/id:${id}/prices?${stringParams}`,
       )
       return { data, pagination: normalizePagination(meta) }
     },
 
     updatePrices: async (id, data) => {
       const response = await axios.patch<HeseyaResponse<PriceMapPrice[]>>(
-        `${prefixPath(route)}/${id}/prices`,
+        `${prefixPath(route)}/id:${id}/prices`,
         data,
       )
       return response.data.data

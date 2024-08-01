@@ -131,7 +131,7 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
 
     async getProductSales(productId) {
       const response = await axios.get<HeseyaResponse<ProductSale[]>>(
-        `/products/id:${productId}/sales`,
+        `/${route}/id:${productId}/sales`,
       )
       return response.data.data
     },
@@ -139,19 +139,19 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     async importPrices(file) {
       const form = await createFormData()
       form.append('file', file, 'media')
-      await axios.post('/products/import-prices', form)
+      await axios.post('/${route}/import-prices', form)
       return true
     },
 
     async getPrices(productId) {
       const response = await axios.get<HeseyaResponse<PriceMapProductPrice[]>>(
-        `/products/id:${productId}/prices`,
+        `/${route}/id:${productId}/prices`,
       )
       return response.data.data
     },
     async updatePrices(productId, data) {
       const response = await axios.patch<HeseyaResponse<PriceMapProductPrice[]>>(
-        `/products/id:${productId}/prices`,
+        `/${route}/id:${productId}/prices`,
         data,
       )
       return response.data.data
