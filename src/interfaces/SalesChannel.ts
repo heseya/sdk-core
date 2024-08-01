@@ -64,7 +64,7 @@ export interface SalesChannelCreateDto
   language_id: UUID
   price_map_id: UUID
   shipping_method_ids: UUID[]
-  payment_methods_ids: UUID[]
+  payment_method_ids: UUID[]
   default: boolean
 }
 
