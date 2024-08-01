@@ -33,6 +33,7 @@ import { createCurrenciesService } from './modules/currencies'
 import { createSalesChannelsService } from './modules/salesChannels'
 import { createRedirectsService } from './modules/redirects'
 import { createOrganizationService } from './modules/organization'
+import { createPriceMapsService } from './modules/priceMaps'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -60,6 +61,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => {
     Users: createUsersService(axios),
     Products: createProductsService(axios),
     Prices: createPricesService(axios),
+    PriceMaps: createPriceMapsService(axios),
     Schemas: createSchemasService(axios),
     Tags: createTagsService(axios),
     ProductSets: createProductSetsService(axios),
