@@ -12,7 +12,12 @@ import { MetadataParams, PaginationParams, SearchParam } from '../types/DefaultP
 import { Schema, SchemaCreateDto, SchemaUpdateDto, SchemaListed } from '../../../interfaces/Schema'
 import { FieldSort } from '../../../interfaces/Sort'
 import { UUID } from '../../../interfaces/UUID'
-import { LanguageParams } from '../../../interfaces'
+import {
+  HeseyaResponse,
+  LanguageParams,
+  PriceMapSchemaPrice,
+  PriceMapSchemaPriceUpdateDto,
+} from '../../../interfaces'
 
 interface SchemasListParams extends SearchParam, PaginationParams, LanguageParams, MetadataParams {
   name?: string
@@ -32,7 +37,13 @@ export type SchemasService = Omit<
   CrudService<Schema, SchemaListed, SchemaCreateDto, SchemaUpdateDto, SchemasListParams>,
   'getOneBySlug'
 > &
-  EntityMetadataService
+  EntityMetadataService & {
+    getPrices(productId: UUID): Promise<PriceMapSchemaPrice[]>
+    updatePrices(
+      productId: UUID,
+      data: PriceMapSchemaPriceUpdateDto,
+    ): Promise<PriceMapSchemaPrice[]>
+  }
 
 export const createSchemasService: ServiceFactory<SchemasService> = (axios) => {
   const route = 'schemas'
@@ -42,6 +53,20 @@ export const createSchemasService: ServiceFactory<SchemasService> = (axios) => {
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    async getPrices(productId) {
+      const response = await axios.get<HeseyaResponse<PriceMapSchemaPrice[]>>(
+        `/${route}/id:${productId}/prices`,
+      )
+      return response.data.data
+    },
+    async updatePrices(productId, data) {
+      const response = await axios.patch<HeseyaResponse<PriceMapSchemaPrice[]>>(
+        `/${route}/id:${productId}/prices`,
+        data,
+      )
+      return response.data.data
+    },
 
     ...createEntityMetadataService(axios, route),
   }

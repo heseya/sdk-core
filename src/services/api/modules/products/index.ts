@@ -23,6 +23,8 @@ import {
   HeseyaResponse,
   LanguageParams,
   ListResponse,
+  PriceMapProductPrice,
+  PriceMapProductPriceUpdateDto,
   ProductSale,
 } from '../../../../interfaces'
 import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
@@ -37,7 +39,11 @@ type AttributeFilter = Record<
   UUID | UUID[] | DateAttributeFilterValue | NumberAttributeFilterValue
 >
 
-interface ProductsListParams extends SearchParam, PaginationParams, LanguageParams, MetadataParams {
+export interface ProductsListParams
+  extends SearchParam,
+    PaginationParams,
+    LanguageParams,
+    MetadataParams {
   name?: string
   slug?: string
   public?: boolean
@@ -97,6 +103,12 @@ export interface ProductsService
 
   importPrices(csvOrXmlFile: FileUploadDto): Promise<true>
 
+  getPrices(productId: UUID): Promise<PriceMapProductPrice[]>
+  updatePrices(
+    productId: UUID,
+    data: PriceMapProductPriceUpdateDto,
+  ): Promise<PriceMapProductPrice[]>
+
   Attachments: ProductAttachmentsService
 }
 
@@ -119,7 +131,7 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
 
     async getProductSales(productId) {
       const response = await axios.get<HeseyaResponse<ProductSale[]>>(
-        `/products/id:${productId}/sales`,
+        `/${route}/id:${productId}/sales`,
       )
       return response.data.data
     },
@@ -127,8 +139,22 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     async importPrices(file) {
       const form = await createFormData()
       form.append('file', file, 'media')
-      await axios.post('/products/import-prices', form)
+      await axios.post('/${route}/import-prices', form)
       return true
+    },
+
+    async getPrices(productId) {
+      const response = await axios.get<HeseyaResponse<PriceMapProductPrice[]>>(
+        `/${route}/id:${productId}/prices`,
+      )
+      return response.data.data
+    },
+    async updatePrices(productId, data) {
+      const response = await axios.patch<HeseyaResponse<PriceMapProductPrice[]>>(
+        `/${route}/id:${productId}/prices`,
+        data,
+      )
+      return response.data.data
     },
 
     getFilters: createGetSimpleListRequest(axios, 'filters'),

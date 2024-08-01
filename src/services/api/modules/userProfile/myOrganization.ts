@@ -16,6 +16,7 @@ import {
   UpdateEntityRequest,
 } from '../../types/Requests'
 import {
+  HeseyaResponse,
   Organization,
   OrganizationPublicUpdateDto,
   OrganizationSavedAddress,
@@ -41,11 +42,11 @@ export const createUserMyOrganizationService: ServiceFactory<UserMyOrganizationS
   axios,
 ) => ({
   get: async () => {
-    const { data } = await axios.get(`/my/organization`)
+    const { data } = await axios.get<HeseyaResponse<Organization>>(`/my/organization`)
     return data.data
   },
   update: async (payload) => {
-    const { data } = await axios.patch(`/my/organization`, payload)
+    const { data } = await axios.patch<HeseyaResponse<Organization>>(`/my/organization`, payload)
     return data.data
   },
 

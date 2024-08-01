@@ -7,7 +7,7 @@ import { stringifyQueryParams } from '../../../utils/stringifyQueryParams'
 import { ListResponse } from '../../../interfaces/Response'
 import { DefaultParams } from '../types/DefaultParams'
 
-const prefixPath = (path: string) => (path.startsWith('/') ? path : `/${path}`)
+export const prefixPath = (path: string) => (path.startsWith('/') ? path : `/${path}`)
 
 /**
  * Factory for the GET of the single resource
