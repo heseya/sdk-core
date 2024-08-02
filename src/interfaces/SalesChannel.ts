@@ -31,7 +31,7 @@ export interface OrderSalesChannel extends TranslatableSalesChannel {
   slug: string
 }
 
-interface SalesChannelListed {
+export interface SalesChannelListed {
   id: UUID
   slug: string
   name: string
