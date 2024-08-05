@@ -33,17 +33,21 @@ export type PriceMapUpdateDto = Partial<Omit<PriceMapCreateDto, 'id'>>
 /**
  * List of all products and schemas prices for a given map
  */
+
+export interface PriceMapProductSchemaPrice {
+  schema_id: UUID
+  schema_option_id: UUID
+  schema_name: string
+  schema_option_name: string
+  schema_option_price: string
+}
+
 export interface PriceMapPrice {
+  id: UUID
   product_id: UUID
   product_name: string
   product_price: string
-  schema_options: {
-    schema_id: UUID
-    schema_option_id: UUID
-    schema_name: string
-    schema_option_name: string
-    schema_option_price: string
-  }[]
+  schema_options: PriceMapProductSchemaPrice[]
 }
 
 export interface PriceMapPriceUpdateDto {
@@ -65,6 +69,7 @@ export interface PriceMapPriceUpdateDto {
  * List of prices of the given product for each map
  */
 export interface PriceMapProductPrice {
+  id: UUID
   price_map_id: UUID
   price_map_name: string
   is_net: boolean
@@ -81,6 +86,7 @@ export type PriceMapProductPriceUpdateDto = {
  * List of prices of the given schema for each map
  */
 export interface PriceMapSchemaPrice {
+  id: UUID
   price_map_id: UUID
   price_map_name: string
   currency: string
@@ -92,6 +98,7 @@ export interface PriceMapSchemaPrice {
 }
 
 export type PriceMapSchemaPriceUpdateDto = {
+  id: UUID
   price_map_id: UUID
   options: {
     id: UUID
