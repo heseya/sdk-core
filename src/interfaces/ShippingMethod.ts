@@ -33,10 +33,6 @@ export interface OrderShippingMethod extends MetadataFields {
   id: UUID
   name: string
   shipping_type: ShippingType
-  /**
-   * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
-   */
-  payment_on_delivery: boolean
   integration_key?: string
 }
 
@@ -105,10 +101,6 @@ export interface ShippingMethodCreateDto extends CreateMetadataFields {
   price_ranges: ShippingMethodPriceRangeDto[]
   app_id?: UUID
   shipping_points?: Address[]
-  /**
-   * If true, then this shipping method cannot have any `payment_methods`, because payment will be made on delivery
-   */
-  payment_on_delivery: boolean
 }
 
 export type ShippingMethodUpdateDto = Omit<ShippingMethodCreateDto, keyof CreateMetadataFields>

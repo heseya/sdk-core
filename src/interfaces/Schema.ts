@@ -40,6 +40,7 @@ export interface SchemaListed
   used_schemas: UUID[]
   shipping_time: number | null
   shipping_date: string | null
+  available: boolean
 }
 
 /**
