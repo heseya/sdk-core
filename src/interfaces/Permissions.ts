@@ -261,6 +261,14 @@ export enum OrganizationsPermission {
   Remove = 'organizations.remove',
 }
 
+export enum PriceMapsPermission {
+  Show = 'price-maps.show',
+  ShowDetails = 'price-maps.show_details',
+  Add = 'price-maps.add',
+  Edit = 'price-maps.edit',
+  Remove = 'price-maps.remove',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -300,6 +308,7 @@ export type Permission =
   | SalesChannelsPermission
   | RedirectsPermission
   | OrganizationsPermission
+  | PriceMapsPermission
 
 export interface PermissionEntry {
   id: UUID

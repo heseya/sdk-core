@@ -34,6 +34,7 @@ import {
   SalesChannelsPermission,
   RedirectsPermission,
   OrganizationsPermission,
+  PriceMapsPermission,
 } from '../interfaces/Permissions'
 
 export const PERMISSIONS_TREE = {
@@ -71,6 +72,7 @@ export const PERMISSIONS_TREE = {
   SalesChannels: SalesChannelsPermission,
   Redirects: RedirectsPermission,
   Organizations: OrganizationsPermission,
+  PriceMaps: PriceMapsPermission,
 }
 
 export const ALL_PERMISSIONS: Permission[] = Object.values(PERMISSIONS_TREE)
