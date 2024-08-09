@@ -139,22 +139,20 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     async importPrices(file) {
       const form = await createFormData()
       form.append('file', file, 'media')
-      await axios.post('/${route}/import-prices', form)
+      await axios.post(`/${route}/import-prices`, form)
       return true
     },
 
     async getPrices(productId) {
-      const response = await axios.get<HeseyaResponse<PriceMapProductPrice[]>>(
-        `/${route}/id:${productId}/prices`,
-      )
-      return response.data.data
+      const response = await axios.get<PriceMapProductPrice[]>(`/${route}/id:${productId}/prices`)
+      return response.data
     },
-    async updatePrices(productId, data) {
-      const response = await axios.patch<HeseyaResponse<PriceMapProductPrice[]>>(
+    async updatePrices(productId, prices) {
+      const response = await axios.patch<PriceMapProductPrice[]>(
         `/${route}/id:${productId}/prices`,
-        data,
+        { prices },
       )
-      return response.data.data
+      return response.data
     },
 
     getFilters: createGetSimpleListRequest(axios, 'filters'),
