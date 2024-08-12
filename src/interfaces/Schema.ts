@@ -63,7 +63,7 @@ export interface SchemaCreateDto
   id?: UUID
   options: SchemaOptionDto[]
   required: boolean
-  default: string
+  default: string | null
   used_schemas: UUID[]
   product_id: UUID | null
   hidden: boolean
