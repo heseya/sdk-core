@@ -62,8 +62,8 @@ export interface SchemaCreateDto
     CreateMetadataFields {
   id?: UUID
   options: SchemaOptionDto[]
-  required: true
-  default: ''
+  required: boolean
+  default: string
   used_schemas: UUID[]
   product_id: UUID | null
   hidden: boolean
