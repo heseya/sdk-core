@@ -57,23 +57,16 @@ export type Schema = SchemaListed
  */
 
 export interface SchemaCreateDto
-  extends Omit<
-      Schema,
-      | 'id'
-      | 'options'
-      | 'name'
-      | 'description'
-      | 'translations'
-      | 'published'
-      | 'prices'
-      | 'shipping_date'
-      | 'shipping_time'
-      | keyof MetadataFields
-    >,
-    PublishedTranslationsCreateDto,
+  extends PublishedTranslationsCreateDto,
     TranslationsCreateDto<SchemaTranslatable>,
     CreateMetadataFields {
+  id?: UUID
   options: SchemaOptionDto[]
+  required: true
+  default: ''
+  used_schemas: UUID[]
+  product_id: UUID | null
+  hidden: boolean
 }
 
 export type SchemaUpdateDto = Omit<

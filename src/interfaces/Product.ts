@@ -213,3 +213,21 @@ export interface ProductPrice {
   prices_min: Price[]
   prices_max: Price[]
 }
+
+/**
+ * * ---------------------------------------------------------------------
+ * * Product Process
+ * * ---------------------------------------------------------------------
+ */
+
+export interface ProductVariantPriceRequest {
+  product_id: UUID
+  schemas: {
+    [schema_id: string]: UUID
+  }
+}
+
+export interface ProductVariantPrice {
+  initial_price: Price
+  price: Price
+}

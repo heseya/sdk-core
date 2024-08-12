@@ -8,6 +8,7 @@ import { createSchemasService } from '../schema'
 const dummyPriceResponse: HeseyaResponse<PriceMapSchemaPrice[]> = {
   data: [
     {
+      id: 'id',
       price_map_id: 'id',
       price_map_name: 'Price map',
       currency: 'PLN',
@@ -42,7 +43,7 @@ describe('schema test service', () => {
     const service = createSchemasService(axios)
     const expectedUrl = `/schemas/id:${productId}/prices`
 
-    mock.onGet(expectedUrl).reply(200, dummyPriceResponse)
+    mock.onGet(expectedUrl).reply(200, dummyPriceResponse.data)
 
     const result = await service.getPrices(productId)
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
@@ -53,10 +54,11 @@ describe('schema test service', () => {
     const service = createSchemasService(axios)
     const expectedUrl = `/schemas/id:${productId}/prices`
 
-    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse)
+    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse.data)
 
     const result = await service.updatePrices(productId, [
       {
+        id: 'id',
         price_map_id: 'id',
         options: [],
       },

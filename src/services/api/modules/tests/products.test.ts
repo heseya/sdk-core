@@ -1,13 +1,19 @@
 import axios from 'axios'
 
 import MockAdapter from 'axios-mock-adapter'
-import { HeseyaResponse, Language, PriceMapProductPrice } from '../../../../interfaces'
+import {
+  HeseyaResponse,
+  Language,
+  PriceMapProductPrice,
+  ProductVariantPrice,
+} from '../../../../interfaces'
 
 import { createProductsService } from '../products'
 
 const dummyPriceResponse: HeseyaResponse<PriceMapProductPrice[]> = {
   data: [
     {
+      id: 'id',
       price_map_id: 'id',
       price_map_name: 'Map name',
       is_net: false,
@@ -37,7 +43,7 @@ describe('product test service', () => {
     const service = createProductsService(axios)
     const expectedUrl = `/products/id:${productId}/prices`
 
-    mock.onGet(expectedUrl).reply(200, dummyPriceResponse)
+    mock.onGet(expectedUrl).reply(200, dummyPriceResponse.data)
 
     const result = await service.getPrices(productId)
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
@@ -48,7 +54,7 @@ describe('product test service', () => {
     const service = createProductsService(axios)
     const expectedUrl = `/products/id:${productId}/prices`
 
-    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse)
+    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse.data)
 
     const result = await service.updatePrices(productId, [
       {
@@ -58,5 +64,36 @@ describe('product test service', () => {
     ])
     expect(mock.history.patch[0]?.url).toEqual(expectedUrl)
     expect(result).toEqual(dummyPriceResponse.data)
+  })
+
+  it('should process product', async () => {
+    const service = createProductsService(axios)
+    const expectedUrl = `/products/process`
+
+    const priceResponse: ProductVariantPrice = {
+      initial_price: {
+        gross: '100',
+        net: '80',
+        currency: 'PLN',
+      },
+      price: {
+        gross: '100',
+        net: '80',
+        currency: 'PLN',
+      },
+    }
+
+    mock.onPost(expectedUrl).reply(200, {
+      data: priceResponse,
+    })
+
+    const result = await service.process({
+      product_id: 'id',
+      schemas: {
+        schema_id: 'id',
+      },
+    })
+    expect(mock.history.post[0]?.url).toEqual(expectedUrl)
+    expect(result).toEqual(priceResponse)
   })
 })
