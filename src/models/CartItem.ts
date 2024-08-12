@@ -100,12 +100,7 @@ export class CartItem {
   }
 
   get basePrice() {
-    return (
-      this.product.prices_base.find(({ currency }) => currency === this.currency) || {
-        gross: '0',
-        currency: 'unknown',
-      }
-    )
+    return this.product.price
   }
 
   /**
