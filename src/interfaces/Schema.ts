@@ -2,7 +2,7 @@ import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Price } from './Price'
 
-import { SchemaOption, SchemaOptionDto } from './SchemaOption'
+import { SchemaOption, SchemaOptionCreateDto, SchemaOptionUpdateDto } from './SchemaOption'
 
 import { UUID } from './UUID'
 import {
@@ -61,7 +61,7 @@ export interface SchemaCreateDto
     TranslationsCreateDto<SchemaTranslatable>,
     CreateMetadataFields {
   id?: UUID
-  options: SchemaOptionDto[]
+  options: SchemaOptionCreateDto[]
   required: boolean
   default: string | null
   used_schemas: UUID[]
@@ -71,10 +71,12 @@ export interface SchemaCreateDto
 
 export type SchemaUpdateDto = Omit<
   SchemaCreateDto,
-  keyof CreateMetadataFields | 'translations' | 'published'
+  keyof CreateMetadataFields | 'translations' | 'published' | 'options'
 > &
   PublishedTranslationsUpdateDto &
-  TranslationsUpdateDto<SchemaTranslatable>
+  TranslationsUpdateDto<SchemaTranslatable> & {
+    options: SchemaOptionUpdateDto[]
+  }
 
 /**
  * -----------------------------------------------------------------------------
