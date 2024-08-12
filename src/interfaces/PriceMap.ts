@@ -1,3 +1,4 @@
+import { StrNumber } from './Number'
 import { UUID } from './UUID'
 
 export interface PriceMapListed {
@@ -39,25 +40,25 @@ export interface PriceMapProductSchemaPrice {
   schema_option_id: UUID
   schema_name: string
   schema_option_name: string
-  schema_option_price: string
+  schema_option_price: StrNumber
 }
 
 export interface PriceMapPrice {
   id: UUID
   product_id: UUID
   product_name: string
-  product_price: string
+  product_price: StrNumber
   schema_options: PriceMapProductSchemaPrice[]
 }
 
 export interface PriceMapPriceUpdateDto {
   products: {
     id: UUID
-    value: string
+    value: StrNumber
   }[]
   schema_options: {
     id: UUID
-    value: string
+    value: StrNumber
   }[]
 }
 
@@ -74,12 +75,12 @@ export interface PriceMapProductPrice {
   price_map_name: string
   is_net: boolean
   currency: string
-  price: string
+  price: StrNumber
 }
 
 export type PriceMapProductPriceUpdateDto = {
   price_map_id: UUID
-  price: string
+  price: StrNumber
 }[]
 
 /**
@@ -93,7 +94,7 @@ export interface PriceMapSchemaPrice {
   is_net: boolean
   options: {
     id: UUID
-    price: string
+    price: StrNumber
   }[]
 }
 
@@ -102,6 +103,6 @@ export type PriceMapSchemaPriceUpdateDto = {
   price_map_id: UUID
   options: {
     id: UUID
-    price: string
+    price: StrNumber
   }[]
 }[]
