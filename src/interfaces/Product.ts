@@ -19,7 +19,7 @@ import {
   TranslationsCreateDto,
   TranslationsUpdateDto,
 } from './languages'
-import { Price, PriceDto } from './Price'
+import { Price } from './Price'
 import { StrNumber } from './Number'
 import { BannerMedia, BannerMediaCreateDto } from './Banner'
 
@@ -36,9 +36,13 @@ export interface ProductBase {
   slug: string
   name: string
   /**
-   * Contains base price for every currency
+   * TODO: price and price_initial fields may change
    */
-  prices_base: Price[]
+  price_initial: Price
+  price: Price
+  /**
+   * TODO: prices_max and prices_min will be removed
+   */
   prices_max: Price[]
   prices_min: Price[]
   public: boolean
@@ -113,10 +117,6 @@ export interface ProductCreateDto
     TranslationsCreateDto<ProductTranslatable> {
   id?: UUID
   slug: string
-  /**
-   * Must contain base price for every currency
-   */
-  prices_base: PriceDto[]
   public: boolean
   /**
    * If true, the product will be available to deliver only via ShippingType.Digital methods
@@ -212,4 +212,22 @@ export interface ProductPrice {
   id: UUID
   prices_min: Price[]
   prices_max: Price[]
+}
+
+/**
+ * * ---------------------------------------------------------------------
+ * * Product Process
+ * * ---------------------------------------------------------------------
+ */
+
+export interface ProductVariantPriceRequest {
+  product_id: UUID
+  schemas: {
+    [schema_id: string]: UUID
+  }
+}
+
+export interface ProductVariantPrice {
+  initial_price: Price
+  price: Price
 }

@@ -14,6 +14,7 @@ import {
   ProductListed,
   ProductCreateDto,
   ProductUpdateDto,
+  ProductVariantPrice,
 } from '../../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
@@ -26,6 +27,7 @@ import {
   PriceMapProductPrice,
   PriceMapProductPriceUpdateDto,
   ProductSale,
+  ProductVariantPriceRequest,
 } from '../../../../interfaces'
 import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
@@ -109,6 +111,8 @@ export interface ProductsService
     data: PriceMapProductPriceUpdateDto,
   ): Promise<PriceMapProductPrice[]>
 
+  process(product: ProductVariantPriceRequest): Promise<ProductVariantPrice>
+
   Attachments: ProductAttachmentsService
 }
 
@@ -121,6 +125,13 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
+
+    async process(product) {
+      const {
+        data: { data },
+      } = await axios.post<HeseyaResponse<ProductVariantPrice>>(`/${route}/process`, product)
+      return data
+    },
 
     async getGoogleCategories(lang) {
       const response = await axios.get<{ data: { id: number; name: string }[] }>(

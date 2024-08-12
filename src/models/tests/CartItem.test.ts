@@ -6,7 +6,7 @@ describe('usage of CartItem', () => {
   const product = {
     id: 'product_id',
     name: 'Test Product',
-    prices_base: [{ gross: '100.05', currency: 'pln' }],
+    price: { gross: '100.05', currency: 'pln' },
   } as Product
 
   const quantity = 2

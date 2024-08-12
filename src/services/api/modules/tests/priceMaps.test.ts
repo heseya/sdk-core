@@ -9,6 +9,7 @@ import { normalizePagination } from '../../utils/normalizePagination'
 const dummyPriceResponse: HeseyaPaginatedResponse<PriceMapPrice[]> = {
   data: [
     {
+      id: 'id',
       product_id: 'id',
       product_name: 'Product name',
       product_price: '122',
