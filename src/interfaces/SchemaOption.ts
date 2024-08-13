@@ -1,4 +1,5 @@
 import { MetadataFields } from './Metadata'
+import { Price } from './Price'
 import { UUID } from './UUID'
 import { Translations, TranslationsCreateDto } from './languages'
 
@@ -12,6 +13,9 @@ export interface SchemaOption
     Translations<SchemaOptionTranslatable> {
   id: UUID
   available: boolean
+  // @deprecated there will be some other price
+  prices: Price[]
+  price: Price
   items: SchemaItem[]
 }
 
