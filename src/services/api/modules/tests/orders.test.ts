@@ -79,6 +79,7 @@ const dummyOrderSummaryResponse: { data: OrderSummary } = {
     created_at: '2022',
     metadata: {},
     currency: 'PLN',
+    payment_method_type: PaymentMethodType.Prepaid,
   },
 }
 

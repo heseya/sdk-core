@@ -35,16 +35,8 @@ export interface ProductBase {
   id: UUID
   slug: string
   name: string
-  /**
-   * TODO: price and price_initial fields may change
-   */
-  price_initial: Price
+  initial_price: Price
   price: Price
-  /**
-   * TODO: prices_max and prices_min will be removed
-   */
-  prices_max: Price[]
-  prices_min: Price[]
   public: boolean
   visible: boolean
   available: boolean
@@ -56,8 +48,6 @@ export interface ProductListed
     MetadataFields,
     PublishedTranslations,
     Translations<ProductListedTranslatable> {
-  prices_max_initial: Price[]
-  prices_min_initial: Price[]
   shipping_time: number | null
   shipping_date: string | null
   quantity_step: number
@@ -210,8 +200,7 @@ export interface OrderProductUpdateDto {
 
 export interface ProductPrice {
   id: UUID
-  prices_min: Price[]
-  prices_max: Price[]
+  price: Price
 }
 
 /**
