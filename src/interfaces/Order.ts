@@ -86,6 +86,7 @@ export interface OrderSummary extends MetadataFields {
   status: OrderStatus
   paid: boolean
   payable: boolean
+  payment_method_type: PaymentMethodType
   cart_total_initial: StrNumber
   cart_total: StrNumber
   shipping_price_initial: StrNumber
