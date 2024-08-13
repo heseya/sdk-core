@@ -22,6 +22,10 @@ interface PaymentMethodsParams extends PaginationParams {
    */
   shipping_method_id?: UUID
   /**
+   * Returns only payment methods that are available for the given sales channel
+   */
+  sales_channel_id?: UUID
+  /**
    * Returns only payment methods that are available for the given order.
    * If order is already paid, returns empty array.
    */
