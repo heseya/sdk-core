@@ -23,7 +23,7 @@ export interface OrganizationRegisterDto {
   billing_email: string
   billing_address: Address
   // Wszystkie adresy dostawy są niezweryfikowane
-  shipping_adresses: OrganizationSavedAddressCreateDto[]
+  shipping_addresses: OrganizationSavedAddressCreateDto[]
   consents: OrganizationConsentDto
   // Dane osoby tworzącej organizacje, na ich podstawie utworzony zostanie użytkownik
   creator_email: string
