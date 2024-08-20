@@ -65,7 +65,7 @@ export const createOrganizationService: ServiceFactory<OrganizationService> = (a
     get: createGetListRequest(axios, route),
     getOne: createGetOneRequest(axios, route, { byId: true }),
     getOneByClientId: createGetOneRequest(axios, route, { byId: false }),
-    register: createPostRequest(axios, route),
+    register: createPostRequest(axios, `${route}/register`),
     create: createPostRequest(axios, route),
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
