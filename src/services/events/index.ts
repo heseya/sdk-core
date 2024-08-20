@@ -26,6 +26,7 @@ export const createHeseyaEventBusService = (): HeseyaEventBusService => {
     [HeseyaEvent.AddToWishlist]: [],
     [HeseyaEvent.Login]: [],
     [HeseyaEvent.Register]: [],
+    [HeseyaEvent.RegisterOrganization]: [],
     [HeseyaEvent.CustomizeProduct]: [],
     [HeseyaEvent.InitiateCheckout]: [],
     [HeseyaEvent.AddShippingInfo]: [],

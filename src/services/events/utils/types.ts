@@ -1,5 +1,6 @@
 import {
   Order,
+  Organization,
   PaymentMethodListed,
   Product,
   ProductListed,
@@ -65,6 +66,10 @@ export enum HeseyaEvent {
    */
   Register = 'register',
   /**
+   * A submission of information by a customer in exchange for a service provided by your business
+   */
+  RegisterOrganization = 'registerOrganization',
+  /**
    * User log in.
    */
   Login = 'login',
@@ -88,6 +93,7 @@ export interface HeseyaEventToPayloadMap extends Record<HeseyaEvent, unknown> {
   [HeseyaEvent.Purchase]: Order
   [HeseyaEvent.Search]: string
   [HeseyaEvent.Register]: User
+  [HeseyaEvent.RegisterOrganization]: Organization
   [HeseyaEvent.Login]: User
   [HeseyaEvent.ViewContent]: unknown
 }
