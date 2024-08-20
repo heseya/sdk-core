@@ -114,6 +114,7 @@ export enum HeseyaValidationErrorCode {
   FullName = 'VALIDATION_FULL_NAME',
   ProductSchemaOption = 'VALIDATION_PRODUCT_SCHEMA_OPTION',
   EmailTaken = 'VALIDATION_EMAIL_TAKEN',
+  OrganizationVat = 'VALIDATION_ORGANIZATION_VAT',
 }
 
 export enum HeseyaClientErrorCode {
