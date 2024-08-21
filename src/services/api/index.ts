@@ -32,6 +32,7 @@ import { createLanguagesService } from './modules/languages'
 import { createCurrenciesService } from './modules/currencies'
 import { createSalesChannelsService } from './modules/salesChannels'
 import { createRedirectsService } from './modules/redirects'
+import { createEmailsService } from './modules/email'
 
 /**
  * Factory to create whole Heseya e-commerce API service
@@ -82,6 +83,7 @@ export const createHeseyaApiService = (axios: AxiosInstance) => {
     Currencies: createCurrenciesService(axios),
     SalesChannels: createSalesChannelsService(axios),
     Redirects: createRedirectsService(axios),
+    Emails: createEmailsService(axios),
   }
 }
 
