@@ -10,6 +10,7 @@ import {
 import {
   SalesChannel,
   SalesChannelCreateDto,
+  SalesChannelListed,
   SalesChannelUpdateDto,
 } from '../../../interfaces/SalesChannel'
 import { PaginationParams } from '../types/DefaultParams'
@@ -20,7 +21,7 @@ type SalesChannelsListParams = PaginationParams & LanguageParams
 export type SalesChannelsService = Omit<
   CrudService<
     SalesChannel,
-    SalesChannel,
+    SalesChannelListed,
     SalesChannelCreateDto,
     SalesChannelUpdateDto,
     SalesChannelsListParams
