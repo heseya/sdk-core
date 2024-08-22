@@ -1,6 +1,6 @@
 import { UUID } from './UUID'
 import { Address } from './Address'
-import { SalesChannel } from './SalesChannel'
+import { SalesChannelListed } from './SalesChannel'
 import { OrganizationConsent, OrganizationConsentDto } from './Consent'
 
 /**
@@ -56,7 +56,7 @@ export interface OrganizationListed {
   client_id: string | null
   billing_email: string
   billing_address: Address
-  sales_channel: SalesChannel
+  sales_channel: SalesChannelListed
 }
 
 export interface Organization extends OrganizationListed {
