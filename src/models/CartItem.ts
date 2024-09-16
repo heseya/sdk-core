@@ -3,18 +3,23 @@ import md5 from 'md5'
 import { ProductListed } from '../interfaces/Product'
 import { Schema } from '../interfaces/Schema'
 import { calcSchemasPrice } from '../utils/calcSchemasPrice'
-import { SavedCartItem, CartItemSchema, CartItemRawSchemaValue } from '../interfaces/CartItem'
+import { CartItemRawSchemaValue, CartItemSchema, SavedCartItem } from '../interfaces/CartItem'
 import { CartItemDto } from '../interfaces/Cart'
 import { ProductListedAttribute } from '../interfaces'
 import { round } from '../utils/utils'
+
+interface CartItemPrice {
+  net: number
+  gross: number
+}
 
 export class CartItem {
   public qty: number
   public schemas: CartItemSchema[]
   public currency: string
 
-  private precalculatedPrice: number | null = null
-  private precalculatedInitialPrice: number | null = null
+  private precalculatedPrice: CartItemPrice | null = null
+  private precalculatedInitialPrice: CartItemPrice | null = null
 
   private productSchemas: Schema[]
   readonly product: ProductListed
@@ -29,8 +34,8 @@ export class CartItem {
   constructor(
     product: ProductListed,
     quantity = 1,
-    schemas: Schema[] = [],
-    schemaValues: CartItemSchema[] = [],
+    productSchemas: Schema[] = [],
+    schemas: CartItemSchema[] = [],
     children: CartItem[] = [],
     currency: string,
     createdAt = Date.now(),
@@ -39,8 +44,8 @@ export class CartItem {
 
     this.product = product
     this.qty = Number(quantity)
-    this.productSchemas = schemas
-    this.schemas = schemaValues
+    this.productSchemas = productSchemas
+    this.schemas = [...schemas].map((p) => ({ ...p }))
     this.children = children
     this.currency = currency
     this.createdAt = createdAt
@@ -67,23 +72,26 @@ export class CartItem {
     )
     // This is to make sure that precalculated prices are not lost
     if (this.precalculatedPrice && this.precalculatedInitialPrice)
-      newItem.setPrecalculatedPrices(this.precalculatedPrice, this.precalculatedInitialPrice)
+      newItem.setPrecalculatedPrices(
+        { ...this.precalculatedPrice },
+        { ...this.precalculatedInitialPrice },
+      )
     return newItem
   }
 
-  get id() {
+  get id(): string {
     return md5(`${this.product.id}-${this.schemas.map((s) => [s.id, s.value].join('=')).join('&')}`)
   }
 
-  get productId() {
+  get productId(): string {
     return this.product.id
   }
 
-  get name() {
+  get name(): string {
     return this.product.name
   }
 
-  get shippingDigital() {
+  get shippingDigital(): boolean {
     return this.product.shipping_digital
   }
 
@@ -94,80 +102,107 @@ export class CartItem {
   /**
    * Number of given items in the cart, also includes nested items
    */
-  get totalQty() {
+  get totalQty(): number {
     const childrenQty = this.children.reduce((acc, child) => acc + child.qty, 0)
     return round(this.qty + childrenQty, 2)
   }
 
-  get basePrice() {
-    return this.product.price
+  get basePrice(): CartItemPrice {
+    return {
+      net: parseFloat(this.product.price.net),
+      gross: parseFloat(this.product.price.gross),
+    }
   }
 
   /**
    * Singular price of the item (without children)
    */
-  get price() {
+  get price(): CartItemPrice {
     if (this.precalculatedPrice !== null) return this.precalculatedPrice
 
     try {
-      return round(parseFloat(this.basePrice.gross) + calcSchemasPrice(this.schemas), 2)
+      const netPrice = round(this.basePrice.net + calcSchemasPrice(this.schemas, 'net'), 2)
+      const grossPrice = round(this.basePrice.gross + calcSchemasPrice(this.schemas, 'gross'), 2)
+
+      return {
+        net: netPrice,
+        gross: grossPrice,
+      }
     } catch (e: unknown) {
       // eslint-disable-next-line no-console
       console.error('[HS CartItem]', (e as Error).message || e)
-      return round(parseFloat(this.basePrice.gross), 2)
+
+      return {
+        net: round(this.basePrice.net, 2),
+        gross: round(this.basePrice.gross, 2),
+      }
     }
   }
 
   /**
    * Singular initial (before discounts) price of the item (without children)
    */
-  get initialPrice() {
+  get initialPrice(): CartItemPrice {
     return this.precalculatedInitialPrice === null ? this.price : this.precalculatedInitialPrice
   }
 
   /**
    * Total price of the item including quantity and children
    */
-  get totalPrice(): number {
-    const childrenTotalPrice = this.children.reduce((sum, child) => sum + child.totalPrice, 0)
-    return round(this.price * this.qty + childrenTotalPrice, 2)
+  get totalPrice(): CartItemPrice {
+    const childrenTotalPrice = this.childrenTotalPrice
+
+    return {
+      net: round(this.price.net * this.qty + childrenTotalPrice.net, 2),
+      gross: round(this.price.gross * this.qty + childrenTotalPrice.gross, 2),
+    }
   }
 
   /**
    * Total initial price (before discounts) of the item including quantity and children
    */
-  get totalInitialPrice(): number {
-    const childrenTotalInitialPrice = this.children.reduce(
-      (sum, child) => sum + child.totalInitialPrice,
-      0,
-    )
-    return round(this.initialPrice * this.qty + childrenTotalInitialPrice, 2)
+  get totalInitialPrice(): CartItemPrice {
+    const childrenTotalInitialPrice = this.childrenTotalInitialPrice
+
+    return {
+      net: round(this.initialPrice.net * this.qty + childrenTotalInitialPrice.net, 2),
+      gross: round(this.initialPrice.gross * this.qty + childrenTotalInitialPrice.gross, 2),
+    }
   }
 
   /**
    * Total discount value of the item (without children)
    */
-  get discountValue() {
-    return round((this.precalculatedInitialPrice || 0) - (this.precalculatedPrice || 0), 2)
+  get discountValue(): CartItemPrice {
+    return {
+      net: round(
+        +(this.precalculatedInitialPrice?.net || 0) - +(this.precalculatedPrice?.net || 0),
+        2,
+      ),
+      gross: round(
+        +(this.precalculatedInitialPrice?.gross || 0) - +(this.precalculatedPrice?.gross || 0),
+        2,
+      ),
+    }
   }
 
   /**
    * returns sum of core-product discounts and all childrens' discounts
    * to be able to display info about total discount on one particular product
    */
-  get totalDiscountValue() {
-    const baseDiscount = this.discountValue * this.qty
-    const childrenDiscounts: number = this.children.reduce(
-      (acc: number, item: CartItem) => acc + item.discountValue,
-      0 as number,
-    )
+  get totalDiscountValue(): CartItemPrice {
+    const baseDiscountValue = this.baseDiscountValue
+    const childrenDiscountValue = this.childrenDiscountValue
 
-    return round(baseDiscount + childrenDiscounts, 2)
+    return {
+      net: round(baseDiscountValue.net + childrenDiscountValue.net, 2),
+      gross: round(baseDiscountValue.gross + childrenDiscountValue.gross, 2),
+    }
   }
 
-  setPrecalculatedPrices(price: number, initialPrice: number) {
-    this.precalculatedPrice = price
-    this.precalculatedInitialPrice = initialPrice
+  setPrecalculatedPrices(price: CartItemPrice, initialPrice: CartItemPrice) {
+    this.precalculatedPrice = { ...price }
+    this.precalculatedInitialPrice = { ...initialPrice }
     return this
   }
 
@@ -224,6 +259,67 @@ export class CartItem {
       productSchemas: this.productSchemas,
       currency: this.currency,
       createdAt: this.createdAt,
+    }
+  }
+
+  private get childrenTotalPrice(): CartItemPrice {
+    const childrenTotalPriceNet = this.children.reduce(
+      (sum, child) => sum + child.totalPrice.net,
+      0,
+    )
+
+    const childrenTotalPriceGross = this.children.reduce(
+      (sum, child) => sum + child.totalPrice.gross,
+      0,
+    )
+
+    return {
+      net: childrenTotalPriceNet,
+      gross: childrenTotalPriceGross,
+    }
+  }
+
+  private get childrenTotalInitialPrice(): CartItemPrice {
+    const childrenTotalPriceNet = this.children.reduce(
+      (sum, child) => sum + child.totalInitialPrice.net,
+      0,
+    )
+
+    const childrenTotalPriceGross = this.children.reduce(
+      (sum, child) => sum + child.totalInitialPrice.gross,
+      0,
+    )
+
+    return {
+      net: childrenTotalPriceNet,
+      gross: childrenTotalPriceGross,
+    }
+  }
+
+  private get baseDiscountValue(): CartItemPrice {
+    const baseDiscountNet = this.discountValue.net * this.qty
+    const baseDiscountGross = this.discountValue.gross * this.qty
+
+    return {
+      net: baseDiscountNet,
+      gross: baseDiscountGross,
+    }
+  }
+
+  private get childrenDiscountValue(): CartItemPrice {
+    const childrenDiscountsNet = this.children.reduce(
+      (acc: number, item: CartItem) => acc + item.discountValue.net,
+      0,
+    )
+
+    const childrenDiscountsGross = this.children.reduce(
+      (acc: number, item: CartItem) => acc + item.discountValue.gross,
+      0,
+    )
+
+    return {
+      net: childrenDiscountsNet,
+      gross: childrenDiscountsGross,
     }
   }
 }

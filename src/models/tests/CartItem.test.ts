@@ -6,26 +6,26 @@ describe('usage of CartItem', () => {
   const product = {
     id: 'product_id',
     name: 'Test Product',
-    price: { gross: '100.05', currency: 'pln' },
+    price: { gross: '100.05', net: '99.50', currency: 'pln' },
   } as Product
 
   const quantity = 2
-  const schemaValues: CartItemSchema[] = []
+  const schemas: CartItemSchema[] = []
 
-  const cartItem = new CartItem(product, quantity, [], schemaValues, [], 'pln')
+  const cartItem = new CartItem(product, quantity, [], schemas, [], 'pln')
 
   it('has access to static fields', () => {
     expect(cartItem.id).toBeTruthy()
     expect(cartItem.name).toBe(product.name)
     expect(cartItem.qty).toBe(quantity)
-    expect(cartItem.schemas).toBe(schemaValues)
+    expect(cartItem.schemas).toStrictEqual(schemas)
     expect(cartItem.quantityStep).toBe(1)
   })
 
   it('has access to dynamic fields', () => {
-    expect(cartItem.basePrice.gross).toBe('100.05')
-    expect(cartItem.totalPrice).toBe(200.1)
-    expect(cartItem.price).toBe(100.05)
+    expect(cartItem.basePrice.gross).toBe(100.05)
+    expect(cartItem.totalPrice.gross).toBe(200.1)
+    expect(cartItem.price.gross).toBe(100.05)
   })
 
   it('can update quantity without object mutation', () => {
