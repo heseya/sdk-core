@@ -11,13 +11,14 @@ export interface CartItemSchemaWithDependecies extends CartItemSchema {
   children: CartItemSchemaWithDependecies[]
 }
 
-export const calcSchemasPrice = (schemas: CartItemSchema[]): number => {
+export const calcSchemasPrice = (
+  schemas: CartItemSchema[],
+  priceType: 'gross' | 'net' = 'gross',
+): number => {
   const dependeciedSchemas = getDependenciesTree(schemas)
 
   if (dependeciedSchemas.length === 0 && schemas.length > 0)
     throw new Error(ERROR_MESSAGES.dependecyLoop)
 
-  return dependeciedSchemas.reduce((sum, schema) => {
-    return sum + schema.optionPrice
-  }, 0)
+  return dependeciedSchemas.reduce((sum, schema) => sum + schema.optionPrice[priceType], 0)
 }

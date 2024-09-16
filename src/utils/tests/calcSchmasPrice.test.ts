@@ -1,4 +1,4 @@
-import { SchemaOption, CartItemSchema } from '../../interfaces'
+import { CartItemSchema } from '../../interfaces'
 import { calcSchemasPrice } from '../calcSchemasPrice'
 
 describe('Calculating Schemas Price', () => {
@@ -8,11 +8,11 @@ describe('Calculating Schemas Price', () => {
         id: 'xd',
         name: 'xd',
         value: 'w',
-        optionPrice: 0,
+        optionPrice: { net: 0, gross: 0 },
         dependencies: [],
       },
     ]
-    expect(calcSchemasPrice(schemas)).toEqual(0)
+    expect(calcSchemasPrice(schemas, 'net')).toEqual(0)
   })
 
   test('single Select schema', () => {
@@ -20,12 +20,12 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'xd',
         name: 'xd',
-        value: {} as SchemaOption,
-        optionPrice: 999,
+        value: null,
+        optionPrice: { net: 999, gross: 1110 },
         dependencies: [],
       },
     ]
-    expect(calcSchemasPrice(schemas)).toEqual(999)
+    expect(calcSchemasPrice(schemas, 'net')).toEqual(999)
   })
 
   test('single schema without value', () => {
@@ -34,11 +34,11 @@ describe('Calculating Schemas Price', () => {
         id: 'xd',
         name: 'xd',
         value: 'w',
-        optionPrice: 0,
+        optionPrice: { net: 0, gross: 0 },
         dependencies: [],
       },
     ]
-    expect(calcSchemasPrice(schemas)).toEqual(0)
+    expect(calcSchemasPrice(schemas, 'net')).toEqual(0)
   })
 
   test('single Multiply schemas + other', () => {
@@ -46,18 +46,18 @@ describe('Calculating Schemas Price', () => {
       {
         id: 'xd',
         name: 'xd',
-        value: 3,
-        optionPrice: 10,
+        value: 'some-uuid',
+        optionPrice: { net: 10, gross: 12 },
         dependencies: [],
       },
       {
         id: 'xdd',
         name: 'xd',
-        value: true,
-        optionPrice: 100,
+        value: 'some-uuid-2',
+        optionPrice: { net: 100, gross: 120 },
         dependencies: [],
       },
     ]
-    expect(calcSchemasPrice(schemas)).toEqual(110)
+    expect(calcSchemasPrice(schemas, 'net')).toEqual(110)
   })
 })
