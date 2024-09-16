@@ -1,4 +1,3 @@
-import { CartItemSchemaValue } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { Price } from './Price'
 
@@ -89,5 +88,5 @@ export interface OrderSchema {
   name: string
   price: Price
   price_initial: Price
-  value: CartItemSchemaValue
+  value: string
 }

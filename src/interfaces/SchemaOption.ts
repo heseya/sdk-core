@@ -13,10 +13,9 @@ export interface SchemaOption
     Translations<SchemaOptionTranslatable> {
   id: UUID
   available: boolean
-  // @deprecated there will be some other price
-  prices: Price[]
   price: Price
   items: SchemaItem[]
+  default: boolean
 }
 
 export interface SchemaItem {

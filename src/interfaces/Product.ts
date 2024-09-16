@@ -35,7 +35,7 @@ export interface ProductBase {
   id: UUID
   slug: string
   name: string
-  initial_price: Price
+  price_initial: Price
   price: Price
   public: boolean
   visible: boolean
@@ -209,14 +209,21 @@ export interface ProductPrice {
  * * ---------------------------------------------------------------------
  */
 
-export interface ProductVariantPriceRequest {
-  product_id: UUID
+export interface ProductVariantDto {
   schemas: {
-    [schema_id: string]: UUID
+    [schema_id: string]: UUID | null
   }
 }
 
 export interface ProductVariantPrice {
-  initial_price: Price
+  product_id: UUID
+  price_initial: Price
   price: Price
+}
+
+export interface ProductVariantListItemDto {
+  product_id: UUID
+  schemas: {
+    [schema_id: string]: UUID | null
+  }
 }

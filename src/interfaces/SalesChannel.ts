@@ -39,15 +39,14 @@ export interface SalesChannelListed {
   activity: SalesChannelActivity
   language: Language
   default: boolean
+  vat_rate: string
+  price_map: PriceMapListed
 }
 
 export interface SalesChannel
   extends SalesChannelListed,
     Translations<TranslatableSalesChannel>,
     PublishedTranslations {
-  vat_rate: string
-  price_map: PriceMapListed
-  language: Language
   shipping_methods: ShippingMethod[]
   payment_methods: PaymentMethodListed[]
   organization_count: number

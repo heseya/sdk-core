@@ -145,6 +145,7 @@ export type SaleShort = {
    * Amount by which it reduced the value of the entire contract
    */
   value: StrNumber
+  currency: string
 }
 
 export type CouponShort = SaleShort & {

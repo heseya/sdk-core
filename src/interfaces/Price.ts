@@ -1,9 +1,14 @@
 import { StrNumber } from './Number'
+import { UUID } from './UUID'
 
-export interface Price {
+interface PriceBase {
   gross: StrNumber
   net: StrNumber
   currency: string
+}
+
+export interface Price extends PriceBase {
+  sales_channel_id: UUID
 }
 
 export interface PriceDto {
@@ -12,4 +17,8 @@ export interface PriceDto {
    */
   value: StrNumber
   currency: string
+}
+
+export interface OrderPrice extends PriceBase {
+  vat_rate: StrNumber
 }

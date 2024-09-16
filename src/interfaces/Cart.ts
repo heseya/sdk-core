@@ -1,10 +1,12 @@
 import { UUID } from './UUID'
-import { OrderCartItem } from './CartItem'
 import { CouponShort, SaleShort } from './SalesAndCoupons'
-import { StrNumber } from './Number'
+import { OrderPrice } from './Price'
 
-export interface CartItemDto extends OrderCartItem {
+export interface CartItemDto {
   cartitem_id: string
+  product_id: UUID
+  quantity: number
+  schemas: Record<UUID, UUID | null>
 }
 
 export interface CartDto {
@@ -31,35 +33,42 @@ export interface CartDto {
 
 interface ProcessedCartItem {
   cartitem_id: string
-  /** Singular prices */
-  price: StrNumber
-  price_discounted: StrNumber
+
+  /**
+   * Price of the cart item (in selected variant) (before any discounts)
+   */
+  price: OrderPrice
+
+  /**
+   * Price of the cart item (in selected variant) (including "product" discounts; without "cart" discounts)
+   */
+  price_discounted: OrderPrice
   quantity: number
 }
 
 export interface ProcessedCart {
   currency: string
   /**
-   * Total price of the cart items (before discounts)
+   * Total price of the cart items (in selected variants) (before any discounts)
    */
-  cart_total_initial: StrNumber
+  cart_total_initial: OrderPrice
 
   /**
-   * Total price of the cart items
+   * Total price of the cart items (in selected variants) (including "product" discounts and "cart" discounts)
    */
-  cart_total: StrNumber
+  cart_total: OrderPrice
 
   /**
-   * Shipping price for the given cart and selected method (before diccounts)
-   * If there is phisical and digital shipping method, the price is sum of both
+   * Shipping price for the given cart and selected method (before discounts)
+   * If there is physical and digital shipping method, the price is sum of both
    */
-  shipping_price_initial: StrNumber
+  shipping_price_initial: OrderPrice
 
   /**
-   * Shipping price for the given cart and selected method
-   * If there is phisical and digital shipping method, the price is sum of both
+   * Shipping price for the given cart and selected method (including discounts)
+   * If there is physical and digital shipping method, the price is sum of both
    */
-  shipping_price: StrNumber
+  shipping_price: OrderPrice
 
   /**
    * Number of working days representing the time of preparing the shipment - not include delivery time
@@ -74,7 +83,7 @@ export interface ProcessedCart {
   /**
    * Total price of the whole cart - including shipping price and discounts
    */
-  summary: StrNumber
+  summary: OrderPrice
 
   items: ProcessedCartItem[]
   coupons: CouponShort[]

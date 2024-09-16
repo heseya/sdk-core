@@ -1,6 +1,5 @@
 import { UUID } from './UUID'
 import { Address, AddressDto } from './Address'
-import { OrderCartItem } from './CartItem'
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { OrderShippingMethod } from './ShippingMethod'
 import { OrderStatus } from './OrderStatus'
@@ -110,6 +109,12 @@ export interface OrderSummary extends MetadataFields {
  * ------------------------------------------------------------
  */
 
+interface OrderCreateDtoItem {
+  product_id: UUID
+  quantity: number
+  schemas: Record<UUID, UUID>
+}
+
 export interface OrderCreateDto extends CreateMetadataFields {
   email: string
   comment: string
@@ -124,7 +129,7 @@ export interface OrderCreateDto extends CreateMetadataFields {
   shipping_place?: AddressDto | UUID | string
   billing_address: AddressDto
   invoice_requested: boolean
-  items: OrderCartItem[]
+  items: OrderCreateDtoItem[]
   coupons: string[]
   sales_ids: UUID[]
   /**

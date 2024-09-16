@@ -1,6 +1,5 @@
 import { ProductListed } from './Product'
 import { Schema } from './Schema'
-import { SchemaOption } from './SchemaOption'
 import { UUID } from './UUID'
 
 export interface SavedCartItem {
@@ -13,19 +12,15 @@ export interface SavedCartItem {
   createdAt: number
 }
 
-export type CartItemSchemaValue = string | number | boolean | null | undefined | SchemaOption
-export type CartItemRawSchemaValue = string | number | boolean | null | undefined
+export type CartItemRawSchemaValue = string | undefined
 
 export interface CartItemSchema {
   id: string
   name: string
-  optionPrice: number
+  optionPrice: {
+    net: number
+    gross: number
+  }
   dependencies: string[]
-  value: CartItemSchemaValue
-}
-
-export interface OrderCartItem {
-  product_id: UUID
-  quantity: number
-  schemas: Record<UUID, CartItemSchemaValue>
+  value: UUID | null
 }
