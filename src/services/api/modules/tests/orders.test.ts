@@ -38,13 +38,13 @@ const dummyOrdersResponse: HeseyaResponse<OrderPayment> = {
 
 const dummyCardProccessResponse: HeseyaResponse<ProcessedCart> = {
   data: {
-    cart_total_initial: '121',
-    cart_total: '200',
-    shipping_price_initial: '21',
-    shipping_price: '37',
+    cart_total_initial: { net: '121', gross: '151', vat_rate: '22', currency: 'pln' },
+    cart_total: { net: '200', gross: '500', vat_rate: '22', currency: 'pln' },
+    shipping_price_initial: { net: '21', gross: '31', vat_rate: '22', currency: 'pln' },
+    shipping_price: { net: '37', gross: '47', vat_rate: '22', currency: 'pln' },
     shipping_time: null,
     shipping_date: null,
-    summary: '1000',
+    summary: { net: '1000', gross: '1200', vat_rate: '22', currency: 'pln' },
     items: [],
     coupons: [],
     sales: [],

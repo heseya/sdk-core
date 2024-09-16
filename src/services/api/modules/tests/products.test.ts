@@ -43,7 +43,7 @@ describe('product test service', () => {
     const service = createProductsService(axios)
     const expectedUrl = `/products/id:${productId}/prices`
 
-    mock.onGet(expectedUrl).reply(200, dummyPriceResponse.data)
+    mock.onGet(expectedUrl).reply(200, dummyPriceResponse)
 
     const result = await service.getPrices(productId)
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
@@ -54,7 +54,7 @@ describe('product test service', () => {
     const service = createProductsService(axios)
     const expectedUrl = `/products/id:${productId}/prices`
 
-    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse.data)
+    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse)
 
     const result = await service.updatePrices(productId, [
       {
@@ -68,18 +68,21 @@ describe('product test service', () => {
 
   it('should process product', async () => {
     const service = createProductsService(axios)
-    const expectedUrl = `/products/process`
+    const expectedUrl = `/products/id:product_id/process`
 
     const priceResponse: ProductVariantPrice = {
-      initial_price: {
+      product_id: 'product_id',
+      price_initial: {
         gross: '100',
         net: '80',
         currency: 'PLN',
+        sales_channel_id: 'some-uuid',
       },
       price: {
         gross: '100',
         net: '80',
         currency: 'PLN',
+        sales_channel_id: 'some-uuid',
       },
     }
 
@@ -87,8 +90,7 @@ describe('product test service', () => {
       data: priceResponse,
     })
 
-    const result = await service.process({
-      product_id: 'id',
+    const result = await service.getProductVariantPrice('product_id', {
       schemas: {
         schema_id: 'id',
       },

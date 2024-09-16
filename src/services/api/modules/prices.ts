@@ -11,6 +11,11 @@ export interface PricesService {
 }
 
 export const createPricesService = (axios: AxiosInstance): PricesService => ({
+  /**
+   * Returns the price of the product collection for the base version of the product,
+   * not including variants,
+   * but including product discounts and including discounts for the current user
+   */
   async getProductsPrices(productIds) {
     const params = stringifyQueryParams({ ids: productIds })
     const { data } = await axios.get<HeseyaResponse<ProductPrice[]>>(`/prices/products?${params}`)

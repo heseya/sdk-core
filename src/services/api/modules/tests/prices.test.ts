@@ -13,6 +13,7 @@ const dummyResponse: HeseyaResponse<ProductPrice[]> = {
         net: '10',
         gross: '10',
         currency: 'PLN',
+        sales_channel_id: 'some-uuid',
       },
     },
   ],

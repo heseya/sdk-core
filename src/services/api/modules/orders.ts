@@ -79,6 +79,10 @@ export interface OrdersService extends EntityMetadataService {
   /**
    * Process cart by checking warehouse stock, sales and calculate total items price
    *
+   * Returns the prices for the products in the cart,
+   * including variants and including ‘cart’ discounts as well as product and current user discounts,
+   * i.e. simply all discounts
+   *
    * If any of the products is unavailable, it is not returned in the `items` array.
    * If product does not exist, the request throws an error.
    *

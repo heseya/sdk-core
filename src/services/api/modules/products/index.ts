@@ -15,6 +15,8 @@ import {
   ProductCreateDto,
   ProductUpdateDto,
   ProductVariantPrice,
+  ProductVariantDto,
+  ProductVariantListItemDto,
 } from '../../../../interfaces/Product'
 import { MetadataParams, PaginationParams, SearchParam } from '../../types/DefaultParams'
 import { createEntityMetadataService, EntityMetadataService } from '../metadata'
@@ -27,7 +29,6 @@ import {
   PriceMapProductPrice,
   PriceMapProductPriceUpdateDto,
   ProductSale,
-  ProductVariantPriceRequest,
 } from '../../../../interfaces'
 import { FieldSort, PriceSort } from '../../../../interfaces/Sort'
 import { ProductAttachmentsService, createProductAttachmentsService } from './attachments'
@@ -111,7 +112,20 @@ export interface ProductsService
     data: PriceMapProductPriceUpdateDto,
   ): Promise<PriceMapProductPrice[]>
 
-  process(product: ProductVariantPriceRequest): Promise<ProductVariantPrice>
+  /**
+   * Returns the price for a single product, for specific selected product variants, including product discounts (including current user)
+   */
+  getProductVariantPrice(
+    productId: UUID,
+    productVariant: ProductVariantDto,
+  ): Promise<ProductVariantPrice>
+
+  /**
+   * Returns product collection prices for specific selected product variants, including product discounts (including current user)
+   */
+  getProductVariantCollectionPrice(
+    productVariantCollection: ProductVariantListItemDto[],
+  ): Promise<ProductVariantPrice[]>
 
   Attachments: ProductAttachmentsService
 }
@@ -126,10 +140,23 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     update: createPatchRequest(axios, route),
     delete: createDeleteRequest(axios, route),
 
-    async process(product) {
+    async getProductVariantPrice(productId, productVariant) {
       const {
         data: { data },
-      } = await axios.post<HeseyaResponse<ProductVariantPrice>>(`/${route}/process`, product)
+      } = await axios.post<HeseyaResponse<ProductVariantPrice>>(
+        `/${route}/id:${productId}/process`,
+        productVariant,
+      )
+      return data
+    },
+
+    async getProductVariantCollectionPrice(productVariantCollection) {
+      const {
+        data: { data },
+      } = await axios.post<HeseyaResponse<ProductVariantPrice[]>>(
+        `/${route}/process`,
+        productVariantCollection,
+      )
       return data
     },
 
@@ -155,15 +182,17 @@ export const createProductsService: ServiceFactory<ProductsService> = (axios) =>
     },
 
     async getPrices(productId) {
-      const response = await axios.get<PriceMapProductPrice[]>(`/${route}/id:${productId}/prices`)
-      return response.data
+      const response = await axios.get<HeseyaResponse<PriceMapProductPrice[]>>(
+        `/${route}/id:${productId}/prices`,
+      )
+      return response.data.data
     },
     async updatePrices(productId, prices) {
-      const response = await axios.patch<PriceMapProductPrice[]>(
+      const response = await axios.patch<HeseyaResponse<PriceMapProductPrice[]>>(
         `/${route}/id:${productId}/prices`,
         { prices },
       )
-      return response.data
+      return response.data.data
     },
 
     getFilters: createGetSimpleListRequest(axios, 'filters'),
