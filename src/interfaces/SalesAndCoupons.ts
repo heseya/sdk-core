@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { CreateMetadataFields, MetadataFields } from './Metadata'
 import { StrNumber } from './Number'
-import { Price, PriceDto } from './Price'
+import { PriceDto } from './Price'
 import { Product } from './Product'
 import { ProductSet } from './ProductSet'
 import { DiscountConditionGroup, DiscountConditionGroupDto } from './SaleCondition'
@@ -38,7 +38,13 @@ type DiscountValue = DiscountAmount | DiscountPercentage
 
 interface DiscountPercentage {
   percentage: null
-  amounts: Price[]
+  amounts: DiscountPercentageAmount[]
+}
+
+interface DiscountPercentageAmount {
+  currency: string
+  is_net: boolean
+  value: StrNumber
 }
 
 interface DiscountPercentageDto {
