@@ -41,7 +41,7 @@ interface DiscountPercentage {
   amounts: DiscountPercentageAmount[]
 }
 
-interface DiscountPercentageAmount {
+export interface DiscountPercentageAmount {
   currency: string
   is_net: boolean
   value: StrNumber

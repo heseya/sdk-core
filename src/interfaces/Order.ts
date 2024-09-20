@@ -12,6 +12,7 @@ import { App } from './App'
 import { StrNumber } from './Number'
 import { OrderSalesChannel } from './SalesChannel'
 import { PaymentMethodType } from './PaymentMethods'
+import { OrderPrice } from './Price'
 
 export interface OrderListed extends MetadataFields {
   id: UUID
@@ -38,29 +39,29 @@ export interface OrderListed extends MetadataFields {
   /**
    * Basket value without discounts
    */
-  cart_total_initial: StrNumber
+  cart_total_initial: OrderPrice
   /**
    * Basket value after discounts
    */
-  cart_total: StrNumber
+  cart_total: OrderPrice
 
   /**
    * Shipping price without discounts
    */
-  shipping_price_initial: StrNumber
+  shipping_price_initial: OrderPrice
   /**
    * Shipping price after discounts
    */
-  shipping_price: StrNumber
+  shipping_price: OrderPrice
 
   /**
    * Total order value after discounts
    */
-  summary: StrNumber
+  summary: OrderPrice
   /**
    * Amount already paid by client
    */
-  summary_paid: StrNumber
+  summary_paid: OrderPrice
   payable: boolean
   documents: OrderDocument[]
   sales_channel: OrderSalesChannel

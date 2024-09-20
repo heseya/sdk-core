@@ -1,5 +1,5 @@
 import { CreateMetadataFields, MetadataFields } from './Metadata'
-import { Price } from './Price'
+import { OrderPrice } from './Price'
 
 import { SchemaOption, SchemaOptionCreateDto, SchemaOptionUpdateDto } from './SchemaOption'
 
@@ -62,7 +62,6 @@ export interface SchemaCreateDto
   id?: UUID
   options: SchemaOptionCreateDto[]
   required: boolean
-  default: string | null
   used_schemas: UUID[]
   product_id: UUID | null
   hidden: boolean
@@ -86,7 +85,7 @@ export type SchemaUpdateDto = Omit<
 export interface OrderSchema {
   id: UUID
   name: string
-  price: Price
-  price_initial: Price
+  price: OrderPrice
+  price_initial: OrderPrice
   value: string
 }

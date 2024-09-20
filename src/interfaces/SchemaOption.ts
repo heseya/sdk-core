@@ -28,7 +28,7 @@ export interface SchemaItem {
 export interface SchemaOptionCreateDto
   extends Omit<
       SchemaOption,
-      'id' | 'items' | 'translations' | 'name' | 'prices' | keyof MetadataFields
+      'id' | 'items' | 'translations' | 'name' | 'price' | 'available' | keyof MetadataFields
     >,
     TranslationsCreateDto<SchemaOptionTranslatable> {
   items: UUID[]
@@ -37,6 +37,3 @@ export interface SchemaOptionCreateDto
 export interface SchemaOptionUpdateDto extends SchemaOptionCreateDto {
   id?: UUID
 }
-
-// @deprecated use SchemaOptionCreateDto or SchemaOptionUpdateDto instead
-export type SchemaOptionDto = SchemaOptionCreateDto
