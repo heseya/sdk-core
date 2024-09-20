@@ -43,7 +43,7 @@ describe('schema test service', () => {
     const service = createSchemasService(axios)
     const expectedUrl = `/schemas/id:${productId}/prices`
 
-    mock.onGet(expectedUrl).reply(200, dummyPriceResponse.data)
+    mock.onGet(expectedUrl).reply(200, dummyPriceResponse)
 
     const result = await service.getPrices(productId)
     expect(mock.history.get[0]?.url).toEqual(expectedUrl)
@@ -54,7 +54,7 @@ describe('schema test service', () => {
     const service = createSchemasService(axios)
     const expectedUrl = `/schemas/id:${productId}/prices`
 
-    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse.data)
+    mock.onPatch(expectedUrl).reply(200, dummyPriceResponse)
 
     const result = await service.updatePrices(productId, [
       {
