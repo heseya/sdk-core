@@ -19,8 +19,7 @@ import {
   TranslationsCreateDto,
   TranslationsUpdateDto,
 } from './languages'
-import { Price } from './Price'
-import { StrNumber } from './Number'
+import { OrderPrice, Price } from './Price'
 import { BannerMedia, BannerMediaCreateDto } from './Banner'
 
 interface ProductListedTranslatable {
@@ -171,8 +170,8 @@ export interface OrderProduct {
   id: UUID
   name: string
   quantity: number
-  price: StrNumber
-  price_initial: StrNumber
+  price: OrderPrice
+  price_initial: OrderPrice
   discounts: OrderDiscount[]
   product: OrderProductDetails
   schemas: OrderSchema[]

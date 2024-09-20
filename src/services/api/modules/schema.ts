@@ -13,6 +13,7 @@ import { Schema, SchemaCreateDto, SchemaUpdateDto, SchemaListed } from '../../..
 import { FieldSort } from '../../../interfaces/Sort'
 import { UUID } from '../../../interfaces/UUID'
 import {
+  HeseyaResponse,
   LanguageParams,
   PriceMapSchemaPrice,
   PriceMapSchemaPriceUpdateDto,
@@ -54,14 +55,19 @@ export const createSchemasService: ServiceFactory<SchemasService> = (axios) => {
     delete: createDeleteRequest(axios, route),
 
     async getPrices(schemaId) {
-      const response = await axios.get<PriceMapSchemaPrice[]>(`/${route}/id:${schemaId}/prices`)
-      return response.data
+      const response = await axios.get<HeseyaResponse<PriceMapSchemaPrice[]>>(
+        `/${route}/id:${schemaId}/prices`,
+      )
+      return response.data.data
     },
     async updatePrices(schemaId, prices) {
-      const response = await axios.patch<PriceMapSchemaPrice[]>(`/${route}/id:${schemaId}/prices`, {
-        prices,
-      })
-      return response.data
+      const response = await axios.patch<HeseyaResponse<PriceMapSchemaPrice[]>>(
+        `/${route}/id:${schemaId}/prices`,
+        {
+          prices,
+        },
+      )
+      return response.data.data
     },
 
     ...createEntityMetadataService(axios, route),
