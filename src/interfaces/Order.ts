@@ -9,7 +9,6 @@ import { OrderDocument } from './OrderDocuments'
 import { OrderPayment } from './Payments'
 import { User } from './User'
 import { App } from './App'
-import { StrNumber } from './Number'
 import { OrderSalesChannel } from './SalesChannel'
 import { PaymentMethodType } from './PaymentMethods'
 import { OrderPrice } from './Price'
@@ -87,11 +86,11 @@ export interface OrderSummary extends MetadataFields {
   paid: boolean
   payable: boolean
   payment_method_type: PaymentMethodType
-  cart_total_initial: StrNumber
-  cart_total: StrNumber
-  shipping_price_initial: StrNumber
-  shipping_price: StrNumber
-  summary: StrNumber
+  cart_total_initial: OrderPrice
+  cart_total: OrderPrice
+  shipping_price_initial: OrderPrice
+  shipping_price: OrderPrice
+  summary: OrderPrice
   /**
    * Phisical shipping method only exists if in order is any product without digital shipping type
    */
@@ -110,7 +109,7 @@ export interface OrderSummary extends MetadataFields {
  * ------------------------------------------------------------
  */
 
-interface OrderCreateDtoItem {
+export interface OrderCreateDtoItem {
   product_id: UUID
   quantity: number
   schemas: Record<UUID, UUID>
