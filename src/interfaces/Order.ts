@@ -144,6 +144,10 @@ export interface OrderCreateDto extends CreateMetadataFields {
    * ID of the initial payment method. It forces the client to pay with the method of the same type
    */
   payment_method_id: UUID
+  /**
+   * If the user belongs to an organisation (the order is placed for the organisation), then this field is required.
+   */
+  organization_id?: UUID
 }
 
 export interface OrderUpdateDto {
