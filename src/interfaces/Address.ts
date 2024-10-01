@@ -25,4 +25,5 @@ export type UserSavedAddressUpdateDto = UserSavedAddressCreateDto
 
 export interface UserSavedAddress extends UserSavedAddressCreateDto {
   id: UUID
+  change_version: number
 }
