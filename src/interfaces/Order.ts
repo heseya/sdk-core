@@ -12,6 +12,7 @@ import { App } from './App'
 import { OrderSalesChannel } from './SalesChannel'
 import { PaymentMethodType } from './PaymentMethods'
 import { OrderPrice } from './Price'
+import { Organization } from './Organization'
 
 export interface OrderListed extends MetadataFields {
   id: UUID
@@ -77,6 +78,7 @@ export interface Order extends OrderListed {
   products: OrderProduct[]
   shipping_number: string | null
   buyer: User | App | null
+  organization: Organization | null
 }
 
 export interface OrderSummary extends MetadataFields {
