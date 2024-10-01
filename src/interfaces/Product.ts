@@ -21,6 +21,7 @@ import {
 } from './languages'
 import { OrderPrice, Price } from './Price'
 import { BannerMedia, BannerMediaCreateDto } from './Banner'
+import { StrNumber } from './Number'
 
 interface ProductListedTranslatable {
   name: string
@@ -164,6 +165,7 @@ export interface OrderProductDetails extends MetadataFields {
   gallery: CdnMedia[]
   sets: OrderProductSet[]
   attributes: OrderProductAttribute[]
+  items: ProductWarehouseItem[]
 }
 
 export interface OrderProduct {
@@ -185,11 +187,16 @@ export interface OrderProduct {
    */
   shipping_digital: boolean
   urls: OrderProductUrl[]
+  vat_rate: StrNumber
 }
 
-export type OrderProductPublic = Omit<OrderProduct, 'discounts' | 'deposits' | 'is_delivered'> & {
+export type OrderProductPublic = Omit<
+  OrderProduct,
+  'discounts' | 'deposits' | 'is_delivered' | 'product'
+> & {
   order_id: UUID
   currency: string
+  product: Product
 }
 
 export interface OrderProductUpdateDto {
