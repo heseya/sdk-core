@@ -45,16 +45,17 @@ type DiscountValue = DiscountByAmount | DiscountByPercentage
 
 // -- dto
 
-interface DiscountByPercentageDto {
+export interface DiscountByPercentageDto {
   percentage: StrNumber
   amounts: undefined
 }
 
-interface DiscountByAmountDto {
+export interface DiscountByAmountDto {
   percentage: undefined
   amounts: PriceDto[]
 }
 
+// TODO: this not working well
 // export type DiscountValueDto = DiscountByAmountDto | DiscountByPercentageDto
 
 // one of this is required
