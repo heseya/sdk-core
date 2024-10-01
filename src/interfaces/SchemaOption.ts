@@ -3,7 +3,7 @@ import { Price } from './Price'
 import { UUID } from './UUID'
 import { Translations, TranslationsCreateDto } from './languages'
 
-interface SchemaOptionTranslatable {
+export interface SchemaOptionTranslatable {
   name: string
 }
 

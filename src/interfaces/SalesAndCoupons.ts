@@ -14,6 +14,7 @@ import {
   Translations,
   TranslationsCreateDto,
 } from './languages'
+import { PartiallyOptional } from './utils'
 
 export enum DiscountTargetType {
   OrderValue = 'order-value',
@@ -24,35 +25,43 @@ export enum DiscountTargetType {
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-interface DiscountAmount {
+interface DiscountByPercentage {
   percentage: StrNumber
   amounts: null
 }
 
-interface DiscountAmountDto {
-  percentage: StrNumber
-  amounts?: undefined
-}
-
-type DiscountValue = DiscountAmount | DiscountPercentage
-
-interface DiscountPercentage {
-  percentage: null
-  amounts: DiscountPercentageAmount[]
-}
-
-export interface DiscountPercentageAmount {
+export interface DiscountAmount {
   currency: string
   is_net: boolean
   value: StrNumber
 }
 
-interface DiscountPercentageDto {
-  percentage?: undefined
+interface DiscountByAmount {
+  percentage: null
+  amounts: DiscountAmount[]
+}
+
+type DiscountValue = DiscountByAmount | DiscountByPercentage
+
+// -- dto
+
+interface DiscountByPercentageDto {
+  percentage: StrNumber
+  amounts: undefined
+}
+
+interface DiscountByAmountDto {
+  percentage: undefined
   amounts: PriceDto[]
 }
 
-type DiscountValueDto = DiscountAmountDto | DiscountPercentageDto
+// export type DiscountValueDto = DiscountByAmountDto | DiscountByPercentageDto
+
+// one of this is required
+export type DiscountValueDto = {
+  percentage: StrNumber | undefined
+  amounts: PriceDto[] | undefined
+}
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
@@ -62,11 +71,11 @@ export interface SaleTranslatable {
   description_html: string | null
 }
 
-export type SaleListed = MetadataFields &
-  DiscountValue &
+export type SaleListed = DiscountValue &
   SaleTranslatable &
+  Translations<SaleTranslatable> &
   PublishedTranslations &
-  Translations<SaleTranslatable> & {
+  MetadataFields & {
     id: UUID
     slug: string | null
     active: boolean
@@ -102,40 +111,44 @@ export type Coupon = Sale & {
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
-export type SaleCreateDto = CreateMetadataFields &
-  DiscountValueDto &
+export type SaleCreateDto = DiscountValueDto &
   PublishedTranslationsCreateDto &
-  TranslationsCreateDto<SaleTranslatable> & {
+  TranslationsCreateDto<SaleTranslatable> &
+  CreateMetadataFields & {
     slug?: string
     active?: boolean
     priority: number
-    condition_groups: DiscountConditionGroupDto[]
+    condition_groups?: DiscountConditionGroupDto[]
     target_type: DiscountTargetType
-    target_products: UUID[]
-    target_sets: UUID[]
-    target_shipping_methods: UUID[]
+    target_products?: UUID[]
+    target_sets?: UUID[]
+    target_shipping_methods?: UUID[]
     target_is_allow_list: boolean
     seo?: SeoMetadataDto
   }
 
-export type SaleUpdateDto = Omit<SaleCreateDto, keyof CreateMetadataFields>
+export type SaleUpdateDto = Omit<
+  PartiallyOptional<SaleCreateDto, 'published' | 'translations'>,
+  keyof CreateMetadataFields
+>
 
 export type CouponCreateDto = SaleCreateDto & {
   code: string
 }
 
-export type CouponUpdateDto = Omit<CouponCreateDto, keyof CreateMetadataFields>
+export type CouponUpdateDto = Omit<
+  PartiallyOptional<CouponCreateDto, 'published' | 'translations'>,
+  keyof CreateMetadataFields
+>
 
 // ? ---------------------------------------------------------------------------------------------------------------
 
 export type ProductSale = DiscountValue &
-  PublishedTranslations &
+  SaleTranslatable &
+  Translations<SaleTranslatable> &
   MetadataFields & {
     id: UUID
-    name: string
     slug: string | null
-    description: string
-    description_html: string
     priority: number
     target_type: DiscountTargetType
     target_is_allow_list: boolean

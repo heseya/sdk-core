@@ -13,7 +13,7 @@ import {
   TranslationsUpdateDto,
 } from './languages'
 
-interface SchemaTranslatable {
+export interface SchemaTranslatable {
   name: string
   description: string
 }

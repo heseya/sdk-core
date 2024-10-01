@@ -1,4 +1,4 @@
-import { Price, PriceDto } from '../interfaces'
+import { DiscountAmount, Price, PriceDto } from '../interfaces'
 
 /**
  * @deprecated
@@ -13,3 +13,6 @@ export const parsePrices = (prices: Price[], currency: string, type: 'gross' | '
  */
 export const parsePriceDtos = (prices: PriceDto[], currency: string) =>
   parseFloat((prices || []).find((price) => price.currency === currency)?.value || '0') || 0
+
+export const parseDiscountAmounts = (amounts: DiscountAmount[], currency: string): number =>
+  parseFloat((amounts || []).find((amount) => amount.currency === currency)?.value ?? '0')
