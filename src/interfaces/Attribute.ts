@@ -83,7 +83,7 @@ type AttributeSingleOptionOptionUpdateDto = Omit<
   keyof CreateMetadataFields
 >
 
-interface AttributeSingleOption extends AttributeBase {
+export interface AttributeSingleOption extends AttributeBase {
   type: AttributeType.SingleOption
   min: null
   max: null
@@ -112,7 +112,7 @@ type AttributeMultiOptionOptionUpdateDto = Omit<
   keyof CreateMetadataFields
 >
 
-interface AttributeMultiOption extends AttributeBase {
+export interface AttributeMultiOption extends AttributeBase {
   type: AttributeType.MultiChoiceOption
   min: null
   max: null
@@ -143,7 +143,7 @@ type AttributeNumberOptionUpdateDto = Omit<
   keyof CreateMetadataFields
 >
 
-interface AttributeNumber extends AttributeBase {
+export interface AttributeNumber extends AttributeBase {
   type: AttributeType.Number
   min: number
   max: number
@@ -173,7 +173,7 @@ type AttributeDateOptionCreateDto = Omit<AttributeDateOption, 'id' | 'index' | '
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AttributeDateOptionUpdateDto = Omit<AttributeDateOptionCreateDto, keyof CreateMetadataFields>
 
-interface AttributeDate extends AttributeBase {
+export interface AttributeDate extends AttributeBase {
   type: AttributeType.Date
   min: string // Date
   max: string // Date
