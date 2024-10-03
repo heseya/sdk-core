@@ -1,5 +1,5 @@
 import { UUID } from './UUID'
-import { Address, UserSavedAddress } from './Address'
+import { Address } from './Address'
 import { SalesChannelListed } from './SalesChannel'
 import { OrganizationConsent, OrganizationConsentDto } from './Consent'
 
@@ -61,7 +61,7 @@ export interface OrganizationListed {
 
 export interface Organization extends OrganizationListed {
   consents: OrganizationConsent[]
-  shipping_address: UserSavedAddress[]
+  shipping_addresses: OrganizationSavedAddress[]
 }
 
 /**
