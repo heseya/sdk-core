@@ -30,9 +30,10 @@ export enum DiscountConditionType {
   WeekdayIn = 'weekday-in',
   CartLength = 'cart-length',
   CouponsCount = 'coupons-count',
-  OnSale = 'on-sale'
+  OnSale = 'on-sale',
 }
 
+// ? ------------------------------------------------------------------------------------
 
 export interface OnSaleDiscountConditionDto {
   type: DiscountConditionType.OnSale
@@ -162,9 +163,7 @@ export interface CouponsCountDiscountConditionDto {
   max_value: number | null
 }
 export type CouponsCountDiscountCondition = CouponsCountDiscountConditionDto & { id: UUID }
-
 export type OnSaleDiscountCondition = OnSaleDiscountConditionDto & { id: UUID }
-
 
 // ? ------------------------------------------------------------------------------------
 
@@ -197,4 +196,3 @@ export type DiscountConditionDto =
   | CartLengthDiscountConditionDto
   | CouponsCountDiscountConditionDto
   | OnSaleDiscountConditionDto
-
