@@ -72,6 +72,12 @@ describe('product test service', () => {
 
     const priceResponse: ProductVariantPrice = {
       product_id: 'product_id',
+      price_base: {
+        gross: '100',
+        net: '80',
+        currency: 'PLN',
+        sales_channel_id: 'some-uuid',
+      },
       price_initial: {
         gross: '100',
         net: '80',
