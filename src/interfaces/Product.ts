@@ -223,6 +223,7 @@ export interface ProductVariantDto {
 
 export interface ProductVariantPrice {
   product_id: UUID
+  price_base: Price
   price_initial: Price
   price: Price
 }
