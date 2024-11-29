@@ -252,6 +252,14 @@ export enum RedirectsPermission {
   Remove = 'redirects.remove',
 }
 
+export enum ManufacturersPermission {
+  Show = 'manufacturers.show',
+  ShowDetails = 'manufacturers.show_details',
+  Add = 'manufacturers.add',
+  Edit = 'manufacturers.edit',
+  Remove = 'manufacturers.remove',
+}
+
 // -------------------------------------------------------------
 // ? General type
 // -------------------------------------------------------------
@@ -290,6 +298,7 @@ export type Permission =
   | LanguagesPermission
   | SalesChannelsPermission
   | RedirectsPermission
+  | ManufacturersPermission
 
 export interface PermissionEntry {
   id: UUID
