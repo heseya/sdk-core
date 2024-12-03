@@ -22,6 +22,7 @@ import {
 import { Price, PriceDto } from './Price'
 import { StrNumber } from './Number'
 import { BannerMedia, BannerMediaCreateDto } from './Banner'
+import { Manufacturer } from './Manufactures'
 
 interface ProductListedTranslatable {
   name: string
@@ -107,6 +108,7 @@ export interface Product
   banner: Omit<BannerMedia, 'published'> | null
   manufacturer_id?: UUID
   safety_information?: string
+  manufacturer?: Manufacturer
 }
 
 export interface ProductCreateDto
@@ -157,6 +159,7 @@ export interface ProductCreateDto
   banner?: Omit<BannerMediaCreateDto, 'published'> | null
   manufacturer_id?: UUID
   safety_information?: string
+  manufacturer?: Manufacturer
 }
 
 export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>> &
