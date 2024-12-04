@@ -106,9 +106,9 @@ export interface Product
   quantity: number | null
   descriptions: PageListed[]
   banner: Omit<BannerMedia, 'published'> | null
-  manufacturer_id?: UUID
-  safety_information?: string
-  manufacturer?: Manufacturer
+  manufacturer_id?: UUID | null
+  safety_information?: string | null
+  manufacturer?: Manufacturer | null
 }
 
 export interface ProductCreateDto
@@ -157,9 +157,9 @@ export interface ProductCreateDto
    */
   purchase_limit_per_user?: null | number
   banner?: Omit<BannerMediaCreateDto, 'published'> | null
-  manufacturer_id?: UUID
-  safety_information?: string
-  manufacturer?: Manufacturer
+  manufacturer_id?: UUID | null
+  safety_information?: string | null
+  manufacturer?: Manufacturer | null
 }
 
 export type ProductUpdateDto = Partial<Omit<ProductCreateDto, keyof CreateMetadataFields | 'id'>> &
