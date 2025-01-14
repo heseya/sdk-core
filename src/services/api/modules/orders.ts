@@ -53,6 +53,8 @@ export interface OrdersListParams extends SearchParam, PaginationParams, Metadat
   paid?: boolean
   from?: Date
   to?: Date
+  updated_from?: Date
+  updated_to?: Date
   ids?: UUID[]
 }
 

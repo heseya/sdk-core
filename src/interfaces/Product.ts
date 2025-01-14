@@ -59,6 +59,7 @@ export interface ProductListed
   shipping_date: string | null
   quantity_step: number
   google_product_category: null | number
+  reward_images: CdnMedia[]
   tags: Tag[]
   /**
    * Indicates if the product has at least one schema, so it cannot be added to cart directly
@@ -87,6 +88,7 @@ export interface Product
   sets: ProductSet[]
   schemas: Schema[]
   gallery: CdnMedia[]
+  reward_images: CdnMedia[]
   seo: SeoMetadata | null
   attributes: ProductAttribute[]
   items: ProductWarehouseItem[]
@@ -138,6 +140,7 @@ export interface ProductCreateDto
   tags?: UUID[]
   schemas?: UUID[]
   media?: UUID[]
+  reward_images?: UUID[]
   /**
    * ID[] of the Pages
    */
